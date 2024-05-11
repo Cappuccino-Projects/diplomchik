@@ -1,0 +1,115 @@
+.DailyTasksWrapper {
+  background-color: white;
+  border: 1px rgba(0, 0, 0, 0.1) solid;
+  padding: 5px 5px 5px 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 15px;
+  border-radius: 5px;
+  padding: 10px;
+  cursor: pointer;
+
+  transition: all 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+
+.DailyTasksWrapper:hover {
+  background-color: #f3f3f3;
+}
+
+.DailyTasksStatusWrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  gap: 20px;
+}
+
+.DailyTasksTitle {
+  font-size: 16px;
+}
+
+.DailyTasksStatus {
+  background-color: #caf05f;
+  border-radius: 15px;
+  padding: 3px 10px;
+  font-size: 16px;
+  user-select: none;
+}
+
+.DailyTasksAbout {
+  font-size: 14px;
+  color: #909090;
+}
+
+.DailyTasksIconsWrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.DailyTasksIcons {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+}
+
+.DailyTaskIconCompleted {
+  width: 40px;
+  height: 40px;
+  background-color: #caf05f;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 5px;
+  transition: all 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+
+.DailyTaskIconIncompleted {
+  width: 40px;
+  height: 40px;
+  background-color: #ededed;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 5px;
+  filter: grayscale();
+  transition: all 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+
+.DailyTaskIconCompleted:hover {
+  transform: scale(1.1);
+}
+
+.DailyTaskIconIncompleted:hover {
+  transform: scale(1.1);
+}
+
+.SmallImg {
+  width: 20px;
+  height: 20px;
+  position: relative;
+}
+
+.UserLvlWrapper {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  font-size: 14px;
+  align-items: center;
+}
+
+.UserLvlProgressWrapper {
+  width: 100%;
+  background-color: #212121;
+  height: 6px;
+  border-radius: 5px;
+}
+
+.UserLvlProgress {
+  background-color: #caf05f;
+  height: 6px;
+  border-radius: 2px;
+}

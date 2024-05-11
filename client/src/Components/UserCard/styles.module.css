@@ -1,0 +1,93 @@
+.UserCardWrapper {
+  background-color: white;
+  border: 1px rgba(0, 0, 0, 0.1) solid;
+  border-radius: 5px;
+  transition: all 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 15px;
+  cursor: pointer;
+}
+
+.UserCardWrapper:hover {
+  background-color: #f3f3f3;
+}
+
+.UserCardImage {
+  border-radius: 50px;
+  border: 1px rgba(0, 0, 0, 0.5) solid;
+  width: 50px;
+  height: 50px;
+  background-color: #caf05f;
+}
+
+.UserCardInfo {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 45px;
+}
+
+.UserName {
+  font-size: 18px;
+}
+
+.UserName {
+  font-size: 16px;
+}
+
+.UserRole {
+  font-size: 14px;
+}
+
+.UserRole {
+  font-size: 16px;
+  color: #909090;
+}
+
+.UserLvlWrapper {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  font-size: 14px;
+  align-items: center;
+}
+
+.UserLvlProgressWrapper {
+  width: 100%;
+  background-color: #212121;
+  height: 6px;
+  border-radius: 5px;
+}
+
+.UserLvlProgress {
+  background-color: #caf05f;
+  height: 6px;
+  border-radius: 2px;
+}
+
+.UserBalance {
+  justify-content: space-between;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+  background-color: #caf05f;
+  padding: 2px 10px;
+  border-radius: 15px;
+}
+
+.UserBalanceWrapper {
+  justify-content: space-between;
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+}
+
+.SmallImg {
+  width: 20px;
+  height: 20px;
+  position: relative;
+}
