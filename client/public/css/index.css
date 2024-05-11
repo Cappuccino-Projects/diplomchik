@@ -1,1135 +1,850 @@
 @font-face {
-  font-family: Onest;
-  src: url("./../fonts/OnestRegular1602-hint.ttf") format("truetype");
+	font-family: Onest;
+	src: url('./../fonts/OnestRegular1602-hint.ttf') format('truetype');
 }
 
 * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
 }
 
 i {
-  margin-top: 2px;
+	margin-top: 2px;
 }
 
 .body {
-  height: 100%;
-  margin: 0px;
-  padding: 0px;
-  overflow: hidden;
-  font-family: Onest;
+	height: 100%;
+	margin: 0px;
+	padding: 0px;
+	overflow: hidden;
+	font-family: Onest;
 }
 
 a {
-  text-decoration: none;
-  color: black;
-}
-
-.WorldMap {
-  width: 100%;
-  height: 100vh;
-  top: 0;
-  left: 0;
-  position: fixed;
-  background-color: bisque;
-  font-family: Onest;
-  z-index: -1;
-}
-
-.MenuWrapper {
-  background-color: #f9f9f9;
-  width: 350px;
-  order: 0;
-  padding: 25px 15px;
-  border: 1px rgba(0, 0, 0, 0.3) solid;
-  height: 100vh;
-  font-family: Onest;
-  gap: 20px;
-  display: flex;
-  flex-direction: column;
-  position: fixed;
-  z-index: 2;
-  overflow: scroll;
-}
-
-.SideDailyTasksWrapper {
-  position: fixed;
-  z-index: 1;
-  bottom: 30px;
-  right: 25px;
-  width: 340px;
-
-  font-family: Onest;
-}
-
-.MenuWrapper {
-  --sb-track-color: #f9f9f9;
-  --sb-thumb-color: #d9d9d9;
-  --sb-size: 5px;
-}
-
-.MenuWrapper::-webkit-scrollbar {
-  width: var(--sb-size);
-}
-
-.MenuWrapper::-webkit-scrollbar-track {
-  background: var(--sb-track-color);
-  border-radius: 6px;
-}
-
-.MenuWrapper::-webkit-scrollbar-thumb {
-  background: var(--sb-thumb-color);
-  border-radius: 6px;
-}
-
-@supports not selector(::-webkit-scrollbar) {
-  .MenuWrapper {
-    scrollbar-color: var(--sb-thumb-color) var(--sb-track-color);
-  }
+	text-decoration: none;
+	color: black;
 }
 
 /* AUTHORIZATION ######################################################################## */
 
-.AuthorizationPageContent {
-  display: flex;
-  flex-direction: row;
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: 50px;
-  width: fit-content;
-  font-family: Onest;
-  gap: 5%;
-}
-
-.AuthorizationDesignCard {
-  width: 45%;
-  height: 670px;
-  background-color: #caf05f;
-  padding: 55px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  font-family: Onest;
-  border-radius: 15px;
-}
-
 .AuthorizationDesignCard i {
-  color: #212121;
-  font-size: 60px;
+	color: #212121;
+	font-size: 60px;
 }
 
 .AuthorizationDesignCard p {
-  font-size: 16px;
-  width: 40%;
-}
-
-.AuthorizationInfoWrapper {
-  width: 50%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  gap: 30px;
-}
-
-.AuthorizationTextareasWrapper {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
+	font-size: 16px;
+	width: 40%;
 }
 
 .AuthorizationButton {
-  background-color: #caf05f;
-  border-radius: 5px;
-  color: #212121;
-  display: flex;
-  flex-direction: row;
-  gap: 10px;
-  align-items: center;
-  justify-content: center;
-  padding: 10px;
-  width: 100%;
-  cursor: pointer;
-  font-size: 20px;
+	background-color: #caf05f;
+	border-radius: 5px;
+	color: #212121;
+	display: flex;
+	flex-direction: row;
+	gap: 10px;
+	align-items: center;
+	justify-content: center;
+	padding: 10px;
+	width: 100%;
+	cursor: pointer;
+	font-size: 20px;
 
-  transition: all 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
+	transition: all 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
 }
 
 .AuthorizationButton:hover {
-  background-color: #a6db14;
-}
-
-.AuthorizationButtonWrapper {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-  align-items: center;
-  justify-content: center;
-}
-
-.AuthorizationTextareasWrapper p {
-  margin-top: 10px;
+	background-color: #a6db14;
 }
 
 /* MAP BUTTONS ######################################################################## */
 
-.ExpandMenuButton {
-  padding: 7px 14px 3px 16px;
-  justify-content: center;
-  align-items: center;
-  display: flex;
-  cursor: pointer;
-  border-radius: 5px;
-  position: fixed;
-  z-index: 1;
-  top: 30px;
-  left: 25px;
-  background-color: #ffffff;
-  border: 1px rgba(0, 0, 0, 0.1) solid;
-  border-radius: 10px;
-  font-size: 16px;
-  text-align: center;
-  height: 30px;
-  transition: all 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
-}
-
-.ExpandMenuButton:hover {
-  background-color: #caf05f;
-  padding: 7px 12px 3px 20px;
-}
-
-.MapTopButtonsContainer {
-  position: fixed;
-  z-index: 1;
-  top: 30px;
-  right: 25px;
-  padding: 4px;
-  background-color: #ffffff;
-  border: 1px rgba(0, 0, 0, 0.1) solid;
-  display: flex;
-  flex-direction: row;
-  gap: 10px;
-  border-radius: 10px;
-  color: #212121;
-  align-items: center;
-  font-size: 18px;
-  text-align: center;
-}
-
-.MapButton {
-  padding: 7px 10px 5px 10px;
-  justify-content: center;
-  align-items: center;
-  display: flex;
-  cursor: pointer;
-  border-radius: 5px;
-  transition: all 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
-}
-
-.MapButton:hover {
-  background-color: #caf05f;
-}
-
-.MapSideButtons {
-  position: fixed;
-  z-index: 1;
-  top: 50%;
-  transform: translate(0, -50%);
-  right: 25px;
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-}
-
-.MapSideButtonsContainer {
-  background-color: #ffffff;
-  border: 1px rgba(0, 0, 0, 0.1) solid;
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
-  border-radius: 10px;
-  color: #212121;
-  align-items: center;
-  padding: 5px 5px;
-  font-size: 18px;
-  text-align: center;
-}
-
 /* TITLE ######################################################################## */
 
-.Title {
-  display: flex;
-  flex-direction: row;
-  gap: 15px;
-  justify-content: space-between;
-}
-
 .TitleCityWrapper {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  align-items: baseline;
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	font-size: 12px;
+	align-items: baseline;
 }
 
 .TitleText {
-  width: 100%;
-  font-size: 24px;
+	width: 100%;
+	font-size: 24px;
 }
 
 .TitleWrapper {
-  display: flex;
-  flex-direction: row;
-  gap: 15px;
-}
-
-.Logo {
-  width: 50px;
-  height: 50px;
+	display: flex;
+	flex-direction: row;
+	gap: 15px;
 }
 
 .TitleCity {
-  color: #909090;
-  margin-left: 5px;
+	color: #909090;
+	margin-left: 5px;
 }
 
-.TitleCityWrapper i {
-  font-size: 12px;
+.Logo {
+	width: 50px;
+	height: 50px;
 }
 
 .MinimizeButton {
-  border: 1px rgba(0, 0, 0, 0.1) solid;
-  background-color: white;
-  width: 50px;
-  height: 50px;
-  border-radius: 5px;
-  color: #909090;
-  display: inline-flex;
-  cursor: pointer;
+	border: 1px rgba(0, 0, 0, 0.1) solid;
+	background-color: white;
+	width: 50px;
+	height: 50px;
+	border-radius: 5px;
+	color: #909090;
+	display: inline-flex;
+	cursor: pointer;
 
-  transition: all 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
+	transition: all 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
 }
 
 .MinimizeButton i {
-  font-size: 18px;
-  position: relative;
-  padding: 15px;
+	font-size: 18px;
+	position: relative;
+	padding: 15px;
 }
 
 .MinimizeButton:hover {
-  color: black;
-  background-color: #caf05f;
+	color: black;
+	background-color: #caf05f;
 }
 
 /* SEARCH ######################################################################## */
 
 .Search {
-  background-color: white;
-  border: 1px rgba(0, 0, 0, 0.1) solid;
-  padding: 5px 5px 5px 15px;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  gap: 15px;
-  border-radius: 5px;
-  transition: all 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
+	background-color: white;
+	border: 1px rgba(0, 0, 0, 0.1) solid;
+	padding: 5px 5px 5px 15px;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+	gap: 15px;
+	border-radius: 5px;
+	transition: all 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
 }
 
 .SearchBox {
-  height: 23px;
-  width: 100%;
-  resize: none;
-  border: none;
-  font-size: 16px;
-  overflow: hidden;
-  font-family: Onest;
-  white-space: nowrap;
-  background-color: transparent;
-  margin-top: 5px;
+	height: 23px;
+	width: 100%;
+	resize: none;
+	border: none;
+	font-size: 16px;
+	overflow: hidden;
+	font-family: Onest;
+	white-space: nowrap;
+	background-color: transparent;
+	margin-top: 5px;
 }
 
 .SearchBox:focus {
-  border: none;
-  outline: none;
+	border: none;
+	outline: none;
 }
 
 .SearchButton {
-  color: #909090;
-  font-size: 20px;
-  padding: 5px 12px;
-  cursor: pointer;
-  display: inline-flex;
-  border-radius: 5px;
-  transition: all 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
+	color: #909090;
+	font-size: 20px;
+	padding: 5px 12px;
+	cursor: pointer;
+	display: inline-flex;
+	border-radius: 5px;
+	transition: all 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
 }
 
 .SearchButton i {
-  position: relative;
-  padding-top: 5px;
+	position: relative;
+	padding-top: 5px;
 }
 
 .SearchButton:hover {
-  color: black;
-  background-color: #caf05f;
+	color: black;
+	background-color: #caf05f;
 }
 
 /* BUTTONS ######################################################################## */
 
 .SecondarySmallButton {
-  background-color: white;
-  border: 1px rgba(0, 0, 0, 0.1) solid;
-  padding: 5px 10px;
-  display: flex;
-  width: fit-content;
-  font-size: 14px;
-  flex-direction: row;
-  gap: 10px;
-  border-radius: 5px;
-  cursor: pointer;
-  color: #909090;
-  align-items: center;
-  transition: all 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
+	background-color: white;
+	border: 1px rgba(0, 0, 0, 0.1) solid;
+	padding: 5px 10px;
+	display: flex;
+	width: fit-content;
+	font-size: 14px;
+	flex-direction: row;
+	gap: 10px;
+	border-radius: 5px;
+	cursor: pointer;
+	color: #909090;
+	align-items: center;
+	transition: all 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
 }
 
 .SecondarySmallButton i {
-  font-size: 12px;
-}
-
-.SecondarySmallButton:hover {
-  background-color: #caf05f;
-}
-
-.MainMenuButtonsWrapper {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  width: 100%;
-}
-
-.MainMenuSmallButtonsWrapper {
-  display: flex;
-  flex-direction: row;
-  gap: 10px;
-}
-
-.MenuButton {
-  background-color: #f3f3f3;
-  border-radius: 5px;
-  color: #212121;
-  display: flex;
-  flex-direction: row;
-  gap: 10px;
-  align-items: center;
-  padding: 10px;
-  width: 100%;
-  min-width: 110px;
-  transition: all 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
-}
-
-.MainMenuButton {
-  background-color: #caf05f;
-  border-radius: 5px;
-  color: #212121;
-  display: flex;
-  flex-direction: row;
-  gap: 10px;
-  align-items: center;
-  padding: 10px;
-  width: 100%;
-  min-width: 110px;
-  transition: all 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
-}
-
-.MenuButton i {
-  font-size: 14px;
-  padding-top: 2px;
-  color: #292929;
+	font-size: 12px;
 }
 
 .MainMenuButton:hover {
-  background-color: #a6db14;
-}
-
-.MenuButton:hover {
-  background-color: #caf05f;
+	background-color: #a6db14;
 }
 
 .MenuTopButtonsWrapper {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  width: 100%;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	width: 100%;
 }
 
 /* PROFILE ######################################################################## */
 
 .UserCardWrapper {
-  background-color: white;
-  border: 1px rgba(0, 0, 0, 0.1) solid;
-  border-radius: 5px;
-  transition: all 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
-  padding: 10px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  gap: 15px;
-  cursor: pointer;
+	background-color: white;
+	border: 1px rgba(0, 0, 0, 0.1) solid;
+	border-radius: 5px;
+	transition: all 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
+	padding: 10px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	gap: 15px;
+	cursor: pointer;
 }
 
 .UserCardWrapper:hover {
-  background-color: #f3f3f3;
+	background-color: #f3f3f3;
 }
 
 .UserInfoWrapper {
-  display: flex;
-  flex-direction: row;
-  gap: 15px;
-  align-items: center;
+	display: flex;
+	flex-direction: row;
+	gap: 15px;
+	align-items: center;
 }
 
 .UserCardInfo {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  height: 45px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	height: 45px;
 }
 
 .UserCardImage {
-  border-radius: 50px;
-  border: 1px rgba(0, 0, 0, 0.5) solid;
-  width: 50px;
-  height: 50px;
-  background-color: #caf05f;
+	border-radius: 50px;
+	border: 1px rgba(0, 0, 0, 0.5) solid;
+	width: 50px;
+	height: 50px;
+	background-color: #caf05f;
 }
 
 .UserName {
-  font-size: 18px;
+	font-size: 18px;
 }
 
 .UserRole {
-  font-size: 16px;
-  color: #909090;
+	font-size: 16px;
+	color: #909090;
 }
 
 .UserLvlWrapper {
-  display: flex;
-  flex-direction: row;
-  gap: 10px;
-  font-size: 14px;
-  align-items: center;
+	display: flex;
+	flex-direction: row;
+	gap: 10px;
+	font-size: 14px;
+	align-items: center;
 }
 
 .UserLvlProgressWrapper {
-  width: 100%;
-  background-color: #212121;
-  height: 6px;
-  border-radius: 5px;
+	width: 100%;
+	background-color: #212121;
+	height: 6px;
+	border-radius: 5px;
 }
 
 .UserLvlProgress {
-  background-color: #caf05f;
-  height: 6px;
-  border-radius: 2px;
+	background-color: #caf05f;
+	height: 6px;
+	border-radius: 2px;
 }
 
 .UserBalance {
-  justify-content: space-between;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  gap: 10px;
-  background-color: #caf05f;
-  padding: 2px 10px;
-  border-radius: 15px;
-}
-
-.UserBalanceWrapper {
-  justify-content: space-between;
-  display: flex;
-  flex-direction: row;
-  width: 100%;
+	justify-content: space-between;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	gap: 10px;
+	background-color: #caf05f;
+	padding: 2px 10px;
+	border-radius: 15px;
 }
 
 /* PROFILE ######################################################################## */
 
 .ProfileSwitch {
-  justify-content: space-around;
-  display: flex;
-  flex-direction: row;
-  width: 100%;
+	justify-content: space-around;
+	display: flex;
+	flex-direction: row;
+	width: 100%;
 }
 
 .ActiveSwitchText {
-  text-decoration: underline;
-  text-underline-offset: 5px;
-  cursor: pointer;
-  transition: all 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
-  border-radius: 15px;
-  padding: 5px 15px;
+	text-decoration: underline;
+	text-underline-offset: 5px;
+	cursor: pointer;
+	transition: all 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
+	border-radius: 15px;
+	padding: 5px 15px;
 }
 
 .SwitchText {
-  color: #909090;
-  cursor: pointer;
-  transition: all 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
-  border-radius: 15px;
-  padding: 5px 15px;
+	color: #909090;
+	cursor: pointer;
+	transition: all 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
+	border-radius: 15px;
+	padding: 5px 15px;
 }
 
 .SwitchText:hover {
-  background-color: #caf05f;
-  color: #212121;
+	background-color: #caf05f;
+	color: #212121;
 }
 
 /* DAILY TASKS ######################################################################## */
 
 .DailyTasksWrapper {
-  background-color: white;
-  border: 1px rgba(0, 0, 0, 0.1) solid;
-  padding: 5px 5px 5px 15px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  gap: 15px;
-  border-radius: 5px;
-  padding: 10px;
-  cursor: pointer;
+	background-color: white;
+	border: 1px rgba(0, 0, 0, 0.1) solid;
+	padding: 5px 5px 5px 15px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	gap: 15px;
+	border-radius: 5px;
+	padding: 10px;
+	cursor: pointer;
 
-  transition: all 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
+	transition: all 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
 }
 
 .DailyTasksWrapper:hover {
-  background-color: #f3f3f3;
+	background-color: #f3f3f3;
 }
 
 .DailyTasksAbout {
-  font-size: 14px;
-  color: #909090;
+	font-size: 14px;
+	color: #909090;
 }
 
 .DailyTasksStatusWrapper {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  cursor: pointer;
-  gap: 20px;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+	cursor: pointer;
+	gap: 20px;
 }
 
 .DailyTasksTitle {
-  font-size: 16px;
+	font-size: 16px;
 }
 
 .DailyTasksStatus {
-  background-color: #caf05f;
-  border-radius: 15px;
-  padding: 3px 10px;
-  font-size: 16px;
-  user-select: none;
+	background-color: #caf05f;
+	border-radius: 15px;
+	padding: 3px 10px;
+	font-size: 16px;
+	user-select: none;
 }
 
 .DailyTasksIconsWrapper {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
 }
 
 .DailyTasksIcons {
-  display: flex;
-  flex-direction: row;
-  gap: 10px;
+	display: flex;
+	flex-direction: row;
+	gap: 10px;
 }
 
 .SmallImg {
-  width: 20px;
-  height: 20px;
-  position: relative;
+	width: 20px;
+	height: 20px;
+	position: relative;
 }
 
 .DailyTaskIconCompleted {
-  width: 40px;
-  height: 40px;
-  background-color: #caf05f;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 5px;
-  transition: all 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
+	width: 40px;
+	height: 40px;
+	background-color: #caf05f;
+	cursor: pointer;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border-radius: 5px;
+	transition: all 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
 }
 
 .DailyTaskIconIncompleted {
-  width: 40px;
-  height: 40px;
-  background-color: #ededed;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 5px;
-  filter: grayscale();
-  transition: all 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
+	width: 40px;
+	height: 40px;
+	background-color: #ededed;
+	cursor: pointer;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border-radius: 5px;
+	filter: grayscale();
+	transition: all 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
 }
 
 .DailyTaskIconCompleted:hover {
-  transform: scale(1.1);
+	transform: scale(1.1);
 }
 
 .DailyTaskIconIncompleted:hover {
-  transform: scale(1.1);
+	transform: scale(1.1);
 }
 
 /* places ######################################################################## */
 
 .placesBlock {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
 }
 
 .BlockTitleWrapper {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
 }
 
 .BlockTitleText {
-  font-size: 16px;
+	font-size: 16px;
 }
 
 .placesBlock a {
-  color: #212121;
+	color: #212121;
 }
 
 .AllplacesButton {
-  background-color: #f3f3f3;
-  padding: 3px 15px;
-  border-radius: 15px;
-  font-size: 14px;
-  cursor: pointer;
-  user-select: none;
+	background-color: #f3f3f3;
+	padding: 3px 15px;
+	border-radius: 15px;
+	font-size: 14px;
+	cursor: pointer;
+	user-select: none;
 }
 
 .AllplacesButton:hover {
-  background-color: #caf05f;
+	background-color: #caf05f;
 }
 
 .placesWrapper {
-  height: fit-content;
-  max-height: 280px;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  gap: 10px;
-  overflow: scroll;
+	height: fit-content;
+	max-height: 280px;
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	gap: 10px;
+	overflow: scroll;
 }
 
 .placesWrapper {
-  --sb-track-color: #f9f9f9;
-  --sb-thumb-color: #caf05f;
-  --sb-size: 5px;
+	--sb-track-color: #f9f9f9;
+	--sb-thumb-color: #caf05f;
+	--sb-size: 5px;
 }
 
 .placesWrapper::-webkit-scrollbar {
-  width: var(--sb-size);
+	width: var(--sb-size);
 }
 
 .placesWrapper::-webkit-scrollbar-track {
-  background: var(--sb-track-color);
-  border-radius: 6px;
+	background: var(--sb-track-color);
+	border-radius: 6px;
 }
 
 .placesWrapper::-webkit-scrollbar-thumb {
-  background: var(--sb-thumb-color);
-  border-radius: 6px;
+	background: var(--sb-thumb-color);
+	border-radius: 6px;
 }
 
 @supports not selector(::-webkit-scrollbar) {
-  .placesWrapper {
-    scrollbar-color: var(--sb-thumb-color) var(--sb-track-color);
-  }
+	.placesWrapper {
+		scrollbar-color: var(--sb-thumb-color) var(--sb-track-color);
+	}
 }
 
 .PlaceIconWrapper {
-  width: 65px;
-  background-color: #f3f3f3;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  border-radius: 5px;
-  align-items: center;
-  padding: 10px 5px;
-  font-size: 14px;
-  text-align: center;
-  overflow-wrap: break-word;
-  cursor: pointer;
-  transition: all 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
+	width: 65px;
+	background-color: #f3f3f3;
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+	border-radius: 5px;
+	align-items: center;
+	padding: 10px 5px;
+	font-size: 14px;
+	text-align: center;
+	overflow-wrap: break-word;
+	cursor: pointer;
+	transition: all 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
 }
 
 .PlaceIconWrapper:hover {
-  background-color: #caf05f;
+	background-color: #caf05f;
 }
 
 .PlaceIconImage {
-  width: 20px;
-  height: 20px;
+	width: 20px;
+	height: 20px;
 }
 
 .PlaceIconText {
-  width: 100%;
+	width: 100%;
 }
 
 /* CHAT ######################################################################## */
 
 .ChatBlock {
-  background-color: #caf05f;
-  /* height: 80vh; */
+	background-color: #caf05f;
+	/* height: 80vh; */
 }
 
 /* LOCATIONS ######################################################################## */
 
 .CardsWrapper {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
 }
 
 .LocationCard {
-  background-color: white;
-  border: 1px rgba(0, 0, 0, 0.1) solid;
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-  border-radius: 5px;
-  padding: 10px;
-  transition: all 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
+	background-color: white;
+	border: 1px rgba(0, 0, 0, 0.1) solid;
+	display: flex;
+	flex-direction: column;
+	gap: 15px;
+	border-radius: 5px;
+	padding: 10px;
+	transition: all 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
 }
 
 .LocationCardTitleWrapper {
-  display: flex;
-  flex-direction: row;
-  width: 100%;
-  justify-content: space-between;
-  align-items: baseline;
-  gap: 15px;
+	display: flex;
+	flex-direction: row;
+	width: 100%;
+	justify-content: space-between;
+	align-items: baseline;
+	gap: 15px;
 }
 
 .LocationCardNameRatingWrapper {
-  display: flex;
-  flex-direction: row;
-  gap: 10px;
-  align-items: baseline;
+	display: flex;
+	flex-direction: row;
+	gap: 10px;
+	align-items: baseline;
 }
 
 .LocationCardRating {
-  background-color: #caf05f;
-  border-radius: 15px;
-  padding: 2px 10px;
-  height: fit-content;
-  white-space: nowrap;
-  font-size: 14px;
+	background-color: #caf05f;
+	border-radius: 15px;
+	padding: 2px 10px;
+	height: fit-content;
+	white-space: nowrap;
+	font-size: 14px;
 }
 
 .CardEditButton {
-  display: flex;
-  flex-direction: row;
-  gap: 5px;
-  color: #292929;
-  background-color: #f3f3f3;
-  padding: 2px 10px 1px 10px;
-  border-radius: 15px;
-  cursor: pointer;
-  user-select: none;
-  font-size: 14px;
-  transition: all 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
+	display: flex;
+	flex-direction: row;
+	gap: 5px;
+	color: #292929;
+	background-color: #f3f3f3;
+	padding: 2px 10px 1px 10px;
+	border-radius: 15px;
+	cursor: pointer;
+	user-select: none;
+	font-size: 14px;
+	transition: all 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
 }
 
 .CardEditButton i {
-  padding-top: 2px;
+	padding-top: 2px;
 }
 
 .CardEditButton:hover {
-  background-color: #caf05f;
+	background-color: #caf05f;
 }
 
 .LocationCardName {
-  width: fit-content;
+	width: fit-content;
 }
 
 .LocationCardImageWrapper {
-  display: flex;
-  flex-direction: row;
-  gap: 10px;
+	display: flex;
+	flex-direction: row;
+	gap: 10px;
 }
 
 .LocationCardImage {
-  max-width: 31%;
-  max-height: 200px;
-  border-radius: 5px;
+	max-width: 31%;
+	max-height: 200px;
+	border-radius: 5px;
 }
 
 /* DAILY TASKS ######################################################################## */
 
 .Card {
-  background-color: white;
-  border: 1px rgba(0, 0, 0, 0.1) solid;
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-  border-radius: 5px;
-  padding: 10px;
-  transition: all 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
+	background-color: white;
+	border: 1px rgba(0, 0, 0, 0.1) solid;
+	display: flex;
+	flex-direction: column;
+	gap: 15px;
+	border-radius: 5px;
+	padding: 10px;
+	transition: all 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
 }
 
 .DailyTaskImg {
-  width: 30px;
-  height: 30px;
-  position: relative;
-  margin: auto;
+	width: 30px;
+	height: 30px;
+	position: relative;
+	margin: auto;
 }
 
 .DailyTaskIcon {
-  border-radius: 5px;
-  display: inline-flex;
-  border-radius: 5px;
-  width: 40px;
-  height: 40px;
+	border-radius: 5px;
+	display: inline-flex;
+	border-radius: 5px;
+	width: 40px;
+	height: 40px;
 }
 
 .DailyTaskTitleWrapper {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  gap: 10px;
-  justify-content: space-between;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	gap: 10px;
+	justify-content: space-between;
 }
 
 .DailyTaskTitle {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  gap: 10px;
-  width: 100%;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	gap: 10px;
+	width: 100%;
 }
 
 .DailyTaskButton {
-  min-width: 40px;
-  height: 40px;
-  background-color: #ededed;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 5px;
-  transition: all 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
+	min-width: 40px;
+	height: 40px;
+	background-color: #ededed;
+	cursor: pointer;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border-radius: 5px;
+	transition: all 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
 }
 
 .DailyTaskButton:hover {
-  background-color: #caf05f;
+	background-color: #caf05f;
 }
 
 .DailyTaskInfoStatusWrapper {
-  font-size: 14px;
-  display: flex;
-  gap: 15px;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
+	font-size: 14px;
+	display: flex;
+	gap: 15px;
+	flex-direction: row;
+	align-items: center;
+	justify-content: space-between;
 }
 
 .DailyTaskStatus {
-  border-radius: 15px;
-  padding: 5px 10px;
+	border-radius: 15px;
+	padding: 5px 10px;
 }
 
 /* SHOP ######################################################################## */
 
 .ShopItemsWrapper {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  width: 100%;
-  gap: 10px;
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	width: 100%;
+	gap: 10px;
 }
 
 .ShopItemCard {
-  background-color: white;
-  border: 1px rgba(0, 0, 0, 0.1) solid;
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-  border-radius: 5px;
-  padding: 10px;
-  align-items: center;
-  width: 25%;
-  text-align: center;
-  cursor: pointer;
-  transition: all 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
+	background-color: white;
+	border: 1px rgba(0, 0, 0, 0.1) solid;
+	display: flex;
+	flex-direction: column;
+	gap: 15px;
+	border-radius: 5px;
+	padding: 10px;
+	align-items: center;
+	width: 25%;
+	text-align: center;
+	cursor: pointer;
+	transition: all 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
 }
 
 .ShopItemCard:hover {
-  background-color: #f3f3f3;
+	background-color: #f3f3f3;
 }
 
 .ShopItemUserImage {
-  border-radius: 80px;
-  border: 1px rgba(0, 0, 0, 0.5) solid;
-  width: 60px;
-  height: 60px;
-  background-color: #caf05f;
-  position: absolute;
+	border-radius: 80px;
+	border: 1px rgba(0, 0, 0, 0.5) solid;
+	width: 60px;
+	height: 60px;
+	background-color: #caf05f;
+	position: absolute;
 }
 
 .ShopItemAvatarFrame {
-  width: 80px;
-  z-index: 1;
-  position: absolute;
+	width: 80px;
+	z-index: 1;
+	position: absolute;
 }
 
 .StopItemsImageWrapper {
-  display: flex;
-  flex-flow: row nowrap;
-  align-items: center;
-  justify-content: center;
-  width: 80px;
-  height: 80px;
-  border-radius: 50px;
+	display: flex;
+	flex-flow: row nowrap;
+	align-items: center;
+	justify-content: center;
+	width: 80px;
+	height: 80px;
+	border-radius: 50px;
 }
 
 .ShopItemImage {
-  height: 50px;
-  width: 50px;
+	height: 50px;
+	width: 50px;
 }
 
 /* SETTINGS ######################################################################## */
 
 .MenuTextArea {
-  height: 23px;
-  width: auto;
-  resize: none;
-  font-size: 16px;
-  overflow: hidden;
-  font-family: Onest;
-  white-space: nowrap;
-  background-color: #f9f9f9;
-  border: 1px rgba(0, 0, 0, 0.1) solid;
-  border-radius: 5px;
-  padding: 5px 10px;
+	height: 23px;
+	width: auto;
+	font-size: 16px;
+	overflow: hidden;
+	font-family: Onest;
+	background-color: #f9f9f9;
+	border: 1px rgba(0, 0, 0, 0.1) solid;
+	border-radius: 5px;
+	padding: 5px 10px;
 }
 
 .MenuTextArea:focus {
-  border: 1px rgba(0, 0, 0, 0.1) solid;
-  background-color: #ededed;
-  outline: none;
-}
-
-.MenuDropDown {
-  resize: none;
-  font-size: 16px;
-  overflow: hidden;
-  font-family: Onest;
-  white-space: nowrap;
-  background-color: #f9f9f9;
-  border: 1px rgba(0, 0, 0, 0.1) solid;
-  border-radius: 5px;
-  padding: 5px 10px;
-}
-
-.MenuDropDown:focus {
-  border: 1px rgba(0, 0, 0, 0.1) solid;
-  outline: none;
+	border: 1px rgba(0, 0, 0, 0.1) solid;
+	background-color: #ededed;
+	outline: none;
 }
 
 .UploadImageWrapper {
-  display: flex;
-  flex-direction: row;
-  gap: 15px;
-  align-items: center;
+	display: flex;
+	flex-direction: row;
+	gap: 15px;
+	align-items: center;
 }
 
 .UploadImageWrapper {
-  background-color: white;
-  border: 1px rgba(0, 0, 0, 0.1) solid;
-  display: flex;
-  flex-direction: row;
-  gap: 15px;
-  border-radius: 5px;
-  padding: 10px;
-  cursor: pointer;
-  transition: all 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
+	background-color: white;
+	border: 1px rgba(0, 0, 0, 0.1) solid;
+	display: flex;
+	flex-direction: row;
+	gap: 15px;
+	border-radius: 5px;
+	padding: 10px;
+	cursor: pointer;
+	transition: all 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
 }
 
 .UploadImageWrapper:hover {
-  background-color: #caf05f;
+	background-color: #caf05f;
 }
 
 /* MOBILE ######################################################################## */
 
 @media (width < 800px) {
-  .AuthorizationDesignCard {
-    display: none;
-  }
+	.AuthorizationDesignCard {
+		display: none;
+	}
 
-  .AuthorizationInfoWrapper {
-    width: 100%;
-  }
+	.AuthorizationInfoWrapper {
+		width: 100%;
+	}
 
-  .AuthorizationTextareasWrapper {
-    width: 100%;
-  }
+	.AuthorizationTextareasWrapper {
+		width: 100%;
+	}
 
-  .AuthorizationPageContent {
-    width: 90%;
-  }
+	.AuthorizationPageContent {
+		width: 90%;
+	}
 
-  .MenuWrapper {
-    width: 96%;
-    padding-left: 10px;
-  }
+	.MenuWrapper {
+		width: 96%;
+		padding-left: 10px;
+	}
 
-  .PlaceIconWrapper {
-    width: 20%;
-  }
+	.PlaceIconWrapper {
+		width: 20%;
+	}
 
-  .ShopItemCard {
-    width: 26.5%;
-  }
+	.ShopItemCard {
+		width: 26.5%;
+	}
 
-  * {
-    font-size: 14px;
-  }
+	* {
+		font-size: 14px;
+	}
 
-  .UserName {
-    font-size: 16px;
-  }
+	.UserName {
+		font-size: 16px;
+	}
 
-  .UserRole {
-    font-size: 14px;
-  }
+	.UserRole {
+		font-size: 14px;
+	}
 
-  .MinimizeButton i {
-    font-size: 14px;
-    padding: 7px;
-  }
+	.MinimizeButton i {
+		font-size: 14px;
+		padding: 7px;
+	}
 
-  .MinimizeButton {
-    width: 30px;
-    height: 30px;
-    border-radius: 5px;
-    color: #909090;
-    display: inline-flex;
-    cursor: pointer;
+	.MinimizeButton {
+		width: 30px;
+		height: 30px;
+		border-radius: 5px;
+		color: #909090;
+		display: inline-flex;
+		cursor: pointer;
 
-    transition: all 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
-  }
+		transition: all 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
+	}
 
-  .MenuTextArea {
-    font-size: 14px;
-  }
+	.MenuTextArea {
+		font-size: 14px;
+	}
 
-  .MenuDropDown {
-    font-size: 14px;
-  }
+	.MenuDropDown {
+		font-size: 14px;
+	}
 }
