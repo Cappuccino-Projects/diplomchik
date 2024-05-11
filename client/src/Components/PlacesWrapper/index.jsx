@@ -2,7 +2,7 @@ import { PlaceIcon } from "@components/PlaceIcon";
 import { Link } from "react-router-dom";
 import styles from "./styles.module.css";
 
-export const placesWrapper = (props) => {
+export const PlacesWrapper = (props) => {
   return (
     <div className={styles.placesBlock}>
       <div className={styles.BlockTitleWrapper}>

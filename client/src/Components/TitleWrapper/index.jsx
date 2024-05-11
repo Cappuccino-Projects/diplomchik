@@ -1,6 +1,6 @@
 import styles from "./styles.module.css";
 
-export const LogoWrapper = (props) => {
+export const TitleWrapper = (props) => {
   return (
     <div className={styles.TitleWrapper}>
       <a href="/mainmenu">
