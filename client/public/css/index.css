@@ -404,12 +404,16 @@ a {
   flex-direction: column;
   gap: 10px;
   width: 100%;
+
+  justify-content: space-around;
 }
 
 .MainMenuSmallButtonsWrapper {
-  display: flex;
-  flex-direction: row;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
   gap: 10px;
+
+  justify-content: space-around;
 }
 
 .MenuButton {
@@ -421,8 +425,7 @@ a {
   gap: 10px;
   align-items: center;
   padding: 10px;
-  width: 100%;
-  min-width: 110px;
+  flex: 1;
   transition: all 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
 }
 
@@ -438,6 +441,7 @@ a {
   width: 100%;
   min-width: 110px;
   transition: all 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
+  box-sizing: border-box;
 }
 
 .MenuButton i {
