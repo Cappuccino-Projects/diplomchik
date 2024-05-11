@@ -1,0 +1,32 @@
+.PlaceIconWrapper {
+  width: 65px;
+  background-color: #f3f3f3;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  border-radius: 5px;
+  align-items: center;
+  padding: 10px 5px;
+  font-size: 14px;
+  text-align: center;
+  overflow-wrap: break-word;
+  cursor: pointer;
+  transition: all 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+
+.PlaceIconWrapper:hover {
+  background-color: #caf05f;
+}
+
+.PlaceIconWrapper {
+  width: 20%;
+}
+
+.PlaceIconImage {
+  width: 20px;
+  height: 20px;
+}
+
+.PlaceIconText {
+  width: 100%;
+}
