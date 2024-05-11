@@ -1,0 +1,141 @@
+.MenuWrapper {
+	background-color: #f9f9f9;
+	width: 350px;
+	order: 0;
+	padding: 25px 15px;
+	border: 1px rgba(0, 0, 0, 0.3) solid;
+	height: 100vh;
+	font-family: Onest;
+	gap: 20px;
+	display: flex;
+	flex-direction: column;
+	position: fixed;
+	z-index: 2;
+	overflow: scroll;
+}
+
+.MenuWrapper {
+	--sb-track-color: #f9f9f9;
+	--sb-thumb-color: #d9d9d9;
+	--sb-size: 5px;
+}
+
+.MenuWrapper::-webkit-scrollbar {
+	width: var(--sb-size);
+}
+
+.MenuWrapper::-webkit-scrollbar-track {
+	background: var(--sb-track-color);
+	border-radius: 6px;
+}
+
+.MenuWrapper::-webkit-scrollbar-thumb {
+	background: var(--sb-thumb-color);
+	border-radius: 6px;
+}
+
+@supports not selector(::-webkit-scrollbar) {
+	.MenuWrapper {
+		scrollbar-color: var(--sb-thumb-color) var(--sb-track-color);
+	}
+}
+
+.Title {
+	display: flex;
+	flex-direction: row;
+	gap: 15px;
+	justify-content: space-between;
+}
+
+.AuthorizationPageContent {
+	display: flex;
+	flex-direction: row;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 50px;
+	width: fit-content;
+	font-family: Onest;
+	gap: 5%;
+}
+
+.AuthorizationDesignCard {
+	width: 45%;
+	height: 670px;
+	background-color: #caf05f;
+	padding: 55px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	font-family: Onest;
+	border-radius: 15px;
+}
+
+.AuthorizationInfoWrapper {
+	width: 50%;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	gap: 30px;
+}
+
+.AuthorizationTextareasWrapper {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+}
+
+.AuthorizationButtonWrapper {
+	display: flex;
+	flex-direction: column;
+	gap: 15px;
+	align-items: center;
+	justify-content: center;
+}
+
+.AuthorizationTextareasWrapper p {
+	margin-top: 10px;
+}
+
+.MenuDropDown {
+	resize: none;
+	font-size: 16px;
+	overflow: hidden;
+	font-family: Onest;
+	white-space: nowrap;
+	background-color: #f9f9f9;
+	border: 1px rgba(0, 0, 0, 0.1) solid;
+	border-radius: 5px;
+	padding: 5px 10px;
+}
+
+.MenuDropDown:focus {
+	border: 1px rgba(0, 0, 0, 0.1) solid;
+	outline: none;
+}
+
+.MainMenuButtonsWrapper {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+	width: 100%;
+}
+
+.MainMenuSmallButtonsWrapper {
+	display: flex;
+	flex-direction: row;
+	gap: 10px;
+}
+
+.MainMenuButton {
+	background-color: #caf05f;
+	border-radius: 5px;
+	color: #212121;
+	display: flex;
+	flex-direction: row;
+	gap: 10px;
+	align-items: center;
+	padding: 10px;
+	width: 100%;
+	min-width: 110px;
+	transition: all 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
+}
