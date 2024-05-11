@@ -1,4 +1,10 @@
 import styles from './styles.module.css'
+import {
+	LogoWrapper,
+	MinimizeMenuButton,
+	BackToMainMenu,
+	PlacesWrapper
+} from '@components'
 
 export const AllPlaces = (props) => {
 	const { places, city } = props
