@@ -1,4 +1,9 @@
-import { Link } from 'react-router-dom'
+import {
+	BackToMainMenu,
+	MinimizeMenuButton,
+	UserCard,
+	ShopItemsWrapper
+} from '@components'
 import styles from './styles.module.css'
 
 export const Shop = () => {
@@ -24,13 +29,13 @@ export const Shop = () => {
 			</div>
 			<p className={styles.TitleText}>Магазин</p>
 			<ShopItemsWrapper
-				shopitems={this.props.shopitems.filter(
+				shopitems={props.shopitems.filter(
 					(CurrentItem) => CurrentItem.ItemCategory === 'Avatar Frame'
 				)}
 				WrapperText="Рамки для аватара"
 			/>
 			<ShopItemsWrapper
-				shopitems={this.props.shopitems.filter(
+				shopitems={props.shopitems.filter(
 					(CurrentItem) => CurrentItem.ItemCategory === 'Theme'
 				)}
 				WrapperText="Темы"

@@ -191,18 +191,8 @@ a {
 	font-size: 12px;
 }
 
-.MenuButton i {
-	font-size: 14px;
-	padding-top: 2px;
-	color: #292929;
-}
-
 .MainMenuButton:hover {
 	background-color: #a6db14;
-}
-
-.MenuButton:hover {
-	background-color: #caf05f;
 }
 
 .MenuTopButtonsWrapper {

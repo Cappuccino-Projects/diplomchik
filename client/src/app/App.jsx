@@ -1,18 +1,20 @@
 import React from 'react'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
-import RegistrationPage from '../pages/RegistrationPage'
 import { cityApi, placeTypeApi } from '../shared/api'
-import AllPlases from './../pages/AllPlases'
-import Chat from './../pages/Chat'
-import DailyTasksPage from './../pages/DailyTasksPage'
-import Favourite from './../pages/Favourite'
-import LoginPage from './../pages/LoginPage'
-import MAP from './../pages/MAP'
-import MainMenu from './../pages/MainMenu'
-import MapEditMenu from './../pages/MapEditMenu'
-import Profile from './../pages/Profile'
-import Settings from './../pages/Settings'
-import Shop from './../pages/Shop'
+import {
+	Registration,
+	Login,
+	Map,
+	MainMenu,
+	Chat,
+	MapEditMenu,
+	AllPlaces,
+	Profile,
+	Favourite,
+	Settings,
+	Shop
+} from '@pages'
+import { DailyTasks } from '@components'
 
 class App extends React.Component {
 	constructor(props) {
@@ -170,10 +172,10 @@ class App extends React.Component {
 			<div>
 				<BrowserRouter>
 					<Routes>
-						<Route path="/registration" element={<RegistrationPage />} />
-						<Route path="/login" element={<LoginPage />} />
+						<Route path="/registration" element={<Registration />} />
+						<Route path="/login" element={<Login />} />
 
-						<Route path="/" element={<MAP />}>
+						<Route path="/" element={<Map />}>
 							<Route
 								index
 								element={
@@ -203,7 +205,7 @@ class App extends React.Component {
 							<Route
 								path="/allplaces"
 								element={
-									<AllPlases
+									<AllPlaces
 										places={this.state.places}
 										city={this.state.UserCity}
 									/>
@@ -239,7 +241,7 @@ class App extends React.Component {
 							<Route
 								path="/dailytasks"
 								element={
-									<DailyTasksPage
+									<DailyTasks
 										dailytasks={this.state.dailytasks}
 										locations={this.state.locations}
 										city={this.state.UserCity}

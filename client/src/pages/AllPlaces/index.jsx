@@ -1,9 +1,10 @@
 import styles from './styles.module.css'
 import {
-	LogoWrapper,
+	TitleWrapper,
 	MinimizeMenuButton,
 	BackToMainMenu,
-	PlacesWrapper
+	PlacesWrapper,
+	UserCard
 } from '@components'
 
 export const AllPlaces = (props) => {
@@ -12,7 +13,7 @@ export const AllPlaces = (props) => {
 	return (
 		<div className={styles.MenuWrapper}>
 			<div className={styles.Title}>
-				<LogoWrapper city={city} />
+				<TitleWrapper city={city} />
 				<MinimizeMenuButton />
 			</div>
 			<BackToMainMenu />

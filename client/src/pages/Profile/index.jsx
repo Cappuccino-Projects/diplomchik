@@ -1,3 +1,11 @@
+import {
+	BackToMainMenu,
+	MinimizeMenuButton,
+	UserCard,
+	DailyTasks,
+	ProfileSwitch,
+	LocationsWrapper
+} from '@components'
 import { Link } from 'react-router-dom'
 import styles from './styles.module.css'
 
@@ -27,7 +35,7 @@ export const Profile = () => {
 				</Link>
 			</div>
 			<ProfileSwitch />
-			<LocationsWrapper locations={this.props.locations} />
+			<LocationsWrapper locations={props.locations} />
 			<br></br>
 		</div>
 	)

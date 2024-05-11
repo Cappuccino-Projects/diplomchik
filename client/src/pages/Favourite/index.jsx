@@ -1,3 +1,9 @@
+import {
+	BackToMainMenu,
+	MinimizeMenuButton,
+	LocationsWrapper,
+	UserCard
+} from '@components'
 import styles from './styles.module.css'
 
 export const Favourite = (props) => {

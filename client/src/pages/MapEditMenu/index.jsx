@@ -1,16 +1,25 @@
+import {
+	TitleWrapper,
+	MinimizeMenuButton,
+	BackToMainMenu,
+	UserCard
+} from '@components'
 import { Link } from 'react-router-dom'
 import styles from './styles.module.css'
 
-export const MapEditMenu = () => {
+export const MapEditMenu = (props) => {
 	return (
 		<div className={styles.MenuWrapper}>
 			<div className={styles.Title}>
-				<LogoWrapper city={this.props.city} />
+				<TitleWrapper city={props.city} />
 				<MinimizeMenuButton />
 			</div>
 			<BackToMainMenu />
 			<p className={styles.TitleText}>Редактирование карты</p>
-			<div style={{ marginBottom: 'auto' }} className="MainMenuButtonsWrapper">
+			<div
+				style={{ marginBottom: 'auto' }}
+				className={styles.MainMenuButtonsWrapper}
+			>
 				<Link to="/favourite">
 					<div className={styles.MenuButton}>
 						<i className="fi fi-sr-add" />

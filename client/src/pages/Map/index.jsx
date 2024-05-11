@@ -1,5 +1,6 @@
+import { DailyTasks } from '@components'
 import { Outlet } from 'react-router-dom'
-import styles from './style.module.css'
+import styles from './styles.module.css'
 
 export const Map = () => {
 	return (

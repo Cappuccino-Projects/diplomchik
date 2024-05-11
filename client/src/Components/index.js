@@ -12,5 +12,4 @@ export { ShopItemCard } from './ShopItemCard'
 export { ShopItemsWrapper } from './ShopItemsWrapper'
 export { TitleWrapper } from './TitleWrapper'
 export { UserCard } from './UserCard'
-
-
+export { MinimizeMenuButton } from './MinimizeMenuButton'
