@@ -1,0 +1,8 @@
+@import url('./../pages.module.css');
+
+.UserBalanceWrapper {
+	justify-content: space-between;
+	display: flex;
+	flex-direction: row;
+	width: 100%;
+}
