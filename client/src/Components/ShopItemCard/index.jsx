@@ -32,11 +32,18 @@ export const ShopItemCard = (props) => {
         </div>
       )}
       <p style={{ marginBottom: "auto" }}>{props.item.ItemName}</p>
-      <div className={styles.UserBalance}>
-        {/* Нету UserCardText */}
-        <p className="UserCardText">{props.item.ItemPrice}</p>
-        <img className={styles.SmallImg} src="../img/crystall.png" />
-      </div>
+      {!props.item.ItemObtained &&
+        <div className={styles.UserBalance}>
+          <p>{props.item.ItemPrice}</p>
+          <img className={styles.SmallImg} src="../img/crystall.png" />
+        </div>
+      }
+      {props.item.ItemObtained &&
+        <div className={styles.CardButtonsWrapper}>
+          <div className={styles.CardMainButton}>Использовать</div>
+          <div className={styles.CardButton}>Не использовать</div>
+        </div>
+      }
     </div>
   );
 };

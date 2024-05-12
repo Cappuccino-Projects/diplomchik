@@ -10,7 +10,9 @@ import {
 	Profile,
 	Registration,
 	Settings,
-	Shop
+	Shop,
+	DailyTasksPage,
+	Inventory
 } from '@pages'
 import { dailyTaskApi } from '@shared/api/dailyTasks'
 import { locationApi } from '@shared/api/location'
@@ -75,7 +77,7 @@ const App = () => {
 						<Route
 							path="/dailytasks"
 							element={
-								<DailyTasks
+								<DailyTasksPage
 									dailytasks={dailytasks}
 									locations={locations}
 									city={city}
@@ -86,6 +88,12 @@ const App = () => {
 							path="/shop"
 							element={
 								<Shop shopitems={shopItems} locations={locations} city={city} />
+							}
+						/>
+						<Route
+							path="/inventory"
+							element={
+								<Inventory shopitems={shopItems.filter((e) => e.ItemObtained === true)} />
 							}
 						/>
 						<Route

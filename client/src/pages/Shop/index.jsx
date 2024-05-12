@@ -6,7 +6,7 @@ import {
 } from '@components'
 import styles from './styles.module.css'
 
-export const Shop = () => {
+export const Shop = (props) => {
 	return (
 		<div className={styles.MenuWrapper}>
 			<div className={styles.MenuTopButtonsWrapper}>
@@ -28,13 +28,13 @@ export const Shop = () => {
 				</p>
 			</div>
 			<p className={styles.TitleText}>Магазин</p>
-			<ShopItemsWrapper
+			<ShopItemsWrapper Obtained = {true}
 				shopitems={props.shopitems.filter(
 					(CurrentItem) => CurrentItem.ItemCategory === 'Avatar Frame'
 				)}
 				WrapperText="Рамки для аватара"
 			/>
-			<ShopItemsWrapper
+			<ShopItemsWrapper Obtained = {false}
 				shopitems={props.shopitems.filter(
 					(CurrentItem) => CurrentItem.ItemCategory === 'Theme'
 				)}

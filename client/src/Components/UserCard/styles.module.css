@@ -23,6 +23,15 @@
   background-color: #caf05f;
 }
 
+.UserFrameImage{
+  border-radius: 60px;
+  width: 60px;
+  height: 60px;
+  position: absolute;
+  left: 20px;
+}
+
+
 .UserCardInfo {
   display: flex;
   flex-direction: column;
@@ -90,4 +99,11 @@
   width: 20px;
   height: 20px;
   position: relative;
+}
+
+.UserInfoWrapper{
+  display: flex;
+  flex-direction: row;
+  gap: 15px;
+  align-items: center;
 }

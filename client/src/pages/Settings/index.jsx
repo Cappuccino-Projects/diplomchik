@@ -20,9 +20,9 @@ export const Settings = () => {
 
 			<div className="Card">
 				<p>Имя</p>
-				<textarea className="MenuTextArea">Щуковская Анастасия</textarea>
+				<textarea className={styles.MenuTextArea}>Щуковская Анастасия</textarea>
 				<p>Электронная почта</p>
-				<textarea className="MenuTextArea">pomoechki@moi.com</textarea>
+				<textarea className={styles.MenuTextArea}>pomoechki@moi.com</textarea>
 				<p>Город</p>
 				<select className={styles.MenuDropDown} name="City" id="City">
 					<option value="Dim">Димитровград</option>
@@ -42,7 +42,7 @@ export const Settings = () => {
 			<div className="Card">
 				<p>Пароль</p>
 				{/* TODO: заменить на input */}
-				<textarea className="MenuTextArea">•••••••••••••••••••</textarea>
+				<textarea className={styles.MenuTextArea}>•••••••••••••••••••</textarea>
 				<Link to="/">
 					<div className={styles.MenuButton}>
 						<i className="fi fi-sr-lock" />

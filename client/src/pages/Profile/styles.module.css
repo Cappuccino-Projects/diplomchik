@@ -1,1 +1,33 @@
 @import url('./../pages.module.css');
+
+.SecondarySmallButton {
+    background-color: white;
+    border: 1px rgba(0, 0, 0, 0.10) solid;
+    padding: 5px 10px;
+    display: flex;
+    width: fit-content;
+    font-size: 14px;
+    flex-direction: row;
+    gap: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    color: #909090;
+    align-items: center;
+    height: 100%;
+
+    transition: all 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+
+.SecondarySmallButton i {
+    font-size: 12px;
+}
+
+.SecondarySmallButton:hover {
+    background-color: #CAF05F;
+}
+
+@media (width < 800px) {
+    .SecondarySmallButton{
+        height: auto;
+    }
+}

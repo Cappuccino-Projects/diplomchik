@@ -1,0 +1,12 @@
+@import url('./../pages.module.css');
+
+.DailyTasksAbout{
+    font-size: 14px;
+    color: #909090;
+}
+
+.SmallImg {
+    width: 20px;
+    height: 20px;
+    position: relative;
+  }

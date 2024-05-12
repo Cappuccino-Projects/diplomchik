@@ -8,10 +8,7 @@ export const DailyTaskCard = (props) => {
     <div className={styles.Card}>
       <div className={styles.DailyTaskTitleWrapper}>
         <div className={styles.DailyTaskTitle}>
-          <div
-            style={{ backgroundColor: IconBackColor }}
-            className={styles.DailyTaskIcon}
-          >
+          <div className={styles.DailyTaskIcon}>
             <img
               src={"../img/" + props.task.TaskImage}
               className={styles.DailyTaskImg}

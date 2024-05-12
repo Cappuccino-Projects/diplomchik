@@ -8,7 +8,7 @@ export const MainMenuContainer = () => {
 			<MainMenuItem
 				link="/favourite"
 				label="Ваши впечатления"
-				icon="fi fi-sr-heart"
+				icon="fi fi-sr-star"
 			/>
 			<MainMenuItem link="/favourite" label="Маршруты" icon="fi fi-sr-road" />
 			<MainMenuItem

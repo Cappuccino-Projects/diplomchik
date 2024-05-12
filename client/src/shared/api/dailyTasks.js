@@ -3,7 +3,7 @@ const getAll = async () => {
 		{
 			TaskId: 1,
 			TaskName: 'Зеленая трава',
-			TaskImage: 'grass.png',
+			TaskImage: 'grass-mission-icon.png',
 			TaskBackgroundColor: '#BDFDB2',
 			TaskText: 'Пройти 5.000 шагов',
 			TaskProgress: '1.341 / 5.000',
@@ -12,7 +12,7 @@ const getAll = async () => {
 		{
 			TaskId: 2,
 			TaskName: 'Сюда нам надо',
-			TaskImage: 'trophy.png',
+			TaskImage: 'trophy-mission-icon.png',
 			TaskBackgroundColor: '#FFF9B5',
 			TaskText: 'Посетить рекомендуемое место',
 			TaskProgress: 'Выполнено',
@@ -21,7 +21,7 @@ const getAll = async () => {
 		{
 			TaskId: 3,
 			TaskName: 'Ваше мнение важно для нас',
-			TaskImage: 'heart.png',
+			TaskImage: 'review-mission-icon.png',
 			TaskBackgroundColor: '#FDD4D4',
 			TaskText: 'Оставить оценку на карте',
 			TaskProgress: 'Выполнено',

@@ -94,6 +94,7 @@
 	flex-direction: row;
 	justify-content: space-between;
 	width: 100%;
+	gap: 5px
 }
 
 .MinimizeButton i {
@@ -222,3 +223,72 @@
 .MenuButton:hover {
 	background-color: #caf05f;
 }
+
+
+@media (width < 800px) {
+
+	.AuthorizationDesignCard{
+	  display: none;
+	}
+	
+	.AuthorizationInfoWrapper{
+	  width: 100%;
+	}
+	
+	.AuthorizationTextareasWrapper{
+	  width: 100%;
+	}
+  
+	.AuthorizationPageContent{
+	  width: 90%;
+	}
+  
+	.MenuWrapper {
+	  width: 100%;
+	  padding-left: 10px;
+	}
+  
+	.PlaceIconWrapper{
+		width: 20%;
+	}
+  
+	.ShopItemCard{
+	  width: 26.5%;
+	}
+  
+	* {
+	  font-size: 14px;
+	}
+  
+	.UserName{
+	  font-size: 16px;
+	}
+  
+	.UserRole{
+	  font-size: 14px;
+	}
+  
+	.MinimizeButton i {
+	  font-size: 14px;
+	  padding: 7px;
+	}
+  
+	.MinimizeButton {
+	  width: 30px;
+	  height: 30px;
+	  border-radius: 5px;
+	  color: #909090;
+	  display: inline-flex;
+	  cursor: pointer;
+	
+	  transition: all 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
+	}
+  
+	.MenuTextArea {
+	  font-size: 14px;
+	}
+  
+	.MenuDropDown{
+	  font-size: 14px;
+	}
+  }

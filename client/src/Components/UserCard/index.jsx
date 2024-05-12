@@ -2,20 +2,13 @@ import { Link } from 'react-router-dom'
 import styles from './styles.module.css'
 
 export const UserCard = (props) => {
-	let MB = 30
-
-	if (props.IsItProfilePage) {
-		MB = 0
-	}
 
 	return (
 		<Link to="/profile">
-			<div
-				style={{ marginBottom: MB + 'px' }}
-				className={styles.UserCardWrapper}
-			>
+			<div className={styles.UserCardWrapper}>
 				<div className={styles.UserInfoWrapper}>
 					<img className={styles.UserCardImage} src="../img/User1Avatar.png" />
+					<img className={styles.UserFrameImage} src="../img/frame1.png" />
 					<div className={styles.UserCardInfo}>
 						<p className={styles.UserName}>Щуковская Анастасия</p>
 						<p className={styles.UserRole}>Проверенный пользователь </p>

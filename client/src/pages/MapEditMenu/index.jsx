@@ -2,7 +2,7 @@ import {
 	TitleWrapper,
 	MinimizeMenuButton,
 	BackToMainMenu,
-	UserCard
+	UserCard,
 } from '@components'
 import { Link } from 'react-router-dom'
 import styles from './styles.module.css'

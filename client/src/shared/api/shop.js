@@ -6,7 +6,8 @@ const getAll = async () => {
 			ItemImage: 'frame1.png',
 			ItemCategory: 'Avatar Frame',
 			ItemBackgroundColor: '#BDFDB2',
-			ItemPrice: 5000
+			ItemPrice: 5000,
+			ItemObtained: true
 		},
 		{
 			ItemId: 2,
@@ -14,7 +15,8 @@ const getAll = async () => {
 			ItemImage: 'frame2.png',
 			ItemCategory: 'Avatar Frame',
 			ItemBackgroundColor: '#B6F8E7',
-			ItemPrice: 500
+			ItemPrice: 500,
+			ItemObtained: true
 		},
 		{
 			ItemId: 3,
@@ -22,7 +24,8 @@ const getAll = async () => {
 			ItemImage: 'frame2.png',
 			ItemCategory: 'Avatar Frame',
 			ItemBackgroundColor: '#B6F8E7',
-			ItemPrice: 5000
+			ItemPrice: 5000,
+			ItemObtained: true
 		},
 		{
 			ItemId: 4,
@@ -30,7 +33,8 @@ const getAll = async () => {
 			ItemImage: 'frame2.png',
 			ItemCategory: 'Avatar Frame',
 			ItemBackgroundColor: '#B6F8E7',
-			ItemPrice: 500
+			ItemPrice: 500,
+			ItemObtained: false
 		},
 		{
 			ItemId: 5,
@@ -38,7 +42,8 @@ const getAll = async () => {
 			ItemImage: 'frame2.png',
 			ItemCategory: 'Avatar Frame',
 			ItemBackgroundColor: '#B6F8E7',
-			ItemPrice: 5000
+			ItemPrice: 5000,
+			ItemObtained: false
 		},
 		{
 			ItemId: 11,
@@ -46,7 +51,8 @@ const getAll = async () => {
 			ItemImage: 'grass.png',
 			ItemCategory: 'Theme',
 			ItemBackgroundColor: '#212121',
-			ItemPrice: 200
+			ItemPrice: 200,
+			ItemObtained: false
 		},
 		{
 			ItemId: 10,
@@ -54,7 +60,8 @@ const getAll = async () => {
 			ItemImage: 'trophy.png',
 			ItemCategory: 'Theme',
 			ItemBackgroundColor: '#F1F1F1',
-			ItemPrice: 200
+			ItemPrice: 200,
+			ItemObtained: false
 		}
 	]
 }

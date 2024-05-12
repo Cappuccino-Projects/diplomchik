@@ -23,7 +23,7 @@
   justify-content: space-between;
   align-items: center;
   cursor: pointer;
-  gap: 20px;
+  gap: 10px;
 }
 
 .DailyTasksTitle {
@@ -36,6 +36,7 @@
   padding: 3px 10px;
   font-size: 16px;
   user-select: none;
+  text-wrap: nowrap;
 }
 
 .DailyTasksAbout {

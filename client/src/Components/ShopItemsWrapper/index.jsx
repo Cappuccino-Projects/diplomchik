@@ -7,7 +7,7 @@ export const ShopItemsWrapper = (props) => {
       <p style={{ marginBottom: "10px" }}>{props.WrapperText}</p>
       <div className={styles.ShopItemsWrapper}>
         {props.shopitems?.map((CurrentItem) => (
-          <ShopItemCard key={CurrentItem.ItemId} item={CurrentItem} />
+          <ShopItemCard Obtained = {props.Obtained} key={CurrentItem.ItemId} item={CurrentItem} />
         ))}
       </div>
     </div>

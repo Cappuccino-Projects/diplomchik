@@ -9,13 +9,13 @@ import {
 import { Link } from 'react-router-dom'
 import styles from './styles.module.css'
 
-export const Profile = () => {
+export const Profile = (props) => {
 	return (
 		<div className={styles.MenuWrapper}>
 			<div className={styles.MenuTopButtonsWrapper}>
 				<BackToMainMenu />
 				<Link to="/profile/settings">
-					<div className="SecondarySmallButton">
+					<div className={styles.SecondarySmallButton}>
 						<i className="fi fi-sr-settings" />
 						<p>Настройки</p>
 					</div>
@@ -28,9 +28,16 @@ export const Profile = () => {
 
 			<div className={styles.MainMenuButtonsWrapper}>
 				<Link to="/shop">
-					<div className={styles.MainMenuButton}>
+					<div className={styles.MenuButton}>
 						<img className="SmallImg" src="../img/shop.png" />
 						<p>В магазин</p>
+					</div>
+				</Link>
+
+				<Link to="/inventory">
+					<div className={styles.MenuButton}>
+						<img className="SmallImg" src="../img/backpack.png" />
+						<p>Инвентарь</p>
 					</div>
 				</Link>
 			</div>
