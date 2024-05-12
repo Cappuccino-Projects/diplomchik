@@ -1,41 +1,46 @@
-import React, { Component } from 'react'
-import { Link } from "react-router-dom";
+import { Link } from 'react-router-dom'
 
 import {
 	DailyTasks,
 	MinimizeMenuButton,
 	BackToMainMenu,
 	UserCard,
-    DailyTasksWrapper,
+	DailyTasksWrapper
 } from '@components'
 
-import styles from "./styles.module.css";
+import styles from './styles.module.css'
 
 export const DailyTasksPage = (props) => {
-    return (
-        <div className={styles.MenuWrapper}>
 
-        <div className={styles.Title}>
-        <BackToMainMenu/>
-        <MinimizeMenuButton />
-        </div>
+	return (
+		<div className={styles.MenuWrapper}>
 
-        <UserCard ShowLvl = {true} ShowBalance = {true} IsItProfilePage = {true}/>
-        <div className={styles.MainMenuButtonsWrapper}>
-              <Link to = "/shop"><div className={styles.MainMenuButton}>
-              <img className = {styles.SmallImg} src = "../img/shop.png"/>
-              <p>В магазин</p>
-              </div></Link>
-        </div>
+			<div className={styles.Title}>
+				<BackToMainMenu />
+				<MinimizeMenuButton />
+			</div>
 
-        <DailyTasks ShowInfo = {true} ShowLvl = {false}/>
+			<UserCard ShowLvl={true} ShowBalance={true} IsItProfilePage={true} />
+			
+			<div className={styles.MainMenuButtonsWrapper}>
+				<Link to="/shop">
+					<div className={styles.MainMenuButton}>
+						<img className={styles.SmallImg} src="../img/shop.png" />
+						<p>В магазин</p>
+					</div>
+				</Link>
+			</div>
 
-        <div>
-        <p style = {{marginBottom: "5px"}}>Прогресс выполнения</p>
-        <p className={styles.DailyTasksAbout}>Вы можете поменять ежедневное задание 1 раз в день</p>
-        </div>
+			<DailyTasks ShowInfo={true} ShowLvl={false} />
 
-        <DailyTasksWrapper dailytasks = {props.dailytasks}/>
-        </div>
-    );
-};
+			<div>
+				<p style={{ marginBottom: '5px' }}>Прогресс выполнения</p>
+				<p className={styles.DailyTasksAbout}>
+					Вы можете поменять ежедневное задание 1 раз в день
+				</p>
+			</div>
+
+			<DailyTasksWrapper dailytasks={props.dailytasks} />
+		</div>
+	)
+}
