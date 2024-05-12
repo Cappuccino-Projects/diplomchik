@@ -13,6 +13,7 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddRepository<City, CityRepository>();
 builder.Services.AddRepository<Theme, ThemeRepository>();
+builder.Services.AddRepository<Rank, RankRepository>();
 builder.Services.AddRepository<ProductType, ProductTypeRepository>();
 builder.Services.AddRepository<PlaceType, PlaceTypeRepository>();
 builder.Services.AddRepository<Status, StatusRepository>();

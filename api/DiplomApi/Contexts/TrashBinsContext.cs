@@ -31,6 +31,8 @@ public partial class TrashBinsContext : DbContext
 
     public virtual DbSet<ProductType> ProductTypes { get; set; }
 
+    public virtual DbSet<Rank> Ranks { get; set; }
+
     public virtual DbSet<Review> Reviews { get; set; }
 
     public virtual DbSet<Status> Statuses { get; set; }
@@ -42,7 +44,7 @@ public partial class TrashBinsContext : DbContext
     public virtual DbSet<UserProduct> UsersProducts { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        => optionsBuilder.UseMySql("server=localhost;user=root;password=root;database=trash_bins", ServerVersion.Parse("5.7.24-mysql"));
+        => optionsBuilder.UseMySql("server=localhost;user=root;password=root;database=all_places", ServerVersion.Parse("5.7.24-mysql"));
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -226,6 +228,22 @@ public partial class TrashBinsContext : DbContext
                 .HasColumnName("name");
         });
 
+        modelBuilder.Entity<Rank>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("PRIMARY");
+
+            entity.ToTable("ranks");
+
+            entity.HasIndex(e => e.Name, "rank_name").IsUnique();
+
+            entity.Property(e => e.Id)
+                .HasColumnType("int(11)")
+                .HasColumnName("id");
+            entity.Property(e => e.Name)
+                .HasMaxLength(100)
+                .HasColumnName("name");
+        });
+
         modelBuilder.Entity<Review>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("PRIMARY");
@@ -305,6 +323,8 @@ public partial class TrashBinsContext : DbContext
 
             entity.HasIndex(e => e.ThemeId, "fk_users_themes_1");
 
+            entity.HasIndex(e => e.RankId, "fk_users_ranks_1");
+
             entity.HasIndex(e => e.Email, "user_email").IsUnique();
 
             entity.HasIndex(e => e.Login, "user_login").IsUnique();
@@ -340,6 +360,9 @@ public partial class TrashBinsContext : DbContext
             entity.Property(e => e.ThemeId)
                 .HasColumnType("int(11)")
                 .HasColumnName("theme_id");
+            entity.Property(e => e.RankId)
+                .HasColumnType("int(11)")
+                .HasColumnName("rank_id");
 
             entity.HasOne(d => d.City).WithMany(p => p.Users)
                 .HasForeignKey(d => d.CityId)
@@ -349,6 +372,10 @@ public partial class TrashBinsContext : DbContext
             entity.HasOne(d => d.Theme).WithMany(p => p.Users)
                 .HasForeignKey(d => d.ThemeId)
                 .HasConstraintName("fk_users_themes_1");
+
+            entity.HasOne(d => d.Rank).WithMany(p => p.Users)
+                .HasForeignKey(d => d.RankId)
+                .HasConstraintName("fk_users_ranks_1");
         });
 
         modelBuilder.Entity<UserProduct>(entity =>

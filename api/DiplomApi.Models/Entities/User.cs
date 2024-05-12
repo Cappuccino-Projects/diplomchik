@@ -21,6 +21,8 @@ public class User
 
     public int? ThemeId { get; set; }
 
+    public int RankId { get; set; }
+
     public int Experience { get; set; }
 
     public decimal Balance { get; set; }
@@ -32,6 +34,8 @@ public class User
     public virtual ICollection<Review> Reviews { get; set; } = new List<Review>();
 
     public virtual Theme? Theme { get; set; }
+
+    public virtual Rank? Rank { get; set; }
 
     public virtual ICollection<UserProduct> UsersProducts { get; set; } = new List<UserProduct>();
 }

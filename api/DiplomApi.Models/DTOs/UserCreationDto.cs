@@ -19,6 +19,8 @@ public class UserCreationDto
 
     public int? ThemeId { get; set; }
 
+    public int RankId { get; set; }
+
     public int Experience { get; set; }
 
     public decimal Balance { get; set; }
