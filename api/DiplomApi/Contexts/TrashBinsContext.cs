@@ -202,6 +202,9 @@ public partial class TrashBinsContext : DbContext
                 .HasPrecision(10, 2)
                 .HasDefaultValueSql("'1.00'")
                 .HasColumnName("price");
+            entity.Property(e => e.IconPath)
+                .HasMaxLength(100)
+                .HasColumnName("icon_path");
             entity.Property(e => e.TypeId)
                 .HasColumnType("int(11)")
                 .HasColumnName("type_id");
@@ -264,6 +267,9 @@ public partial class TrashBinsContext : DbContext
             entity.Property(e => e.Rank)
                 .HasColumnType("int(11)")
                 .HasColumnName("rank");
+            entity.Property(e => e.PhotoPath)
+                .HasMaxLength(100)
+                .HasColumnName("photo_path");
             entity.Property(e => e.UserId)
                 .HasColumnType("int(11)")
                 .HasColumnName("user_id");

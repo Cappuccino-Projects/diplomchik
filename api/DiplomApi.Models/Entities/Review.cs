@@ -15,6 +15,8 @@ public class Review
 
     public string? Comment { get; set; }
 
+    public string? PhotoPath { get; set; }
+
     public virtual Place Place { get; set; } = null!;
 
     public virtual User? User { get; set; }

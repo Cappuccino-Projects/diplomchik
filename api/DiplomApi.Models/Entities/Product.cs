@@ -13,6 +13,8 @@ public class Product
 
     public decimal Price { get; set; }
 
+    public string? IconPath { get; set; }
+
     public virtual ProductType Type { get; set; } = null!;
 
     public virtual ICollection<UserProduct> UsersProducts { get; set; } = new List<UserProduct>();
