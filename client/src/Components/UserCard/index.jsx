@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import styles from './styles.module.css'
 import { ProgressBar } from '@components'
+import { useSelector } from 'react-redux'
 
 const getWord = (num) => {
 	if (num % 10 === 1 && num % 100 !== 11) {
@@ -15,11 +16,8 @@ const getWord = (num) => {
 	}
 }
 
-export const UserCard = (props) => {
-
-	const UserName = 'Щуковская Анастасия'
-	const UserRole = 'Проверенный пользователь'
-	const UserBalance = 541
+export const UserCard = ({ ShowLvl = true, ShowBalance = true }) => {
+	const { UserName, UserRole, UserBalance } = useSelector((state) => state.user)
 
 	return (
 		<Link to="/profile">
@@ -33,11 +31,9 @@ export const UserCard = (props) => {
 					</div>
 				</div>
 				{/* ProgressBar */}
-				{props.ShowLvl && (
-					<ProgressBar currentlvl={10} value={52} />
-				)}
+				{ShowLvl && <ProgressBar />}
 				{/* UserBalance */}
-				{props.ShowBalance && (
+				{ShowBalance && (
 					<div className={styles.UserLvlWrapper}>
 						{/* Нет UserCardText */}
 						<p>Баланс</p>

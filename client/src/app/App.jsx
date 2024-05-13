@@ -1,4 +1,3 @@
-import { DailyTasks } from '@components'
 import {
 	AllPlaces,
 	Chat,
@@ -19,14 +18,18 @@ import { locationApi } from '@shared/api/location'
 import { shopApi } from '@shared/api/shop'
 import { useEffect, useState } from 'react'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
-import { cityApi, placeTypeApi } from '../shared/api'
+import { cityApi, placeTypeApi } from '@shared/api'
+
+import { useDispatch } from 'react-redux'
+import { setDailyTasks } from '@redux/slices/dailyTasksSlice'
+import { setShop } from '@redux/slices/shopSlice'
 
 const App = () => {
+	const dispatch = useDispatch()
+
 	const [places, setPlaces] = useState([])
 	const [city, setCities] = useState([])
 	const [locations, setLocations] = useState([])
-	const [dailytasks, setDailyTasks] = useState([])
-	const [shopItems, setShopItems] = useState([])
 
 	useEffect(() => {
 		placeTypeApi.getAll().then((result) => {
@@ -34,10 +37,10 @@ const App = () => {
 		})
 
 		cityApi.getAll().then(setCities)
-		cityApi.getAll().then(setCities)
 		locationApi.getAll().then(setLocations)
-		dailyTaskApi.getAll().then(setDailyTasks)
-		shopApi.getAll().then(setShopItems)
+
+		shopApi.getAll().then((data) => dispatch(setShop(data)))
+		dailyTaskApi.getAll().then((data) => dispatch(setDailyTasks(data)))
 	}, [])
 
 	return (
@@ -76,24 +79,24 @@ const App = () => {
 						/>
 						<Route
 							path="/dailytasks"
+							element={<DailyTasksPage locations={locations} city={city} />}
+						/>
+						<Route
+							path="/shop"
 							element={
-								<DailyTasksPage
-									dailytasks={dailytasks}
+								<Shop
+									//shopitems={shopItems}
 									locations={locations}
 									city={city}
 								/>
 							}
 						/>
 						<Route
-							path="/shop"
-							element={
-								<Shop shopitems={shopItems} locations={locations} city={city} />
-							}
-						/>
-						<Route
 							path="/inventory"
 							element={
-								<Inventory shopitems={shopItems.filter((e) => e.ItemObtained === true)} />
+								<Inventory
+								//shopitems={shopItems.filter((e) => e.ItemObtained === true)}
+								/>
 							}
 						/>
 						<Route

@@ -1,12 +1,11 @@
 import styles from './styles.module.css'
+import { useSelector } from 'react-redux'
 
-export const ProgressBar = ({ currentlvl = 0, value = 0 }) => {
-	// props: {
-    //     currentlvl - уровень сейчас,
-    //     value - процент 
-    // }
+export const ProgressBar = () => {
+	const { currentlvl, value } = useSelector(
+		(state) => state.dailyTasks.progressBar
+	)
 
-	// !!! Нет UserCardText
 	return (
 		<div className={styles.UserLvlWrapper}>
 			<p className="UserCardText">{currentlvl}</p>

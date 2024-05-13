@@ -1,5 +1,4 @@
 import { Link } from 'react-router-dom'
-
 import {
 	DailyTasks,
 	MinimizeMenuButton,
@@ -10,18 +9,17 @@ import {
 
 import styles from './styles.module.css'
 
-export const DailyTasksPage = (props) => {
+export const DailyTasksPage = () => {
 
 	return (
 		<div className={styles.MenuWrapper}>
-
 			<div className={styles.Title}>
 				<BackToMainMenu />
 				<MinimizeMenuButton />
 			</div>
-
-			<UserCard ShowLvl={true} ShowBalance={true} IsItProfilePage={true} />
 			
+			<UserCard />
+
 			<div className={styles.MainMenuButtonsWrapper}>
 				<Link to="/shop">
 					<div className={styles.MainMenuButton}>
@@ -30,7 +28,7 @@ export const DailyTasksPage = (props) => {
 					</div>
 				</Link>
 			</div>
-
+			
 			<DailyTasks ShowInfo={true} ShowLvl={false} />
 
 			<div>
@@ -40,7 +38,7 @@ export const DailyTasksPage = (props) => {
 				</p>
 			</div>
 
-			<DailyTasksWrapper dailytasks={props.dailytasks} />
+			<DailyTasksWrapper />
 		</div>
 	)
 }
