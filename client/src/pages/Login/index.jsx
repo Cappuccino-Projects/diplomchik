@@ -7,18 +7,17 @@ export const Login = () => {
 			<div className={styles.AuthorizationDesignCard}>
 				<h1>Авторизация во Всеместа</h1>
 				<p>
-					Всеместа - это сервис, чтобы вы да леоаои и не тток вв назад карта
-					карта
+				ВсеМеста - это сервис, который поможет вам наслаждаться окружающей природой с заботой о её сохранности и приятными прогулками.
 				</p>
 				<i className="fi fi-sr-sun" />
 				<p style={{ marginLeft: 'auto' }}>
-					Давайте сделаем классный город вместе ура ура
+				Давайте вместе сделаем город чистым и комфортным!
 				</p>
 			</div>
 			<div className={styles.AuthorizationInfoWrapper}>
 				<div className={styles.AuthorizationTextareasWrapper}>
 					{/* TODO вынести в компонент + <input/> */}
-					<p>Электронная почта</p>
+					<p>Логин</p>
 					<textarea className="MenuTextArea">Щуковская Анастасия</textarea>
 					{/* TODO вынести в компонент + <input/> */}
 					<p>Пароль</p>
