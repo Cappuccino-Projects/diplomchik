@@ -1,4 +1,4 @@
-import { DailyTaskCard } from '@components/DailyTaskCard'
+import { DailyTaskCard } from '@components'
 import styles from './styles.module.css'
 import { useSelector } from 'react-redux'
 

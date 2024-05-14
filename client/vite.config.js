@@ -11,7 +11,7 @@ export default defineConfig({
       '@pages': '/src/pages',
       '@shared': '/src/shared',
       '@widgets': '/src/widgets',
-      '@redux': '/src/redux',
+      '@redux': '/src/app/redux',
     }
   }
 })

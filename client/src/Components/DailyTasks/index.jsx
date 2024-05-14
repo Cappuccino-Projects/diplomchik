@@ -1,35 +1,34 @@
 import { Link } from 'react-router-dom'
 import styles from './styles.module.css'
-import { ProgressBar } from '@components'
+import { ProgressBar, ModalRewards, ModalNoRewards } from '@components'
 import { useSelector } from 'react-redux'
-
+import { useState } from 'react'
 const CompletedTasks = ({ countCompletedTasks }) => {
-	// props: {
-	//     countCompletedTasks - от 0 до 3
-	// }
-	return Array(3)
-		.fill()
-		.map((_, index) => {
-			return index <= countCompletedTasks - 1 ? (
-				<div className={styles.DailyTaskIconCompleted}>
-					<img className={styles.SmallImg} src="../img/completed.png" />
-				</div>
-			) : (
-				<div className={styles.DailyTaskIconIncompleted}>
-					<img className={styles.SmallImg} src="../img/notcompleted.png" />
-				</div>
-			)
-		})
+	return (
+		<div className={styles.DailyTasksIcons}>
+			{Array(3)
+				.fill()
+				.map((_, index) => {
+					return index <= countCompletedTasks - 1 ? (
+						<div className={styles.DailyTaskIconCompleted}>
+							<img className={styles.SmallImg} src="../img/completed.png" />
+						</div>
+					) : (
+						<div className={styles.DailyTaskIconIncompleted}>
+							<img className={styles.SmallImg} src="../img/notcompleted.png" />
+						</div>
+					)
+				})}
+		</div>
+	)
 }
 
 export const DailyTasks = ({ ShowInfo = true, ShowLvl = true }) => {
-	const dailyTasksStatus = useSelector(
-		(state) => state.dailyTasks.dailyTasksStatus
-	)
-	const countCompletedTasks = useSelector(
-		(state) => state.dailyTasks.countCompletedTasks
-	)
-	
+	const [isModalActive, setModalActive] = useState(false)
+
+	const { dailyTasksStatus, countCompletedTasks, isChestAvailable } =
+		useSelector((state) => state.dailyTasks)
+
 	return (
 		<Link to="/dailytasks">
 			<div className={styles.DailyTasksWrapper}>
@@ -43,16 +42,40 @@ export const DailyTasks = ({ ShowInfo = true, ShowLvl = true }) => {
 					</p>
 				)}
 				<div className={styles.DailyTasksIconsWrapper}>
-					<div className={styles.DailyTasksIcons}>
-						{/* 3 штуки и сундучок */}
-						<CompletedTasks countCompletedTasks={countCompletedTasks} />
-					</div>
-					<div className={styles.DailyTaskIconIncompleted}>
+					<CompletedTasks countCompletedTasks={countCompletedTasks} />
+					<div
+						className={
+							isChestAvailable
+								? styles.DailyTaskIconCompleted
+								: styles.DailyTaskIconIncompleted
+						}
+						onClick={() => setModalActive(true)}
+					>
 						<img className={styles.SmallImg} src="../img/chest.png" />
 					</div>
 				</div>
 				{ShowLvl && <ProgressBar />}
 			</div>
+
+			{isChestAvailable ? (
+				<ModalRewards
+					isShowModal={isModalActive}
+					act={() => {
+						alert('Действие')
+						setModalActive(false)
+					}}
+					close={() => setModalActive(false)}
+					rewards={{
+						exp: 50,
+						balance: 10
+					}}
+				/>
+			) : (
+				<ModalNoRewards
+					isShowModal={isModalActive}
+					close={() => setModalActive(false)}
+				/>
+			)}
 		</Link>
 	)
 }

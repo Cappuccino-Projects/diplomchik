@@ -14,10 +14,16 @@ export const userSlice = createSlice({
 			state.UserName = action.payload.UserName
 			state.UserRole = action.payload.UserRole
 			state.UserBalance = action.payload.UserBalance
+		},
+		subtractFromBalance: (state, action) => {
+			const value = action.payload
+			if (state.UserBalance >= value) {
+				state.UserBalance -= value
+			}
 		}
 	}
 })
 
-export const { setUser } = userSlice.actions
+export const { setUser, subtractFromBalance } = userSlice.actions
 
 export default userSlice.reducer

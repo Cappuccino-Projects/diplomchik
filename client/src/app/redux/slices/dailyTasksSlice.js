@@ -26,7 +26,7 @@ export const dailyTasksSlice = createSlice({
 			state.countCompletedTasks = action.payload.filter(
 				(task) => task.TaskIsCompleted === true
 			).length
-			// Получение статуса
+			// Получение статуса статуса
 			state.dailyTasksStatus =
 				state.countCompletedTasks === 3 ? 'Выполнено' : 'В процессе'
 			// Получение статуса сундучка

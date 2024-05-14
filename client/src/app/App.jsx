@@ -40,10 +40,6 @@ export const App = () => {
 		dailyTaskApi.getAll().then((data) => dispatch(setDailyTasks(data)))
 	}, [])
 
-	// const locations = useSelector((state) => state.locations)
-	// const city = useSelector((state) => state.cities)
-	// const places = useSelector((state) => state.places)
-
 	return (
 		<BrowserRouter>
 			<Routes>

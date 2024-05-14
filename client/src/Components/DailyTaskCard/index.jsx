@@ -10,6 +10,9 @@ export const DailyTaskCard = ({ task }) => {
 	// 	  TaskProgress,
 	// 	  TaskText,
 	// }
+	const refreshButton = () => {
+		alert('Меняем  чето')
+	}
 
 	return (
 		<div className={styles.Card}>
@@ -26,7 +29,7 @@ export const DailyTaskCard = ({ task }) => {
 				</div>
 
 				{!task.TaskIsCompleted && (
-					<div className={styles.DailyTaskButton}>
+					<div className={styles.DailyTaskButton} onClick={refreshButton}>
 						<i className="fi fi-sr-refresh" />
 					</div>
 				)}

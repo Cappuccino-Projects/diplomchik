@@ -11,6 +11,7 @@ export const placesSlice = createSlice({
 		setPlaces: (state, action) => {
 			state.places = action.payload
 		}
+		
 	}
 })
 
