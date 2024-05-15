@@ -1,21 +1,19 @@
-﻿using System;
+﻿using DiplomApi.Models.Abstract;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DiplomApi.Models.Entities;
 
-public class Product
+public class Product : BaseEntity
 {
-    public int Id { get; set; }
-
-    public string Name { get; set; } = null!;
-
+    [Column("type_id")]
     public int TypeId { get; set; }
 
     public decimal Price { get; set; }
 
+    [Column("icon_path")]
     public string? IconPath { get; set; }
 
     public virtual ProductType Type { get; set; } = null!;
-
-    public virtual ICollection<UserProduct> UsersProducts { get; set; } = new List<UserProduct>();
 }
