@@ -1,7 +1,7 @@
 import styles from './styles.module.css'
 import { useSelector, useDispatch } from 'react-redux'
 import { buyItem } from '@redux/slices/shopSlice'
-import { subtractFromBalance } from '@redux/slices/userSlice'
+import { decreaseBalance } from '@redux/slices/userSlice'
 
 export const ShopItemCard = ({ item }) => {
 	const dispatch = useDispatch()
@@ -12,7 +12,7 @@ export const ShopItemCard = ({ item }) => {
 		// !!! Доработать
 		if (UserBalance >= item.ItemPrice) {
 			dispatch(buyItem(item.ItemId))
-			dispatch(subtractFromBalance(item.ItemPrice))
+			dispatch(decreaseBalance(item.ItemPrice))
 		}
 	}
 

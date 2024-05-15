@@ -1,8 +1,10 @@
 import { Link } from 'react-router-dom'
 import styles from './styles.module.css'
 import { ProgressBar, ModalRewards, ModalNoRewards } from '@components'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { useState } from 'react'
+import { increaseBalance, increaseExp } from '@redux/slices/userSlice'
+
 const CompletedTasks = ({ countCompletedTasks }) => {
 	return (
 		<div className={styles.DailyTasksIcons}>
@@ -24,6 +26,7 @@ const CompletedTasks = ({ countCompletedTasks }) => {
 }
 
 export const DailyTasks = ({ ShowInfo = true, ShowLvl = true }) => {
+	const dispatch = useDispatch()
 	const [isModalActive, setModalActive] = useState(false)
 
 	const { dailyTasksStatus, countCompletedTasks, isChestAvailable } =
@@ -43,6 +46,7 @@ export const DailyTasks = ({ ShowInfo = true, ShowLvl = true }) => {
 				)}
 				<div className={styles.DailyTasksIconsWrapper}>
 					<CompletedTasks countCompletedTasks={countCompletedTasks} />
+					{/* Сундук */}
 					<div
 						className={
 							isChestAvailable
@@ -61,13 +65,16 @@ export const DailyTasks = ({ ShowInfo = true, ShowLvl = true }) => {
 				<ModalRewards
 					isShowModal={isModalActive}
 					act={() => {
-						alert('Действие')
+						// Награды
+						dispatch(increaseBalance(50))
+						dispatch(increaseExp(30))
+
 						setModalActive(false)
 					}}
 					close={() => setModalActive(false)}
 					rewards={{
-						exp: 50,
-						balance: 10
+						exp: 30,
+						balance: 50
 					}}
 				/>
 			) : (
