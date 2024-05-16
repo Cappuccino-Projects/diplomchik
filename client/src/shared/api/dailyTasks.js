@@ -25,7 +25,7 @@ const getAll = async () => {
 			TaskBackgroundColor: '#BDFDB2',
 			TaskText: 'Пройти 5.000 шагов',
 			TaskProgress: '1.341 / 5.000',
-			TaskIsCompleted: false
+			TaskIsCompleted: true
 		}
 	]
 }

@@ -6,6 +6,7 @@ import shopReducer from '@redux/slices/shopSlice'
 import placesReducer from '@redux/slices/placesSlice'
 import citiesReducer from '@redux/slices/citiesSlice'
 import locationsReducer from '@redux/slices/locationsSlice'
+import modalsReducer from '@redux/slices/modalsSlice'
 
 export const store = configureStore({
 	reducer: {
@@ -14,6 +15,7 @@ export const store = configureStore({
 		shop: shopReducer,
 		places: placesReducer,
 		cities: citiesReducer,
-		locations: locationsReducer
+		locations: locationsReducer,
+		modals: modalsReducer
 	}
 })

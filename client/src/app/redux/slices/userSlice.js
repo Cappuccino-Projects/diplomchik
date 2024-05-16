@@ -1,3 +1,4 @@
+import { GetRewards } from '@components/Modal/GetRewards'
 import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
@@ -26,10 +27,16 @@ export const userSlice = createSlice({
 		},
 		increaseExp: (state, action) => {
 			state.UserExp += action.payload
-		}
+		},
+		getRewards: (state, action) => {
+			const {xp, balance} = action.payload 
+			state.UserExp += xp
+			state.UserBalance += balance
+		},
+
 	}
 })
 
-export const { setUser, decreaseBalance, increaseBalance, increaseExp } = userSlice.actions
+export const { setUser, decreaseBalance, increaseBalance, increaseExp, getRewards } = userSlice.actions
 
 export default userSlice.reducer

@@ -6,18 +6,28 @@ import {
 } from '@components'
 import styles from './styles.module.css'
 import { useSelector } from 'react-redux'
+import { useState, useEffect } from 'react'
 
 export const Shop = () => {
 	const shopItems = useSelector((state) => state.shop.shop)
 
-	const avatars = shopItems.filter(
-		(item) =>
-			item.ItemCategory === 'Avatar Frame' && item.ItemObtained === false
-	)
+	const [avatars, setAvatars] = useState([])
+	const [themes, setThemes] = useState([])
 
-	const themes = shopItems.filter(
-		(item) => item.ItemCategory === 'Theme' && item.ItemObtained === false
-	)
+	useEffect(() => {
+		setAvatars(
+			shopItems.filter(
+				(item) =>
+					item.ItemCategory === 'Avatar Frame' && item.ItemObtained === false
+			)
+		)
+
+		setThemes(
+			shopItems.filter(
+				(item) => item.ItemCategory === 'Theme' && item.ItemObtained === false
+			)
+		)
+	}, [shopItems])
 
 	return (
 		<div className={styles.MenuWrapper}>

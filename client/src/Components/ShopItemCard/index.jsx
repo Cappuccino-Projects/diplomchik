@@ -1,18 +1,14 @@
+import { openBuyConfirm } from '@redux/slices/modalsSlice'
+import { useDispatch, useSelector } from 'react-redux'
 import styles from './styles.module.css'
-import { useSelector, useDispatch } from 'react-redux'
-import { buyItem } from '@redux/slices/shopSlice'
-import { decreaseBalance } from '@redux/slices/userSlice'
 
 export const ShopItemCard = ({ item }) => {
 	const dispatch = useDispatch()
 	const UserBalance = useSelector((state) => state.user.UserBalance)
-	const IconBackColor = item.ItemBackgroundColor
 
-	const buy = () => {
-		// !!! Доработать
+	const onClickBuy = () => {
 		if (UserBalance >= item.ItemPrice) {
-			dispatch(buyItem(item.ItemId))
-			dispatch(decreaseBalance(item.ItemPrice))
+			dispatch(openBuyConfirm(item))
 		}
 	}
 
@@ -30,11 +26,11 @@ export const ShopItemCard = ({ item }) => {
 					/>
 				</div>
 			)}
-			{item.ItemCategory !== 'Avatar Frame' && (
+			{item.ItemCategory === 'Theme' && (
 				<div
 					className={styles.StopItemsImageWrapper}
 					style={{
-						backgroundColor: IconBackColor,
+						backgroundColor: item.ItemBackgroundColor,
 						border: '1px rgba(0, 0, 0, 0.1) solid'
 					}}
 				>
@@ -47,11 +43,18 @@ export const ShopItemCard = ({ item }) => {
 			<p style={{ marginBottom: 'auto' }}>{item.ItemName}</p>
 
 			{!item.ItemObtained && (
-				<div className={styles.UserBalance} onClick={buy}>
+				<div
+					className={styles.UserBalance}
+					onClick={onClickBuy}
+					style={
+						UserBalance <= item.ItemPrice ? {backgroundColor: '#ededed' } : {}
+					}
+				>
 					<p>{item.ItemPrice}</p>
 					<img className={styles.SmallImg} src="../img/crystall.png" />
 				</div>
 			)}
+
 			{item.ItemObtained && (
 				<div className={styles.CardButtonsWrapper}>
 					<div

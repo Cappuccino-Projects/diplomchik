@@ -1,9 +1,11 @@
+import { ProgressBar } from '@components'
+import {
+	openGetRewards,
+	openRewardsNotAvalible
+} from '@redux/slices/modalsSlice'
+import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import styles from './styles.module.css'
-import { ProgressBar, ModalRewards, ModalNoRewards } from '@components'
-import { useSelector, useDispatch } from 'react-redux'
-import { useState } from 'react'
-import { increaseBalance, increaseExp } from '@redux/slices/userSlice'
 
 const CompletedTasks = ({ countCompletedTasks }) => {
 	return (
@@ -12,11 +14,11 @@ const CompletedTasks = ({ countCompletedTasks }) => {
 				.fill()
 				.map((_, index) => {
 					return index <= countCompletedTasks - 1 ? (
-						<div className={styles.DailyTaskIconCompleted}>
+						<div key={index} className={styles.DailyTaskIconCompleted}>
 							<img className={styles.SmallImg} src="../img/completed.png" />
 						</div>
 					) : (
-						<div className={styles.DailyTaskIconIncompleted}>
+						<div key={index} className={styles.DailyTaskIconIncompleted}>
 							<img className={styles.SmallImg} src="../img/notcompleted.png" />
 						</div>
 					)
@@ -27,10 +29,17 @@ const CompletedTasks = ({ countCompletedTasks }) => {
 
 export const DailyTasks = ({ ShowInfo = true, ShowLvl = true }) => {
 	const dispatch = useDispatch()
-	const [isModalActive, setModalActive] = useState(false)
 
 	const { dailyTasksStatus, countCompletedTasks, isChestAvailable } =
 		useSelector((state) => state.dailyTasks)
+
+	const onChestClick = () => {
+		if (isChestAvailable) {
+			dispatch(openGetRewards())
+		} else {
+			dispatch(openRewardsNotAvalible())
+		}
+	}
 
 	return (
 		<Link to="/dailytasks">
@@ -53,36 +62,13 @@ export const DailyTasks = ({ ShowInfo = true, ShowLvl = true }) => {
 								? styles.DailyTaskIconCompleted
 								: styles.DailyTaskIconIncompleted
 						}
-						onClick={() => setModalActive(true)}
+						onClick={onChestClick}
 					>
 						<img className={styles.SmallImg} src="../img/chest.png" />
 					</div>
 				</div>
 				{ShowLvl && <ProgressBar />}
 			</div>
-
-			{isChestAvailable ? (
-				<ModalRewards
-					isShowModal={isModalActive}
-					act={() => {
-						// Награды
-						dispatch(increaseBalance(50))
-						dispatch(increaseExp(30))
-
-						setModalActive(false)
-					}}
-					close={() => setModalActive(false)}
-					rewards={{
-						exp: 30,
-						balance: 50
-					}}
-				/>
-			) : (
-				<ModalNoRewards
-					isShowModal={isModalActive}
-					close={() => setModalActive(false)}
-				/>
-			)}
 		</Link>
 	)
 }

@@ -1,3 +1,4 @@
+import { Modal } from '@components'
 import {
 	AllPlaces,
 	Chat,
@@ -13,19 +14,19 @@ import {
 	Settings,
 	Shop
 } from '@pages'
-import { cityApi, placeTypeApi } from '@shared/api'
-import { dailyTaskApi } from '@shared/api/dailyTasks'
-import { locationApi } from '@shared/api/location'
-import { shopApi } from '@shared/api/shop'
-import { useEffect } from 'react'
-import { BrowserRouter, Route, Routes } from 'react-router-dom'
-
 import { setCities } from '@redux/slices/citiesSlice'
 import { setDailyTasks } from '@redux/slices/dailyTasksSlice'
 import { setLocations } from '@redux/slices/locationsSlice'
 import { setPlaces } from '@redux/slices/placesSlice'
 import { setShop } from '@redux/slices/shopSlice'
+import { cityApi, placeTypeApi } from '@shared/api'
+import { dailyTaskApi } from '@shared/api/dailyTasks'
+import { locationApi } from '@shared/api/location'
+import { shopApi } from '@shared/api/shop'
+import { useEffect } from 'react'
 import { useDispatch } from 'react-redux'
+import { Route, Routes } from 'react-router-dom'
+
 
 export const App = () => {
 	const dispatch = useDispatch()
@@ -41,7 +42,7 @@ export const App = () => {
 	}, [])
 
 	return (
-		<BrowserRouter>
+		<>
 			<Routes>
 				<Route path="/registration" element={<Registration />} />
 				<Route path="/login" element={<Login />} />
@@ -61,6 +62,7 @@ export const App = () => {
 					<Route path="*" element={<MainMenu />} />
 				</Route>
 			</Routes>
-		</BrowserRouter>
+			<Modal />
+		</>
 	)
 }
