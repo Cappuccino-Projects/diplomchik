@@ -5,16 +5,38 @@ import {
 	ShopItemsWrapper
 } from '@components'
 import styles from './styles.module.css'
+import { useSelector } from 'react-redux'
+import { useState, useEffect } from 'react'
 
-export const Shop = (props) => {
+export const Shop = () => {
+	const shopItems = useSelector((state) => state.shop.shop)
+
+	const [avatars, setAvatars] = useState([])
+	const [themes, setThemes] = useState([])
+
+	useEffect(() => {
+		setAvatars(
+			shopItems.filter(
+				(item) =>
+					item.ItemCategory === 'Avatar Frame' && item.ItemObtained === false
+			)
+		)
+
+		setThemes(
+			shopItems.filter(
+				(item) => item.ItemCategory === 'Theme' && item.ItemObtained === false
+			)
+		)
+	}, [shopItems])
+
 	return (
 		<div className={styles.MenuWrapper}>
 			<div className={styles.MenuTopButtonsWrapper}>
 				<BackToMainMenu />
 				<MinimizeMenuButton />
 			</div>
-			<UserCard ShowLvl={true} ShowBalance={false} IsItProfilePage={true} />
-			<div className="Card">
+			<UserCard ShowLvl={true} ShowBalance={true} />
+			{/* <div className="Card">
 				<div className={styles.UserBalanceWrapper}>
 					<p className="UserCardText">Баланс</p>
 					<div className="UserBalance">
@@ -26,20 +48,15 @@ export const Shop = (props) => {
 					Зарабатывайте помойкоены за выполнение ежедневных заданий и
 					обменивайте их на предметы в магазине
 				</p>
-			</div>
+			</div> */}
+			<p className="DailyTasksAbout">
+				Зарабатывайте помойкоены за выполнение ежедневных заданий и обменивайте
+				их на предметы в магазине
+			</p>
 			<p className={styles.TitleText}>Магазин</p>
-			<ShopItemsWrapper Obtained = {true}
-				shopitems={props.shopitems.filter(
-					(CurrentItem) => CurrentItem.ItemCategory === 'Avatar Frame'
-				)}
-				WrapperText="Рамки для аватара"
-			/>
-			<ShopItemsWrapper Obtained = {false}
-				shopitems={props.shopitems.filter(
-					(CurrentItem) => CurrentItem.ItemCategory === 'Theme'
-				)}
-				WrapperText="Темы"
-			/>
+
+			<ShopItemsWrapper shopitems={avatars} wrapperText="Рамки для аватара" />
+			<ShopItemsWrapper shopitems={themes} wrapperText="Темы" />
 		</div>
 	)
 }

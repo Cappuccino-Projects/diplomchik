@@ -1,0 +1,20 @@
+.UserLvlWrapper {
+	display: flex;
+	flex-direction: row;
+	gap: 10px;
+	font-size: 14px;
+	align-items: center;
+}
+
+.UserLvlProgressWrapper {
+	width: 100%;
+	background-color: #212121;
+	height: 6px;
+	border-radius: 5px;
+}
+
+.UserLvlProgress {
+	background-color: #caf05f;
+	height: 6px;
+	border-radius: 2px;
+}
