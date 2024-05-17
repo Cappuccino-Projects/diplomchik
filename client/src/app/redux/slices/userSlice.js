@@ -1,4 +1,3 @@
-import { GetRewards } from '@components/Modal/GetRewards'
 import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
