@@ -5,6 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DiplomApi.Models.Entities;
 
+[Table("products")]
 public class Product : BaseEntity
 {
     [Column("type_id")]

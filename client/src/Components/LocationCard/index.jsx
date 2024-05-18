@@ -15,7 +15,9 @@ export const LocationCard = (props) => {
           <i className="fi fi-sr-edit" />
         </div>
       </div>
-      {/* Нету LocationCardInfo */}
+      <b className={styles.LocationCardName}>{props.location.PlaceType}</b>
+      <b className={styles.LocationCardName}>{props.location.PlaceAddress}</b>
+
       <p className="LocationCardInfo">{props.location.PlaceInfo}</p>
       <div className={styles.LocationCardImageWrapper}>
         <img

@@ -6,6 +6,9 @@ import { useDispatch, useSelector } from 'react-redux'
 import { BuyConfirm } from '@components/Modal/BuyConfirm'
 import { GetRewards } from '@components/Modal/GetRewards'
 import { ModalWindow } from '@components/Modal/ModalWindow'
+import { Logout } from '@components/Modal/Logout'
+import { BadPassword } from '@components/Modal/BadPassword'
+import { BadPasswordRepeat } from '@components/Modal/BadPasswordRepeat'
 import { RewardsNotAvalible } from '@components/Modal/RewardsNotAvalible'
 
 const portal = document.getElementById('portal')
@@ -22,6 +25,12 @@ export const Modal = () => {
 	return ReactDOM.createPortal(
 		<ModalWindow isOpen={isOpen} close={closeCallback}>
 			{modalType === 'BUYCONFIRM' && <BuyConfirm close={closeCallback} />}
+			{modalType === 'EDITLOCATION' && <EditLocation close={closeCallback} />}
+			{modalType === 'LOGOUT' && <Logout close={closeCallback} />}
+
+			{modalType === 'BADPASSWORD' && <Logout close={closeCallback} />}
+			{modalType === 'BADPASSWORDREPEAT' && <Logout close={closeCallback} />}
+
 			{modalType === 'REWARDSNOTAVALIBLE' && (
 				<RewardsNotAvalible close={closeCallback} />
 			)}

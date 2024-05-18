@@ -2,8 +2,11 @@ import { MinimizeMenuButton } from '@components'
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import styles from './styles.module.css'
+import { useDispatch } from 'react-redux'
+import { openLogout } from '@redux/slices/modalsSlice'
 
 export const Settings = () => {
+	const dispatch = useDispatch()
 	// Основная информация
 	const [nameInput, setNameInput] = useState('Анастасия')
 	const [loginInput, setLoginInput] = useState('login_Anastasia')
@@ -158,14 +161,22 @@ export const Settings = () => {
 						<i className="fi fi-sr-letter-case" />
 						<p>Язык: Русский</p>
 					</div>
+	</Link>*/}
+
+			<Link to="/favourite">
+				<div className={styles.MenuButton}>
+					<i className="fi fi-sr-info" />
+					<p>Справка</p>
 				</div>
-				<div>
-					<div className={styles.MenuButton}>
-						<i className="fi fi-sr-diamond" />
-						<p>Оценить приложение</p>
-					</div>
-				</div>
-			</div> */}
+			</Link>
+
+			<button
+				onClick={() => dispatch(openLogout())}
+				className={styles.MenuButton}
+			>
+				<i className="fi fi-sr-undo-alt" />
+				<p>Выйти из аккаунта</p>
+			</button>
 		</div>
 	)
 }

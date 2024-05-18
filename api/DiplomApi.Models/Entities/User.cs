@@ -5,6 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DiplomApi.Models.Entities;
 
+[Table("users")]
 public class User
 {
     [Key]

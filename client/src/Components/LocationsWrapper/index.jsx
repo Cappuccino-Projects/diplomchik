@@ -10,6 +10,8 @@ export const LocationsWrapper = (props) => {
 					location={CurrentLocation}
 				/>
 			))}
+
+			<LocationCard location={[]}/>
 		</div>
 	)
 }
