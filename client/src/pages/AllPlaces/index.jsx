@@ -8,12 +8,12 @@ import {
 } from '@components'
 
 export const AllPlaces = (props) => {
-	const { places, city } = props
+	const { places } = props
 
 	return (
 		<div className={styles.MenuWrapper}>
 			<div className={styles.Title}>
-				<TitleWrapper city={city} />
+				<TitleWrapper/>
 				<MinimizeMenuButton />
 			</div>
 			<BackToMainMenu />

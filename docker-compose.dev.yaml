@@ -1,0 +1,30 @@
+services:
+  mysql:
+    image: mysql
+    restart: always
+    environment:
+        MYSQL_ROOT_PASSWORD: password
+    ports:
+      - "3306:3306"
+    volumes:
+      - "./mysql/dataset:/docker-entrypoint-initdb.d"
+      - mysql_data:/var/lib/mysql
+
+  frontend:
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+    environment:
+      - VITE_API_URL=http://localhost:9088/api
+    ports:
+      - "7090:8080"
+    volumes:
+      - './client/nginx/nginx.conf:/etc/nginx/nginx.conf:ro'
+  chat:
+  api:
+
+columes:
+  mysql_data:
+
+networks:
+  network:

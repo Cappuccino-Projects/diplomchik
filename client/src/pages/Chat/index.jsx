@@ -8,7 +8,7 @@ export const Chat = (props) => {
 	return (
 		<div className={styles.MenuWrapper}>
 			<div className={styles.Title}>
-				<TitleWrapper city={city} />
+				<TitleWrapper/>
 				<MinimizeMenuButton />
 			</div>
 			<BackToMainMenu />

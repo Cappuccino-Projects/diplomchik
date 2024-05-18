@@ -60,7 +60,7 @@ const App = () => {
 						<Route path="/mapeditmenu" element={<MapEditMenu city={city} />} />
 						<Route
 							path="/allplaces"
-							element={<AllPlaces places={places} city={city} />}
+							element={<AllPlaces places={places}/>}
 						/>
 						<Route
 							path="/favourite"
