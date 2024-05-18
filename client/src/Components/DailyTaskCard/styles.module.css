@@ -53,6 +53,7 @@
 .DailyTaskButton:hover {
   background-color: #caf05f;
 }
+
 .DailyTaskInfoStatusWrapper {
   font-size: 14px;
   display: flex;

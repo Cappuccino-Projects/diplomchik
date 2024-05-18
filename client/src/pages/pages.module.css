@@ -199,6 +199,7 @@
 	width: 100%;
 	min-width: 110px;
 	transition: all 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
+	cursor: pointer;
 }
 
 .MenuButton {
@@ -211,7 +212,11 @@
 	align-items: center;
 	padding: 10px;
 	width: 100%;
+	font-size: 16px;
+	font-family: Onest;
+	border: none;
 	transition: all 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
+	cursor: pointer;
 }
 
 .MenuButton i {
@@ -220,8 +225,18 @@
 	color: #292929;
 }
 
+.MainMenuButton i {
+	font-size: 14px;
+	padding-top: 2px;
+	color: #292929;
+}
+
 .MenuButton:hover {
 	background-color: #caf05f;
+}
+
+.MainMenuButton:hover{
+	background-color: #a7db18;
 }
 
 

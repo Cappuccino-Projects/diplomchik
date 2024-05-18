@@ -1,5 +1,6 @@
 import { DailyTasks } from '@components'
 import { Outlet } from 'react-router-dom'
+import { CharacterCard } from '@components'
 import styles from './styles.module.css'
 
 export const Map = () => {
@@ -17,9 +18,6 @@ export const Map = () => {
 					<i className="fi fi-sr-map" />
 				</div>
 				<div className={styles.MapButton}>
-					<i className="fi fi-sr-moon" />
-				</div>
-				<div className={styles.MapButton}>
 					<i className="fi fi-sr-protractor" />
 				</div>
 			</div>
@@ -32,16 +30,15 @@ export const Map = () => {
 						<i className="fi fi-sr-minus-small" />
 					</div>
 				</div>
-				<div className={styles.MapSideButtonsContainer}>
-					<div className={styles.MapButton}>
-						<i className="fi fi-sr-map-marker" />
-					</div>
-				</div>
+
 				<div className={styles.MapSideButtonsContainer}>
 					<div className={styles.MapButton}>
 						<i className="fi fi-sr-man-head" />
 					</div>
 				</div>
+			</div>
+			<div className={styles.SideCharacterWrapper}>
+				<CharacterCard/>
 			</div>
 			<div className={styles.SideDailyTasksWrapper}>
 				<DailyTasks ShowInfo={false} ShowLvl={true} />

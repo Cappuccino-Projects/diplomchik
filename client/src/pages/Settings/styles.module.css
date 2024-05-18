@@ -1,24 +1,21 @@
 @import url('./../pages.module.css');
 
 .MenuTextArea {
-    height: 35px;
-    width: auto;
-    resize: none;
-    font-size: 16px;
-    overflow: hidden;
-    font-family: Onest;
-    white-space: nowrap;
-    background-color: #F9F9F9;
-    border: 1px rgba(0, 0, 0, 0.1) solid;
-    border-radius: 5px;
-    padding: 5px 10px;
-  }
-  
-  .MenuTextArea:focus {
-    border: 1px rgba(0, 0, 0, 0.1) solid;
-    background-color:#EDEDED;
-    outline: none;  
-  }
+  height: 35px;
+  width: auto;
+  resize: none;
+  font-size: 16px;
+  overflow: hidden;
+  font-family: Onest;
+  white-space: nowrap;
+  background-color: #F9F9F9;
+  border: 1px rgba(0, 0, 0, 0.1) solid;
+  border-radius: 5px;
+  padding: 5px 10px;
+}
 
-
-  
+.MenuTextArea:focus {
+  border: 1px rgba(0, 0, 0, 0.1) solid;
+  background-color: #EDEDED;
+  outline: none;
+}

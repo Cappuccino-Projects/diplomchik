@@ -9,6 +9,14 @@
 	font-family: Onest;
 }
 
+.SideCharacterWrapper{
+	position: fixed;
+	z-index: 1;
+	bottom: 175px;
+	right: 25px;
+	font-family: Onest;
+}
+
 .ExpandMenuButton {
 	padding: 7px 14px 3px 16px;
 	justify-content: center;

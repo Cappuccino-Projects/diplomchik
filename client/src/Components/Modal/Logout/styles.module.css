@@ -42,7 +42,6 @@
 
 .ModalWindowText{
   line-height: 150%;
-  font-family: Onest;
 }
 
 .ModalWindowButtonsWrapper{
@@ -50,7 +49,6 @@
   display: flex;
   gap: 20px;
   flex-direction: row;
-  justify-content: center;
 }
 
 .ModalMainButton {
@@ -66,7 +64,6 @@
 	min-width: 110px;
   cursor: pointer;
   justify-content: center;
-  font-family: Onest;
 	transition: all 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
 }
 
@@ -80,7 +77,6 @@
 	align-items: center;
 	padding: 10px;
 	width: 100%;
-  font-family: Onest;
   cursor: pointer;
   justify-content: center;
 	transition: all 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
@@ -106,5 +102,4 @@
   border-radius: 15px;
 
   font-size: 20px;
-  font-family: Onest;
 }

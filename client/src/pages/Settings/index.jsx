@@ -1,8 +1,12 @@
 import { MinimizeMenuButton } from '@components'
 import { Link } from 'react-router-dom'
 import styles from './styles.module.css'
+import { useDispatch } from 'react-redux'
+import { openLogout } from '@redux/slices/modalsSlice'
 
 export const Settings = () => {
+	const dispatch = useDispatch()
+
 	return (
 		<div className={styles.MenuWrapper}>
 			<div className={styles.MenuTopButtonsWrapper}>
@@ -21,6 +25,8 @@ export const Settings = () => {
 			<div className="Card">
 				<p>Имя</p>
 				<textarea className={styles.MenuTextArea}>Щуковская Анастасия</textarea>
+				<p>Логин</p>
+				<textarea className={styles.MenuTextArea}>@pomoechkimoi</textarea>
 				<p>Электронная почта</p>
 				<textarea className={styles.MenuTextArea}>pomoechki@moi.com</textarea>
 				<p>Город</p>
@@ -30,6 +36,10 @@ export const Settings = () => {
 					<option value="Ptrb">Санкт-Петербург</option>
 					<option value="Saray">Сарай</option>
 				</select>
+				<div className={styles.MainMenuButton}>
+					<i className="fi fi-sr-comment-check" />
+					<p>Сохранить изменения</p>
+				</div>
 			</div>
 
 			<p>Фотография профиля</p>
@@ -40,7 +50,10 @@ export const Settings = () => {
 
 			<p>Безопасность</p>
 			<div className="Card">
-				<p>Пароль</p>
+				<p>Текущий пароль</p>
+				{/* TODO: заменить на input */}
+				<textarea className={styles.MenuTextArea}>•••••••••••••••••••</textarea>
+				<p>Новый пароль</p>
 				{/* TODO: заменить на input */}
 				<textarea className={styles.MenuTextArea}>•••••••••••••••••••</textarea>
 				<Link to="/">
@@ -50,15 +63,7 @@ export const Settings = () => {
 					</div>
 				</Link>
 			</div>
-			<div className="Card">
-				<p>Двухэтапная аутентификация</p>
-				<Link to="/">
-					<div className={styles.MainMenuButton}>
-						<i className="fi-sr-data-transfer" />
-						<p>Подключить</p>
-					</div>
-				</Link>
-			</div>
+
 			<div className={styles.MainMenuButtonsWrapper}>
 				<Link to="/favourite">
 					<div className={styles.MenuButton}>
@@ -74,19 +79,10 @@ export const Settings = () => {
 					</div>
 				</Link>
 
-				<Link to="/favourite">
-					<div className={styles.MenuButton}>
-						<i className="fi fi-sr-diamond" />
-						<p>Оценить приложение</p>
-					</div>
-				</Link>
-
-				<Link to="/mapeditmenu">
-					<div className={styles.MenuButton}>
-						<i className="fi fi-sr-undo-alt" />
-						<p>Выйти из аккаунта</p>
-					</div>
-				</Link>
+				<button onClick={() => dispatch(openLogout())} className={styles.MenuButton}>
+					<i className="fi fi-sr-undo-alt" />
+					<p>Выйти из аккаунта</p>
+				</button>
 			</div>
 			<br></br>
 		</div>
