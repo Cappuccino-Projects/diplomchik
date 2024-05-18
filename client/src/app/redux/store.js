@@ -7,6 +7,7 @@ import placesReducer from '@redux/slices/placesSlice'
 import citiesReducer from '@redux/slices/citiesSlice'
 import locationsReducer from '@redux/slices/locationsSlice'
 import modalsReducer from '@redux/slices/modalsSlice'
+import cityApiReducer, { cityApi } from '@redux/services/cityApi'
 
 export const store = configureStore({
 	reducer: {
@@ -16,6 +17,10 @@ export const store = configureStore({
 		places: placesReducer,
 		cities: citiesReducer,
 		locations: locationsReducer,
-		modals: modalsReducer
-	}
+		modals: modalsReducer,
+		// RTK QUERY
+		cityApi : cityApiReducer,
+	},
+	middleware: (getDefaultMiddleware) =>
+		getDefaultMiddleware().concat(cityApi.middleware),
 })

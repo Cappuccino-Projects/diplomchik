@@ -12,7 +12,7 @@ export const Shop = () => {
 	const shopItems = useSelector((state) => state.shop.shop)
 
 	const [avatars, setAvatars] = useState([])
-	const [themes, setThemes] = useState([])
+	const [сharacter, setCharacter] = useState([])
 
 	useEffect(() => {
 		setAvatars(
@@ -22,9 +22,10 @@ export const Shop = () => {
 			)
 		)
 
-		setThemes(
+		setCharacter(
 			shopItems.filter(
-				(item) => item.ItemCategory === 'Theme' && item.ItemObtained === false
+				(item) =>
+					item.ItemCategory === 'Character' && item.ItemObtained === false
 			)
 		)
 	}, [shopItems])
@@ -36,27 +37,13 @@ export const Shop = () => {
 				<MinimizeMenuButton />
 			</div>
 			<UserCard ShowLvl={true} ShowBalance={true} />
-			{/* <div className="Card">
-				<div className={styles.UserBalanceWrapper}>
-					<p className="UserCardText">Баланс</p>
-					<div className="UserBalance">
-						<p className="UserCardText">542 фантики</p>
-						<img className="SmallImg" src="../img/crystall.png" />
-					</div>
-				</div>
-				<p className="DailyTasksAbout">
-					Зарабатывайте помойкоены за выполнение ежедневных заданий и
-					обменивайте их на предметы в магазине
-				</p>
-			</div> */}
 			<p className="DailyTasksAbout">
 				Зарабатывайте помойкоены за выполнение ежедневных заданий и обменивайте
 				их на предметы в магазине
 			</p>
 			<p className={styles.TitleText}>Магазин</p>
-
 			<ShopItemsWrapper shopitems={avatars} wrapperText="Рамки для аватара" />
-			<ShopItemsWrapper shopitems={themes} wrapperText="Темы" />
+			<ShopItemsWrapper shopitems={сharacter} wrapperText="Персонажи" />
 		</div>
 	)
 }

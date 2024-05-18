@@ -1,8 +1,39 @@
 import { MinimizeMenuButton } from '@components'
+import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import styles from './styles.module.css'
 
 export const Settings = () => {
+	// Основная информация
+	const [nameInput, setNameInput] = useState('Анастасия')
+	const [loginInput, setLoginInput] = useState('login_Anastasia')
+	const [emailInput, setEmailInput] = useState('pomoechki@moi.com')
+	const [selectedCity, setSelectedCity] = useState('Dim')
+	// Безопасность
+	const password = 'qwerty123'
+	const [passwordInput, setPasswordInput] = useState('')
+	const [newPassword1Input, setNewPassword1Input] = useState('')
+	const [newPassword2Input, setNewPassword2Input] = useState('')
+	// Фотография профиля
+	const [selectedFile, setSelectedFile] = useState(null)
+
+	const saveBasicInformationChanges = () => {
+		const changes = {
+			nameInput,
+			loginInput,
+			emailInput,
+			selectedCity
+		}
+	}
+	const savePasswordChanges = () => {
+		if (password === passwordInput && newPassword1Input === newPassword2Input) {
+			// Сохраняем изменнения
+			alert('Cохраняем изменнения')
+		} else {
+			alert('ошибка')
+		}
+	}
+
 	return (
 		<div className={styles.MenuWrapper}>
 			<div className={styles.MenuTopButtonsWrapper}>
@@ -14,81 +45,127 @@ export const Settings = () => {
 				</Link>
 				<MinimizeMenuButton />
 			</div>
-
 			<p className={styles.TitleText}>Настройки</p>
 			<p>Основная информация</p>
-
 			<div className="Card">
 				<p>Имя</p>
-				<textarea className={styles.MenuTextArea}>Щуковская Анастасия</textarea>
+				<input
+					type="text"
+					className={styles.MenuTextArea}
+					value={nameInput}
+					onChange={(e) => setNameInput(e.target.value)}
+				/>
+				<p>Логин</p>
+				<input
+					type="text"
+					className={styles.MenuTextArea}
+					value={loginInput}
+					onChange={(e) => setLoginInput(e.target.value)}
+				/>
 				<p>Электронная почта</p>
-				<textarea className={styles.MenuTextArea}>pomoechki@moi.com</textarea>
+				<input
+					type="email"
+					className={styles.MenuTextArea}
+					value={emailInput}
+					onChange={(e) => setEmailInput(e.target.value)}
+				/>
 				<p>Город</p>
-				<select className={styles.MenuDropDown} name="City" id="City">
+				<select
+					className={styles.MenuDropDown}
+					value={selectedCity}
+					onChange={(e) => setSelectedCity(e.target.value)}
+				>
 					<option value="Dim">Димитровград</option>
 					<option value="Msc">Москва</option>
 					<option value="Ptrb">Санкт-Петербург</option>
-					<option value="Saray">Сарай</option>
 				</select>
+				<button
+					className={styles.MenuButton}
+					onClick={saveBasicInformationChanges}
+				>
+					<i className="fi-sr-comment-check" />
+					<p>Сохранить изменения</p>
+				</button>
 			</div>
-
 			<p>Фотография профиля</p>
-			<div className="UploadImageWrapper">
+			<div className="Card">
 				<img className="UserCardImage" src="../img/User1Avatar.png" />
-				<p>Загрузить фото</p>
+				{/* {selectedFile ? selectedFile.name : ""} */}
+				<label>
+					<span className={styles.MenuButton}>Изменить изображение</span>
+					<input
+						style={{ display: 'none' }}
+						type="file"
+						accept=".png,.jpg"
+						onChange={(e) => setSelectedFile(e.target.files[0])}
+					/>
+				</label>
 			</div>
-
 			<p>Безопасность</p>
 			<div className="Card">
-				<p>Пароль</p>
-				{/* TODO: заменить на input */}
-				<textarea className={styles.MenuTextArea}>•••••••••••••••••••</textarea>
-				<Link to="/">
-					<div className={styles.MenuButton}>
-						<i className="fi fi-sr-lock" />
-						<p>Сменить пароль</p>
-					</div>
-				</Link>
+				<p>Текущий пароль</p>
+				<input
+					type="password"
+					className={styles.MenuTextArea}
+					value={passwordInput}
+					onChange={(e) => setPasswordInput(e.target.value)}
+				/>
+				<p>Новый пароль</p>
+				<input
+					type="password"
+					className={styles.MenuTextArea}
+					value={newPassword1Input}
+					onChange={(e) => setNewPassword1Input(e.target.value)}
+				/>
+				<p>Повторите пароль</p>
+				<input
+					type="password"
+					className={styles.MenuTextArea}
+					value={newPassword2Input}
+					onChange={(e) => setNewPassword2Input(e.target.value)}
+				/>
+				<button className={styles.MenuButton} onClick={savePasswordChanges}>
+					<i className="fi fi-sr-lock" />
+					<p>Сменить пароль</p>
+				</button>
 			</div>
+			<p>Дополнительно</p>
 			<div className="Card">
+				<button className={styles.MenuButton} onClick={() => alert('Справка')}>
+					<i className="fi fi-sr-info" />
+					<p>Справка</p>
+				</button>
+				<button
+					className={styles.MenuButton}
+					onClick={() => alert('Выйти из аккаунта')}
+				>
+					<i className="fi fi-sr-undo-alt" />
+					<p>Выйти из аккаунта</p>
+				</button>
+			</div>
+
+			{/* Дальше идут мечты можно не смотреть*/}
+			{/* <div className="Card">
 				<p>Двухэтапная аутентификация</p>
-				<Link to="/">
-					<div className={styles.MainMenuButton}>
-						<i className="fi-sr-data-transfer" />
-						<p>Подключить</p>
-					</div>
-				</Link>
+				<div className={styles.MainMenuButton}>
+					<i className="fi-sr-data-transfer" />
+					<p>Подключить</p>
+				</div>
 			</div>
 			<div className={styles.MainMenuButtonsWrapper}>
-				<Link to="/favourite">
+				<div>
 					<div className={styles.MenuButton}>
 						<i className="fi fi-sr-letter-case" />
 						<p>Язык: Русский</p>
 					</div>
-				</Link>
-
-				<Link to="/favourite">
-					<div className={styles.MenuButton}>
-						<i className="fi fi-sr-info" />
-						<p>Справка</p>
-					</div>
-				</Link>
-
-				<Link to="/favourite">
+				</div>
+				<div>
 					<div className={styles.MenuButton}>
 						<i className="fi fi-sr-diamond" />
 						<p>Оценить приложение</p>
 					</div>
-				</Link>
-
-				<Link to="/mapeditmenu">
-					<div className={styles.MenuButton}>
-						<i className="fi fi-sr-undo-alt" />
-						<p>Выйти из аккаунта</p>
-					</div>
-				</Link>
-			</div>
-			<br></br>
+				</div>
+			</div> */}
 		</div>
 	)
 }

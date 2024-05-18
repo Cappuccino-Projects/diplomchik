@@ -14,8 +14,8 @@ export const Inventory = () => {
 		(item) => item.ItemCategory === 'Avatar Frame' && item.ItemObtained === true
 	)
 
-	const themes = shopItems.filter(
-		(item) => item.ItemCategory === 'Theme' && item.ItemObtained === true
+	const character = shopItems.filter(
+		(item) => item.ItemCategory === 'Character' && item.ItemObtained === true
 	)
 
 	return (
@@ -31,7 +31,7 @@ export const Inventory = () => {
 				на предметы в магазине
 			</p>
 			<ShopItemsWrapper shopitems={avatars} wrapperText="Рамки для аватара" />
-			<ShopItemsWrapper shopitems={themes} wrapperText="Темы" />
+			<ShopItemsWrapper shopitems={character} wrapperText="Персонаж" />
 		</div>
 	)
 }

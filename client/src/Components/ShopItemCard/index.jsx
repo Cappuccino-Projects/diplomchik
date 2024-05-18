@@ -1,10 +1,27 @@
 import { openBuyConfirm } from '@redux/slices/modalsSlice'
 import { useDispatch, useSelector } from 'react-redux'
 import styles from './styles.module.css'
+import { useEffect, useState } from 'react'
+
+import { setEditCharacter, setEditAvatar } from '@redux/slices/userSlice'
 
 export const ShopItemCard = ({ item }) => {
 	const dispatch = useDispatch()
 	const UserBalance = useSelector((state) => state.user.UserBalance)
+
+	const [isEdit, setEdit] = useState(false)
+
+	const editCharacter = useSelector((state) => state.user.Edit.Character)
+	const editAvatar = useSelector((state) => state.user.Edit.Avatar)
+
+	useEffect(() => {
+		if (item.ItemId === editCharacter.ItemId || item.ItemId === editAvatar.ItemId) {
+			setEdit(true)
+		}
+		if (item.ItemId !== editCharacter.ItemId && item.ItemId !== editAvatar.ItemId) {
+			setEdit(false)
+		}
+	}, [editCharacter, editAvatar])
 
 	const onClickBuy = () => {
 		if (UserBalance >= item.ItemPrice) {
@@ -26,7 +43,7 @@ export const ShopItemCard = ({ item }) => {
 					/>
 				</div>
 			)}
-			{item.ItemCategory === 'Theme' && (
+			{item.ItemCategory === 'Character' && (
 				<div
 					className={styles.StopItemsImageWrapper}
 					style={{
@@ -41,34 +58,44 @@ export const ShopItemCard = ({ item }) => {
 				</div>
 			)}
 			<p style={{ marginBottom: 'auto' }}>{item.ItemName}</p>
-
+			{/* Магазин */}
 			{!item.ItemObtained && (
 				<div
 					className={styles.UserBalance}
 					onClick={onClickBuy}
 					style={
-						UserBalance <= item.ItemPrice ? {backgroundColor: '#ededed' } : {}
+						UserBalance <= item.ItemPrice ? { backgroundColor: '#ededed' } : {}
 					}
 				>
 					<p>{item.ItemPrice}</p>
 					<img className={styles.SmallImg} src="../img/crystall.png" />
 				</div>
 			)}
-
+			{/* Инвентарь */}
 			{item.ItemObtained && (
 				<div className={styles.CardButtonsWrapper}>
-					<div
-						className={styles.CardMainButton}
-						onClick={() => alert('Используем')}
-					>
-						Использовать
-					</div>
-					<div
-						className={styles.CardButton}
-						onClick={() => alert('Не используем')}
-					>
-						Не использовать
-					</div>
+					{!isEdit ? (
+						<div
+							className={styles.CardMainButton}
+							onClick={() => {
+								if (item.ItemCategory === 'Avatar Frame') {
+									dispatch(setEditAvatar(item))
+								}
+								if (item.ItemCategory === 'Character') {
+									dispatch(setEditCharacter(item))
+								}
+							}}
+						>
+							Использовать
+						</div>
+					) : (
+						<div
+							className={styles.CardButton}
+							// onClick={() => alert('Не используем')}
+						>
+							Используется
+						</div>
+					)}
 				</div>
 			)}
 		</div>
