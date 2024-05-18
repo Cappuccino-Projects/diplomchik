@@ -32,6 +32,18 @@ export const modalsSlice = createSlice({
 		openGetRewards: (state) => {
 			state.modalType = 'GETREWARDS'
 			state.isOpen = true
+		},
+		openLogout: (state) => {
+			state.modalType = 'LOGOUT'
+			state.isOpen = true
+		},
+		openBadPassword: (state) => {
+			state.modalType = 'BADPASSWORD'
+			state.isOpen = true
+		},
+		openBadPasswordRepeat: (state) => {
+			state.modalType = 'BADPASSWORDREPEAT'
+			state.isOpen = true
 		}
 	}
 })
@@ -41,7 +53,10 @@ export const {
 	closeModal,
 	openBuyConfirm,
 	openRewardsNotAvalible,
-	openGetRewards
+	openGetRewards,
+	openLogout,
+	openBadPassword,
+	openBadPasswordRepeat
 } = modalsSlice.actions
 
 export default modalsSlice.reducer

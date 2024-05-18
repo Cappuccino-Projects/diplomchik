@@ -39,24 +39,7 @@ export const MapEditMenu = (props) => {
 						<p>Удалить объект</p>
 					</div>
 				</Link>
-				<Link to="/favourite">
-					<div className={styles.MenuButton}>
-						<i className="fi fi-sr-road" />
-						<p>Добавить маршрут</p>
-					</div>
-				</Link>
-				<Link to="/favourite">
-					<div className={styles.MenuButton}>
-						<i className="fi fi-sr-edit" />
-						<p>Редактировать маршрут</p>
-					</div>
-				</Link>
-				<Link to="/favourite">
-					<div className={styles.MenuButton}>
-						<i className="fi fi-sr-delete" />
-						<p>Удалить маршрут</p>
-					</div>
-				</Link>
+
 				<Link to="/favourite">
 					<div className={styles.MainMenuButton}>
 						<i className="fi fi-sr-star" />

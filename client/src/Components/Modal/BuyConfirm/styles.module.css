@@ -42,6 +42,7 @@
 
 .ModalWindowText{
   line-height: 150%;
+  font-family: Onest;
 }
 
 .ModalWindowButtonsWrapper{
@@ -64,6 +65,7 @@
 	min-width: 110px;
   cursor: pointer;
   justify-content: center;
+  font-family: Onest;
 	transition: all 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
 }
 
@@ -78,6 +80,7 @@
 	padding: 10px;
 	width: 100%;
   cursor: pointer;
+  font-family: Onest;
   justify-content: center;
 	transition: all 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
 }
