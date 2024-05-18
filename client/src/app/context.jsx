@@ -1,6 +1,7 @@
 import { createContext } from "react";
 
 export const initial = {
+  buttonsHeight: 0,
   chat: {
     user: null,
     lastRequest: null,
@@ -8,6 +9,7 @@ export const initial = {
     messages: [],
   },
   setChat: (data) => {},
+  setButtonsHeight: (height) => {}
 };
 
 const ChatContext = createContext(initial);

@@ -16,7 +16,7 @@ export const AllPlaces = () => {
 		<div className={styles.MenuWrapper}>
 			AllPlaces
 			<div className={styles.Title}>
-				<TitleWrapper city={city} />
+				<TitleWrapper/>
 				<MinimizeMenuButton />
 			</div>
 			<BackToMainMenu />
