@@ -1,16 +1,20 @@
-import { ShopItemCard } from "@components/ShopItemCard";
-import styles from "./styles.module.css";
+import { ShopItemCard } from '@components'
+import styles from './styles.module.css'
 
-export const ShopItemsWrapper = (props) => {
-  return (
-    <div>
-      <p style={{ marginBottom: "10px" }}>{props.WrapperText}</p>
-      <div className={styles.ShopItemsWrapper}>
-        {props.shopitems?.map((CurrentItem) => (
-          <ShopItemCard Obtained = {props.Obtained} key={CurrentItem.ItemId} item={CurrentItem} />
-        ))}
-      </div>
-    </div>
-  );
-};
+export const ShopItemsWrapper = ({ shopitems, wrapperText }) => {
+	return (
+		<div>
+			<p style={{ marginBottom: '10px' }}>{wrapperText}</p>
 
+			{shopitems.length > 0 ? (
+				<div className={styles.ShopItemsWrapper}>
+					{shopitems.map((item) => (
+						<ShopItemCard key={item.ItemId} item={item} />
+					))}
+				</div>
+			) : (
+				<p style={{ marginBottom: '10px' }}>Пусто</p>
+			)}
+		</div>
+	)
+}

@@ -1,5 +1,5 @@
 const getAll = async () => {
-  const response = await fetch('http://localhost:5143/api/place', {
+  const response = await fetch(`${import.meta.env.VITE_API_DOMAIN}/api/place`, {
     headers: {
       'accept': '*/*'
     }

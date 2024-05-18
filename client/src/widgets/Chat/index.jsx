@@ -8,9 +8,10 @@ import "./main.css";
 export const ChatWidget = () => {
   const socketRef = useRef(null);
   const [chat, setChat] = useState(initial);
+  const [buttonsHeight, setButtonsHeight] = useState(0);
 
   useEffect(() => {
-    socketRef.current = io("http://localhost:3000");
+    socketRef.current = io(import.meta.env.VITE_CHAT_DOMAIN);
 
     if (socketRef.current === undefined) return;
 
@@ -32,9 +33,9 @@ export const ChatWidget = () => {
   }, []);
 
   return (
-    <ChatContext.Provider value={{ chat, setChat }}>
+    <ChatContext.Provider value={{ chat, setChat, buttonsHeight, setButtonsHeight }}>
       <div className="chat">
-        <ChatView />
+        <ChatView socket={socketRef}/>
         <ChatForm socket={socketRef} />
       </div>
     </ChatContext.Provider>

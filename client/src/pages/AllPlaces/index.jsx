@@ -1,19 +1,22 @@
-import styles from './styles.module.css'
 import {
-	TitleWrapper,
-	MinimizeMenuButton,
 	BackToMainMenu,
+	MinimizeMenuButton,
 	PlacesWrapper,
+	TitleWrapper,
 	UserCard
 } from '@components'
+import { useSelector } from 'react-redux'
+import styles from './styles.module.css'
 
-export const AllPlaces = (props) => {
-	const { places, city } = props
+export const AllPlaces = () => {
+	const city = useSelector((state) => state.cities)
+	const places = useSelector((state) => state.places)
 
 	return (
 		<div className={styles.MenuWrapper}>
+			AllPlaces
 			<div className={styles.Title}>
-				<TitleWrapper city={city} />
+				<TitleWrapper/>
 				<MinimizeMenuButton />
 			</div>
 			<BackToMainMenu />
@@ -32,7 +35,7 @@ export const AllPlaces = (props) => {
 				WrapperText={places.length + ' мест найдено'}
 				WrapperButtonEnabled={false}
 			/>
-			<UserCard ShowLvl={false} ShowBalance={false} IsItProfilePage={false} />
+			<UserCard ShowLvl={false} ShowBalance={false} />
 		</div>
 	)
 }
