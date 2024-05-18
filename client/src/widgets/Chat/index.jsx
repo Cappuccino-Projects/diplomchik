@@ -11,7 +11,7 @@ export const ChatWidget = () => {
   const [buttonsHeight, setButtonsHeight] = useState(0);
 
   useEffect(() => {
-    socketRef.current = io("http://localhost:3000");
+    socketRef.current = io(import.meta.env.VITE_CHAT_DOMAIN);
 
     if (socketRef.current === undefined) return;
 
