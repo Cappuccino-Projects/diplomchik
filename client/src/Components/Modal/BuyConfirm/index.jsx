@@ -19,7 +19,7 @@ export const BuyConfirm = ({ close }) => {
 			<div className={styles.ModalWindowTitle}>Подтверждение покупки</div>
 			<div className={styles.ModalWindowText}>
 				Вы действительно хотите купить
-				{item.ItemCategory === 'Theme' ? ' тему ' : ' аватар '}
+				{item.ItemCategory === 'Character' ? ' персонажа ' : ' аватар '}
 				<span style={{ fontWeight: 'bold' }}>{` ${item.ItemName} `}</span>
 				за
 				<span style={{ fontWeight: 'bold' }}>{` ${item.ItemPrice} `}</span>

@@ -49,7 +49,7 @@ const getAll = async () => {
 			ItemId: 11,
 			ItemName: 'Темная',
 			ItemImage: 'grass.png',
-			ItemCategory: 'Theme',
+			ItemCategory: 'Character',
 			ItemBackgroundColor: '#212121',
 			ItemPrice: 200,
 			ItemObtained: false
@@ -58,11 +58,12 @@ const getAll = async () => {
 			ItemId: 10,
 			ItemName: 'Светлая',
 			ItemImage: 'trophy.png',
-			ItemCategory: 'Theme',
+			ItemCategory: 'Character',
 			ItemBackgroundColor: '#F1F1F1',
 			ItemPrice: 200,
-			ItemObtained: false
-		}
+			ItemObtained: true
+		},
+		
 	]
 }
 

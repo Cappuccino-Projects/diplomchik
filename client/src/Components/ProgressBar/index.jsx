@@ -1,6 +1,6 @@
-import { useEffect, useState } from 'react'
-import styles from './styles.module.css'
+import { useLayoutEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
+import styles from './styles.module.css'
 
 export const ProgressBar = () => {
 	const UserExp = useSelector((state) => state.user.UserExp)
@@ -8,7 +8,7 @@ export const ProgressBar = () => {
 	const [currentlvl, setCurrentlvl] = useState(0)
 	const [progress, setProgress] = useState(0)
 
-	useEffect(() => {
+	useLayoutEffect(() => {
 		setCurrentlvl(Math.floor(UserExp / 250) + 1)
 		setProgress(((UserExp % 250) / 250) * 100)
 	}, [UserExp])
@@ -18,7 +18,7 @@ export const ProgressBar = () => {
 			<p className="UserCardText">{currentlvl}</p>
 			<div className={styles.UserLvlProgressWrapper}>
 				<div
-					style={{ width: `${progress}%` }}
+					style={{ width: `${progress}%`, transition: 'all 1s ease-in-out' }}
 					className={styles.UserLvlProgress}
 				></div>
 			</div>

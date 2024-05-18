@@ -1,7 +1,7 @@
 import { closeModal } from '@redux/slices/modalsSlice'
 import { useCallback } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
 import ReactDOM from 'react-dom'
+import { useDispatch, useSelector } from 'react-redux'
 
 import { BuyConfirm } from '@components/Modal/BuyConfirm'
 import { GetRewards } from '@components/Modal/GetRewards'
@@ -19,9 +19,10 @@ export const Modal = () => {
 
 	const closeCallback = useCallback(() => {
 		dispatch(closeModal())
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [])
 
-    return ReactDOM.createPortal(
+	return ReactDOM.createPortal(
 		<ModalWindow isOpen={isOpen} close={closeCallback}>
 			{modalType === 'BUYCONFIRM' && <BuyConfirm close={closeCallback} />}
 			{modalType === 'EDITLOCATION' && <EditLocation close={closeCallback} />}
