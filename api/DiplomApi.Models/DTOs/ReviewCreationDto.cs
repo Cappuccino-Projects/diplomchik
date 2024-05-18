@@ -12,4 +12,6 @@ public class ReviewCreationDto
     public int Rank { get; set; }
 
     public string? Comment { get; set; }
+
+    public string? PhotoPath { get; set; }
 }

@@ -10,4 +10,6 @@ public class ProductCreationDto
     public int TypeId { get; set; }
 
     public decimal Price { get; set; }
+
+    public string? IconPath { get; set; }
 }

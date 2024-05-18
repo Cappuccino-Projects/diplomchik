@@ -1,7 +1,23 @@
 import { Link } from 'react-router-dom'
 import styles from './styles.module.css'
+import { ProgressBar } from '@components'
+import { useSelector } from 'react-redux'
 
-export const UserCard = (props) => {
+const getWord = (num) => {
+	if (num % 10 === 1 && num % 100 !== 11) {
+		return 'фантик'
+	} else if (
+		[2, 3, 4].includes(num % 10) &&
+		![12, 13, 14].includes(num % 100)
+	) {
+		return 'фантика'
+	} else {
+		return 'фантиков'
+	}
+}
+
+export const UserCard = ({ ShowLvl = true, ShowBalance = true }) => {
+	const { UserName, UserRole, UserBalance } = useSelector((state) => state.user)
 
 	return (
 		<Link to="/profile">
@@ -10,31 +26,20 @@ export const UserCard = (props) => {
 					<img className={styles.UserCardImage} src="../img/User1Avatar.png" />
 					<img className={styles.UserFrameImage} src="../img/frame1.png" />
 					<div className={styles.UserCardInfo}>
-						<p className={styles.UserName}>Щуковская Анастасия</p>
-						<p className={styles.UserRole}>Проверенный пользователь </p>
+						<p className={styles.UserName}>{UserName}</p>
+						<p className={styles.UserRole}>{UserRole}</p>
 					</div>
 				</div>
-				{props.ShowLvl && (
+				{/* ProgressBar */}
+				{ShowLvl && <ProgressBar />}
+				{/* UserBalance */}
+				{ShowBalance && (
 					<div className={styles.UserLvlWrapper}>
 						{/* Нет UserCardText */}
-						<p className="UserCardText">6</p>
-						<div className={styles.UserLvlProgressWrapper}>
-							<div
-								style={{ width: '16%' }}
-								className={styles.UserLvlProgress}
-							></div>
-						</div>
-						{/* Нет UserCardText */}
-						<p className="UserCardText">7</p>
-					</div>
-				)}
-				{props.ShowBalance && (
-					<div className={styles.UserLvlWrapper}>
-						{/* Нет UserCardText */}
-						<p className="UserCardText">Баланс</p>
+						<p>Баланс</p>
 						<div className={styles.UserBalance}>
 							{/* Нет UserCardText */}
-							<p className="UserCardText">542 фантики</p>
+							<p>{`${UserBalance}  ${getWord(UserBalance)}`}</p>
 							<img className={styles.SmallImg} src="../img/crystall.png" />
 						</div>
 					</div>

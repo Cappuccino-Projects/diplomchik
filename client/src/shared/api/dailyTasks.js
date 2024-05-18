@@ -1,13 +1,13 @@
 const getAll = async () => {
 	return [
 		{
-			TaskId: 1,
-			TaskName: 'Зеленая трава',
-			TaskImage: 'grass-mission-icon.png',
-			TaskBackgroundColor: '#BDFDB2',
-			TaskText: 'Пройти 5.000 шагов',
-			TaskProgress: '1.341 / 5.000',
-			TaskIsCompleted: false
+			TaskId: 3,
+			TaskName: 'Ваше мнение важно для нас',
+			TaskImage: 'review-mission-icon.png',
+			TaskBackgroundColor: '#FDD4D4',
+			TaskText: 'Оставить оценку на карте',
+			TaskProgress: 'Выполнено',
+			TaskIsCompleted: true
 		},
 		{
 			TaskId: 2,
@@ -19,12 +19,12 @@ const getAll = async () => {
 			TaskIsCompleted: true
 		},
 		{
-			TaskId: 3,
-			TaskName: 'Ваше мнение важно для нас',
-			TaskImage: 'review-mission-icon.png',
-			TaskBackgroundColor: '#FDD4D4',
-			TaskText: 'Оставить оценку на карте',
-			TaskProgress: 'Выполнено',
+			TaskId: 1,
+			TaskName: 'Зеленая трава',
+			TaskImage: 'grass-mission-icon.png',
+			TaskBackgroundColor: '#BDFDB2',
+			TaskText: 'Пройти 5.000 шагов',
+			TaskProgress: '1.341 / 5.000',
 			TaskIsCompleted: true
 		}
 	]

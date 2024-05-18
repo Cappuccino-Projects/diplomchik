@@ -1,13 +1,9 @@
-﻿using System;
+﻿using DiplomApi.Models.Abstract;
+using System;
 using System.Collections.Generic;
 
 namespace DiplomApi.Models.Entities;
 
-public class Theme
+public class Theme : BaseEntity
 {
-    public int Id { get; set; }
-
-    public string Name { get; set; } = null!;
-
-    public virtual ICollection<User> Users { get; set; } = new List<User>();
 }

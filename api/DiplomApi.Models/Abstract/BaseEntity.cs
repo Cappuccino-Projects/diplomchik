@@ -8,18 +8,10 @@ public class BaseEntity
     [Key] 
     [Column("id")]
     [Required(ErrorMessage = "id не определён")]
-    public Guid Id { get; set; } = Guid.NewGuid();
+    public int Id { get; set; }
 
     [Required]
-    [MaxLength(50)]
+    [MaxLength(100)]
     [Column("name")]
-    public string Name { get; set; } = string.Empty;
-
-    [MaxLength(200)]
-    [Column("description")]
-    public string? Description { get; set; } = string.Empty;
-
-    [MaxLength(200)]
-    [Column("image_url")]
-    public string ImageUrl { get; set; } = string.Empty;
+    public string Name { get; set; } = null!;
 }
