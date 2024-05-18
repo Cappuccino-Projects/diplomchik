@@ -1,15 +1,10 @@
-﻿using System;
+﻿using DiplomApi.Models.Abstract;
+using System;
 using System.Collections.Generic;
 
 namespace DiplomApi.Models.Entities;
 
-public class Status
+public class Status : BaseEntity
 {
-    public int Id { get; set; }
-
-    public string Name { get; set; } = null!;
-
     public string? Description { get; set; }
-
-    public virtual ICollection<MissionUser> MissionsUsers { get; set; } = new List<MissionUser>();
 }
