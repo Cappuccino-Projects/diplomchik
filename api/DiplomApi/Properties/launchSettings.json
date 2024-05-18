@@ -8,7 +8,14 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
       "dotnetRunMessages": true,
-      "applicationUrl": "http://localhost:5143"
+      "applicationUrl": "http://localhost:8080"
+    },
+    "Production": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "launchUrl": "swagger",
+      "dotnetRunMessages": true,
+      "applicationUrl": "http://176.123.162.178:8080"
     },
     "IIS Express": {
       "commandName": "IISExpress",

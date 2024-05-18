@@ -2,10 +2,10 @@ services:
   gateway:
     build: ./gateway
     ports:
-      - '9088:9088'
+      - 9088:9088
     restart: always
     volumes:
-      - './gateway/nginx/nginx.conf:/etc/nginx/nginx.conf:ro'
+      - ./gateway/nginx/nginx.conf:/etc/nginx/nginx.conf:ro
     depends_on:
       - frontend
       - backend
@@ -19,11 +19,12 @@ services:
     restart: always
     environment:
         MYSQL_ROOT_PASSWORD: password
+        MYSQL_DATABASE: trash_bins
     ports:
-      - "3306:3306"
+      - 3306:3306
     volumes:
-      - './mysql/dataset:/docker-entrypoint-initdb.d'
-      - mysql:/var/lib/mysql
+      - mysql:/var/lib/mysql:rw
+      - ./mysql/dataset:/docker-entrypoint-initdb.d:rw
     networks:
       network:
         ipv4_address: 67.16.1.77
@@ -31,9 +32,9 @@ services:
   frontend:
     build: ./client
     ports:
-      - "7090:8080"
+      - 7090:8080
     volumes:
-      - './client/nginx/nginx.conf:/etc/nginx/nginx.conf:ro'
+      - ./client/nginx/nginx.conf:/etc/nginx/nginx.conf:ro
     depends_on:
       - backend
       - chat
@@ -44,7 +45,7 @@ services:
   chat:
     build: ./server
     ports:
-      - "4589:3000"
+      - 4589:3000
     environment:
       - PORT=3000
     depends_on:
@@ -54,11 +55,15 @@ services:
         ipv4_address: 67.16.1.45
 
   backend:
-    build: ./api
+    build: 
+      context: ./api
+      dockerfile: Dockerfile.dev
     ports:
-      - "2537:8080"
+      - 8080:8080
     environment:
-      - PORT=3001
+      - ASPNETCORE_URL="http://+:8080"
+    volumes:
+      - ./api/DiplomApi/appsettings.json:/app/appsettings.json:ro
     depends_on:
       - mysql
     networks:

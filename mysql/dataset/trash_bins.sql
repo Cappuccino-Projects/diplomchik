@@ -11,7 +11,7 @@
  Target Server Version : 50724 (5.7.24)
  File Encoding         : 65001
 
- Date: 14/05/2024 01:08:56
+ Date: 18/05/2024 19:14:59
 */
 
 SET NAMES utf8mb4;
@@ -92,7 +92,7 @@ CREATE TABLE `missions`  (
   `exp_award` int(11) NOT NULL DEFAULT 1,
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `mission_title`(`title`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 8 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 11 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of missions
@@ -104,6 +104,8 @@ INSERT INTO `missions` VALUES (4, 'Сейчас бы фоточку…', 'Заг
 INSERT INTO `missions` VALUES (5, 'Зеленая трава', 'Выбросите мусор в мусорку', 'grass-mission-icon', 15);
 INSERT INTO `missions` VALUES (6, 'Не только крошечки', 'Покормите птиц', 'bird-mission-icon', 15);
 INSERT INTO `missions` VALUES (7, 'Немного отдохнем', 'Посидите на лавочке', 'bench-mission-icon', 15);
+INSERT INTO `missions` VALUES (8, 'string', 'string', 'string', 1);
+INSERT INTO `missions` VALUES (10, 'string2', 'string', 'string', 1);
 
 -- ----------------------------
 -- Table structure for missions_users
@@ -125,6 +127,7 @@ CREATE TABLE `missions_users`  (
 -- Records of missions_users
 -- ----------------------------
 INSERT INTO `missions_users` VALUES (1, 1, 1);
+INSERT INTO `missions_users` VALUES (4, 1, 1);
 INSERT INTO `missions_users` VALUES (1, 2, 1);
 INSERT INTO `missions_users` VALUES (2, 2, 1);
 INSERT INTO `missions_users` VALUES (2, 1, 2);
@@ -169,7 +172,7 @@ CREATE TABLE `places`  (
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `fk_places_place_types_1`(`type_id`) USING BTREE,
   CONSTRAINT `fk_places_place_types_1` FOREIGN KEY (`type_id`) REFERENCES `place_types` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 8 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of places
@@ -178,6 +181,9 @@ INSERT INTO `places` VALUES (1, NULL, 1, '\r\nул. Славского, д. 16',
 INSERT INTO `places` VALUES (2, NULL, 1, 'ул. Славского, д. 16', 54.238059, 49.558395, 'test_photo');
 INSERT INTO `places` VALUES (3, 'Площадка у дома', 4, NULL, 54.238203, 49.558651, NULL);
 INSERT INTO `places` VALUES (4, NULL, 3, NULL, 54.238653, 49.558618, 'test_photo_2');
+INSERT INTO `places` VALUES (5, 'Тест', 1, 'Тест', 1.000000, 1.000000, NULL);
+INSERT INTO `places` VALUES (6, 'string', 1, 'string', 1.000000, 1.000000, 'string');
+INSERT INTO `places` VALUES (7, 'string2', 1, 'string', 1.000000, 1.000000, 'string');
 
 -- ----------------------------
 -- Table structure for product_types
@@ -210,7 +216,7 @@ CREATE TABLE `products`  (
   UNIQUE INDEX `product_name`(`name`) USING BTREE,
   INDEX `fk_products_product_types_1`(`type_id`) USING BTREE,
   CONSTRAINT `fk_products_product_types_1` FOREIGN KEY (`type_id`) REFERENCES `product_types` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE = InnoDB AUTO_INCREMENT = 26 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 30 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of products
@@ -239,6 +245,9 @@ INSERT INTO `products` VALUES (22, 'Эльф Варвара', 1, 250.00, 'girl')
 INSERT INTO `products` VALUES (23, 'Эльф Варвара BG', 1, 300.00, 'girlbg');
 INSERT INTO `products` VALUES (24, 'Вампир Миша', 1, 250.00, 'vampire');
 INSERT INTO `products` VALUES (25, 'Вампир Миша BG', 1, 300.00, 'vampirebg');
+INSERT INTO `products` VALUES (26, 'string', 1, 1.00, 'string');
+INSERT INTO `products` VALUES (28, 'string1', 1, 1.00, 'string');
+INSERT INTO `products` VALUES (29, 'string7', 1, 1.00, 'string');
 
 -- ----------------------------
 -- Table structure for ranks

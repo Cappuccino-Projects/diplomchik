@@ -6,17 +6,8 @@ using DiplomApi.Models.Entities;
 
 namespace DiplomApi.Contexts;
 
-public partial class TrashBinsContext : DbContext
+public partial class TrashBinsContext(DbContextOptions<TrashBinsContext> options, IConfiguration configuration) : DbContext
 {
-    public TrashBinsContext()
-    {
-    }
-
-    public TrashBinsContext(DbContextOptions<TrashBinsContext> options)
-        : base(options)
-    {
-    }
-
     public virtual DbSet<City> Cities { get; set; }
 
     public virtual DbSet<Mission> Missions { get; set; }
@@ -44,7 +35,7 @@ public partial class TrashBinsContext : DbContext
     public virtual DbSet<UserProduct> UsersProducts { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        => optionsBuilder.UseMySql("server=localhost;user=root;password=root;database=all_places", ServerVersion.Parse("5.7.24-mysql"));
+        => optionsBuilder.UseMySql(configuration.GetSection("DataBase").Value, ServerVersion.Parse("5.7.24-mysql"));
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
