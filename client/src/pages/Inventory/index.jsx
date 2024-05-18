@@ -14,7 +14,7 @@ export const Inventory = () => {
 		(item) => item.ItemCategory === 'Avatar Frame' && item.ItemObtained === true
 	)
 
-	const themes = shopItems.filter(
+	const themes = shopItems.filter (
 		(item) => item.ItemCategory === 'Theme' && item.ItemObtained === true
 	)
 
