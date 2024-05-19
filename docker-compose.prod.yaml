@@ -21,7 +21,7 @@ services:
         MYSQL_ROOT_PASSWORD: fuck_u_mother_niga_bitch666
         MYSQL_DATABASE: trash_bins
     ports:
-      - 3308
+      - 3306:3306
     volumes:
       - mysql:/var/lib/mysql:rw
       - ./mysql/dataset:/docker-entrypoint-initdb.d:rw
