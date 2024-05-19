@@ -18,7 +18,7 @@ services:
     image: mysql
     restart: always
     environment:
-        MYSQL_ROOT_PASSWORD: password
+        MYSQL_ROOT_PASSWORD: pa$$word123
         MYSQL_DATABASE: trash_bins
     ports:
       - 3306:3306
