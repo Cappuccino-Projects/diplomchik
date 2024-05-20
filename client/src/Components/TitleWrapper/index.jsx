@@ -9,7 +9,7 @@ export const TitleWrapper = () => {
 		navigator.geolocation.getCurrentPosition(
 			async (data) => {
 				const y = await geolocation(data.coords.latitude, data.coords.longitude)
-				setCity(y.data.features[0].properties.city)
+				setCity(y.data.features[0].properties.city ?? 'Город не определён')
 			},
 			(error) => {
 				console.error(error)

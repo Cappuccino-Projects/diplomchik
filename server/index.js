@@ -36,6 +36,9 @@ io.on("connection", async (socket) => {
     io.to(userId).emit("chat message", msg);
 
     setTimeout(() => {
+
+      console.log(JSON.stringify(msg))
+
       const { readyDataMessage, newContext } = handler(msg, context);
 
       context = newContext;
