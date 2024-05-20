@@ -14,9 +14,16 @@ export const PlacesWrapper = (props) => {
 				)}
 			</div>
 
-			<div className={styles.placesWrapper}>
+			<div className={styles.placesWrapper} style={{ display: 'block' }}>
 				{props.places?.map((CurrentPlace) => (
-					<PlaceIcon key={CurrentPlace.id} place={CurrentPlace} />
+					<div key={CurrentPlace.id}>
+						<p>{CurrentPlace.title ? CurrentPlace.title : 'Unknown'}</p>
+						<PlaceIcon place={CurrentPlace} title={CurrentPlace.title} typeId={CurrentPlace.typeId} />
+
+						<p>{CurrentPlace.typeId}</p>
+						<p>{CurrentPlace.description ? CurrentPlace.description : 'No description'}</p>
+						<br />
+					</div>
 				))}
 			</div>
 		</div>
