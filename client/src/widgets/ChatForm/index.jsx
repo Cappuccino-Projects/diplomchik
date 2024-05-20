@@ -1,5 +1,4 @@
 import { useContext, useRef } from "react";
-import { io } from "socket.io-client";
 import "./main.css";
 import ChatButtonStack from "../ChatButtonStack";
 import ChatContext from "./../../app/context";
