@@ -7,7 +7,43 @@ import {
 import { Link } from 'react-router-dom'
 import styles from './styles.module.css'
 
+import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { openGetRewards, openRewardsNotAvalible, openAddPlaceToMap } from '@redux/slices/modalsSlice';
+
+
+
+
+
+
+
+
+
+
+
+
 export const MapEditMenu = (props) => {
+
+	const [isModalOpen, setIsModalOpen] = useState(false);
+	const dispatch = useDispatch();
+
+	const openModal = (isRewardsAvailable) => {
+			setIsModalOpen(true);
+			if (isRewardsAvailable) {
+					dispatch(openAddPlaceToMap());
+			} else {
+					dispatch(openAddPlaceToMap());
+			}
+	};
+
+	// const closeModal = () => {
+	// 		setIsModalOpen(false);
+	// };
+
+
+
+
+
 	return (
 		<div className={styles.MenuWrapper}>
 			<div className={styles.Title}>
@@ -20,12 +56,25 @@ export const MapEditMenu = (props) => {
 				style={{ marginBottom: 'auto' }}
 				className={styles.MainMenuButtonsWrapper}
 			>
-				<Link to="/favourite">
-					<div className={styles.MenuButton}>
+
+
+
+					<div className={styles.MenuButton} onClick={openModal}>
 						<i className="fi fi-sr-add" />
 						<p>Добавить объект</p>
 					</div>
-				</Link>
+					<div>
+
+
+            <div className={styles.MenuButton} onClick={() => openModal(true)}>Open Modal</div>
+            {isModalOpen && (
+                <div className={styles.Modal}>
+
+                </div>
+            )}
+        </div>
+
+
 				<Link to="/favourite">
 					<div className={styles.MenuButton}>
 						<i className="fi fi-sr-edit" />
