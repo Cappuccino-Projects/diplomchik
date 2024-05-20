@@ -2,6 +2,7 @@ import { DailyTasks } from '@components'
 import { Outlet } from 'react-router-dom'
 import { CharacterCard } from '@components'
 import styles from './styles.module.css'
+import InteractiveMap from './interactiveMap'
 
 export const Map = () => {
 	return (
@@ -43,7 +44,12 @@ export const Map = () => {
 			<div className={styles.SideDailyTasksWrapper}>
 				<DailyTasks ShowInfo={false} ShowLvl={true} />
 			</div>
-			<div className={styles.WorldMap}></div>
+			<div className={styles.WorldMap}>
+
+<InteractiveMap />
+
+
+			</div>
 		</>
 	)
 }

@@ -44,6 +44,11 @@ export const modalsSlice = createSlice({
 		openBadPasswordRepeat: (state) => {
 			state.modalType = 'BADPASSWORDREPEAT'
 			state.isOpen = true
+		},
+		openAddPlaceToMap: (state) => {
+			state.modalType = 'ADDPLACETOMAP'
+			state.isOpen = true
+			
 		}
 	}
 })
@@ -56,7 +61,8 @@ export const {
 	openGetRewards,
 	openLogout,
 	openBadPassword,
-	openBadPasswordRepeat
+	openBadPasswordRepeat,
+	openAddPlaceToMap
 } = modalsSlice.actions
 
 export default modalsSlice.reducer
