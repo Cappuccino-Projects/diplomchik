@@ -1,4 +1,5 @@
-import { Modal } from '@components'
+import { useEffect } from 'react'
+import { Route, Routes } from 'react-router-dom'
 import {
 	AllPlaces,
 	Chat,
@@ -14,32 +15,53 @@ import {
 	Settings,
 	Shop
 } from '@pages'
-import { setCities } from '@redux/slices/citiesSlice'
-import { setDailyTasks } from '@redux/slices/dailyTasksSlice'
-import { setLocations } from '@redux/slices/locationsSlice'
-import { setPlaces } from '@redux/slices/placesSlice'
-import { setShop } from '@redux/slices/shopSlice'
-import { cityApi, placeTypeApi } from '@shared/api'
-import { dailyTaskApi } from '@shared/api/dailyTasks'
-import { locationApi } from '@shared/api/location'
-import { shopApi } from '@shared/api/shop'
-import { useEffect } from 'react'
-import { useDispatch } from 'react-redux'
-import { Route, Routes } from 'react-router-dom'
+
+import { useDispatch } from 'react-redux';
+import { setCities } from '@redux/slices/citiesSlice';
+import { setDailyTasks } from '@redux/slices/dailyTasksSlice';
+import { setLocations } from '@redux/slices/locationsSlice';
+import { setPlaces } from '@redux/slices/placesSlice';
+import { setShop } from '@redux/slices/shopSlice';
+
+import { Modal } from '@components'
+
+import { cityApi } from '@shared/api';
+import { placeTypeApi } from '@shared/api';
+import { placeApi } from '@shared/api';
+import { dailyTaskApi } from '@shared/api/dailyTasks';
+import { locationApi } from '@shared/api/location';
+import { shopApi } from '@shared/api/shop';
+
 
 
 export const App = () => {
 	const dispatch = useDispatch()
 
 	useEffect(() => {
-		placeTypeApi.getAll().then((result) => {
-			dispatch(setPlaces(result.map((t) => ({ ...t, PlaceImage: 'shop.png' }))))
-		})
-		cityApi.getAll().then((data) => dispatch(setCities(data)))
-		locationApi.getAll().then((data) => dispatch(setLocations(data)))
-		shopApi.getAll().then((data) => dispatch(setShop(data)))
-		dailyTaskApi.getAll().then((data) => dispatch(setDailyTasks(data)))
-	}, [])
+		const fetchData = async () => {
+			try {
+				const placeData = await placeApi.getAll()
+				dispatch(setPlaces(placeData.map((t) => ({ ...t, PlaceImage: 'shop.png' }))))
+
+				const cityData = await cityApi.getAll()
+				dispatch(setCities(cityData))
+
+				const locationData = await locationApi.getAll()
+				dispatch(setLocations(locationData))
+
+				const shopData = await shopApi.getAll()
+				dispatch(setShop(shopData))
+
+				const dailyTaskData = await dailyTaskApi.getAll()
+				dispatch(setDailyTasks(dailyTaskData))
+			} catch (error) {
+				console.error(error)
+				// handle error
+			}
+		}
+
+		fetchData()
+	}, [dispatch])
 
 	return (
 		<>
