@@ -1,4 +1,5 @@
-import { Modal } from '@components'
+import { useEffect } from 'react'
+import { Route, Routes } from 'react-router-dom'
 import {
 	AllPlaces,
 	Chat,
@@ -18,7 +19,8 @@ import { AdminPanel } from '@pages/AdminPanel'
 import { useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 import { Route, Routes } from 'react-router-dom'
-
+import { useDispatch } from 'react-redux';
+import { Modal } from '@components'
 import { useGetUserByIdQuery } from '@redux/services/userApi'
 import { setUser } from '@redux/slices/userSlice'
 
@@ -36,7 +38,6 @@ export const App = () => {
 
 	return (
 		<>
-		
 			<Routes>
 				<Route path="/registration" element={<Registration />} />
 				<Route path="/login" element={<Login />} />
@@ -60,3 +61,4 @@ export const App = () => {
 		</>
 	)
 }
+
