@@ -2,33 +2,31 @@ import {
 	BackToMainMenu,
 	MinimizeMenuButton,
 	UserCard,
-	ShopItemsWrapper
+	ShopItemCard
 } from '@components'
+
 import styles from './styles.module.css'
-import { useSelector } from 'react-redux'
-import { useState, useEffect } from 'react'
+
+import { useGetAllProductsQuery } from '@redux/services/productsApi'
+import { useGetUserProductsByIdQuery } from '@redux/services/userApi'
 
 export const Shop = () => {
-	const shopItems = useSelector((state) => state.shop.shop)
+	// !!! activeUserId
+	const activeUserId = 1
 
-	const [avatars, setAvatars] = useState([])
-	const [сharacter, setCharacter] = useState([])
+	const { data: userProducts = [], isFetching: isFetchingUserProducts } =
+		useGetUserProductsByIdQuery(activeUserId)
 
-	useEffect(() => {
-		setAvatars(
-			shopItems.filter(
-				(item) =>
-					item.ItemCategory === 'Avatar Frame' && item.ItemObtained === false
-			)
-		)
+	const { data: allProducts = [], isFetching: isFetchingAllProducts } =
+		useGetAllProductsQuery()
 
-		setCharacter(
-			shopItems.filter(
-				(item) =>
-					item.ItemCategory === 'Character' && item.ItemObtained === false
-			)
-		)
-	}, [shopItems])
+	const userProductIds = userProducts.map((product) => product.productId)
+	const shopProduct = allProducts.filter(
+		(product) => !userProductIds.includes(product.id)
+	)
+
+	const avatars = shopProduct.filter((item) => item.typeId === 2)
+	const characters = shopProduct.filter((item) => item.typeId === 1)
 
 	return (
 		<div className={styles.MenuWrapper}>
@@ -41,9 +39,35 @@ export const Shop = () => {
 				Зарабатывайте помойкоены за выполнение ежедневных заданий и обменивайте
 				их на предметы в магазине
 			</p>
+
 			<p className={styles.TitleText}>Магазин</p>
-			<ShopItemsWrapper shopitems={avatars} wrapperText="Рамки для аватара" />
-			<ShopItemsWrapper shopitems={сharacter} wrapperText="Персонажи" />
+
+			<div>
+				<p style={{ marginBottom: '10px' }}>Рамки для аватара</p>
+
+				{avatars.length > 0 ? (
+					<div className={styles.ShopItemsWrapper}>
+						{avatars.map((item) => (
+							<ShopItemCard key={item.id} item={item} />
+						))}
+					</div>
+				) : (
+					<p style={{ marginBottom: '10px' }}>Пусто</p>
+				)}
+			</div>
+			<div>
+				<p style={{ marginBottom: '10px' }}>Рамки для аватара</p>
+
+				{characters.length > 0 ? (
+					<div className={styles.ShopItemsWrapper}>
+						{characters.map((item) => (
+							<ShopItemCard key={item.id} item={item} />
+						))}
+					</div>
+				) : (
+					<p style={{ marginBottom: '10px' }}>Пусто</p>
+				)}
+			</div>
 		</div>
 	)
 }

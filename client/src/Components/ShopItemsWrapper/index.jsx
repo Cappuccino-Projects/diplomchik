@@ -1,15 +1,15 @@
 import { ShopItemCard } from '@components'
 import styles from './styles.module.css'
 
-export const ShopItemsWrapper = ({ shopitems, wrapperText }) => {
+export const ShopItemsWrapper = ({ items, wrapperText }) => {
 	return (
 		<div>
 			<p style={{ marginBottom: '10px' }}>{wrapperText}</p>
 
-			{shopitems.length > 0 ? (
+			{items.length > 0 ? (
 				<div className={styles.ShopItemsWrapper}>
-					{shopitems.map((item) => (
-						<ShopItemCard key={item.ItemId} item={item} />
+					{items.map((item) => (
+						<ShopItemCard key={item.id} item={item} />
 					))}
 				</div>
 			) : (

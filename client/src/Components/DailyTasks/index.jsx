@@ -1,12 +1,13 @@
-import { ProgressBar } from '@components'
+import { useGetUserDailyTasksByIdQuery } from '@redux/services/userApi'
 import {
 	openGetRewards,
 	openRewardsNotAvalible
 } from '@redux/slices/modalsSlice'
-import { useDispatch, useSelector } from 'react-redux'
+import { useEffect, useState } from 'react'
+import { useDispatch } from 'react-redux'
 import { Link } from 'react-router-dom'
 import styles from './styles.module.css'
-
+import { ProgressBar } from '@components/ProgressBar'
 const CompletedTasks = ({ countCompletedTasks }) => {
 	return (
 		<div className={styles.DailyTasksIcons}>
@@ -27,11 +28,32 @@ const CompletedTasks = ({ countCompletedTasks }) => {
 	)
 }
 
-export const DailyTasks = ({ ShowInfo = true, ShowLvl = true }) => {
+export const DailyTasks = ({
+	ShowInfo = true,
+	ShowLvl = true
+}) => {
 	const dispatch = useDispatch()
+	const [isChestAvailable, setChestAvailable] = useState(false)
+	const [countCompletedTasks, setCountCompletedTasks] = useState(0)
+	const [status, setStatus] = useState('')
 
-	const { dailyTasksStatus, countCompletedTasks, isChestAvailable } =
-		useSelector((state) => state.dailyTasks)
+	const activeUserId = 1
+	const statusId = 4
+	const { data: userDailyTasks = [], isFetching: isFetchingUserDailyTasks } =
+		useGetUserDailyTasksByIdQuery(activeUserId)
+
+	useEffect(() => {
+		if (!isFetchingUserDailyTasks) {
+			setCountCompletedTasks(
+				userDailyTasks.filter((item) => item.statusId === statusId).length
+			)
+		}
+	}, [userDailyTasks])
+
+	useEffect(() => {
+		setChestAvailable(countCompletedTasks === 3)
+		setStatus(countCompletedTasks < 3 ? 'Выполняется' : 'Выполнено')
+	}, [countCompletedTasks])
 
 	const onChestClick = () => {
 		if (isChestAvailable) {
@@ -46,7 +68,7 @@ export const DailyTasks = ({ ShowInfo = true, ShowLvl = true }) => {
 			<div className={styles.DailyTasksWrapper}>
 				<div className={styles.DailyTasksStatusWrapper}>
 					<p className={styles.DailyTasksTitle}>Ежедневные задания</p>
-					<div className={styles.DailyTasksStatus}>{dailyTasksStatus}</div>
+					<div className={styles.DailyTasksStatus}>{status}</div>
 				</div>
 				{ShowInfo && (
 					<p className={styles.DailyTasksAbout}>
@@ -55,7 +77,6 @@ export const DailyTasks = ({ ShowInfo = true, ShowLvl = true }) => {
 				)}
 				<div className={styles.DailyTasksIconsWrapper}>
 					<CompletedTasks countCompletedTasks={countCompletedTasks} />
-					{/* Сундук */}
 					<div
 						className={
 							isChestAvailable
@@ -67,7 +88,7 @@ export const DailyTasks = ({ ShowInfo = true, ShowLvl = true }) => {
 						<img className={styles.SmallImg} src="../img/chest.png" />
 					</div>
 				</div>
-				{ShowLvl && <ProgressBar />}
+				{ShowLvl && <ProgressBar/>}
 			</div>
 		</Link>
 	)

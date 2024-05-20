@@ -10,16 +10,6 @@ export const shopSlice = createSlice({
 	reducers: {
 		setShop: (state, action) => {
 			state.shop = action.payload
-		},
-		buyItem: (state, action) => {
-			// !!! Какая то затычка 
-			const ItemId = action.payload
-
-			const itemIndex = state.shop.findIndex((item) => item.ItemId === ItemId)
-
-			if (itemIndex !== -1) {
-				state.shop[itemIndex].ItemObtained = true
-			}
 		}
 	}
 })
