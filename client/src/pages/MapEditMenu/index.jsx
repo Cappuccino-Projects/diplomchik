@@ -1,27 +1,44 @@
 import { TitleWrapper, MinimizeMenuButton, BackToMainMenu, UserCard } from '@components'
+import  EditMarker  from '@components/interactiveMap/EditMarker'
 import { Link } from 'react-router-dom'
 import styles from './styles.module.css'
 
 import { useState } from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { openGetRewards, openRewardsNotAvalible, openAddPlaceToMap } from '@redux/slices/modalsSlice'
+import { updateMarker } from '@app/redux/slices/locationsSlice'
 
 export const MapEditMenu = (props) => {
-	const [isModalOpen, setIsModalOpen] = useState(false)
-	const dispatch = useDispatch()
+  const [isModalOpen, setIsModalOpen] = useState(false)
+	const [showEditMarker, setShowEditMarker] = useState(false);
+  const dispatch = useDispatch()
 
-	const openModal = (isRewardsAvailable) => {
-		setIsModalOpen(true)
-		if (isRewardsAvailable) {
-			dispatch(openAddPlaceToMap())
-		} else {
-			dispatch(openAddPlaceToMap())
-		}
-	}
+  const openModal = (isRewardsAvailable) => {
+    setIsModalOpen(true)
+    if (isRewardsAvailable) {
+      dispatch(openAddPlaceToMap())
+    } else {
+      dispatch(openAddPlaceToMap())
+    }
+  }
 
-	// const closeModal = () => {
-	// 		setIsModalOpen(false);
-	// };
+  const selectedMarker = useSelector((state) => (state.markers ? state.markers.selected : undefined))
+  const markers = useSelector((state) => (state.markers ? state.markers.markers : undefined))
+  const [marker, setMarker] = useState(selectedMarker)
+
+  const handleEdit = (event) => {
+    event.preventDefault();
+
+    const updatedMarker = {
+      ...selectedMarker,
+      [event.target.name]: event.target.value, // Update the property of the selected marker that corresponds to the name of the input field
+    };
+
+    dispatch(updateSelectedMarker(updatedMarker)); // Dispatch the updateSelectedMarker action with the updated marker as the payload
+  };
+
+	console.log('selectedMarker', selectedMarker)
+	console.log('markers', markers)
 
 	return (
 		<div className={styles.MenuWrapper}>
@@ -36,12 +53,19 @@ export const MapEditMenu = (props) => {
 					<i className="fi fi-sr-add" />
 					<p>Добавить объект</p>
 				</div>
-				{/* <div>
-					<div className={styles.MenuButton} onClick={() => openModal(true)}>
-						Open Modal
-					</div>
-					{isModalOpen && <div className={styles.Modal}></div>}
-				</div> */}
+				
+				<EditMarker />
+				
+				<div>
+
+
+				<div>
+      <button onClick={() => setShowEditMarker(true)}>Edit Marker</button>
+      {showEditMarker && <EditMarker />}
+    </div>
+
+
+				</div>
 
 				<Link to="/favourite">
 					<div className={styles.MenuButton}>

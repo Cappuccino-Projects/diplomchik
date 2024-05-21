@@ -2,7 +2,7 @@ import { DailyTasks } from '@components'
 import { Outlet } from 'react-router-dom'
 import { CharacterCard } from '@components'
 import styles from './styles.module.css'
-import InteractiveMap from './interactiveMap'
+import InteractiveMap from '../../Components/interactiveMap/interactiveMap'
 
 export const Map = () => {
 	return (
