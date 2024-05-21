@@ -144,6 +144,15 @@
     transition: all 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
 }
 
+.AllplacesButton {
+    background-color: #f3f3f3;
+    padding: 3px 15px;
+    border-radius: 15px;
+    font-size: 14px;
+    width: fit-content;
+    color: black;
+}
+
 .AddImageButton:hover {
     background-color: #CAF05F;
 }

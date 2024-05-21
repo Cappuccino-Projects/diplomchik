@@ -8,19 +8,20 @@ export const EditReviewModal = () => {
                 <div className={styles.ModalWindowTitle}>
                     Редактирование отзыва
                 </div>
-                <div className={styles.Text}>
-                    Название места
+                <div style={{ fontSize: "20px", marginTop: "10px" }} className={styles.ModalWindowText}>
+                    <b>Ботанический сад</b>
                 </div>
-                <input style={{ height: "32px", marginTop: "5px" }} className='MenuTextArea' placeholder='Ботанический сад'></input>
-                <div className={styles.ModalWindowText}>
-                    Категория
+                <div style={{ fontSize: "14px", color: "grey" }} className={styles.AllplacesButton}>
+                    Культурные места
                 </div>
-                <input style={{ height: "32px" }} className='MenuTextArea' placeholder='Культура и отдых'></input>
                 <div className={styles.ModalWindowText}>
+                    Адрес: Курчатова 20 А
+                </div>
+                <div style={{ marginTop: "20px" }} className={styles.ModalWindowText}>
                     Комментарий
                 </div>
                 <input style={{ height: "32px" }} className='MenuTextArea' placeholder='Поделитесь впечатлениями'></input>
-                <div className={styles.ModalWindowText}>
+                <div style={{ marginTop: "10px" }} className={styles.ModalWindowText}>
                     Фотографии
                 </div>
                 <div className='LocationCardImageWrapper'>
@@ -48,7 +49,7 @@ export const EditReviewModal = () => {
                     </div>
                 </div>
 
-                <div className={styles.ModalWindowText}>
+                <div style={{ marginTop: "10px" }} className={styles.ModalWindowText}>
                     Оценка
                 </div>
                 <div className='LocationCardImageWrapper'>
@@ -59,14 +60,14 @@ export const EditReviewModal = () => {
                     <button className={styles.RatingNotActive}>5</button>
                 </div>
 
-                <div className={styles.ModalWindowButtonsWrapper}>
-				<div className={styles.ModalButton}>
-					Удалить
-				</div>
-				<div className={styles.ModalMainButton}>
-					Сохранить
-				</div>
-			</div>
+                <div style={{ marginTop: "20px" }} className={styles.ModalWindowButtonsWrapper}>
+                    <div className={styles.ModalButton}>
+                        Удалить
+                    </div>
+                    <div className={styles.ModalMainButton}>
+                        Сохранить
+                    </div>
+                </div>
             </div>
             <div className={styles.ModalWindowBackground} onClick={close}></div>
         </div>
