@@ -21,11 +21,35 @@ import { useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 import { Route, Routes } from 'react-router-dom'
 
+import { setPlaces } from '@redux/slices/placesSlice';
+import { placeApi } from '@shared/api';
+
 export const App = () => {
 	const dispatch = useDispatch()
 	const { data: user = {}, isFetchingUser } = useGetUserByIdQuery(1)
 
 	useEffect(() => {
+
+		const fetchData = async () => {
+			try {
+				const placeData = await placeApi.getAll()
+				dispatch(setPlaces(placeData.map((t) => ({ ...t, PlaceImage: 'shop.png' }))))
+
+
+			} catch (error) {
+				console.error(error)
+				// handle error
+			}
+		}
+
+		fetchData()
+	
+
+
+
+
+
+
 		if (!isFetchingUser) {
 			dispatch(setUser(user))
 		}
