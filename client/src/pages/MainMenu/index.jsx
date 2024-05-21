@@ -25,7 +25,6 @@ export const MainMenu = (props) => {
 				WrapperText="Популярные места"
 				WrapperButtonEnabled={true}
 			/>
-			<EditReviewModal></EditReviewModal>
 
 			<div className={styles.MainMenuButtonsWrapper}>
 				<MainMenuContainer />
