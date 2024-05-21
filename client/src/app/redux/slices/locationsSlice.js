@@ -19,11 +19,10 @@ export const locationsSlice = createSlice({
 				updateMarker: (state, action) => {
 					const index = state.locations.findIndex(marker => marker.id === action.payload.id);
 					if (index !== -1) {
-							state.locations[index] = action.payload;
-
+						state.locations[index] = action.payload;
 					}
-					console.log('updateMarkerSlice', state.locations);
-			},
+					console.log('updateMarkerSlice', state.locations)
+				},
     }
 })
 

@@ -18,25 +18,22 @@ const EditMarker = () => {
 
   useEffect(() => {
     if (selectedMarker) {
-      setTitle(selectedMarker.title);
-      setTypeId(selectedMarker.typeId);
-      setAddress(selectedMarker.address);
-      setLatitude(selectedMarker.latitude);
-      setLongitude(selectedMarker.longitude);
+      setTitle(selectedMarker.title || '');
+      setTypeId(selectedMarker.typeId || '');
+      setAddress(selectedMarker.address || '');
+      setLatitude(selectedMarker.latitude || '');
+      setLongitude(selectedMarker.longitude || '');
     }
   }, [selectedMarker]);
 
-  if (!selectedMarker) {
-    return null; // or return a loading state or a default state
-  }
-
   const handleSubmit = (e) => {
     e.preventDefault();
-
+  
+    // Dispatch the selectMarker action with the id of the marker you want to select
+    // dispatch(selectMarker(selectedMarker.id));
+  
     // Dispatch the updateMarker action with the updated marker as the payload
-    dispatch(selectMarker({ id: selectedMarker.id, title, typeId, address, latitude, longitude }));
     dispatch(updateMarker({ id: selectedMarker.id, title, typeId, address, latitude, longitude }));
-    
   };
 
   return (
