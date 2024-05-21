@@ -8,8 +8,10 @@ import {
 } from '@components'
 import { Link } from 'react-router-dom'
 import styles from './styles.module.css'
+import { useState } from 'react'
 
-export const Profile = (props) => {
+export const Profile = () => {
+
 	return (
 		<div className={styles.MenuWrapper}>
 			<div className={styles.MenuTopButtonsWrapper}>
@@ -41,9 +43,15 @@ export const Profile = (props) => {
 					</div>
 				</Link>
 			</div>
-			<ProfileSwitch />
-			<LocationsWrapper locations={props.locations} />
-			<br></br>
+
+
+			<div className={styles.ProfileSwitch}>
+				<p className={styles.ActiveSwitchText}>Отзывы</p>
+				<p className={styles.SwitchText}>Изменения</p>
+			</div>
+
+			<LocationsWrapper />
+			
 		</div>
 	)
 }

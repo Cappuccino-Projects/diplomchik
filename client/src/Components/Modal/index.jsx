@@ -10,6 +10,7 @@ import { Logout } from '@components/Modal/Logout'
 import { BadPassword } from '@components/Modal/BadPassword'
 import { BadPasswordRepeat } from '@components/Modal/BadPasswordRepeat'
 import { RewardsNotAvalible } from '@components/Modal/RewardsNotAvalible'
+import { EditReviewModal } from '@components/Modal/EditReviewModal'
 
 const portal = document.getElementById('portal')
 
@@ -29,10 +30,14 @@ export const Modal = () => {
 			{modalType === 'LOGOUT' && <Logout close={closeCallback} />}
 
 			{modalType === 'BADPASSWORD' && <BadPassword close={closeCallback} />}
-			{modalType === 'BADPASSWORDREPEAT' && <BadPasswordRepeat close={closeCallback} />}
-
+			{modalType === 'BADPASSWORDREPEAT' && (
+				<BadPasswordRepeat close={closeCallback} />
+			)}
 			{modalType === 'REWARDSNOTAVALIBLE' && (
 				<RewardsNotAvalible close={closeCallback} />
+			)}
+			{modalType === 'EDITREVIEWMODAL' && (
+				<EditReviewModal close={closeCallback} />
 			)}
 			{modalType === 'GETREWARDS' && <GetRewards close={closeCallback} />}
 		</ModalWindow>,

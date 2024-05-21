@@ -4,9 +4,9 @@ const initialState = {
 	isOpen: false,
 	modalType: '',
 	data: {
-		editItemToBuy: {}
+		editItemToBuy: {},
+		editRewiewToChange: {}
 	}
-
 }
 
 export const modalsSlice = createSlice({
@@ -44,6 +44,11 @@ export const modalsSlice = createSlice({
 		openBadPasswordRepeat: (state) => {
 			state.modalType = 'BADPASSWORDREPEAT'
 			state.isOpen = true
+		},
+		openEditReviewModal: (state,  action) => {
+			state.data.editRewiewToChange = action.payload
+			state.modalType = 'EDITREVIEWMODAL'
+			state.isOpen = true
 		}
 	}
 })
@@ -56,7 +61,8 @@ export const {
 	openGetRewards,
 	openLogout,
 	openBadPassword,
-	openBadPasswordRepeat
+	openBadPasswordRepeat,
+	openEditReviewModal
 } = modalsSlice.actions
 
 export default modalsSlice.reducer
