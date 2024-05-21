@@ -1,0 +1,173 @@
+.ModalWindowBackground {
+    background-color: rgb(0, 0, 0, 0.4);
+    position: fixed;
+    width: 100%;
+    z-index: 99;
+    height: 100%;
+    top: 0px;
+    left: 0px;
+    cursor: pointer;
+}
+
+.ModalWindow {
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+
+    max-width: 400px;
+    border-radius: 10px;
+    background-color: rgb(255, 255, 255);
+    cursor: default;
+    padding: 25px;
+    border: 1px rgba(0, 0, 0, 0.1) solid;
+
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    z-index: 999;
+}
+
+.SmallImg {
+    width: 20px;
+    height: 20px;
+    position: relative;
+}
+
+.ModalWindowTitle {
+    font-size: 28px;
+    font-family: Onest SemiBold;
+    width: 100%;
+}
+
+.ModalWindowText {
+    line-height: 150%;
+}
+
+.ModalWindowButtonsWrapper {
+    width: 100%;
+    display: flex;
+    gap: 20px;
+    flex-direction: row;
+}
+
+.ModalMainButton {
+    background-color: #caf05f;
+    border-radius: 5px;
+    color: #212121;
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    align-items: center;
+    padding: 10px;
+    width: 100%;
+    min-width: 110px;
+    cursor: pointer;
+    justify-content: center;
+    transition: all 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+
+.ModalButton {
+    background-color: #f3f3f3;
+    border-radius: 5px;
+    color: #212121;
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    align-items: center;
+    padding: 10px;
+    width: 100%;
+    cursor: pointer;
+    justify-content: center;
+    transition: all 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+
+.ModalButton:hover {
+    background-color: #D9D9D9;
+}
+
+.ModalMainButton:hover {
+    background-color: #8DBE02;
+}
+
+.UserBalance {
+    justify-content: space-between;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+
+    background-color: #CAF05F;
+    padding: 5px 20px;
+    border-radius: 15px;
+
+    font-size: 20px;
+}
+
+.LocationCardImage {
+    width: 31%;
+    height: 150px;
+
+    border-radius: 5px;
+    position: relative;
+
+
+    background-color: #EDEDED;
+    overflow: hidden;
+}
+
+.LocationImage {
+    width: 100%;
+    min-height: 100%;
+}
+
+.DeleteImageButton {
+    position: absolute;
+    background-color: white;
+    border-radius: 15px;
+    top: 5px;
+    right: 5px;
+    padding: 4px 4px 0px 3px;
+    cursor: pointer;
+}
+
+.AddImageButton {
+    position: absolute;
+    background-color: #EDEDED;
+    font-size: 32px;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+
+.AddImageButton:hover {
+    background-color: #CAF05F;
+}
+
+.RatingNotActive {
+    background-color: #EDEDED;
+    border: 1px rgba(0, 0, 0, 0.1) solid;
+    padding: 10px;
+    font-size: 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+
+.RatingNotActive:hover {
+    background-color: #CAF05F;
+}
+
+.RatingActive {
+    background-color: #caf05f;
+    border: 1px rgba(0, 0, 0, 0.1) solid;
+    padding: 10px;
+    font-size: 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
+}
