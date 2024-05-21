@@ -1,26 +1,19 @@
-import  { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { selectMarker } from '../../app/redux/slices/locationsSlice'; // Import your update action
 import { updateMarker } from '../../app/redux/slices/locationsSlice'; 
+import { updatePlace } from '../../app/redux/slices/placesSlice'; // Import the updatePlaces action
 
 const EditMarker = () => {
-  const selectedMarker = useSelector((state) => state.locations.selectedMarker); // Access the selected marker from the store
-  console.log('selectedMarker---', selectedMarker);
+  const selectedMarker = useSelector((state) => state.locations.selectedMarker);
+  const dispatch = useDispatch();
 
-  const dispatch = useDispatch(); // Get the dispatch function
-
-  // Use React's useState hook to create state variables for each property of the marker
-  const [title, setTitle] = useState(selectedMarker ? selectedMarker.title : '');
-  const [typeId, setTypeId] = useState(selectedMarker ? selectedMarker.typeId : '');
-  const [address, setAddress] = useState(selectedMarker ? selectedMarker.address : '');
-  const [latitude, setLatitude] = useState(selectedMarker ? selectedMarker.latitude : '');
-  const [longitude, setLongitude] = useState(selectedMarker ? selectedMarker.longitude : '');
-
+  const [name, setName] = useState(selectedMarker && selectedMarker.name ? selectedMarker.name : '');
+  const [latitude, setLatitude] = useState(selectedMarker && selectedMarker.latitude ? selectedMarker.latitude : '');
+  const [longitude, setLongitude] = useState(selectedMarker && selectedMarker.longitude ? selectedMarker.longitude : '');
+  
   useEffect(() => {
     if (selectedMarker) {
-      setTitle(selectedMarker.title || '');
-      setTypeId(selectedMarker.typeId || '');
-      setAddress(selectedMarker.address || '');
+      setName(selectedMarker.name || '');
       setLatitude(selectedMarker.latitude || '');
       setLongitude(selectedMarker.longitude || '');
     }
@@ -29,26 +22,26 @@ const EditMarker = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
   
-    // Dispatch the selectMarker action with the id of the marker you want to select
-    // dispatch(selectMarker(selectedMarker.id));
-  
-    // Dispatch the updateMarker action with the updated marker as the payload
-    dispatch(updateMarker({ id: selectedMarker.id, title, typeId, address, latitude, longitude }));
+    dispatch(updateMarker({ 
+      id: selectedMarker.id, 
+      name, 
+      latitude, 
+      longitude
+    }));
+
+    dispatch(updatePlace({ // Dispatch the updatePlaces action
+      id: selectedMarker.id, 
+      name, 
+      latitude, 
+      longitude
+    }));
   };
 
   return (
     <form onSubmit={handleSubmit}>
       <label>
-        Title:
-        <input type="text" value={title} onChange={(e) => setTitle(e.target.value)} />
-      </label>
-      <label>
-        Type ID:
-        <input type="number" value={typeId} onChange={(e) => setTypeId(e.target.value)} />
-      </label>
-      <label>
-        Address:
-        <input type="text" value={address} onChange={(e) => setAddress(e.target.value)} />
+        Name:
+        <input type="text" value={name} onChange={(e) => setName(e.target.value)} />
       </label>
       <label>
         Latitude:
