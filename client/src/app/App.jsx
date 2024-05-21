@@ -1,5 +1,4 @@
-import { useEffect } from 'react'
-import { Route, Routes } from 'react-router-dom'
+import { Modal } from '@components'
 import {
 	AllPlaces,
 	Chat,
@@ -16,25 +15,21 @@ import {
 	Shop
 } from '@pages'
 import { AdminPanel } from '@pages/AdminPanel'
+import { useGetUserByIdQuery } from '@redux/services/userApi'
+import { setUser } from '@redux/slices/userSlice'
 import { useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 import { Route, Routes } from 'react-router-dom'
-import { useDispatch } from 'react-redux';
-import { Modal } from '@components'
-import { useGetUserByIdQuery } from '@redux/services/userApi'
-import { setUser } from '@redux/slices/userSlice'
 
 export const App = () => {
-
 	const dispatch = useDispatch()
-	const {data: user = {}, isFetchingUser } = useGetUserByIdQuery(1)
-	
+	const { data: user = {}, isFetchingUser } = useGetUserByIdQuery(1)
+
 	useEffect(() => {
 		if (!isFetchingUser) {
 			dispatch(setUser(user))
 		}
 	}, [user])
-
 
 	return (
 		<>
@@ -61,4 +56,3 @@ export const App = () => {
 		</>
 	)
 }
-
