@@ -10,7 +10,7 @@ export const placesSlice = createSlice({
 	reducers: {
 		setPlaces: (state, action) => {
 			state.places = action.payload
-			console.log('placesSlice.js', state.places)
+			// console.log('placesSlice.js', state.places)
 		}
 		
 	}
