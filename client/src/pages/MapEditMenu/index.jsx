@@ -1,48 +1,27 @@
-import {
-	TitleWrapper,
-	MinimizeMenuButton,
-	BackToMainMenu,
-	UserCard,
-} from '@components'
+import { TitleWrapper, MinimizeMenuButton, BackToMainMenu, UserCard } from '@components'
 import { Link } from 'react-router-dom'
 import styles from './styles.module.css'
 
-import { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { openGetRewards, openRewardsNotAvalible, openAddPlaceToMap } from '@redux/slices/modalsSlice';
-
-
-
-
-
-
-
-
-
-
-
+import { useState } from 'react'
+import { useDispatch } from 'react-redux'
+import { openGetRewards, openRewardsNotAvalible, openAddPlaceToMap } from '@redux/slices/modalsSlice'
 
 export const MapEditMenu = (props) => {
-
-	const [isModalOpen, setIsModalOpen] = useState(false);
-	const dispatch = useDispatch();
+	const [isModalOpen, setIsModalOpen] = useState(false)
+	const dispatch = useDispatch()
 
 	const openModal = (isRewardsAvailable) => {
-			setIsModalOpen(true);
-			if (isRewardsAvailable) {
-					dispatch(openAddPlaceToMap());
-			} else {
-					dispatch(openAddPlaceToMap());
-			}
-	};
+		setIsModalOpen(true)
+		if (isRewardsAvailable) {
+			dispatch(openAddPlaceToMap())
+		} else {
+			dispatch(openAddPlaceToMap())
+		}
+	}
 
 	// const closeModal = () => {
 	// 		setIsModalOpen(false);
 	// };
-
-
-
-
 
 	return (
 		<div className={styles.MenuWrapper}>
@@ -52,28 +31,17 @@ export const MapEditMenu = (props) => {
 			</div>
 			<BackToMainMenu />
 			<p className={styles.TitleText}>Редактирование карты</p>
-			<div
-				style={{ marginBottom: 'auto' }}
-				className={styles.MainMenuButtonsWrapper}
-			>
-
-
-
-					<div className={styles.MenuButton} onClick={openModal}>
-						<i className="fi fi-sr-add" />
-						<p>Добавить объект</p>
+			<div style={{ marginBottom: 'auto' }} className={styles.MainMenuButtonsWrapper}>
+				<div className={styles.MenuButton} onClick={openModal}>
+					<i className="fi fi-sr-add" />
+					<p>Добавить объект</p>
+				</div>
+				{/* <div>
+					<div className={styles.MenuButton} onClick={() => openModal(true)}>
+						Open Modal
 					</div>
-					<div>
-
-
-            <div className={styles.MenuButton} onClick={() => openModal(true)}>Open Modal</div>
-            {isModalOpen && (
-                <div className={styles.Modal}>
-
-                </div>
-            )}
-        </div>
-
+					{isModalOpen && <div className={styles.Modal}></div>}
+				</div> */}
 
 				<Link to="/favourite">
 					<div className={styles.MenuButton}>
