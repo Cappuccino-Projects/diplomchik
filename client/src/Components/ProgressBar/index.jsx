@@ -9,11 +9,12 @@ export const ProgressBar = () => {
 	const [progress, setProgress] = useState(0)
 
 	useEffect(() => {
+		console.log(experience);
 		setCurrentlvl(Math.floor(experience / 250) + 1)
 		setProgress(((experience % 250) / 250) * 100)
 	}, [experience])
 
-	return (
+	return experience && (
 		<div className={styles.UserLvlWrapper}>
 			<p className="UserCardText">{currentlvl}</p>
 			<div className={styles.UserLvlProgressWrapper}>
