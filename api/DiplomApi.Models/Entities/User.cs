@@ -37,7 +37,7 @@ public class User
 
     public decimal Balance { get; set; }
 
-    public byte IsAdmin { get; set; }
+    public bool IsAdmin { get; set; }
 
     public virtual City City { get; set; } = null!;
 
