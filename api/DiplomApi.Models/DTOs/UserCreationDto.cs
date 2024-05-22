@@ -25,5 +25,5 @@ public class UserCreationDto
 
     public decimal Balance { get; set; }
 
-    public byte IsAdmin { get; set; }
+    public bool IsAdmin { get; set; }
 }
