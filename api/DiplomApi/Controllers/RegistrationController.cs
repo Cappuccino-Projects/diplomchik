@@ -1,11 +1,11 @@
-using Microsoft.AspNetCore.Mvc;
-using TouristCompany.Interfaces;
-using Mapster;
-using TouristCompany.Models.DTOs;
-using TouristCompany.Models.Entities;
+// using Microsoft.AspNetCore.Mvc;
+// using TouristCompany.Interfaces;
+// using Mapster;
+// using TouristCompany.Models.DTOs;
+// using TouristCompany.Models.Entities;
 
-namespace DiplomApi.Controllers
-{
+// namespace DiplomApi.Controllers
+// {
     // 0fe41223-993b-4df4-b222-e9aa4b5824b4 - Пользователь
     // a76182e2-7f23-4575-907c-289cbb103ba2 - Администратор
     // [ApiController]
@@ -32,4 +32,4 @@ namespace DiplomApi.Controllers
     //         });
     //     }
     }
-}
+// }
