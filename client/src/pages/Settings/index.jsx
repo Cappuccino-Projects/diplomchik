@@ -1,39 +1,79 @@
 import { MinimizeMenuButton } from '@components'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import styles from './styles.module.css'
 import { useDispatch } from 'react-redux'
 import { openLogout } from '@redux/slices/modalsSlice'
+import { useSelector } from 'react-redux'
+import { useGetAllCityQuery } from '@app/redux/services/cityApi'
+import { useUpdateUserInfoByIdMutation } from '@app/redux/services/userApi'
+import { openBadPassword } from '@redux/slices/modalsSlice'
 
 export const Settings = () => {
+	// Получение пользователя
 	const dispatch = useDispatch()
+	const user = useSelector((state) => state.user.user)
+
+	// Получение городов
+	const { data: cityData = [], isFetching: isFetchingCity } =
+		useGetAllCityQuery()
+	const [cityList, setcityList] = useState([])
+
+	// Изменение данных пользователя
+	const [updateUserInfo] = useUpdateUserInfoByIdMutation()
+
+	useEffect(() => {
+		if (!isFetchingCity) {
+			setcityList(cityData)
+		}
+	}, [cityData])
+
 	// Основная информация
-	const [nameInput, setNameInput] = useState('Анастасия')
-	const [loginInput, setLoginInput] = useState('login_Anastasia')
-	const [emailInput, setEmailInput] = useState('pomoechki@moi.com')
-	const [selectedCity, setSelectedCity] = useState('Dim')
-	// Безопасность
-	const password = 'qwerty123'
+	const [displayNameInput, setDisplayNameInput] = useState('')
+	const [loginInput, setLoginInput] = useState('')
+	const [emailInput, setEmailInput] = useState('')
+	const [selectedCity, setSelectedCity] = useState('')
+	const [password, setPassword] = useState('')
+	// // Безопасность
 	const [passwordInput, setPasswordInput] = useState('')
 	const [newPassword1Input, setNewPassword1Input] = useState('')
 	const [newPassword2Input, setNewPassword2Input] = useState('')
 	// Фотография профиля
 	const [selectedFile, setSelectedFile] = useState(null)
 
-	const saveBasicInformationChanges = () => {
-		const changes = {
-			nameInput,
-			loginInput,
-			emailInput,
-			selectedCity
+	useEffect(() => {
+		setDisplayNameInput(user.displayName)
+		setLoginInput(user.login)
+		setEmailInput(user.email)
+		setSelectedCity(user.cityId)
+		setPassword(user.passwordHash)
+	}, [user])
+
+	const saveBasicInformationChanges = async () => {
+		const newUser = {
+			...user,
+			displayName: displayNameInput,
+			login: loginInput,
+			email: emailInput,
+			cityId: selectedCity
 		}
+		await updateUserInfo(newUser)
+		alert('Вы успешно обновили основные данные')
 	}
-	const savePasswordChanges = () => {
-		if (password === passwordInput && newPassword1Input === newPassword2Input) {
-			// Сохраняем изменнения
-			alert('Cохраняем изменнения')
+
+	const savePasswordChanges = async () => {
+		if (
+			password === passwordInput &&
+			newPassword1Input === newPassword2Input &&
+			newPassword1Input.length >= 6
+		) {
+			const newUser = {
+				...user,
+				passwordHash: password
+			}
+			await updateUserInfo(newUser)
 		} else {
-			alert('ошибка')
+			dispatch(openBadPassword())
 		}
 	}
 
@@ -52,11 +92,12 @@ export const Settings = () => {
 			<p>Основная информация</p>
 			<div className="Card">
 				<p>Имя</p>
+
 				<input
 					type="text"
 					className={styles.MenuTextArea}
-					value={nameInput}
-					onChange={(e) => setNameInput(e.target.value)}
+					value={displayNameInput}
+					onChange={(e) => setDisplayNameInput(e.target.value)}
 				/>
 				<p>Логин</p>
 				<input
@@ -76,11 +117,13 @@ export const Settings = () => {
 				<select
 					className={styles.MenuDropDown}
 					value={selectedCity}
-					onChange={(e) => setSelectedCity(e.target.value)}
+					onChange={(e) => console.log(e.target.value)}
 				>
-					<option value="Dim">Димитровград</option>
-					<option value="Msc">Москва</option>
-					<option value="Ptrb">Санкт-Петербург</option>
+					{cityList.map((choice) => (
+						<option key={choice.id} value={choice.id}>
+							{choice.name}
+						</option>
+					))}
 				</select>
 				<button
 					className={styles.MenuButton}
@@ -92,8 +135,11 @@ export const Settings = () => {
 			</div>
 			<p>Фотография профиля</p>
 			<div className="Card">
-				<img className="UserCardImage" src="../img/User1Avatar.png" />
-				{/* {selectedFile ? selectedFile.name : ""} */}
+				<img
+					className="UserCardImage"
+					src="../img/User1Avatar.png"
+					style={{ margin: 'auto' }}
+				/>
 				<label>
 					<span className={styles.MenuButton}>Изменить изображение</span>
 					<input
@@ -139,44 +185,13 @@ export const Settings = () => {
 					<p>Справка</p>
 				</button>
 				<button
+					onClick={() => dispatch(openLogout())}
 					className={styles.MenuButton}
-					onClick={() => alert('Выйти из аккаунта')}
 				>
 					<i className="fi fi-sr-undo-alt" />
 					<p>Выйти из аккаунта</p>
 				</button>
 			</div>
-
-			{/* Дальше идут мечты можно не смотреть*/}
-			{/* <div className="Card">
-				<p>Двухэтапная аутентификация</p>
-				<div className={styles.MainMenuButton}>
-					<i className="fi-sr-data-transfer" />
-					<p>Подключить</p>
-				</div>
-			</div>
-			<div className={styles.MainMenuButtonsWrapper}>
-				<div>
-					<div className={styles.MenuButton}>
-						<i className="fi fi-sr-letter-case" />
-						<p>Язык: Русский</p>
-					</div>
-	</Link>*/}
-
-			<Link to="/favourite">
-				<div className={styles.MenuButton}>
-					<i className="fi fi-sr-info" />
-					<p>Справка</p>
-				</div>
-			</Link>
-
-			<button
-				onClick={() => dispatch(openLogout())}
-				className={styles.MenuButton}
-			>
-				<i className="fi fi-sr-undo-alt" />
-				<p>Выйти из аккаунта</p>
-			</button>
 		</div>
 	)
 }

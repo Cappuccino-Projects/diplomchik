@@ -20,6 +20,9 @@ const io = new Server(server, {
 });
 
 io.on("connection", async (socket) => {
+
+  const history = []
+
   const handler = handlerCore();
   console.log("❤️ user connected");
 
@@ -35,8 +38,11 @@ io.on("connection", async (socket) => {
 
     io.to(userId).emit("chat message", msg);
 
+    history.push(msg);
+
     setTimeout(() => {
-      const { readyDataMessage, newContext } = handler(msg, context);
+
+      const { readyDataMessage, newContext } = handler(msg, context, history);
 
       context = newContext;
 

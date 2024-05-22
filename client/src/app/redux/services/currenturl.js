@@ -1,0 +1,1 @@
+export const url = 'http://places.d3s.ru:8080'

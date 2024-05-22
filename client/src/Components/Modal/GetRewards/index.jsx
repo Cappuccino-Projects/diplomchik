@@ -1,16 +1,23 @@
-import { getRewards } from '@redux/slices/userSlice'
-import { useDispatch } from 'react-redux'
+import { useUpdateUserInfoByIdMutation } from '@app/redux/services/userApi'
+import { useSelector } from 'react-redux'
 import styles from './styles.module.css'
 
 export const GetRewards = ({ close }) => {
-	const dispatch = useDispatch()
+	const [updateUserInfo] = useUpdateUserInfoByIdMutation()
+	const user = useSelector((state) => state.user.user)
+	
+	const balance = 35
+	const xp = 30
 
-	const rewards = {
-		xp: 30,
-		balance: 35
-	}
-	const onAcceptClick = () => {
-		dispatch(getRewards(rewards))
+	const onAcceptClick = async () => {
+		const updateUser = {
+			...user,
+			balance: user.balance + balance,
+			experience: user.experience + xp
+		}
+		console.log("updateUser", updateUser)
+		await updateUserInfo(updateUser)
+		// ТУТ НАДО СБРОСИТЬ ЗАДАНИЯ
 		close()
 	}
 
@@ -25,12 +32,12 @@ export const GetRewards = ({ close }) => {
 
 			<div className={styles.ModalWindowButtonsWrapper}>
 				<div className={styles.UserBalance}>
-					<p>{rewards.balance} </p>
+					<p>{balance} </p>
 					<img className={styles.SmallImg} src="../img/crystall.png" />
 				</div>
 
 				<div className={styles.UserBalance}>
-					<p>{rewards.xp + ' опыта'}</p>
+					<p>{xp + ' опыта'}</p>
 				</div>
 			</div>
 			<div className={styles.ModalWindowButtonsWrapper}>

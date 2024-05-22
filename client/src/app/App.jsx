@@ -1,5 +1,4 @@
-import { useEffect } from 'react'
-import { Route, Routes } from 'react-router-dom'
+import { Modal } from '@components'
 import {
 	AllPlaces,
 	Chat,
@@ -15,45 +14,28 @@ import {
 	Settings,
 	Shop
 } from '@pages'
+import { AdminPanel } from '@pages/AdminPanel'
+import { useGetUserByIdQuery } from '@redux/services/userApi'
+import { setUser } from '@redux/slices/userSlice'
+import { useEffect } from 'react'
+import { useDispatch } from 'react-redux'
+import { Route, Routes } from 'react-router-dom'
 
-import { useDispatch } from 'react-redux';
-import { setCities } from '@redux/slices/citiesSlice';
-import { setDailyTasks } from '@redux/slices/dailyTasksSlice';
-import { setLocations } from '@redux/slices/locationsSlice';
 import { setPlaces } from '@redux/slices/placesSlice';
-import { setShop } from '@redux/slices/shopSlice';
-
-import { Modal } from '@components'
-
-import { cityApi } from '@shared/api';
-import { placeTypeApi } from '@shared/api';
 import { placeApi } from '@shared/api';
-import { dailyTaskApi } from '@shared/api/dailyTasks';
-import { locationApi } from '@shared/api/location';
-import { shopApi } from '@shared/api/shop';
-
-
 
 export const App = () => {
 	const dispatch = useDispatch()
+	const { data: user = {}, isFetchingUser } = useGetUserByIdQuery(1)
 
 	useEffect(() => {
+
 		const fetchData = async () => {
 			try {
 				const placeData = await placeApi.getAll()
 				dispatch(setPlaces(placeData.map((t) => ({ ...t, PlaceImage: 'shop.png' }))))
 
-				const cityData = await cityApi.getAll()
-				dispatch(setCities(cityData))
 
-				const locationData = await locationApi.getAll()
-				dispatch(setLocations(locationData))
-
-				const shopData = await shopApi.getAll()
-				dispatch(setShop(shopData))
-
-				const dailyTaskData = await dailyTaskApi.getAll()
-				dispatch(setDailyTasks(dailyTaskData))
 			} catch (error) {
 				console.error(error)
 				// handle error
@@ -61,13 +43,24 @@ export const App = () => {
 		}
 
 		fetchData()
-	}, [dispatch])
+	
+
+
+
+
+
+
+		if (!isFetchingUser) {
+			dispatch(setUser(user))
+		}
+	}, [user])
 
 	return (
 		<>
 			<Routes>
 				<Route path="/registration" element={<Registration />} />
 				<Route path="/login" element={<Login />} />
+				<Route path="/adminpanel" element={<AdminPanel />} />
 				<Route path="/" element={<Map />}>
 					<Route index element={<MainMenu />} />
 					<Route path="/mainmenu" element={<MainMenu />} />
