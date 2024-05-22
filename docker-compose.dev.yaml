@@ -31,6 +31,7 @@ services:
 
   frontend:
     build: ./client
+    restart: always
     ports:
       - 7090:8080
     volumes:
@@ -44,6 +45,7 @@ services:
 
   chat:
     build: ./server
+    restart: always
     ports:
       - 4589:3000
     environment:
@@ -58,6 +60,7 @@ services:
     build: 
       context: ./api
       dockerfile: Dockerfile.dev
+    restart: always
     ports:
       - 8080:8080
     environment:
