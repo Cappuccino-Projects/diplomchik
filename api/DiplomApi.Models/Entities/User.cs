@@ -31,7 +31,7 @@ public class User
     public int? ThemeId { get; set; } = 1;
 
     [Column("rank_id")]
-    public int RankId { get; set; }
+    public int RankId { get; set; } = 1;
 
     public int Experience { get; set; }
 
