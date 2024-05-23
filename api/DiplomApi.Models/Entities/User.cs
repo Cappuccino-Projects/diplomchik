@@ -28,7 +28,7 @@ public class User
     public string? AvatarPath { get; set; }
 
     [Column("theme_id")]
-    public int? ThemeId { get; set; }
+    public int? ThemeId { get; set; } = 1;
 
     [Column("rank_id")]
     public int RankId { get; set; }
