@@ -4,8 +4,7 @@ import { url } from './currenturl'
 export const userApi = createApi({
 	reducerPath: 'userApi',
 	baseQuery: fetchBaseQuery({
-		baseUrl: `${url}/api/user`,
-
+		baseUrl: `${url}/api/user`
 	}),
 	tagTypes: ['User', 'Product', 'DailyTasks'],
 	endpoints: (build) => ({
@@ -33,7 +32,7 @@ export const userApi = createApi({
 			query: ({ userId, productId, ...body }) => ({
 				url: `/${userId}/product?productId=${productId}`,
 				method: 'POST',
-				body: body,
+				body: body
 			}),
 			invalidatesTags: ['User', 'Product']
 		}),
@@ -52,7 +51,7 @@ export const userApi = createApi({
 				url: `/${userId}/product/${productId}`,
 				method: 'DELETE'
 			}),
-			providesTags: ['User', 'Product']
+			invalidatesTags: ['User', 'Product']
 		}),
 		// Получить все задания пользователя
 		getUserDailyTasksById: build.query({
@@ -66,12 +65,26 @@ export const userApi = createApi({
 				method: 'PUT',
 				body: body
 			}),
-			providesTags: ['User', 'DailyTasks']
+			invalidatesTags: ['User', 'DailyTasks']
+		}),
+		getUserActivateItems: build.query({
+			query: (userId) => `/${userId}/appearance`,
+			providesTags: ['User']
+		}),
+		updateUserActivateItems: build.mutation({
+			query: ({ userId, ...body }) => ({
+				url: `/${userId}/appearance`,
+				method: 'PUT',
+				body: body
+			}),
+			invalidatesTags: ['User', 'Product']
 		})
 	})
 })
 
 export const {
+	useGetUserActivateItemsQuery,
+	useUpdateUserActivateItemsMutation,
 	useBuyProductMutation,
 	useGetUserByIdQuery,
 	useUpdateUserInfoByIdMutation,

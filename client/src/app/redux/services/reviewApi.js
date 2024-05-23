@@ -6,15 +6,15 @@ export const reviewApi = createApi({
 	baseQuery: fetchBaseQuery({
 		baseUrl: `${url}/api/review`
 	}),
-	tagTypes: ['Review'],
+	tagTypes: ['Reviews'],
 	endpoints: (build) => ({
 		getAllreview: build.query({
 			query: () => `/`,
-			providesTags: ['Review']
+			providesTags: ['Reviews']
 		}),
 		getReviewById: build.query({
 			query: (id) => `/${id}`,
-			providesTags: ['Review']
+			providesTags: ['Reviews']
 		}),
 		updateReviewById: build.mutation({
 			query: ({ id, ...body }) => ({
@@ -22,7 +22,7 @@ export const reviewApi = createApi({
 				method: 'PUT',
 				body: body
 			}),
-			invalidatesTags: ['Review']
+			invalidatesTags: ['Reviews']
 		})
 	})
 })

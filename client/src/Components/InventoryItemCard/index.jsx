@@ -1,26 +1,35 @@
+import { useSelector } from 'react-redux'
 import styles from './styles.module.css'
 
-import { useUpdateUserProductActiveByIdMutation } from '@redux/services/userApi'
-export const InventoryItemCard = ({ item }) => {
-	// active: 0
-	// iconPath: "avatar_frame2"
-	// id: 2
-	// name: "Киберпанк"
-	// price: 200
-	// type: null
-	// typeId: 2,
+import {
+	useGetUserActivateItemsQuery,
+	useUpdateUserActivateItemsMutation
+} from '@redux/services/userApi'
 
-	const [activateProduct, { isError }] =
-		useUpdateUserProductActiveByIdMutation()
+export const InventoryItemCard = ({ item }) => {
+	const userId = useSelector((state) => state.user.user.id)
+
+	const [updateActivateProduct] = useUpdateUserActivateItemsMutation()
+
+	const { data: activateProducts = {} } = useGetUserActivateItemsQuery(userId)
+
 
 	const onActivateClick = async () => {
-		const data = { userId: 1, productId: item.id, active: 1 }
-		await activateProduct(data)
+		const data = {
+			userId: userId,
+			avatar: item.typeId === 2 ? item.id : activateProducts.avatar,
+			character: item.typeId === 1 ? item.id : activateProducts.character
+		}
+		await updateActivateProduct(data)
 	}
-	
+
 	const onDeactivateClick = async () => {
-		const data = { userId: 1, productId: item.id, active: 0 }
-		await activateProduct(data)
+		const data = {
+			userId: userId,
+			avatar: item.typeId === 2 ? null : activateProducts.avatar,
+			character: item.typeId === 1 ? null : activateProducts.character
+		}
+		await updateActivateProduct(data)
 	}
 
 	return (
@@ -47,19 +56,22 @@ export const InventoryItemCard = ({ item }) => {
 				>
 					<img
 						className={styles.ShopItemImage}
-						src={'../img/' + item.ItemImage}
+						src={'../img/' + item.iconPath}
 					/>
 				</div>
 			)}
 			<p style={{ marginBottom: 'auto' }}>{item.name}</p>
 
 			<div className={styles.CardButtonsWrapper}>
-				{item.active === 0 ? (
+				{activateProducts?.avatar !== item.id ||
+				activateProducts?.character !== item.id ? (
 					<div className={styles.CardMainButton} onClick={onActivateClick}>
 						Использовать
 					</div>
 				) : (
-					<div className={styles.CardButton} onClick={onDeactivateClick}>Используется</div>
+					<div className={styles.CardButton} onClick={onDeactivateClick}>
+						Используется
+					</div>
 				)}
 			</div>
 		</div>
