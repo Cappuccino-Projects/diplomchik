@@ -15,6 +15,7 @@ const ChangeView = ({ zoom }) => {
 const InteractiveMap = (props) => {
   const position = props.position || [54.240372, 49.557147] // Use props.position if provided, else default to Moscow's coordinates
   const places = useSelector((state) => state.places) || [] // Access places from the store and default to an empty array if it's not an array
+  console.log(places)
   const dispatch = useDispatch(); // Get the dispatch function
 
   const handleMarkerClick = (place) => {
