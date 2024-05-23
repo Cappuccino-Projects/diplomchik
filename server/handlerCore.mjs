@@ -12,12 +12,12 @@ export const handlerCore = () => {
   };
   let result = {};
 
-  function handle(msg, context) {
+  function handle(msg, context, history) {
     msg.context = context;
 
     switch (msg.context) {
       case "default":
-        result = defaultContext(readyDataMessage, msg, context);
+        result = defaultContext(readyDataMessage, msg, context, history);
         break;
       case "search_place":
         result = findPlaceContext(readyDataMessage, msg, context);
@@ -25,6 +25,7 @@ export const handlerCore = () => {
       case "weather":
         result = weatherContext(readyDataMessage, msg, context);
         break;
+      case "faq":
       default:
         result = {
           owner: "BOT",

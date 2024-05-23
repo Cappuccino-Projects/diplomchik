@@ -26,3 +26,9 @@
   background: #ffffff;
   margin-left: 0;
 }
+
+.chat__message-item_user a,
+.chat__message-item_bot a {
+  text-decoration: underline;
+  color: #caf05f;
+}

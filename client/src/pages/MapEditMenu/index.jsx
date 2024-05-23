@@ -1,13 +1,16 @@
-import {
-	TitleWrapper,
-	MinimizeMenuButton,
-	BackToMainMenu,
-	UserCard,
-} from '@components'
+import { TitleWrapper, MinimizeMenuButton, BackToMainMenu, UserCard } from '@components'
+import EditMarker from '@components/interactiveMap/EditMarker'
 import { Link } from 'react-router-dom'
 import styles from './styles.module.css'
 
+import { useState } from 'react'
+// import { useDispatch, useSelector } from 'react-redux'
+
+
 export const MapEditMenu = (props) => {
+	const [showEditMarker, setShowEditMarker] = useState(false)
+
+
 	return (
 		<div className={styles.MenuWrapper}>
 			<div className={styles.Title}>
@@ -16,22 +19,21 @@ export const MapEditMenu = (props) => {
 			</div>
 			<BackToMainMenu />
 			<p className={styles.TitleText}>Редактирование карты</p>
-			<div
-				style={{ marginBottom: 'auto' }}
-				className={styles.MainMenuButtonsWrapper}
-			>
-				<Link to="/favourite">
-					<div className={styles.MenuButton}>
-						<i className="fi fi-sr-add" />
-						<p>Добавить объект</p>
-					</div>
-				</Link>
-				<Link to="/favourite">
-					<div className={styles.MenuButton}>
-						<i className="fi fi-sr-edit" />
-						<p>Редактировать объект</p>
-					</div>
-				</Link>
+			<div style={{ marginBottom: 'auto' }} className={styles.MainMenuButtonsWrapper}>
+				<div className={styles.MenuButton}>
+					<i className="fi fi-sr-add" />
+					<p>Добавить объект</p>
+				</div>
+
+
+
+				<div>
+						<div className={styles.MenuButton} onClick={() => setShowEditMarker(!showEditMarker)}>
+							<i className="fi fi-sr-edit" />
+							<p>{showEditMarker ? 'Редактировать объект' : 'Редактировать объект'}</p>
+						</div>
+					{showEditMarker && <EditMarker />} 
+				</div>
 
 				<Link to="/favourite">
 					<div className={styles.MenuButton}>
