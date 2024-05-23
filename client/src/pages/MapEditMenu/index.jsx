@@ -8,10 +8,12 @@ import { useState } from 'react'
 
 import EditMarker from '@components/interactiveMap/EditMarker'
 import AddMarker from '@components/interactiveMap/AddMarker'
+import RemoveMarker from '@components/interactiveMap/RemoveMarker'
 
 export const MapEditMenu = (props) => {
 	const [showEditMarker, setShowEditMarker] = useState(false)
 	const [showAddMarker, setShowAddMarker] = useState(false)
+	const [showRemoveMarker, setShowRemoveMarker] = useState(false)
 
 
 	return (
@@ -49,12 +51,13 @@ export const MapEditMenu = (props) => {
 					{showEditMarker && <EditMarker />} 
 				</div>
 
-				<Link to="/favourite">
-					<div className={styles.MenuButton}>
+				<div>
+					<div className={styles.MenuButton} onClick={() => setShowRemoveMarker(!showRemoveMarker)}>
 						<i className="fi fi-sr-delete" />
 						<p>Удалить объект</p>
 					</div>
-				</Link>
+					{showRemoveMarker && <RemoveMarker />}
+					</div>
 
 				<Link to="/favourite">
 					<div className={styles.MainMenuButton}>

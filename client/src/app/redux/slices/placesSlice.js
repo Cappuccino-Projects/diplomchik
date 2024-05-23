@@ -37,10 +37,18 @@ export const placesSlice = createSlice({
         },
         addMarker: (state, action) => {
             state.markers.push(action.payload)
-        }
+        },
+        removeMarker: (state, action) => {
+            const id = action.payload.id;
+            state.markers = state.markers.filter(marker => marker.id !== id);
+        },
+        removePlace: (state, action) => {
+            const id = action.payload.id;
+            state.places = state.places.filter(place => place.id !== id);
+        },
     }
 })
 
-export const { setPlaces, updatePlace, addPlace, selectMarker, updateMarker, addMarker } = placesSlice.actions
+export const { setPlaces, updatePlace, addPlace, selectMarker, updateMarker, addMarker, removeMarker, removePlace } = placesSlice.actions
 
 export default placesSlice.reducer
