@@ -14,7 +14,16 @@ namespace DiplomApi.Controllers
         [HttpPost]
         public IActionResult RegisterUser([FromBody] RegistrationDto registrationDto)
         {
-            var newUser = registrationDto.Adapt<User>();
+            var newUser = new User();
+
+            if (registrationDto.Password != registrationDto.ConfirmPassword)
+                return BadRequest("Пароли не совпадают");
+
+            newUser.Email = registrationDto.Email;
+            newUser.Login = registrationDto.Login;
+            newUser.DisplayName = registrationDto.DisplayName;
+            newUser.PasswordHash = registrationDto.Password;
+            newUser.CityId = registrationDto.CityId;
 
             userRepository.Insert(newUser);
 
