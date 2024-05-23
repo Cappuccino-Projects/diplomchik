@@ -14,38 +14,53 @@ import {
 	Settings,
 	Shop
 } from '@pages'
-import { setCities } from '@redux/slices/citiesSlice'
-import { setDailyTasks } from '@redux/slices/dailyTasksSlice'
-import { setLocations } from '@redux/slices/locationsSlice'
-import { setPlaces } from '@redux/slices/placesSlice'
-import { setShop } from '@redux/slices/shopSlice'
-import { cityApi, placeTypeApi } from '@shared/api'
-import { dailyTaskApi } from '@shared/api/dailyTasks'
-import { locationApi } from '@shared/api/location'
-import { shopApi } from '@shared/api/shop'
+import { AdminPanel } from '@pages/AdminPanel'
+import { useGetUserByIdQuery } from '@redux/services/userApi'
+import { setUser } from '@redux/slices/userSlice'
 import { useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 import { Route, Routes } from 'react-router-dom'
 
+import { setPlaces } from '@redux/slices/placesSlice';
+import { placeApi } from '@shared/api';
 
 export const App = () => {
 	const dispatch = useDispatch()
+	const { data: user = {}, isFetchingUser } = useGetUserByIdQuery(1)
 
 	useEffect(() => {
-		placeTypeApi.getAll().then((result) => {
-			dispatch(setPlaces(result.map((t) => ({ ...t, PlaceImage: 'shop.png' }))))
-		})
-		cityApi.getAll().then((data) => dispatch(setCities(data)))
-		locationApi.getAll().then((data) => dispatch(setLocations(data)))
-		shopApi.getAll().then((data) => dispatch(setShop(data)))
-		dailyTaskApi.getAll().then((data) => dispatch(setDailyTasks(data)))
-	}, [])
+
+		const fetchData = async () => {
+			try {
+				const placeData = await placeApi.getAll()
+				dispatch(setPlaces(placeData.map((t) => ({ ...t, PlaceImage: 'shop.png' }))))
+
+
+			} catch (error) {
+				console.error(error)
+				// handle error
+			}
+		}
+
+		fetchData()
+	
+
+
+
+
+
+
+		if (!isFetchingUser) {
+			dispatch(setUser(user))
+		}
+	}, [user])
 
 	return (
 		<>
 			<Routes>
 				<Route path="/registration" element={<Registration />} />
 				<Route path="/login" element={<Login />} />
+				<Route path="/adminpanel" element={<AdminPanel />} />
 				<Route path="/" element={<Map />}>
 					<Route index element={<MainMenu />} />
 					<Route path="/mainmenu" element={<MainMenu />} />

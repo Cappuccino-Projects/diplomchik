@@ -2,32 +2,40 @@ import {
 	BackToMainMenu,
 	MinimizeMenuButton,
 	UserCard,
-	ShopItemsWrapper
+	ShopItemCard
 } from '@components'
+
 import styles from './styles.module.css'
+
+import { useGetAllProductsQuery } from '@redux/services/productsApi'
+import { useGetUserProductsByIdQuery } from '@redux/services/userApi'
+import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
-import { useState, useEffect } from 'react'
 
 export const Shop = () => {
-	const shopItems = useSelector((state) => state.shop.shop)
+
+	const userId = useSelector(state => state.user.user.id)
+
+	const { data: userProducts = [], isFetching: isFetchingUserProducts } =
+		useGetUserProductsByIdQuery(userId)
+
+	const { data: allProducts = [], isFetching: isFetchingAllProducts } =
+		useGetAllProductsQuery()
 
 	const [avatars, setAvatars] = useState([])
-	const [themes, setThemes] = useState([])
+	const [characters, setCharacters] = useState([])
 
 	useEffect(() => {
-		setAvatars(
-			shopItems.filter(
-				(item) =>
-					item.ItemCategory === 'Avatar Frame' && item.ItemObtained === false
-			)
+		if (!isFetchingUserProducts && !isFetchingAllProducts) {
+			const userProductIds = userProducts.map((product) => product.productId)
+			const shopProduct = allProducts.filter(
+			(product) => !userProductIds.includes(product.id)
 		)
-
-		setThemes(
-			shopItems.filter(
-				(item) => item.ItemCategory === 'Theme' && item.ItemObtained === false
-			)
-		)
-	}, [shopItems])
+		setAvatars(shopProduct.filter((item) => item.typeId === 2))
+		setCharacters(shopProduct.filter((item) => item.typeId === 1))
+		}
+		
+	}, [userProducts, allProducts])
 
 	return (
 		<div className={styles.MenuWrapper}>
@@ -36,27 +44,39 @@ export const Shop = () => {
 				<MinimizeMenuButton />
 			</div>
 			<UserCard ShowLvl={true} ShowBalance={true} />
-			{/* <div className="Card">
-				<div className={styles.UserBalanceWrapper}>
-					<p className="UserCardText">Баланс</p>
-					<div className="UserBalance">
-						<p className="UserCardText">542 фантики</p>
-						<img className="SmallImg" src="../img/crystall.png" />
-					</div>
-				</div>
-				<p className="DailyTasksAbout">
-					Зарабатывайте помойкоены за выполнение ежедневных заданий и
-					обменивайте их на предметы в магазине
-				</p>
-			</div> */}
 			<p className="DailyTasksAbout">
 				Зарабатывайте помойкоены за выполнение ежедневных заданий и обменивайте
 				их на предметы в магазине
 			</p>
+
 			<p className={styles.TitleText}>Магазин</p>
 
-			<ShopItemsWrapper shopitems={avatars} wrapperText="Рамки для аватара" />
-			<ShopItemsWrapper shopitems={themes} wrapperText="Темы" />
+			<div>
+				<p style={{ marginBottom: '10px' }}>Рамки для аватара</p>
+
+				{avatars.length > 0 ? (
+					<div className={styles.ShopItemsWrapper}>
+						{avatars.map((item) => (
+							<ShopItemCard key={item.id} item={item} />
+						))}
+					</div>
+				) : (
+					<p style={{ marginBottom: '10px' }}>Пусто</p>
+				)}
+			</div>
+			<div>
+				<p style={{ marginBottom: '10px' }}>Рамки для аватара</p>
+
+				{characters.length > 0 ? (
+					<div className={styles.ShopItemsWrapper}>
+						{characters.map((item) => (
+							<ShopItemCard key={item.id} item={item} />
+						))}
+					</div>
+				) : (
+					<p style={{ marginBottom: '10px' }}>Пусто</p>
+				)}
+			</div>
 		</div>
 	)
 }

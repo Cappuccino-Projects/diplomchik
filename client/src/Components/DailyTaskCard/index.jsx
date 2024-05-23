@@ -1,18 +1,9 @@
 import styles from './styles.module.css'
 
 export const DailyTaskCard = ({ task }) => {
-	//  task = {
-	// 	  TaskBackgroundColor,
-	// 	  TaskId,
-	// 	  TaskImage,
-	// 	  TaskIsCompleted,
-	// 	  TaskName,
-	// 	  TaskProgress,
-	// 	  TaskText,
-	// }
-	const refreshButton = () => {
-		alert('Меняем  чето')
-	}
+	const { id, statusId, title, description, expAward, iconPath } = task
+
+	const isRefreshAvalible = true
 
 	return (
 		<div className={styles.Card}>
@@ -20,29 +11,43 @@ export const DailyTaskCard = ({ task }) => {
 				<div className={styles.DailyTaskTitle}>
 					<div className={styles.DailyTaskIcon}>
 						<img
-							src={'../img/' + task.TaskImage}
+							src={`../img/${iconPath}.png`}
 							className={styles.DailyTaskImg}
 						/>
 					</div>
-					{/* Нету класса DailyTaskName */}
-					<p className="DailyTaskName">{task.TaskName}</p>
+					<p>{title}</p>
 				</div>
 
-				{!task.TaskIsCompleted && (
-					<div className={styles.DailyTaskButton} onClick={refreshButton}>
-						<i className="fi fi-sr-refresh" />
-					</div>
+				{statusId !== 4 && isRefreshAvalible && (
+					<>
+						<div
+							className={styles.DailyTaskButton}
+							onClick={() => alert('Ок')}
+						>
+							<i className="fi-sr-check" />
+						</div>
+
+						<div
+							className={styles.DailyTaskButton}
+							onClick={() => alert('Замена не доступна')}
+						>
+							<i className="fi fi-sr-refresh" />
+						</div>
+					</>
 				)}
 			</div>
+
 			<div className={styles.DailyTaskInfoStatusWrapper}>
-				<p>{task.TaskText}</p>
+				<p>{description}</p>
+
 				<div
 					style={{
-						backgroundColor: task.TaskIsCompleted ? '#CAF05F' : '#EDEDED'
+						backgroundColor:
+							statusId === 4 && isRefreshAvalible ? '#CAF05F' : '#EDEDED'
 					}}
 					className={styles.DailyTaskStatus}
 				>
-					{task.TaskProgress}
+					{statusId === 4 ? 'Выполнено' : 'Выполняется'}
 				</div>
 			</div>
 		</div>

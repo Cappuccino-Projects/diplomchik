@@ -1,10 +1,22 @@
 import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
-	UserName: 'Анастасия',
-	UserRole: 'Крутой пользователь',
-	UserBalance: 541,
-	UserExp: 250
+	user: {
+		id: 0,
+		login: '',
+		displayName: '',
+		email: '',
+		passwordHash: '',
+		cityId: 0,
+		avatarPath: null,
+		themeId: null,
+		rankId: null,
+		experience: 0,
+		balance: 0,
+		city: null,
+		theme: null,
+		rank: null
+	}
 }
 
 export const userSlice = createSlice({
@@ -12,30 +24,11 @@ export const userSlice = createSlice({
 	initialState,
 	reducers: {
 		setUser: (state, action) => {
-			state.UserName = action.payload.UserName
-			state.UserRole = action.payload.UserRole
-			state.UserBalance = action.payload.UserBalance
-		},
-		increaseBalance: (state, action) => {
-			state.UserBalance += action.payload
-		},
-		decreaseBalance: (state, action) => {
-			if (state.UserBalance >= action.payload) {
-				state.UserBalance -= action.payload
-			}
-		},
-		increaseExp: (state, action) => {
-			state.UserExp += action.payload
-		},
-		getRewards: (state, action) => {
-			const {xp, balance} = action.payload 
-			state.UserExp += xp
-			state.UserBalance += balance
-		},
-
+			state.user = action.payload
+		}
 	}
 })
 
-export const { setUser, decreaseBalance, increaseBalance, increaseExp, getRewards } = userSlice.actions
+export const { setUser } = userSlice.actions
 
 export default userSlice.reducer

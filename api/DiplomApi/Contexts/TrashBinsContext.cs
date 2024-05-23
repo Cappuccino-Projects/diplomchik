@@ -8,6 +8,10 @@ namespace DiplomApi.Contexts;
 
 public partial class TrashBinsContext(DbContextOptions<TrashBinsContext> options, IConfiguration configuration) : DbContext
 {
+    public virtual DbSet<ChangeType> ChangeTypes { get; set; }
+
+    public virtual DbSet<Change> Changes { get; set; }
+
     public virtual DbSet<City> Cities { get; set; }
 
     public virtual DbSet<Mission> Missions { get; set; }

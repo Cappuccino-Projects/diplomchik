@@ -37,6 +37,8 @@ public class User
 
     public decimal Balance { get; set; }
 
+    public bool IsAdmin { get; set; }
+
     public virtual City City { get; set; } = null!;
 
     //public virtual ICollection<MissionUser> MissionsUsers { get; set; } = new List<MissionUser>();

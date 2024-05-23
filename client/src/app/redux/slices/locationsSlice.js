@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
-	locations: []
+	locations: [],
 }
 
 export const locationsSlice = createSlice({
@@ -15,6 +15,7 @@ export const locationsSlice = createSlice({
 	}
 })
 
-export const { setLocations } = locationsSlice.actions
+export const { setLocations } =
+	locationsSlice.actions
 
 export default locationsSlice.reducer

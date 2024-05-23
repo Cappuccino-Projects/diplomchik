@@ -1,8 +1,10 @@
 import { Link } from 'react-router-dom'
 import styles from './styles.module.css'
 import { ProgressBar } from '@components'
+import { useGetUserByIdQuery } from '@app/redux/services/userApi'
 import { useSelector } from 'react-redux'
-
+import { useGetRankByIdQuery } from '@redux/services/rankApi'
+import { useEffect, useState } from 'react'
 const getWord = (num) => {
 	if (num % 10 === 1 && num % 100 !== 11) {
 		return 'фантик'
@@ -16,18 +18,41 @@ const getWord = (num) => {
 	}
 }
 
+// avatarPath: null
+// balance: 0
+// city: null
+// cityId: 1
+// displayName: "Test User"
+// email: "test@example.com"
+// experience: 0
+// id: 1
+// login: "test"
+// passwordHash: "123"
+// rank: null
+// rankId: 1
+// theme: null
+// themeId: null
+
 export const UserCard = ({ ShowLvl = true, ShowBalance = true }) => {
-	const { UserName, UserRole, UserBalance } = useSelector((state) => state.user)
+	const user = useSelector((state) => state.user.user)
+
+	const { data: rank } = useGetRankByIdQuery(user.rankId)
+
+	
 
 	return (
 		<Link to="/profile">
 			<div className={styles.UserCardWrapper}>
 				<div className={styles.UserInfoWrapper}>
-					<img className={styles.UserCardImage} src="../img/User1Avatar.png" />
+					<img
+						className={styles.UserCardImage}
+						src={user.avatarPath ? user.avatarPath : '../img/User1Avatar.png'}
+					/>
 					<img className={styles.UserFrameImage} src="../img/frame1.png" />
+
 					<div className={styles.UserCardInfo}>
-						<p className={styles.UserName}>{UserName}</p>
-						<p className={styles.UserRole}>{UserRole}</p>
+						<p className={styles.UserName}>{user?.displayName}</p>
+						<p className={styles.UserRole}>{rank?.name}</p>
 					</div>
 				</div>
 				{/* ProgressBar */}
@@ -39,7 +64,7 @@ export const UserCard = ({ ShowLvl = true, ShowBalance = true }) => {
 						<p>Баланс</p>
 						<div className={styles.UserBalance}>
 							{/* Нет UserCardText */}
-							<p>{`${UserBalance}  ${getWord(UserBalance)}`}</p>
+							<p>{`${user?.balance}  ${getWord(user?.balance)}`}</p>
 							<img className={styles.SmallImg} src="../img/crystall.png" />
 						</div>
 					</div>
