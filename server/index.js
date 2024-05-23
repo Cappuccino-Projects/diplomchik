@@ -23,7 +23,7 @@ io.on("connection", async (socket) => {
 
   const history = []
 
-  const handler = handlerCore();
+  const handler = await handlerCore();
   console.log("❤️ user connected");
 
   let context = "default";
@@ -40,9 +40,9 @@ io.on("connection", async (socket) => {
 
     history.push(msg);
 
-    setTimeout(() => {
+    setTimeout(async () => {
 
-      const { readyDataMessage, newContext } = handler(msg, context, history);
+      const { readyDataMessage, newContext } = await handler(msg, context, history);
 
       context = newContext;
 
@@ -50,13 +50,13 @@ io.on("connection", async (socket) => {
     }, 1000);
   });
 
-  socket.on("disconnect", () => {
+  socket.on("disconnect", async () => {
     console.log("❌ user disconnected");
   });
 });
 
 const port = process.env.PORT;
 
-server.listen(port, () => {
+server.listen(port, async () => {
   console.log(`✨ server running at http://localhost:${port}`);
 });
