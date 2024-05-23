@@ -3,8 +3,21 @@ import { Outlet } from 'react-router-dom'
 import { CharacterCard } from '@components'
 import styles from './styles.module.css'
 import InteractiveMap from '../../Components/interactiveMap/interactiveMap'
+import { useState } from 'react'
+
 
 export const Map = () => {
+
+const [zoom, setZoom] = useState(1)
+
+const handleZoomIn = () => {
+	setZoom(prevZoom => prevZoom + 1);
+}
+
+const handleZoomOut = () => {
+	setZoom(prevZoom => prevZoom > 0 ? prevZoom - 1 : 0);
+}
+
 	return (
 		<>
 			<Outlet />
@@ -22,12 +35,14 @@ export const Map = () => {
 					<i className="fi fi-sr-protractor" />
 				</div>
 			</div>
+
+			
 			<div className={styles.MapSideButtons}>
 				<div className={styles.MapSideButtonsContainer}>
-					<div className={styles.MapButton}>
+					<div className={styles.MapButton} onClick={handleZoomIn} >
 						<i className="fi fi-sr-plus-small" />
 					</div>
-					<div className={styles.MapButton}>
+					<div className={styles.MapButton} onClick={handleZoomOut} >
 						<i className="fi fi-sr-minus-small" />
 					</div>
 				</div>
@@ -46,7 +61,7 @@ export const Map = () => {
 			</div>
 			<div className={styles.WorldMap}>
 
-<InteractiveMap />
+<InteractiveMap zoom={zoom} />
 
 
 			</div>

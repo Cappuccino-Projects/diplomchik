@@ -17,10 +17,13 @@ export const placesSlice = createSlice({
             if (placeIndex !== -1) {
                 state.places[placeIndex] = { id, name, latitude, longitude };
             }
+        },
+        addPlace: (state, action) => {
+            state.places.push(action.payload);
         }
     }
 })
 
-export const { setPlaces, updatePlace } = placesSlice.actions // Export the new updatePlace action
+export const { setPlaces, updatePlace, addPlace } = placesSlice.actions // Export the new updatePlace action
 
 export default placesSlice.reducer
