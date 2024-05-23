@@ -1,7 +1,7 @@
-import { useMapEvents, MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet'
+import {  MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet'
 import 'leaflet/dist/leaflet.css'
 import { useSelector, useDispatch } from 'react-redux'
-import { selectMarker } from '../../app/redux/slices/locationsSlice' // Import your action
+import { selectMarker } from '../../app/redux/slices/placesSlice' // Import your action
 import { useEffect } from 'react'
 
 const ChangeView = ({ zoom }) => {

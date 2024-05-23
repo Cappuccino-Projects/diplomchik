@@ -2,7 +2,7 @@
 // EditMarker.jsx
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { addMarker } from '../../app/redux/slices/locationsSlice'; 
+import { addMarker } from '../../app/redux/slices/placesSlice'; 
 import { addPlace } from '../../app/redux/slices/placesSlice';
 
 const AddMarker = () => {

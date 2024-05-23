@@ -8,7 +8,7 @@ import { useState } from 'react'
 
 export const Map = () => {
 
-const [zoom, setZoom] = useState(1)
+const [zoom, setZoom] = useState(20)
 
 const handleZoomIn = () => {
 	setZoom(prevZoom => prevZoom + 1);
