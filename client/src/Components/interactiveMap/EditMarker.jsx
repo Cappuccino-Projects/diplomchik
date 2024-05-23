@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { updateMarker } from '../../app/redux/slices/locationsSlice'; 
+import { updateMarker } from '../../app/redux/slices/placesSlice'; 
 import { updatePlace } from '../../app/redux/slices/placesSlice'; // Import the updatePlaces action
 
 const EditMarker = () => {
-  const selectedMarker = useSelector((state) => state.locations.selectedMarker);
+  const selectedMarker = useSelector((state) => state.places.selectedMarker);
   const dispatch = useDispatch();
 
   const [name, setName] = useState(selectedMarker && selectedMarker.name ? selectedMarker.name : '');
