@@ -1,4 +1,4 @@
-export const defaultContext = (readyDataMessage, msg, context, history) => {
+export const defaultContext = async (readyDataMessage, msg, context, history) => {
   const { message } = msg;
 
   if (message === "ping") {
@@ -45,7 +45,7 @@ export const defaultContext = (readyDataMessage, msg, context, history) => {
   }
 
   if (message === "История запросов") {
-    readyDataMessage.message = "История обращений:" + history.reduce((acc, history) => acc + history.message + ", \n", "");
+    readyDataMessage.message = "История обращений:\n" + history.reduce((acc, history) => acc + history.message + ", \n", "");
     context = "default";
     readyDataMessage.buttons = [
       {
@@ -87,6 +87,49 @@ export const defaultContext = (readyDataMessage, msg, context, history) => {
 
 Если этих ответов недостаточно, ознакомьтесь со <a target="_blank" href="/docs/Справка.pdf">справочной информацией</a> о приложении.
     `;
+    readyDataMessage.buttons = [
+      {
+        title: "Хочу найти место",
+        command: "Найти место",
+      },
+      {
+        title: "Какая сегодня погода?",
+        command: "Какая сегодня погода?",
+      },
+      {
+        title: "FAQ",
+        command: "Часто задаваемые вопросы",
+      },
+      {
+        title: "Случайное место",
+        command: "Случайное место",
+      },
+      {
+        title: "История запросов",
+        command: "История запросов",
+      },
+    ];
+    context = "default";
+  }
+
+  if (message === "Случайное место") {
+    const getRandomInt = (max) => {
+      return Math.floor(Math.random() * max);
+    }
+
+    const places = await (await fetch(`${process.env.BACKEND_API}/place`)).json();
+
+    const types = await (await fetch(`${process.env.BACKEND_API}/placeType`)).json();
+
+
+    const result = places[getRandomInt(places.length)]
+
+    const placeName = result[0]?.title ?? types.find(t => t.id == result[0]?.typeId)?.name;
+    const placeType = types.find(t => t.id == result[0]?.typeId)?.name;
+    const placeAddress = result[0]?.address;
+
+    readyDataMessage.message = `Информация о найденном месте\nИмя: ${placeName}\nТип: ${placeType}\nАдрес: ${placeAddress}`;
+    
     readyDataMessage.buttons = [
       {
         title: "Хочу найти место",
