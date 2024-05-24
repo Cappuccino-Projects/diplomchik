@@ -2,7 +2,7 @@ import { DailyTasks } from '@components'
 import { Outlet } from 'react-router-dom'
 import { CharacterCard } from '@components'
 import styles from './styles.module.css'
-import InteractiveMap from '../../Components/InteractiveMap/InteractiveMap'
+import InteractiveMap from '../../Components/interactiveMap/interactiveMap'
 import { useState } from 'react'
 
 export const Map = () => {
@@ -57,7 +57,11 @@ export const Map = () => {
 				<DailyTasks ShowInfo={false} ShowLvl={true} />
 			</div>
 			<div className={styles.WorldMap}>
-				<InteractiveMap zoom={zoom} flag={true} redMarkerPosition={[54.241508, 49.557214]} />
+				<InteractiveMap
+					zoom={zoom}
+					flag={true}
+					redMarkerPosition={[54.241508, 49.557214]}
+				/>
 			</div>
 		</>
 	)
