@@ -1,8 +1,12 @@
-import {  MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet'
+import {  MapContainer, TileLayer, Marker, Popup, useMap, useMapEvents } from 'react-leaflet'
 import 'leaflet/dist/leaflet.css'
 import { useSelector, useDispatch } from 'react-redux'
-import { selectMarker } from '../../app/redux/slices/placesSlice' // Import your action
+import { selectMarker, deselectMarker } from '../../app/redux/slices/placesSlice' // Import your action
+import { updateMarker } from '../../app/redux/slices/placesSlice';
 import { useEffect } from 'react'
+
+
+
 
 const ChangeView = ({ zoom }) => {
   const map = useMap();
@@ -12,19 +16,58 @@ const ChangeView = ({ zoom }) => {
   return null;
 }
 
+
+const MapEvents = () => {
+  const dispatch = useDispatch();
+  useMapEvents({
+    click: () => {
+      dispatch(deselectMarker());
+      
+    },
+  });
+  return null;
+}
+
 const InteractiveMap = (props) => {
   const position = props.position || [54.240372, 49.557147] // Use props.position if provided, else default to Moscow's coordinates
   const places = useSelector((state) => state.places) || [] // Access places from the store and default to an empty array if it's not an array
-  console.log(places)
-  const dispatch = useDispatch(); // Get the dispatch function
+  const dispatch = useDispatch();
+  
+  
+  const markers = useSelector((state) => state.markers) || [];
+  console.log('markers', markers);
 
+  
+  
+
+
+
+
+
+  useEffect(() => {
+    console.log(places);
+  }, [places]);
+  
+  
+
+
+  const handleDragEnd = (marker, event) => {
+    const newLatLng = event.target.getLatLng();
+    const updatedMarker = { ...marker, latitude: newLatLng.lat, longitude: newLatLng.lng };
+    dispatch(updateMarker(updatedMarker));
+  };
+
+
+  
   const handleMarkerClick = (place) => {
-    dispatch(selectMarker(place)); // Dispatch the selectMarker action with the clicked place as the payload
+      dispatch(selectMarker(place)); // If the clicked marker is not selected, select it
+      console.log(place);
   };
 
   return (
     <MapContainer center={position} zoom={props.zoom || 20} style={{ height: "100vh", width: "100%" }}>
       <ChangeView zoom={props.zoom || 20} />
+      <MapEvents />
       <TileLayer
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
@@ -32,10 +75,29 @@ const InteractiveMap = (props) => {
       {Array.isArray(places.places) && places.places.map((place, index) => (
         <Marker key={index} position={[place.latitude, place.longitude]} eventHandlers={{ click: () => handleMarkerClick(place) }}>
           <Popup>
-            {place.name}
+            {place.title}
+          </Popup>
+        </Marker>
+
+        
+      ))}
+
+{markers.map((marker, index) => (
+        <Marker 
+          key={index} 
+          position={[marker.latitude, marker.longitude]} 
+          draggable 
+          eventHandlers={{ 
+            
+            dragend: (event) => handleDragEnd(marker, event)
+          }}
+        >
+          <Popup>
+            {marker.title}
           </Popup>
         </Marker>
       ))}
+      
     </MapContainer>
   )
 }
