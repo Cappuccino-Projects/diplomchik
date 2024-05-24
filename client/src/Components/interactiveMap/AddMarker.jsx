@@ -8,7 +8,7 @@ import { addPlace } from '../../app/redux/slices/placesSlice';
 const AddMarker = () => {
   const dispatch = useDispatch();
 
-  const [name, setName] = useState('');
+  const [title, setTitle] = useState('');
   const [latitude, setLatitude] = useState('');
   const [longitude, setLongitude] = useState('');
 
@@ -17,16 +17,21 @@ const AddMarker = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     
-    const statePlaces = places.places;
-    const nextId = Math.max(...statePlaces.map(place => place.id)) + 1;
 
+    
     const newMarker = { 
-      id: nextId, // generate a unique id
-      name, 
-      latitude, 
-      longitude
-    };
+      id: 15,
+      title: 'hi!',
+      typeId: 1,
+      address: '',
+      latitude: 54.240908,
+      longitude: 49.557214,
+      PlaceImage: 'shop.png',
+      photoPath: null,
+      type: null,
 
+    };
+  
     console.log(newMarker);
     dispatch(addMarker(newMarker));
     dispatch(addPlace(newMarker));
@@ -36,7 +41,7 @@ const AddMarker = () => {
     <form onSubmit={handleSubmit}>
       <label>
         Name:
-        <input type="text" value={name} onChange={(e) => setName(e.target.value)} />
+        <input type="text" value={title} onChange={(e) => setTitle(e.target.value)} />
       </label>
       <label>
         Latitude:

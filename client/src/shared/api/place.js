@@ -6,7 +6,7 @@ const getAll = async () => {
   });
 
   const data = await response.json();
-  console.log(import.meta.env.VITE_API_DOMAIN);
+  // console.log(import.meta.env.VITE_API_DOMAIN);
   return data;
 };
 

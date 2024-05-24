@@ -57,7 +57,7 @@ export const Map = () => {
 				<DailyTasks ShowInfo={false} ShowLvl={true} />
 			</div>
 			<div className={styles.WorldMap}>
-				<InteractiveMap zoom={zoom} />
+				<InteractiveMap zoom={zoom} flag={true} redMarkerPosition={[54.241508, 49.557214]} />
 			</div>
 		</>
 	)

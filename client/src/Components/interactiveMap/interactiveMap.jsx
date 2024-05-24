@@ -2,7 +2,11 @@ import {  MapContainer, TileLayer, Marker, Popup, useMap, useMapEvents } from 'r
 import 'leaflet/dist/leaflet.css'
 import { useSelector, useDispatch } from 'react-redux'
 import { selectMarker, deselectMarker } from '../../app/redux/slices/placesSlice' // Import your action
+import { updateMarker } from '../../app/redux/slices/placesSlice';
 import { useEffect } from 'react'
+
+
+
 
 const ChangeView = ({ zoom }) => {
   const map = useMap();
@@ -11,6 +15,7 @@ const ChangeView = ({ zoom }) => {
   }, [zoom, map]);
   return null;
 }
+
 
 const MapEvents = () => {
   const dispatch = useDispatch();
@@ -29,12 +34,30 @@ const InteractiveMap = (props) => {
   const dispatch = useDispatch();
   
   
+  const markers = useSelector((state) => state.markers) || [];
+  console.log('markers', markers);
+
   
+  
+
+
+
+
+
   useEffect(() => {
     console.log(places);
   }, [places]);
   
   
+
+
+  const handleDragEnd = (marker, event) => {
+    const newLatLng = event.target.getLatLng();
+    const updatedMarker = { ...marker, latitude: newLatLng.lat, longitude: newLatLng.lng };
+    dispatch(updateMarker(updatedMarker));
+  };
+
+
   
   const handleMarkerClick = (place) => {
       dispatch(selectMarker(place)); // If the clicked marker is not selected, select it
@@ -52,10 +75,29 @@ const InteractiveMap = (props) => {
       {Array.isArray(places.places) && places.places.map((place, index) => (
         <Marker key={index} position={[place.latitude, place.longitude]} eventHandlers={{ click: () => handleMarkerClick(place) }}>
           <Popup>
-            {place.name}
+            {place.title}
+          </Popup>
+        </Marker>
+
+        
+      ))}
+
+{markers.map((marker, index) => (
+        <Marker 
+          key={index} 
+          position={[marker.latitude, marker.longitude]} 
+          draggable 
+          eventHandlers={{ 
+            
+            dragend: (event) => handleDragEnd(marker, event)
+          }}
+        >
+          <Popup>
+            {marker.title}
           </Popup>
         </Marker>
       ))}
+      
     </MapContainer>
   )
 }

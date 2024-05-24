@@ -35,13 +35,19 @@ export const MapEditMenu = (props) => {
       <BackToMainMenu />
       <p className={styles.TitleText}>Редактирование карты</p>
       <div style={{ marginBottom: 'auto' }} className={styles.MainMenuButtonsWrapper}>
-        <div>
+        
+				
+				<div>
           <div className={styles.MenuButton} onClick={() => setShowAddMarker(!showAddMarker)}>
             <i className="fi fi-sr-add" />
             <p>{showAddMarker ? 'Добавить объект' : 'Добавить объект'}</p>
           </div>
           {showAddMarker && <AddMarker />} 
         </div>
+
+
+
+
         <div>
           <div className={styles.MenuButton} onClick={() => setShowEditMarker(!showEditMarker)}>
             <i className="fi fi-sr-edit" />
