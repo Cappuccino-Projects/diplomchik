@@ -3,8 +3,6 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 const initialState = {
     places: [],
     selectedMarker: null,
-    locations: [],
-    markers: []
 }
 
 
@@ -28,7 +26,28 @@ export const deletePlaceAsync = createAsyncThunk(
   }
 );
 
+export const updatePlaceAsync = createAsyncThunk(
+  'places/updatePlace',
+  async (place, thunkAPI) => {
+    const { id, title, typeId, address, latitude, longitude, photoPath } = place;
 
+    const response = await fetch(`http://176.123.162.178:9088/api/place/${id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        'accept': '*/*'
+      },
+      body: JSON.stringify({ title, typeId, address, latitude, longitude, photoPath })
+    });
+
+    if (response.ok) {
+      const updatedPlace = await response.json();
+      thunkAPI.dispatch(placesSlice.actions.updatePlace(updatedPlace));
+    } else {
+      console.error('Failed to update place');
+    }
+  }
+);
 
 
 
@@ -40,30 +59,26 @@ export const placesSlice = createSlice({
         setPlaces: (state, action) => {
             state.places = action.payload
         },
+
         updatePlace: (state, action) => {
-            const { id, name, latitude, longitude } = action.payload
+            const { id, title, typeId, address, latitude, longitude, type  } = action.payload
             const placeIndex = state.places.findIndex((place) => place.id === id)
             if (placeIndex !== -1) {
-                state.places[placeIndex] = { id, name, latitude, longitude }
+                state.places[placeIndex] = { id, title, typeId, address, latitude, longitude, type }
             }
         },
+
         addPlace: (state, action) => {
             state.places.push(action.payload)
         },
         selectMarker: (state, action) => {
             state.selectedMarker = action.payload
+            console.log(state.selectedMarker)
         },
         deselectMarker: (state) => {
             state.selectedMarker = null
         },
-        updateMarker: (state, action) => {
-            const index = state.locations.findIndex(
-                (marker) => marker.id === action.payload.id
-            )
-            if (index !== -1) {
-                state.locations[index] = action.payload
-            }
-        },
+        
         addMarker: (state, action) => {
             state.markers.push(action.payload)
         },
@@ -71,6 +86,7 @@ export const placesSlice = createSlice({
             const id = action.payload.id;
             state.markers = state.markers.filter(marker => marker.id !== id);
         },
+        
         removePlace: (state, action) => {
             const id = action.payload.id;
             state.places = state.places.filter(place => place.id !== id);

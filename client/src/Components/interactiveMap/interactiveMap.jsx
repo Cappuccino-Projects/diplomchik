@@ -30,9 +30,9 @@ const InteractiveMap = (props) => {
   
   
   
-  // useEffect(() => {
-  //   console.log(places);
-  // }, [places]);
+  useEffect(() => {
+    console.log(places);
+  }, [places]);
   
   
   
