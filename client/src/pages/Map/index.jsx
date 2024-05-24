@@ -2,21 +2,19 @@ import { DailyTasks } from '@components'
 import { Outlet } from 'react-router-dom'
 import { CharacterCard } from '@components'
 import styles from './styles.module.css'
-import InteractiveMap from '../../Components/interactiveMap/interactiveMap'
+import InteractiveMap from '../../Components/InteractiveMap/InteractiveMap'
 import { useState } from 'react'
 
-
 export const Map = () => {
+	const [zoom, setZoom] = useState(20)
 
-const [zoom, setZoom] = useState(20)
+	const handleZoomIn = () => {
+		setZoom((prevZoom) => prevZoom + 1)
+	}
 
-const handleZoomIn = () => {
-	setZoom(prevZoom => prevZoom + 1);
-}
-
-const handleZoomOut = () => {
-	setZoom(prevZoom => prevZoom > 0 ? prevZoom - 1 : 0);
-}
+	const handleZoomOut = () => {
+		setZoom((prevZoom) => (prevZoom > 0 ? prevZoom - 1 : 0))
+	}
 
 	return (
 		<>
@@ -36,13 +34,12 @@ const handleZoomOut = () => {
 				</div>
 			</div>
 
-			
 			<div className={styles.MapSideButtons}>
 				<div className={styles.MapSideButtonsContainer}>
-					<div className={styles.MapButton} onClick={handleZoomIn} >
+					<div className={styles.MapButton} onClick={handleZoomIn}>
 						<i className="fi fi-sr-plus-small" />
 					</div>
-					<div className={styles.MapButton} onClick={handleZoomOut} >
+					<div className={styles.MapButton} onClick={handleZoomOut}>
 						<i className="fi fi-sr-minus-small" />
 					</div>
 				</div>
@@ -54,16 +51,13 @@ const handleZoomOut = () => {
 				</div>
 			</div>
 			<div className={styles.SideCharacterWrapper}>
-				<CharacterCard/>
+				<CharacterCard />
 			</div>
 			<div className={styles.SideDailyTasksWrapper}>
 				<DailyTasks ShowInfo={false} ShowLvl={true} />
 			</div>
 			<div className={styles.WorldMap}>
-
-<InteractiveMap zoom={zoom} />
-
-
+				<InteractiveMap zoom={zoom} />
 			</div>
 		</>
 	)

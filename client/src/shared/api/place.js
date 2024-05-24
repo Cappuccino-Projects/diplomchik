@@ -5,7 +5,9 @@ const getAll = async () => {
     }
   });
 
-  return response.json();
+  const data = await response.json();
+  console.log(import.meta.env.VITE_API_DOMAIN);
+  return data;
 };
 
 export const placeApi = { getAll };

@@ -6,16 +6,23 @@ import styles from './styles.module.css'
 import { useState } from 'react'
 // import { useDispatch, useSelector } from 'react-redux'
 
-import EditMarker from '@components/interactiveMap/EditMarker'
-import AddMarker from '@components/interactiveMap/AddMarker'
-import RemoveMarker from '@components/interactiveMap/RemoveMarker'
+import EditMarker from '@components/InteractiveMap/EditMarker'
+import AddMarker from '@components/InteractiveMap/AddMarker'
+import RemoveMarker from '@components/InteractiveMap/RemoveMarker'
+
+import { ModalWindow } from '@components/Modal/ModalWindow';
+
 
 export const MapEditMenu = (props) => {
 	const [showEditMarker, setShowEditMarker] = useState(false)
 	const [showAddMarker, setShowAddMarker] = useState(false)
 	const [showRemoveMarker, setShowRemoveMarker] = useState(false)
 
+	const handleClose = () => {
+		setShowRemoveMarker(false);
+	};
 
+	
 	return (
 		<div className={styles.MenuWrapper}>
 			<div className={styles.Title}>
@@ -52,12 +59,14 @@ export const MapEditMenu = (props) => {
 				</div>
 
 				<div>
-					<div className={styles.MenuButton} onClick={() => setShowRemoveMarker(!showRemoveMarker)}>
-						<i className="fi fi-sr-delete" />
-						<p>Удалить объект</p>
-					</div>
-					{showRemoveMarker && <RemoveMarker />}
-					</div>
+      <div className={styles.MenuButton} onClick={() => setShowRemoveMarker(true)}>
+        <i className="fi fi-sr-delete" />
+        <p>Удалить объект</p>
+      </div>
+      <ModalWindow isOpen={showRemoveMarker}>
+        <RemoveMarker onClose={handleClose}/>
+      </ModalWindow>
+    </div>
 
 				<Link to="/favourite">
 					<div className={styles.MainMenuButton}>

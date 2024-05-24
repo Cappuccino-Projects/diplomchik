@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 
 const initialState = {
     places: [],
@@ -6,6 +6,32 @@ const initialState = {
     locations: [],
     markers: []
 }
+
+
+export const deletePlaceAsync = createAsyncThunk(
+  'places/deletePlaceAsync',
+  async (_, { dispatch, getState }) => {
+    const id = getState().places.selectedMarker.id; // replace this with the actual path to the id in your state
+
+    const response = await fetch(`http://176.123.162.178:9088/api/place/${id}`, {
+      method: 'DELETE',
+      headers: {
+        'accept': '*/*'
+      }
+    });
+
+    if (response.ok) {
+      dispatch(placesSlice.actions.removePlace({id}));
+    } else {
+      console.error('Failed to delete place');
+    }
+  }
+);
+
+
+
+
+
 
 export const placesSlice = createSlice({
     name: 'places',
@@ -26,6 +52,9 @@ export const placesSlice = createSlice({
         },
         selectMarker: (state, action) => {
             state.selectedMarker = action.payload
+        },
+        deselectMarker: (state) => {
+            state.selectedMarker = null
         },
         updateMarker: (state, action) => {
             const index = state.locations.findIndex(
@@ -49,6 +78,6 @@ export const placesSlice = createSlice({
     }
 })
 
-export const { setPlaces, updatePlace, addPlace, selectMarker, updateMarker, addMarker, removeMarker, removePlace } = placesSlice.actions
+export const { setPlaces, updatePlace, addPlace, selectMarker, deselectMarker, updateMarker, addMarker, removeMarker, removePlace } = placesSlice.actions
 
 export default placesSlice.reducer
