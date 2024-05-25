@@ -17,8 +17,12 @@ export const findPlaceContext = async (readyDataMessage, msg, context) => {
     const placeName = result[0]?.title ?? types.find(t => t.id == result[0]?.typeId)?.name;
     const placeType = types.find(t => t.id == result[0]?.typeId)?.name;
     const placeAddress = result[0]?.address;
-    
-    readyDataMessage.message = `Информация о найденном месте\nИмя: ${placeName}\nТип: ${placeType}\nАдрес: ${placeAddress}`;
+    const placeLatitude = result[0].latitude
+    const placeLongitude = result[0].longitude
+    const readyPlacePosition = placeAddress === null ? `<a href="/${placeLatitude}/${placeLongitude}">Координаты места</a>` : `Адрес: ${placeAddress}`
+    const readyPlaceName = placeName === null ? '' : `Имя: ${placeName}\n`
+
+    readyDataMessage.message = `Информация о найденном месте\n${readyPlaceName}Тип: ${placeType}\n` + readyPlacePosition;
   } else {
     readyDataMessage.message = "Извините, такого места не существует"
   }
@@ -44,7 +48,18 @@ export const findPlaceContext = async (readyDataMessage, msg, context) => {
       title: "История запросов",
       command: "История запросов",
     },
+    {
+      title: "Поделиться местом",
+      command: "Поделиться",
+    },
   ];
+
+  readyDataMessage.inlineButtons = [
+    {
+      title: 'Поделиться',
+      command: 'Поделиться'
+    }
+  ]
 
   context = "default";
 

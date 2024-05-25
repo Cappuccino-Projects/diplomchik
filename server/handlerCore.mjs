@@ -8,6 +8,7 @@ export const handlerCore = async () => {
     messageType: "message",
     message: "",
     buttons: [],
+    inlineButtons: [],
     payload: [],
   };
   let result = {};
@@ -32,6 +33,7 @@ export const handlerCore = async () => {
           message: "Запрос не корректен",
           messageType: "TEXT",
           payload: [],
+          inlineButtons: [],
           context: "default",
           buttons: [
             {
