@@ -1,4 +1,5 @@
 export { BackToMainMenu } from './BackToMainMenu'
+export { BackToMapEditMenu } from './BackToMapEditMenu'
 export { DailyTaskCard } from './DailyTaskCard'
 export { DailyTasks } from './DailyTasks'
 export { DailyTasksWrapper } from './DailyTasksWrapper'

@@ -10,9 +10,8 @@ import styles from './styles.module.css'
 
 import { useState } from 'react'
 // import { useDispatch, useSelector } from 'react-redux'
-
-import EditMarker from '@components/interactiveMap/EditMarker'
 import AddMarker from '@components/interactiveMap/AddMarker'
+import EditMarker from '@components/interactiveMap/EditMarker'
 import RemoveMarker from '@components/interactiveMap/RemoveMarker'
 
 import { ModalWindow } from '@components/Modal/ModalWindow'
@@ -22,6 +21,11 @@ export const MapEditMenu = (props) => {
 	const [showEditMarker, setShowEditMarker] = useState(false)
 	const [showRemoveMarker, setShowRemoveMarker] = useState(false)
 
+
+	const handleAddClose = () => {
+		setShowAddMarker(false)
+	}
+
 	const handleClose = () => {
 		setShowRemoveMarker(false)
 	}
@@ -29,6 +33,8 @@ export const MapEditMenu = (props) => {
 	const handleEditClose = () => {
 		setShowEditMarker(false)
 	}
+
+
 
 	return (
 		<div className={styles.MenuWrapper}>
@@ -42,6 +48,10 @@ export const MapEditMenu = (props) => {
 				style={{ marginBottom: 'auto' }}
 				className={styles.MainMenuButtonsWrapper}
 			>
+
+
+
+
 				<div>
 					<div
 						className={styles.MenuButton}
@@ -50,8 +60,12 @@ export const MapEditMenu = (props) => {
 						<i className="fi fi-sr-add" />
 						<p>{showAddMarker ? 'Добавить объект' : 'Добавить объект'}</p>
 					</div>
-					{showAddMarker && <AddMarker />}
+					<ModalWindow isOpen={showAddMarker}>
+						<AddMarker onClose={handleAddClose} />
+					</ModalWindow>
 				</div>
+
+
 
 				<div>
 					<div
@@ -67,6 +81,11 @@ export const MapEditMenu = (props) => {
 						<EditMarker onClose={handleEditClose} />
 					</ModalWindow>
 				</div>
+
+
+
+
+
 				<div>
 					<div
 						className={styles.MenuButton}
@@ -79,7 +98,7 @@ export const MapEditMenu = (props) => {
 						<RemoveMarker onClose={handleClose} />
 					</ModalWindow>
 				</div>
-				<Link to="/favourite">
+				<Link to="/usersuggestions">
 					<div className={styles.MainMenuButton}>
 						<i className="fi fi-sr-star" />
 						<p>Предложения</p>
