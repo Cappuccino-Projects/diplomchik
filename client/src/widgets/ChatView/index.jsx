@@ -55,6 +55,7 @@ const ChatView = (props) => {
 						key={index}
 						owner={message.owner}
 						message={message.message}
+						inlineButtons={message.inlineButtons}
 					/>
 				))}
 		</ul>

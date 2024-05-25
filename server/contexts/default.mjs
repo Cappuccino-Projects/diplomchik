@@ -152,6 +152,7 @@ export const defaultContext = async (readyDataMessage, msg, context, history) =>
         command: "История запросов",
       },
     ];
+
     context = "default";
   }
 
@@ -165,6 +166,12 @@ export const defaultContext = async (readyDataMessage, msg, context, history) =>
     readyDataMessage.buttons = [];
     context = "search_place";
   }
+
+  if (message === 'Поделиться') {
+
+  }
+
+  console.log(JSON.stringify(readyDataMessage));
 
   return { readyDataMessage: readyDataMessage, context: context };
 };
