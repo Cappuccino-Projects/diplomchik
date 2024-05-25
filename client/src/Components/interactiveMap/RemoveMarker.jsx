@@ -20,7 +20,7 @@ const handleSubmit = (e) => {
 
   if (markerToRemove) {
     console.log(markerToRemove);
-    dispatch(removeMarker(markerToRemove));
+    dispatch(removeMarker(markerToRemove.id));
     dispatch(deletePlaceAsync(markerToRemove.id)); // Dispatch with the id of the markerToRemove
   } else {
     console.log(`No marker found with id: ${selectedMarker ? selectedMarker.id : 'null'}`);
@@ -43,8 +43,8 @@ const handleSubmitAndClose = (e) => {
     <div>
         <form onSubmit={handleSubmitAndClose}>
           <p>Are you sure you want to remove the selected marker?</p>
-          <button type="submit">Yes, remove</button>
-          <button type="button" onClick={onClose}>No, cancel</button>
+          <button type="submit">удалить</button>
+          <button type="button" onClick={onClose}>отменить</button>
         </form>
     </div>
   );

@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { selectMarker, deselectMarker } from '../../app/redux/slices/placesSlice' // Import your action
 import { updateMarker } from '../../app/redux/slices/placesSlice';
 import { useEffect } from 'react'
+import styles from './styles.module.css'
 
 
 
@@ -35,7 +36,7 @@ const InteractiveMap = (props) => {
   
   
   const markers = useSelector((state) => state.markers) || [];
-  console.log('markers', markers);
+
 
   
   
@@ -61,7 +62,7 @@ const InteractiveMap = (props) => {
   
   const handleMarkerClick = (place) => {
       dispatch(selectMarker(place)); // If the clicked marker is not selected, select it
-      console.log(place);
+      // console.log(place);
   };
 
   return (

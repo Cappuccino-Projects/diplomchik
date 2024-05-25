@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { updatePlace } from '../../app/redux/slices/placesSlice';
 import { updatePlaceAsync } from '../../app/redux/slices/placesSlice';
+// import styles from './styles.module.css'
 
 const EditMarker = ({onClose}) => {
   const dispatch = useDispatch();
@@ -66,10 +67,10 @@ const EditMarker = ({onClose}) => {
         Title:
         <input type="text" value={title} onChange={(e) => setTitle(e.target.value)} />
       </label><br />
-      <label>
+      {/* <label>
         Type ID:
         <input type="number" value={typeId} onChange={(e) => setTypeId(e.target.value)} />
-      </label><br />
+      </label><br /> */}
       <label>
         Address:
         <input type="text" value={address} onChange={(e) => setAddress(e.target.value)} />
@@ -92,8 +93,8 @@ const EditMarker = ({onClose}) => {
         <input type="text" value={type} onChange={(e) => setType(e.target.value)} />
       </label><br />
 
-      <input type="submit" value="Update Marker" />
-      <button type="button" onClick={onClose}>No, cancel</button>
+      <input type="submit" value="сохранить" />
+      <button type="button" onClick={onClose}>отменить</button>
     </form>
   );
 };
