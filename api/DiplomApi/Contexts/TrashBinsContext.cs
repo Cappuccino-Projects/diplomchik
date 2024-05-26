@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Pomelo.EntityFrameworkCore.MySql.Scaffolding.Internal;
 using DiplomApi.Models.Entities;
+using File = DiplomApi.Models.Entities.File;
 
 namespace DiplomApi.Contexts;
 
