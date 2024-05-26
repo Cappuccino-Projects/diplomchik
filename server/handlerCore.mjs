@@ -1,6 +1,8 @@
 import { defaultContext } from "./contexts/default.mjs";
 import { findPlaceContext } from "./contexts/findPlaceContext.mjs";
 import { weatherContext } from "./contexts/weatherContext.mjs";
+import { findByTypeContext } from "./contexts/findByTypeContext.mjs";
+import { findByRatingContext } from "./contexts/findByRatingContext.mjs";
 
 export const handlerCore = async () => {
   let readyDataMessage = {
@@ -23,8 +25,14 @@ export const handlerCore = async () => {
       case "search_place":
         result = await findPlaceContext(readyDataMessage, msg, context);
         break;
-      case "weather":
-        result = await weatherContext(readyDataMessage, msg, context);
+      case "search_by_type":
+        result = await findByTypeContext(readyDataMessage, msg, context);
+        break;
+        case "weather":
+          result = await weatherContext(readyDataMessage, msg, context);
+          break;
+      case "search_by_rating":
+        result = await findByRatingContext(readyDataMessage, msg, context);
         break;
       case "faq":
       default:

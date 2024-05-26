@@ -1,8 +1,7 @@
-import {getWeather} from './../utils/index.mjs'
-
 export const weatherContext = (readyDataMessage, msg, context) => {
   context = "default";
   readyDataMessage.message = "Погода в Димитровград: сегодня солнечно +7, завтра облачно +8";
+  readyDataMessage.inlineButtons = []
   readyDataMessage.buttons = [
     {
       title: "Хочу найти место",

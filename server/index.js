@@ -46,7 +46,14 @@ io.on("connection", async (socket) => {
 
       context = newContext;
 
-      io.to(userId).emit("chat message", readyDataMessage);
+      if (!Array.isArray(readyDataMessage)) {
+        io.to(userId).emit("chat message", readyDataMessage);
+      } else {
+        for (let i = 0; i < readyDataMessage.length; i++) {
+          io.to(userId).emit("chat message", readyDataMessage[i]);
+        }
+      }
+
     }, 1000);
   });
 
