@@ -3,7 +3,7 @@ import {  useSelector } from 'react-redux'
 import styles from './styles.module.css'
 
 export const SuggestionCard = ({ item }) => {
-    const { id, userid, placeType, rank, place, comment, photoPath } = item
+    const { id,  placeType, comment, photoPath } = item
 
     // const dispatch = useDispatch()
 
@@ -22,14 +22,10 @@ export const SuggestionCard = ({ item }) => {
                     <b className={styles.LocationCardName}>
                         {removedPlace.title ? removedPlace.title : 'Нет названия'}
                     </b>
-                    <p className={styles.LocationCardRating}>{`★ ${rank}`}</p>
                 </div>
-                <button className={styles.CardEditButton} >
-                    Ред.
-                    <i className="fi fi-sr-edit" />
-                </button>
+
             </div>
-						<b className={styles.LocationCardName}>{placeType ? placeType.name : 'No name'}</b>
+						<b className={styles.LocationCardName}>{placeType ? placeType : 'No name'}</b>
             <b className={styles.LocationCardName}>{removedPlace.address}</b>
             <p className="LocationCardInfo">{comment}</p>
             {photoPath && (
