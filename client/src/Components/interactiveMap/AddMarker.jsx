@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { addMarker } from '../../app/redux/slices/placesSlice'; 
 import { addPlace } from '../../app/redux/slices/placesSlice';
+import styles from './styles.module.css'
 
 const AddMarker = ({onClose}) => {
   const dispatch = useDispatch();
@@ -46,21 +47,21 @@ const AddMarker = ({onClose}) => {
   };
 
   return (
-    <form onSubmit={handleSubmitAndClose}>
-      <label>
+    <form onSubmit={handleSubmitAndClose} className={styles.form}>
+      <label className={styles.label}>
         Name:
-        <input type="text" value={title} onChange={(e) => setTitle(e.target.value)} />
+        <input type="text" value={title} onChange={(e) => setTitle(e.target.value)} className={styles.input} />
       </label><br />
-      <label>
+      <label className={styles.label}>
         Latitude:
-        <input type="number" value={latitude} onChange={(e) => setLatitude(e.target.value)} />
+        <input type="number" value={latitude} onChange={(e) => setLatitude(e.target.value)} className={styles.input}/>
       </label><br />
-      <label>
+      <label className={styles.label}>
         Longitude:
-        <input type="number" value={longitude} onChange={(e) => setLongitude(e.target.value)} />
+        <input type="number" value={longitude} onChange={(e) => setLongitude(e.target.value)} className={styles.input} />
       </label><br />
-      <input type="submit" value="сохранить" />
-      <button type="button" onClick={onClose}>отменить</button>
+      <button type="submit" className={styles.button}>сохранить</button>
+      <button type="button" onClick={onClose} className={styles.button}>отменить</button>
     </form>
   );
 };

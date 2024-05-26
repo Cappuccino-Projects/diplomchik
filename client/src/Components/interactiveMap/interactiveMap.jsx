@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { selectMarker, deselectMarker } from '../../app/redux/slices/placesSlice' // Import your action
 import { updateMarker } from '../../app/redux/slices/placesSlice';
 import { useEffect } from 'react'
-import styles from './styles.module.css'
+// import styles from './styles.module.css'
 
 
 

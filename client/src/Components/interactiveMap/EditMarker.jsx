@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { updatePlace } from '../../app/redux/slices/placesSlice';
 import { updatePlaceAsync } from '../../app/redux/slices/placesSlice';
-// import styles from './styles.module.css'
+import styles from './styles.module.css'
 
 const EditMarker = ({onClose}) => {
   const dispatch = useDispatch();
@@ -29,31 +29,27 @@ const EditMarker = ({onClose}) => {
     }
   }, [selectedMarker]);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-  
-    dispatch(updatePlace({ 
-      id: selectedMarker.id, 
-      title,
-      typeId,
-      address,
-      latitude, 
-      longitude,
-      // photoPath,
-      type,
-    }));
+const handleSubmit = (e) => {
+  e.preventDefault();
 
-    dispatch(updatePlaceAsync({
-      id: selectedMarker.id, 
-      title,
-      typeId,
-      address,
-      latitude, 
-      longitude,
-      // photoPath,
-      type,
-    }));
+  const updatedPlace = {
+    id: selectedMarker.id, 
+    title,
+    typeId,
+    address,
+    latitude, 
+    longitude,
+    // photoPath,
+    type,
   };
+
+  dispatch(updatePlace(updatedPlace));
+  dispatch(updatePlaceAsync(updatedPlace));
+  // dispatch(addEditedPlace(updatedPlace)); // dispatching the action to add the updated place to editedPlaces
+};
+
+
+  
 
   const handleSubmitAndClose = (e) => {
     e.preventDefault();
@@ -62,39 +58,39 @@ const EditMarker = ({onClose}) => {
   };
 
   return (
-    <form onSubmit={handleSubmitAndClose}>
-      <label>
+    <form onSubmit={handleSubmitAndClose} className={styles.form} >
+      <label className={styles.label}>
         Title:
-        <input type="text" value={title} onChange={(e) => setTitle(e.target.value)} />
+        <input type="text" value={title} onChange={(e) => setTitle(e.target.value)} className={styles.input} />
       </label><br />
       {/* <label>
         Type ID:
         <input type="number" value={typeId} onChange={(e) => setTypeId(e.target.value)} />
       </label><br /> */}
-      <label>
+      <label className={styles.label}>
         Address:
-        <input type="text" value={address} onChange={(e) => setAddress(e.target.value)} />
+        <input type="text" value={address} onChange={(e) => setAddress(e.target.value)} className={styles.input}/>
       </label><br />
-      <label>
+      <label className={styles.label}>
         Latitude:
-        <input type="number" value={latitude} onChange={(e) => setLatitude(e.target.value)} />
+        <input type="number" value={latitude} onChange={(e) => setLatitude(e.target.value)} className={styles.input}/>
       </label><br />
-      <label>
+      <label className={styles.label}>
         Longitude:
-        <input type="number" value={longitude} onChange={(e) => setLongitude(e.target.value)} />
+        <input type="number" value={longitude} onChange={(e) => setLongitude(e.target.value)} className={styles.input}/>
       </label><br />
       {/* <label>
         Photo Path:
         <input type="text" value={photoPath} onChange={(e) => setPhotoPath(e.target.value)} />
       </label><br /> */}
 
-      <label>
+      <label className={styles.label}>
         Type:
-        <input type="text" value={type} onChange={(e) => setType(e.target.value)} />
+        <input type="text" value={type} onChange={(e) => setType(e.target.value)} className={styles.input}/>
       </label><br />
 
-      <input type="submit" value="сохранить" />
-      <button type="button" onClick={onClose}>отменить</button>
+      <button type="submit" className={styles.button}>сохранить</button>
+      <button type="button" onClick={onClose} className={styles.button}>отменить</button>
     </form>
   );
 };

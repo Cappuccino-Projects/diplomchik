@@ -3,7 +3,9 @@ import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { removeMarker } from '../../app/redux/slices/placesSlice'; 
 // import { removePlace } from '../../app/redux/slices/placesSlice';
-import { deletePlaceAsync } from '../../app/redux/slices/placesSlice';
+// import { deletePlaceAsync } from '../../app/redux/slices/placesSlice';
+import styles from './styles.module.css'
+
 
 const RemoveMarker = ({onClose}) => { // Add props parameter here
   const dispatch = useDispatch();
@@ -21,7 +23,7 @@ const handleSubmit = (e) => {
   if (markerToRemove) {
     console.log(markerToRemove);
     dispatch(removeMarker(markerToRemove.id));
-    dispatch(deletePlaceAsync(markerToRemove.id)); // Dispatch with the id of the markerToRemove
+    // dispatch(deletePlaceAsync(markerToRemove.id)); // Dispatch with the id of the markerToRemove
   } else {
     console.log(`No marker found with id: ${selectedMarker ? selectedMarker.id : 'null'}`);
   }
@@ -41,10 +43,10 @@ const handleSubmitAndClose = (e) => {
 
   return (
     <div>
-        <form onSubmit={handleSubmitAndClose}>
-          <p>Are you sure you want to remove the selected marker?</p>
-          <button type="submit">удалить</button>
-          <button type="button" onClick={onClose}>отменить</button>
+        <form onSubmit={handleSubmitAndClose} className={styles.form} >
+          <p>Удалить объект?</p>
+          <button type="submit" className={styles.button}>удалить</button>
+          <button type="button" onClick={onClose} className={styles.button}>отменить</button>
         </form>
     </div>
   );
