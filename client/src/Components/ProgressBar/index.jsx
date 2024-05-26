@@ -16,14 +16,17 @@ export const ProgressBar = () => {
 
 	return experience && (
 		<div className={styles.UserLvlWrapper}>
-			<p className="UserCardText">{currentlvl}</p>
+			<p className="UserCardText">{currentlvl ? currentlvl : 0}</p>
 			<div className={styles.UserLvlProgressWrapper}>
 				<div
-					style={{ width: `${progress}%`, transition: 'all 0.5s ease-in-out' }}
+					style={{
+						width: `${progress ? progress : 0}%`,
+						transition: 'all 0.5s ease-in-out'
+					}}
 					className={styles.UserLvlProgress}
 				></div>
 			</div>
-			<p className="UserCardText">{currentlvl + 1}</p>
+			<p className="UserCardText">{currentlvl ? currentlvl + 1 : 1}</p>
 		</div>
 	)
 }

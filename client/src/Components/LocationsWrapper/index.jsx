@@ -10,6 +10,7 @@ import styles from './styles.module.css'
 
 export const LocationsWrapper = () => {
 	const [currentList, setCurrentList] = useState([])
+	const user = useSelector((state) => state.user.user)
 
 	const { data: allRewiews = [], isSuccess: isSuccessAllRewiews } =
 		useGetAllreviewQuery()
@@ -18,11 +19,10 @@ export const LocationsWrapper = () => {
 	const { data: allPlaceTypes = [], isSuccess: isSuccessAllPlaceTypes } =
 		useGetAllplaceTypesQuery()
 
-	const user = useSelector((state) => state.user.user)
-
 	useEffect(() => {
 		if (isSuccessAllRewiews && isSuccessAllPlaces && isSuccessAllPlaceTypes) {
 			const userRewiews = allRewiews.filter((item) => item.userId === user.id)
+
 			const rewiews = userRewiews.map((rewiews) => {
 				const place = allPlaces.find((place) => place.id === rewiews.placeId)
 				const obj = {
@@ -38,6 +38,7 @@ export const LocationsWrapper = () => {
 				}
 				return obj
 			})
+
 			setCurrentList(rewiews)
 		}
 	}, [allRewiews, allPlaces, allPlaceTypes])

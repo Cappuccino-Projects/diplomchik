@@ -20,6 +20,7 @@ export const ChatWidget = () => {
         owner: msg.owner,
         message: msg.message,
         buttons: msg.buttons ?? [],
+        inlineButtons: msg.inlineButtons ?? []
       };
 
       setChat((prev) => ({
@@ -27,6 +28,7 @@ export const ChatWidget = () => {
           ...prev.chat,
           messages: [...prev.chat.messages, message],
           buttons: message.buttons,
+          inlineButtons: message.inlineButtons
         },
       }));
     });
