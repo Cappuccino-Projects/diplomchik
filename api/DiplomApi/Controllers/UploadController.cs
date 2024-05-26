@@ -1,14 +1,14 @@
 using System.IO.Compression;
 using Microsoft.AspNetCore.Mvc;
-using TouristCompany.Contexts;
-using File = TouristCompany.Models.Entities.File;
+using DiplomApi.Contexts;
+using File = DiplomApi.Models.Entities.File;
 
-namespace TouristCompany.Controllers;
+namespace DiplomApi.Controllers;
 
 [Route("api/files")]
 [ApiController]
 public sealed class UploadController(
-    TouristDbContext context,
+    TrashBinsContext context,
     IConfiguration configuration,
     ILogger<UploadController> logger) : ControllerBase
 {
