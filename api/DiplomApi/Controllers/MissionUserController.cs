@@ -3,6 +3,7 @@ using DiplomApi.Interfaces;
 using DiplomApi.Models.DTOs;
 using DiplomApi.Models.DTOs.MissionUser;
 using DiplomApi.Models.Entities;
+using DiplomApi.Repositories;
 
 namespace DiplomApi.Controllers
 {
@@ -65,7 +66,7 @@ namespace DiplomApi.Controllers
 
             if (result == null) return NotFound();
 
-            missionUserRepository.Delete(missionId);
+            ((MissionUserRepository)missionUserRepository).Delete(missionId, userId);
 
             return NoContent();
         }
