@@ -69,6 +69,7 @@ export const placesSlice = createSlice({
             const placeIndex = state.places.findIndex((place) => place.id === id)
             if (placeIndex !== -1) {
                 state.places[placeIndex] = { id, title, typeId, address, latitude, longitude, type }
+                state.editedPlaces.push(action.payload)
             }
         },
 

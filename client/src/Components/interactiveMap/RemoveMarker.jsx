@@ -4,6 +4,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { removeMarker } from '../../app/redux/slices/placesSlice'; 
 // import { removePlace } from '../../app/redux/slices/placesSlice';
 import { deletePlaceAsync } from '../../app/redux/slices/placesSlice';
+import styles from './styles.module.css'
+
 
 const RemoveMarker = ({onClose}) => { // Add props parameter here
   const dispatch = useDispatch();
@@ -41,10 +43,10 @@ const handleSubmitAndClose = (e) => {
 
   return (
     <div>
-        <form onSubmit={handleSubmitAndClose}>
-          <p>Are you sure you want to remove the selected marker?</p>
-          <button type="submit">удалить</button>
-          <button type="button" onClick={onClose}>отменить</button>
+        <form onSubmit={handleSubmitAndClose} className={styles.form} >
+          <p>Удалить объект?</p>
+          <button type="submit" className={styles.button}>удалить</button>
+          <button type="button" onClick={onClose} className={styles.button}>отменить</button>
         </form>
     </div>
   );
