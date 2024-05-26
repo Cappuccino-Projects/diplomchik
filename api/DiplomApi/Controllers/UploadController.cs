@@ -1,39 +1,73 @@
+using System.IO.Compression;
 using Microsoft.AspNetCore.Mvc;
-using TouristCompany.Interfaces;
-using TouristCompany.Models.Entities;
+using TouristCompany.Contexts;
+using File = TouristCompany.Models.Entities.File;
 
-namespace TouristCompany.Controllers
+namespace TouristCompany.Controllers;
+
+[Route("api/files")]
+[ApiController]
+public sealed class UploadController(
+    TouristDbContext context,
+    IConfiguration configuration,
+    ILogger<UploadController> logger) : ControllerBase
 {
-    [ApiController]
-    [Route("api/user")]
-    public class UserController(IRepository<User> userRepository) : ControllerBase
+    private readonly List<string> _permittedExtensions = [".jpg", ".jpeg", ".png", ".gif", ".bmp"];
+
+    [HttpPost("upload")]
+    public async Task<IActionResult> Upload([FromForm] List<IFormFile>? files)
     {
-        [HttpGet]
-        public IActionResult GetAllUsers() => Ok(userRepository.GetAll());
-
-        [HttpGet("{id:guid}")]
-        public IActionResult GetUserById(Guid id)
+        if (files == null || files.Count == 0)
         {
-            var user = userRepository.GetById(id);
-
-            return Ok(user);
+            return BadRequest("No files were uploaded.");
         }
 
-        [HttpPut("{id:guid}")]
-        public IActionResult UpdateUser(Guid id, User user)
+        if (files.Any(t => !_permittedExtensions.Contains(Path.GetExtension(t.FileName.ToLower()))))
         {
-            if (id != user.Id)
-                return BadRequest();
-
-            userRepository.Update(user);
-            return NoContent();
+            return BadRequest("Some files are not valid images.");
         }
 
-        [HttpDelete("{id:guid}")]
-        public IActionResult DeleteUser(Guid id)
+        var uploadDirectory = configuration.GetValue<string>("Storage");
+
+        if (string.IsNullOrEmpty(uploadDirectory))
+            throw new NullReferenceException(nameof(uploadDirectory));
+
+        Console.WriteLine(uploadDirectory);
+
+        var uploadPath = Path.Combine(Directory.GetCurrentDirectory(), uploadDirectory);
+
+        Console.WriteLine(uploadPath);
+
+        if (!Directory.Exists(uploadPath))
         {
-            userRepository.Delete(id);
-            return NoContent();
+            Directory.CreateDirectory(uploadPath);
         }
+
+        var uploadedFiles = new List<File>();
+
+        foreach (var file in files)
+        {
+            if (file.Length <= 0) continue;
+
+            var currentFileName = Guid.NewGuid() + "__" + file.FileName;
+
+            var filePath = Path.Combine(uploadDirectory, currentFileName);
+
+            await using (var stream = new FileStream(filePath, FileMode.Create))
+            {
+                await file.CopyToAsync(stream);
+            }
+
+            uploadedFiles.Add(new File()
+            {
+                Id = Guid.NewGuid(),
+                FileName = currentFileName
+            });
+        }
+
+        context.Files?.AddRangeAsync(uploadedFiles);
+        await context.SaveChangesAsync();
+
+        return Ok(new { files = uploadedFiles });
     }
 }
