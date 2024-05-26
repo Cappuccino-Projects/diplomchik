@@ -1,3 +1,16 @@
+.buttons__container {
+  margin-top: 5px;
+  max-width: 90%;
+  display: grid;
+  gap: 5px;
+  grid-template-columns: repeat(2, .5fr);
+  grid-auto-rows: 40px;
+}
+
+.buttons__container button {
+  word-wrap: break-word;
+}
+
 .chat__message-item_user,
 .chat__message-item_bot {
   max-width: 90%;
