@@ -26,5 +26,24 @@ namespace DiplomApi.Controllers
 
             return Ok(userAppearance);
         }
+
+        [HttpPut]
+        public IActionResult SetUserAppearance(int userId, int avatar, int character)
+        {
+            var userAppearance = new UserAppearanceCreationDto() { Avatar = avatar, Character = character };
+
+            var user = userRepository.GetById(userId);
+            var userProducts = userProductRepository.GetAll().Where(up => up.UserId == user.Id);
+
+            if (productRepository.GetById(avatar).TypeId != 2 || productRepository.GetById(character).TypeId != 1)
+                return Problem(title: "Specified goods is not user appearance!", statusCode: 400);
+            if (userProducts.All(up => up.ProductId != avatar) || userProducts.All(up => up.ProductId != character))
+                return Problem(title: "User has not purchased the specified goods!", statusCode: 400);
+            userProducts.Where(up => up.Active == 1).ToList().ForEach(up => up.Active = 0);
+            userProducts.First(up => up.ProductId == avatar).Active = 1;
+            userProducts.First(up => up.ProductId == character).Active = 1;
+
+            return Ok(userAppearance);
+        }
     }
 }
