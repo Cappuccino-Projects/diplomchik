@@ -1,10 +1,14 @@
-import { useUpdateUserInfoByIdMutation } from '@app/redux/services/userApi'
+import { useUpdateUserInfoByIdMutation, useDeleteUserDailyTaskMutation, useGetUserDailyTasksByIdQuery } from '@app/redux/services/userApi'
 import { useSelector } from 'react-redux'
 import styles from './styles.module.css'
 
 export const GetRewards = ({ close }) => {
-	const [updateUserInfo] = useUpdateUserInfoByIdMutation()
 	const user = useSelector((state) => state.user.user)
+	
+	const [updateUserInfo] = useUpdateUserInfoByIdMutation()
+	const [deleteUserDailyTask] = useDeleteUserDailyTaskMutation()
+
+	const { data: userDailyTasks } = useGetUserDailyTasksByIdQuery(user.id)
 	
 	const balance = 35
 	const xp = 30
@@ -15,9 +19,17 @@ export const GetRewards = ({ close }) => {
 			balance: user.balance + balance,
 			experience: user.experience + xp
 		}
-		console.log("updateUser", updateUser)
+
 		await updateUserInfo(updateUser)
 		// ТУТ НАДО СБРОСИТЬ ЗАДАНИЯ
+
+		//УДАЛЯЮ ВСЕ ЗАДАНИЯ
+		userDailyTasks.forEach(task => {
+			deleteUserDailyTask(task.id)
+		});
+
+		// СОЗДАЮ 3 ЗАДАНИЯ
+
 		close()
 	}
 
@@ -30,7 +42,10 @@ export const GetRewards = ({ close }) => {
 				Вы хорошо постарались и заслужили награду!
 			</div>
 
-			<div className={styles.ModalWindowButtonsWrapper}>
+			<div
+				className={styles.ModalWindowButtonsWrapper}
+				style={{ margin: 'auto' }}
+			>
 				<div className={styles.UserBalance}>
 					<p>{balance} </p>
 					<img className={styles.SmallImg} src="../img/crystall.png" />
@@ -41,13 +56,13 @@ export const GetRewards = ({ close }) => {
 				</div>
 			</div>
 			<div className={styles.ModalWindowButtonsWrapper}>
-				<div className={styles.ModalButton} onClick={close}>
+				<button className={styles.ModalButton} onClick={close}>
 					Отмена
-				</div>
+				</button>
 
-				<div className={styles.ModalMainButton} onClick={onAcceptClick}>
+				<button className={styles.ModalMainButton} onClick={onAcceptClick}>
 					Забрать
-				</div>
+				</button>
 			</div>
 		</>
 	)

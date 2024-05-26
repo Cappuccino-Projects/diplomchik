@@ -14,6 +14,7 @@ import { cityApi } from '@redux/services/cityApi'
 import { rankApi } from './services/rankApi'
 import { reviewApi } from './services/reviewApi'
 import { placeTypeApi } from './services/placeTypeApi'
+import { changesApi } from './services/changesApi'
 export const store = configureStore({
 	reducer: {
 		[userApi.reducerPath]: userApi.reducer,
@@ -23,6 +24,7 @@ export const store = configureStore({
 		[rankApi.reducerPath]: rankApi.reducer,
 		[reviewApi.reducerPath]: reviewApi.reducer,
 		[placeTypeApi.reducerPath]: placeTypeApi.reducer,
+		[changesApi.reducerPath]: changesApi.reducer,
 		dailyTasks: dailyTasksReducer,
 		user: userReducer,
 		shop: shopReducer,
@@ -40,5 +42,6 @@ export const store = configureStore({
 			.concat(rankApi.middleware)
 			.concat(reviewApi.middleware)
 			.concat(placeTypeApi.middleware)
+			.concat(changesApi.middleware)
 })
 setupListeners(store.dispatch)

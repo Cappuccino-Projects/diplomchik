@@ -11,7 +11,7 @@ import { BadPassword } from '@components/Modal/BadPassword'
 import { BadPasswordRepeat } from '@components/Modal/BadPasswordRepeat'
 import { RewardsNotAvalible } from '@components/Modal/RewardsNotAvalible'
 import { EditReviewModal } from '@components/Modal/EditReviewModal'
-
+import {  DailyTaskCompleted } from "@components/Modal/DailyTaskCompleted"
 const portal = document.getElementById('portal')
 
 export const Modal = () => {
@@ -40,6 +40,8 @@ export const Modal = () => {
 				<EditReviewModal close={closeCallback} />
 			)}
 			{modalType === 'GETREWARDS' && <GetRewards close={closeCallback} />}
+			{modalType === 'DAILYTASKCOMPLETED' && <DailyTaskCompleted close={closeCallback} />}
+
 		</ModalWindow>,
 		portal
 	)

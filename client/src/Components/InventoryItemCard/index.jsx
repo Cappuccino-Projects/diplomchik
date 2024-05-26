@@ -13,7 +13,6 @@ export const InventoryItemCard = ({ item }) => {
 
 	const { data: activateProducts = {} } = useGetUserActivateItemsQuery(userId)
 
-
 	const onActivateClick = async () => {
 		const data = {
 			userId: userId,
@@ -56,21 +55,21 @@ export const InventoryItemCard = ({ item }) => {
 				>
 					<img
 						className={styles.ShopItemImage}
-						src={'../img/' + item.iconPath}
+						src={`../img/${item.iconPath}.png`}
 					/>
 				</div>
 			)}
 			<p style={{ marginBottom: 'auto' }}>{item.name}</p>
 
 			<div className={styles.CardButtonsWrapper}>
-				{activateProducts?.avatar !== item.id ||
-				activateProducts?.character !== item.id ? (
-					<div className={styles.CardMainButton} onClick={onActivateClick}>
-						Использовать
-					</div>
-				) : (
+				{activateProducts.avatar === item.id ||
+				activateProducts.character === item.id ? (
 					<div className={styles.CardButton} onClick={onDeactivateClick}>
 						Используется
+					</div>
+				) : (
+					<div className={styles.CardMainButton} onClick={onActivateClick}>
+						Использоватья
 					</div>
 				)}
 			</div>

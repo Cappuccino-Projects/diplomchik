@@ -5,6 +5,8 @@ import styles from './styles.module.css'
 import InteractiveMap from '../../Components/interactiveMap/interactiveMap'
 
 export const Map = () => {
+
+	
 	return (
 		<>
 			<Outlet />
@@ -39,16 +41,13 @@ export const Map = () => {
 				</div>
 			</div>
 			<div className={styles.SideCharacterWrapper}>
-				<CharacterCard/>
+				<CharacterCard />
 			</div>
 			<div className={styles.SideDailyTasksWrapper}>
 				<DailyTasks ShowInfo={false} ShowLvl={true} />
 			</div>
 			<div className={styles.WorldMap}>
-
-<InteractiveMap />
-
-
+				<InteractiveMap />
 			</div>
 		</>
 	)
