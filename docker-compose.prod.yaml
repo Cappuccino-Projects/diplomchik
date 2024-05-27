@@ -6,7 +6,7 @@ services:
     restart: always
     volumes:
       - './gateway/nginx/nginx.conf:/etc/nginx/nginx.conf:ro'
-      - '/mnt/tour-uploads:/mnt/Uploads'
+      - '/mnt/pomoiki-uploads:/mnt/Uploads'
     depends_on:
       - frontend
       - backend
@@ -65,7 +65,7 @@ services:
       - ASPNETCORE_URL="http://+:8080"
     volumes:
       - './api/DiplomApi/appsettings.json:/app/appsettings.json:ro'
-      - '/mnt/tour-uploads:/app/Uploads'
+      - '/mnt/pomoiki-uploads:/app/Uploads'
     depends_on:
       - mysql
     networks:
