@@ -58,7 +58,7 @@ export const Settings = () => {
 			cityId: selectedCity
 		}
 		await updateUserInfo(newUser)
-		alert('Вы успешно обновили основные данные')
+
 	}
 
 	const savePasswordChanges = async () => {

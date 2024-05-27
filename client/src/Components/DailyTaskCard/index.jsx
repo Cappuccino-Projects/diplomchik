@@ -66,11 +66,11 @@ export const DailyTaskCard = ({ task }) => {
 
 				{statusId !== 4 && isRefreshAvalible && (
 					<>
-						<button className={styles.DailyTaskButton} onClick={onClickOk}>
+						<button className={styles.DailyTaskButton} style={{border: "none"}} onClick={onClickOk}>
 							<i className="fi-sr-check" />
 						</button>
 
-						<button className={styles.DailyTaskButton} onClick={onClickRefresh}>
+						<button className={styles.DailyTaskButton} style={{border: "none"}} onClick={onClickRefresh}>
 							<i className="fi fi-sr-refresh" />
 						</button>
 					</>
