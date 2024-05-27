@@ -1,0 +1,14 @@
+.productList {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: 129px 129px 129px;
+    gap: 10px
+}
+
+.productList__message {
+    font-size: 24px;
+    font-weight: 400;
+    line-height: 30px;
+}
