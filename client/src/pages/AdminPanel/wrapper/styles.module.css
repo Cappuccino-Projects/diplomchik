@@ -33,3 +33,18 @@
     font-family: Onest;
     padding: 30px;
 }
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+i {
+    margin-top: 2px;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}
