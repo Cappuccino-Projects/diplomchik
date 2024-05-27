@@ -1,0 +1,27 @@
+.deleteProduct {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    font-family: Onest;
+}
+
+.deleteProduct__title {
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 25px;
+}
+
+.deleteProduct__description {
+    font-size: 15px;
+    line-height: 19px;
+}
+
+.deleteProduct__buttons {
+    display: flex;
+    gap: 10px
+}
+
+.deleteProduct__button {
+    width: 100%;
+    font-size: 15px;
+}

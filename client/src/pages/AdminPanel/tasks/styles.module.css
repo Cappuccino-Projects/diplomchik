@@ -1,0 +1,16 @@
+.tasks {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.tasks__title {
+    font-size: 24px;
+    font-weight: 400;
+    line-height: 30px;
+}
+
+.tasks__button {
+    align-self: flex-start;
+}
+
