@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { updatePlace } from '../../app/redux/slices/placesSlice';
-import { updatePlaceAsync } from '../../app/redux/slices/placesSlice';
+
+import { updateUserSuggestions } from '../../app/redux/slices/placesSlice';
 import styles from './styles.module.css'
 
 const EditMarker = ({onClose}) => {
@@ -12,7 +12,6 @@ const EditMarker = ({onClose}) => {
   const [latitude, setLatitude] = useState(selectedMarker?.latitude || '');
   const [longitude, setLongitude] = useState(selectedMarker?.longitude || '');
   const [address, setAddress] = useState(selectedMarker?.address || '');
-  // const [photoPath, setPhotoPath] = useState(selectedMarker?.photoPath || '');
   const [title, setTitle] = useState(selectedMarker?.title || '');
   const [type, setType] = useState(selectedMarker?.type || '');
   const [typeId, setTypeId] = useState(selectedMarker?.typeId || '');
@@ -24,7 +23,6 @@ const EditMarker = ({onClose}) => {
       setAddress(selectedMarker.address || '');
       setLatitude(selectedMarker.latitude || '');
       setLongitude(selectedMarker.longitude || '');
-      // setPhotoPath(selectedMarker.photoPath || '');
       setType(selectedMarker.type || '');
     }
   }, [selectedMarker]);
@@ -39,18 +37,13 @@ const handleSubmit = (e) => {
     address,
     latitude, 
     longitude,
-    // photoPath,
     type,
+    changeType: 2,
   };
 
-  dispatch(updatePlace(updatedPlace));
-  dispatch(updatePlaceAsync(updatedPlace));
-  // dispatch(addEditedPlace(updatedPlace)); // dispatching the action to add the updated place to editedPlaces
+
+  dispatch(updateUserSuggestions(updatedPlace));
 };
-
-
-  
-
   const handleSubmitAndClose = (e) => {
     e.preventDefault();
     handleSubmit(e);
@@ -63,10 +56,7 @@ const handleSubmit = (e) => {
         Title:
         <input type="text" value={title} onChange={(e) => setTitle(e.target.value)} className={styles.input} />
       </label><br />
-      {/* <label>
-        Type ID:
-        <input type="number" value={typeId} onChange={(e) => setTypeId(e.target.value)} />
-      </label><br /> */}
+
       <label className={styles.label}>
         Address:
         <input type="text" value={address} onChange={(e) => setAddress(e.target.value)} className={styles.input}/>
@@ -79,11 +69,6 @@ const handleSubmit = (e) => {
         Longitude:
         <input type="number" value={longitude} onChange={(e) => setLongitude(e.target.value)} className={styles.input}/>
       </label><br />
-      {/* <label>
-        Photo Path:
-        <input type="text" value={photoPath} onChange={(e) => setPhotoPath(e.target.value)} />
-      </label><br /> */}
-
       <label className={styles.label}>
         Type:
         <input type="text" value={type} onChange={(e) => setType(e.target.value)} className={styles.input}/>

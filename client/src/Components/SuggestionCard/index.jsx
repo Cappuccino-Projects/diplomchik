@@ -7,7 +7,7 @@ export const SuggestionCard = ({ item }) => {
 
     // const dispatch = useDispatch()
 
-    const removedPlaces = useSelector((state) => state.places.removedPlaces)
+    const removedPlaces = useSelector((state) => state.places.userSuggestions)
     const removedPlace = removedPlaces.find((place) => place.id === id)
 		console.log('removedPlace', removedPlace)
 

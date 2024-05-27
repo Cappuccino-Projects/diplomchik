@@ -2,8 +2,8 @@
 // EditMarker.jsx
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { addMarker } from '../../app/redux/slices/placesSlice'; 
-import { addPlace } from '../../app/redux/slices/placesSlice';
+import { addPlace } from '../../app/redux/slices/placesSlice'; 
+import { updateUserSuggestions } from '../../app/redux/slices/placesSlice';
 import styles from './styles.module.css'
 
 const AddMarker = ({onClose}) => {
@@ -29,10 +29,11 @@ const AddMarker = ({onClose}) => {
       PlaceImage: 'shop.png',
       photoPath: null,
       type: null,
+      changeType: 1,
     };
   
-    dispatch(addMarker(newMarker));
     dispatch(addPlace(newMarker));
+    dispatch(updateUserSuggestions(newMarker));
   
     // Clear the input fields
     setTitle('');
