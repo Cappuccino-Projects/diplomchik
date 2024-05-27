@@ -56,10 +56,25 @@ export const modalsSlice = createSlice({
 			state.modalType = 'ADDPLACETOMAP'
 			state.isOpen = true
 		},
-		openDailyTaskCompleted: (state, action) => {
-			state.data.editCompletedDailyTask = action.payload
-			state.modalType = 'DAILYTASKCOMPLETED'
+		openEditDailyTask: (state, action) => {
+			state.modalType = 'EDITDAILYTASK'
 			state.isOpen = true
+			state.data.editDailyTask = action.payload
+		},
+		openDeleteDailyTask: (state, action) => {
+			state.modalType = 'DELETEDAILYTASK'
+			state.isOpen = true
+			state.data.deleteDailyTask = action.payload
+		},
+		openEditProduct: (state, action) => {
+			state.modalType = 'EDITPRODUCT'
+			state.isOpen = true
+			state.data.editProduct = action.payload
+		},
+		openDeleteProduct: (state, action) => {
+			state.modalType = 'DELETEPRODUCT'
+			state.isOpen = true
+			state.data.deleteProduct = action.payload
 		}
 	}
 })
@@ -75,7 +90,11 @@ export const {
 	openBadPasswordRepeat,
 	openEditReviewModal,
 	openAddPlaceToMap,
-	openDailyTaskCompleted
+	openDailyTaskCompleted,
+	openEditDailyTask,
+	openDeleteDailyTask,
+	openEditProduct,
+	openDeleteProduct
 } = modalsSlice.actions
 
 export default modalsSlice.reducer

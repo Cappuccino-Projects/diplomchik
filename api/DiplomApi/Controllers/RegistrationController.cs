@@ -8,26 +8,26 @@ namespace DiplomApi.Controllers
 {
     [ApiController]
     [Route("api/registration")]
-    public class RegistrationController(IRepository<User> userRepository) : ControllerBase
+    public class RegistrationController(IRepository<User> userRepository)
+        : ControllerBase
     {
         [HttpPost]
         public IActionResult RegisterUser([FromBody] RegistrationDto registrationDto)
         {
-            if (registrationDto.Password != registrationDto.ConfirmPassword)
-                return BadRequest("Passwords does not match");
+            var newUser = new User();
 
-            var newUser = registrationDto.Adapt<User>();
-            newUser.PasswordHash = registrationDto.Password; // TODO: ıÂ¯ËÓ‚‡ÌËÂ
+            if (registrationDto.Password != registrationDto.ConfirmPassword)
+                return BadRequest("–ü–∞—Ä–æ–ª–∏ –Ω–µ —Å–æ–≤–ø–∞–¥–∞—é—Ç");
+
+            newUser.Email = registrationDto.Email;
+            newUser.Login = registrationDto.Login;
+            newUser.DisplayName = registrationDto.DisplayName;
+            newUser.PasswordHash = registrationDto.Password;
+            newUser.CityId = registrationDto.CityId;
+
             userRepository.Insert(newUser);
 
-            return Ok(new
-            {
-                newUser.Id,
-                newUser.Login,
-                newUser.DisplayName,
-                newUser.Email,
-                newUser.CityId
-            });
+            return Ok(newUser);
         }
     }
 }

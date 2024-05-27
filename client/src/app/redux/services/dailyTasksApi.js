@@ -29,6 +29,14 @@ export const dailyTasksApi = createApi({
 			}),
 			invalidatesTags: ['DailyTasks']
 		}),
+		// Удалить задание
+		deleteDailyTaskById: build.mutation({
+			query: ({ id }) => ({
+				url: `/${id}`,
+				method: 'DELETE'
+			}),
+			invalidatesTags: ['DailyTasks']
+		}),
 		
 	})
 })
@@ -36,5 +44,6 @@ export const dailyTasksApi = createApi({
 export const {
 	useGetAlldailyTasksQuery,
 	useCreateDailyTaskMutation,
-	useUpdateDailyTaskByIdMutation
+	useUpdateDailyTaskByIdMutation,
+	useDeleteDailyTaskByIdMutation
 } = dailyTasksApi

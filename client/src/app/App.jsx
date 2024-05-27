@@ -12,17 +12,21 @@ import {
 	Profile,
 	Registration,
 	Settings,
-	Shop
+	Shop,
+	UserSuggestions
 } from '@pages'
-import { AdminPanel } from '@pages/AdminPanel'
 import { useGetUserByIdQuery } from '@redux/services/userApi'
 import { setUser } from '@redux/slices/userSlice'
 import { useEffect } from 'react'
 import { useDispatch } from 'react-redux'
-import { Route, Routes } from 'react-router-dom'
+import { Navigate, Route, Routes } from 'react-router-dom'
 import { InfoPDF } from '@pages/InfoPDF'
 import { setPlaces } from '@redux/slices/placesSlice'
+import { setChanges } from '@redux/slices/changesSlice'
+
 import { placeApi } from '@shared/api'
+import { changeApi } from '@shared/api/'
+import { Products, Tasks } from '@pages/AdminPanel'
 
 export const App = () => {
 	const dispatch = useDispatch()
@@ -40,9 +44,18 @@ export const App = () => {
 				// handle error
 			}
 		}
-
 		fetchData()
-		//
+
+		const fetchChanges = async () => {
+			try {
+				const changeData = await changeApi.getAll()
+				dispatch(setChanges(changeData))
+			} catch (error) {
+				console.error(error)
+			}
+		}
+		fetchChanges()
+
 		if (!isFetchingUser) {
 			dispatch(setUser(user))
 		}
@@ -54,7 +67,11 @@ export const App = () => {
 				<Route path="/info" element={<InfoPDF />} />
 				<Route path="/registration" element={<Registration />} />
 				<Route path="/login" element={<Login />} />
-				<Route path="/adminpanel" element={<AdminPanel />} />
+				<Route path="/adminpanel">
+					<Route index element={<Navigate to="/adminpanel/products" />} />
+					<Route path="products" element={<Products />} />
+					<Route path="tasks" element={<Tasks />} />
+				</Route>
 				<Route path="/" element={<Map />}>
 					<Route index element={<MainMenu />} />
 					<Route path="/mainmenu" element={<MainMenu />} />
@@ -66,6 +83,7 @@ export const App = () => {
 					<Route path="/profile/settings" element={<Settings />} />
 					<Route path="/dailytasks" element={<DailyTasksPage />} />
 					<Route path="/shop" element={<Shop />} />
+					<Route path="/usersuggestions" element={<UserSuggestions />} />
 					<Route path="/inventory" element={<Inventory />} />
 					<Route path="*" element={<MainMenu />} />
 				</Route>

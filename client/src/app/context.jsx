@@ -7,6 +7,7 @@ export const initial = {
     lastRequest: null,
     buttons: [],
     messages: [],
+    inlineButtons: []
   },
   setChat: (data) => {},
   setButtonsHeight: (height) => {}

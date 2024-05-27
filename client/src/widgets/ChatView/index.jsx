@@ -53,8 +53,10 @@ const ChatView = (props) => {
 				chatContext.chat.chat.messages.map((message, index) => (
 					<Message
 						key={index}
+						socket={socket}
 						owner={message.owner}
 						message={message.message}
+						inlineButtons={message.inlineButtons}
 					/>
 				))}
 		</ul>

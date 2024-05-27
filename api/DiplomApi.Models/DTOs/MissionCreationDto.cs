@@ -12,4 +12,6 @@ public class MissionCreationDto
     public string? IconPath { get; set; }
 
     public int ExpAward { get; set; }
+    
+    public DateTime DueTimestamp { get; set; }
 }
