@@ -9,8 +9,8 @@ import { setChanges } from '../../app/redux/slices/changesSlice'
 import { useEffect } from 'react';
 
 export const UserSuggestions = () => {
-  const removedPlaces = useSelector((state) => state.removedPlaces);
-    console.log('Removed Places:', removedPlaces);
+  const userSuggestions = useSelector((state) => state.places.userSuggestions);
+    console.log('User Suggestions:', userSuggestions);
 
     const dispatch = useDispatch();
 
@@ -25,7 +25,7 @@ export const UserSuggestions = () => {
                 <MinimizeMenuButton />
             </div>
             <p className={styles.TitleText}>Предложения</p>
-            <SuggestionsWrapper locations={removedPlaces} />
+            <SuggestionsWrapper locations={userSuggestions} />
         </div>
     )
 }

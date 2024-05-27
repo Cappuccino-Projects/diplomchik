@@ -1,9 +1,7 @@
 // RemoveMarker.jsx
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { removeMarker } from '../../app/redux/slices/placesSlice'; 
-// import { removePlace } from '../../app/redux/slices/placesSlice';
-// import { deletePlaceAsync } from '../../app/redux/slices/placesSlice';
+import { updateUserSuggestions } from '../../app/redux/slices/placesSlice'; 
 import styles from './styles.module.css'
 
 
@@ -12,8 +10,7 @@ const RemoveMarker = ({onClose}) => { // Add props parameter here
   const [, setIsOpen] = useState(false);
 
   const selectedMarker = useSelector((state) => state.places.selectedMarker);
-  const places = useSelector((state) => state.places) || []; // Access places from the store and default to an empty array if it's not an array
-
+  const places = useSelector((state) => state.places) || []; 
 const handleSubmit = (e) => {
   e.preventDefault();
   
@@ -21,14 +18,17 @@ const handleSubmit = (e) => {
   const markerToRemove = statePlaces.find(place => place.id === (selectedMarker ? selectedMarker.id : null));
 
   if (markerToRemove) {
-    console.log(markerToRemove);
-    dispatch(removeMarker(markerToRemove.id));
-    // dispatch(deletePlaceAsync(markerToRemove.id)); // Dispatch with the id of the markerToRemove
+    const updatedMarker = {
+      ...markerToRemove,
+      typeChange: 3, 
+    };
+    console.log(updatedMarker);
+    dispatch(updateUserSuggestions(updatedMarker)); // Dispatch with the updatedMarker object
   } else {
     console.log(`No marker found with id: ${selectedMarker ? selectedMarker.id : 'null'}`);
   }
 
-  handleClose(); // Close the modal after submitting
+  handleClose(); 
 };
 
 const handleClose = () => {

@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux'
 import styles from './styles.module.css'
 
 export const SuggestionsWrapper = () => {
-    const removedPlaces = useSelector((state) => state.places.removedPlaces)
+    const removedPlaces = useSelector((state) => state.places.userSuggestions)
     const [currentList, setCurrentList] = useState(removedPlaces)
 
     useEffect(() => {
