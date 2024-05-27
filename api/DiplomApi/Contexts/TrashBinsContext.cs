@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Pomelo.EntityFrameworkCore.MySql.Scaffolding.Internal;
 using DiplomApi.Models.Entities;
+using File = DiplomApi.Models.Entities.File;
 
 namespace DiplomApi.Contexts;
 
@@ -37,6 +38,8 @@ public partial class TrashBinsContext(DbContextOptions<TrashBinsContext> options
     public virtual DbSet<User> Users { get; set; }
 
     public virtual DbSet<UserProduct> UsersProducts { get; set; }
+
+    public DbSet<File>? Files { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         => optionsBuilder.UseMySql(configuration.GetSection("DataBase").Value, ServerVersion.Parse("8.4.0"));

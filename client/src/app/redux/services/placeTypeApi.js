@@ -6,19 +6,26 @@ export const placeTypeApi = createApi({
 	baseQuery: fetchBaseQuery({
 		baseUrl: `${url}/api/`
 	}),
-	tagTypes: ['PlaceType','Place'],
+	tagTypes: ['PlaceType', 'Place'],
 	endpoints: (build) => ({
 		getAllplaceTypes: build.query({
 			query: () => `/placeType`,
 			providesTags: ['PlaceType']
 		}),
 
-        getAllplaces: build.query({
+		getAllplaces: build.query({
 			query: () => `/place`,
 			providesTags: ['Place']
 		}),
-	
+		getPlaceById: build.query({
+			query: (id) => `/place/${id}`,
+			providesTags: ['Place']
+		})
 	})
 })
 
-export const { useGetAllplaceTypesQuery, useGetAllplacesQuery } = placeTypeApi
+export const {
+	useGetAllplaceTypesQuery,
+	useGetAllplacesQuery,
+	useGetPlaceByIdQuery
+} = placeTypeApi
