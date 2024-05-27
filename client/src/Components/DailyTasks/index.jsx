@@ -4,7 +4,7 @@ import {
 	openRewardsNotAvalible
 } from '@redux/slices/modalsSlice'
 import { useEffect, useState } from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector} from 'react-redux'
 import { Link } from 'react-router-dom'
 import styles from './styles.module.css'
 import { ProgressBar } from '@components/ProgressBar'
@@ -32,12 +32,12 @@ export const DailyTasks = ({
 	ShowInfo = true,
 	ShowLvl = true
 }) => {
+	const activeUserId = useSelector((state) => state.user.user.id)
 	const dispatch = useDispatch()
 	const [isChestAvailable, setChestAvailable] = useState(false)
 	const [countCompletedTasks, setCountCompletedTasks] = useState(0)
 	const [status, setStatus] = useState('')
 
-	const activeUserId = 1
 	const statusId = 4
 	const { data: userDailyTasks = [], isFetching: isFetchingUserDailyTasks } =
 		useGetUserDailyTasksByIdQuery(activeUserId)

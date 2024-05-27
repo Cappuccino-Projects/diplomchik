@@ -36,7 +36,8 @@ export const dailyTasksApi = createApi({
 				method: 'DELETE'
 			}),
 			invalidatesTags: ['DailyTasks']
-		})
+		}),
+		
 	})
 })
 

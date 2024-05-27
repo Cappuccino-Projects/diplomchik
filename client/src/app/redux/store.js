@@ -17,6 +17,7 @@ import { reviewApi } from './services/reviewApi'
 import { placeTypeApi } from './services/placeTypeApi'
 import { changeApi } from './services/changeApi'
 import { productTypesApi } from './services/productTypeApi'
+import { changesApi } from './services/changesApi'
 export const store = configureStore({
 	reducer: {
 		[userApi.reducerPath]: userApi.reducer,
@@ -28,6 +29,7 @@ export const store = configureStore({
 		[placeTypeApi.reducerPath]: placeTypeApi.reducer,
 		[changeApi.reducerPath]: changeApi.reducer,
 		[productTypesApi.reducerPath]: productTypesApi.reducer,
+		[changesApi.reducerPath]: changesApi.reducer,
 		dailyTasks: dailyTasksReducer,
 		user: userReducer,
 		shop: shopReducer,
@@ -48,5 +50,6 @@ export const store = configureStore({
 			.concat(placeTypeApi.middleware)
 			.concat(changeApi.middleware)
 			.concat(productTypesApi.middleware)
+			.concat(changesApi.middleware)
 })
 setupListeners(store.dispatch)

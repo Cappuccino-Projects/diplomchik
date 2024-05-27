@@ -5,7 +5,8 @@ const initialState = {
 	modalType: '',
 	data: {
 		editItemToBuy: {},
-		editRewiewToChange: {}
+		editRewiewToChange: {},
+		editCompletedDailyTask: {}
 	}
 }
 
@@ -89,6 +90,7 @@ export const {
 	openBadPasswordRepeat,
 	openEditReviewModal,
 	openAddPlaceToMap,
+	openDailyTaskCompleted,
 	openEditDailyTask,
 	openDeleteDailyTask,
 	openEditProduct,

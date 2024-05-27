@@ -67,15 +67,33 @@ export const userApi = createApi({
 			}),
 			invalidatesTags: ['User', 'DailyTasks']
 		}),
+		// Добавить задание
+		addUserDailyTasks: build.mutation({
+			query: ({ userId, missionId, ...body }) => ({
+				url: `/${userId}/mission?missionId=${missionId}`,
+				method: 'POST',
+				body: body
+			}),
+			invalidatesTags: ['User', 'DailyTasks']
+		}),
+		//Удалить задание
+		deleteUserDailyTask: build.mutation({
+			query: ({ userId, missionId }) => ({
+				url: `/${userId}/mission/${missionId}`,
+				method: 'DELETE'
+			}),
+			invalidatesTags: ['User', 'DailyTasks']
+		}),
+
 		getUserActivateItems: build.query({
 			query: (userId) => `/${userId}/appearance`,
-			providesTags: ['User']
+			providesTags: ['User', 'Product']
 		}),
+
 		updateUserActivateItems: build.mutation({
-			query: ({ userId, ...body }) => ({
-				url: `/${userId}/appearance`,
-				method: 'PUT',
-				body: body
+			query: ({ userId, avatar, character }) => ({
+				url: `/${userId}/appearance?avatar=${avatar}&character=${character}`,
+				method: 'PUT'
 			}),
 			invalidatesTags: ['User', 'Product']
 		})
@@ -92,5 +110,7 @@ export const {
 	useUpdateUserProductActiveByIdMutation,
 	useDeleteUserProductByIdMutation,
 	useGetUserDailyTasksByIdQuery,
-	useUpdateUserDailyTasksByIdMutation
+	useUpdateUserDailyTasksByIdMutation,
+	useDeleteUserDailyTaskMutation,
+	useAddUserDailyTasksMutation
 } = userApi
