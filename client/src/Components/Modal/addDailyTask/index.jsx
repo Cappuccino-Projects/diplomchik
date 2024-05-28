@@ -4,15 +4,8 @@ import { useDispatch } from 'react-redux'
 import styles from './styles.module.css'
 import { Button } from '@components/Button'
 import { useEffect, useState } from 'react'
-
-const fileToBase64 = (file, setBase64) => {
-	let reader = new FileReader()
-	reader.onload = () => {
-		const base64 = reader.result
-		setBase64(base64)
-	}
-	reader.readAsDataURL(file)
-}
+import { getIconPath } from '@shared/api/getIconPath'
+import { uploadFile } from '@shared/api/uploadFile'
 
 export const AddDailyTask = () => {
 	const dispatch = useDispatch()
@@ -23,12 +16,10 @@ export const AddDailyTask = () => {
 	const [description, setDescription] = useState('')
 	const [iconPath, setIconPath] = useState()
 	const [file, setFile] = useState()
-	const [imgPreview, setImgPreview] = useState()
 
 	useEffect(() => {
 		if (file) {
-			fileToBase64(file, setImgPreview)
-			setIconPath(file.name)
+			uploadFile(file).then(setIconPath)
 		}
 	}, [file])
 
@@ -47,7 +38,7 @@ export const AddDailyTask = () => {
 
 	return (
 		<form className={styles.createTask} onSubmit={onSubmit}>
-			<div className={styles.createTask__title}>Редактирование задания</div>
+			<div className={styles.createTask__title}>Добавление задания</div>
 			<div className={styles.createTask__fields}>
 				<label className={styles.createTask__input}>
 					<div>Название</div>
@@ -77,8 +68,7 @@ export const AddDailyTask = () => {
 					<div>Фотография: {file?.name || 'не загружено'}</div>
 					<div className={styles.createTask__fileInput}>
 						<div className={styles.createTask__preview}>
-							{imgPreview && <img src={imgPreview} />}
-							{!imgPreview && iconPath && <img src={`/img/${iconPath}.png`} />}
+							{iconPath && <img src={getIconPath(iconPath)} />}
 						</div>
 						<label>
 							<input type="file" onChange={(e) => setFile(e.target.files[0])} />

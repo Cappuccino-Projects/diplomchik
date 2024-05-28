@@ -4,15 +4,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import styles from './styles.module.css'
 import { Button } from '@components/Button'
 import { useEffect, useState } from 'react'
-
-const fileToBase64 = (file, setBase64) => {
-	let reader = new FileReader()
-	reader.onload = () => {
-		const base64 = reader.result
-		setBase64(base64)
-	}
-	reader.readAsDataURL(file)
-}
+import { uploadFile } from '@shared/api/uploadFile'
+import { getIconPath } from '@shared/api/getIconPath'
 
 export const EditDailyTask = () => {
 	const task = useSelector((state) => state.modals.data.editDailyTask)
@@ -24,7 +17,6 @@ export const EditDailyTask = () => {
 	const [description, setDescription] = useState('')
 	const [iconPath, setIconPath] = useState()
 	const [file, setFile] = useState()
-	const [imgPreview, setImgPreview] = useState()
 
 	useEffect(() => {
 		setTitle(task?.title || '')
@@ -35,8 +27,7 @@ export const EditDailyTask = () => {
 
 	useEffect(() => {
 		if (file) {
-			fileToBase64(file, setImgPreview)
-			setIconPath(file.name)
+			uploadFile(file).then(setIconPath)
 		}
 	}, [file])
 
@@ -86,8 +77,7 @@ export const EditDailyTask = () => {
 					<div>Фотография: {file?.name || 'не загружено'}</div>
 					<div className={styles.editTask__fileInput}>
 						<div className={styles.editTask__preview}>
-							{imgPreview && <img src={imgPreview} />}
-							{!imgPreview && iconPath && <img src={`/img/${iconPath}.png`} />}
+							{iconPath && <img src={getIconPath(iconPath)} />}
 						</div>
 						<label>
 							<input type="file" onChange={(e) => setFile(e.target.files[0])} />

@@ -5,6 +5,7 @@ import {
 	openEditDailyTask
 } from '@app/redux/slices/modalsSlice'
 import { useDispatch } from 'react-redux'
+import { getIconPath } from '@shared/api/getIconPath'
 
 export const TaskCard = ({ task }) => {
 	const { title, description, expAward, iconPath } = task
@@ -16,7 +17,7 @@ export const TaskCard = ({ task }) => {
 		<div className={styles.taskCard}>
 			<div className={styles.taskCard__header}>
 				<div className={styles.taskCard__icon}>
-					<img src={`/img/${iconPath}.png`} />
+					<img src={getIconPath(iconPath)} />
 				</div>
 				<div className={styles.taskCard__title}>{title}</div>
 				<div className={styles.taskCard__controls}>
