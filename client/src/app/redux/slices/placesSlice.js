@@ -3,9 +3,7 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 const initialState = {
     places: [],
     selectedMarker: null,
-    newPlaces: [],
-    editedPlaces: [],
-    removedPlaces: [],
+    userSuggestions: [],
 
 }
 
@@ -73,6 +71,16 @@ export const placesSlice = createSlice({
             }
         },
 
+        updateUserSuggestions: (state, action) => {
+          const { id, title, typeId, address, latitude, longitude, type, changeType,  } = action.payload
+          const placeIndex = state.places.findIndex((place) => place.id === id)
+          if (placeIndex !== -1) {
+              state.places[placeIndex] = { id, title, typeId, address, latitude, longitude, type, changeType }
+              state.userSuggestions.push(action.payload)
+            }
+        },
+
+
         
         addPlace: (state, action) => {
             state.places.push(action.payload)
@@ -111,6 +119,6 @@ export const placesSlice = createSlice({
     }
 })
 
-export const { setPlaces, updatePlace, addPlace, selectMarker, deselectMarker, updateMarker, addMarker, removeMarker, removePlace } = placesSlice.actions
+export const { setPlaces, updatePlace, addPlace, selectMarker, deselectMarker, updateMarker, addMarker, removeMarker, removePlace, updateUserSuggestions } = placesSlice.actions
 
 export default placesSlice.reducer

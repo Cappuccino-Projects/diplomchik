@@ -20,7 +20,7 @@ import { setUser } from '@redux/slices/userSlice'
 import { useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 import { Navigate, Route, Routes } from 'react-router-dom'
-
+import { InfoPDF } from '@pages/InfoPDF'
 import { setPlaces } from '@redux/slices/placesSlice'
 import { setChanges } from '@redux/slices/changesSlice'
 
@@ -64,6 +64,7 @@ export const App = () => {
 	return (
 		<>
 			<Routes>
+				<Route path="/info" element={<InfoPDF />} />
 				<Route path="/registration" element={<Registration />} />
 				<Route path="/login" element={<Login />} />
 				<Route path="/adminpanel">

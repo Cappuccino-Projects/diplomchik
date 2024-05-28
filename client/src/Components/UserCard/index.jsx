@@ -1,10 +1,9 @@
+import { ProgressBar } from '@components'
+import { useGetRankByIdQuery } from '@redux/services/rankApi'
+import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import styles from './styles.module.css'
-import { ProgressBar } from '@components'
-import { useGetUserByIdQuery } from '@app/redux/services/userApi'
-import { useSelector } from 'react-redux'
-import { useGetRankByIdQuery } from '@redux/services/rankApi'
-import { useEffect, useState } from 'react'
+
 const getWord = (num) => {
 	if (num % 10 === 1 && num % 100 !== 11) {
 		return 'фантик'
@@ -37,8 +36,6 @@ export const UserCard = ({ ShowLvl = true, ShowBalance = true }) => {
 	const user = useSelector((state) => state.user.user)
 
 	const { data: rank } = useGetRankByIdQuery(user.rankId)
-
-	
 
 	return (
 		<Link to="/profile">

@@ -1,9 +1,55 @@
+import { useGetAlldailyTasksQuery } from '@redux/services/dailyTasksApi'
+import {
+	useAddUserDailyTasksMutation,
+	useDeleteUserDailyTaskMutation,
+	useGetUserDailyTasksByIdQuery
+} from '@redux/services/userApi'
+import { openDailyTaskCompleted } from '@redux/slices/modalsSlice'
+import { useDispatch, useSelector } from 'react-redux'
 import styles from './styles.module.css'
 
 export const DailyTaskCard = ({ task }) => {
 	const { id, statusId, title, description, expAward, iconPath } = task
-
 	const isRefreshAvalible = true
+
+	const dispatch = useDispatch()
+	const { id: userId } = useSelector((state) => state.user.user)
+
+	const { data: userDailyTasks = [], isFetching: isFetchingUserDailyTasks } =
+		useGetUserDailyTasksByIdQuery(userId)
+
+	const { data: allDailyTasks = [], isFetching: isFetchingAllDailyTasks } =
+		useGetAlldailyTasksQuery()
+
+	const [deleteUserDailyTask] = useDeleteUserDailyTaskMutation()
+	const [addUserDailyTask] = useAddUserDailyTasksMutation()
+
+	const getNewMissionId = () => {
+		const a = allDailyTasks.map((dailyTask) => dailyTask.id)
+		const b = userDailyTasks.map((dailyTask) => dailyTask.missionId)
+		const currentList = a.filter((id) => !b.includes(id))
+
+		const randomIndex = Math.floor(Math.random() * currentList.length)
+		const randomElement = currentList[randomIndex]
+		return randomElement
+	}
+
+	const onClickRefresh = async () => {
+		// Удаление старого
+		await deleteUserDailyTask({ userId, missionId: id })
+		// Добавление нового
+
+		const newUserDailyTaskId = getNewMissionId()
+		await addUserDailyTask({
+			userId,
+			missionId: newUserDailyTaskId,
+			statusId: 2
+		})
+	}
+
+	const onClickOk = async () => {
+		dispatch(openDailyTaskCompleted({ id, expAward }))
+	}
 
 	return (
 		<div className={styles.Card}>
@@ -20,19 +66,13 @@ export const DailyTaskCard = ({ task }) => {
 
 				{statusId !== 4 && isRefreshAvalible && (
 					<>
-						<div
-							className={styles.DailyTaskButton}
-							onClick={() => alert('Ок')}
-						>
+						<button className={styles.DailyTaskButton} style={{border: "none"}} onClick={onClickOk}>
 							<i className="fi-sr-check" />
-						</div>
+						</button>
 
-						<div
-							className={styles.DailyTaskButton}
-							onClick={() => alert('Замена не доступна')}
-						>
+						<button className={styles.DailyTaskButton} style={{border: "none"}} onClick={onClickRefresh}>
 							<i className="fi fi-sr-refresh" />
-						</div>
+						</button>
 					</>
 				)}
 			</div>

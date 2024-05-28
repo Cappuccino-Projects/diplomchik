@@ -11,10 +11,13 @@ import { BadPassword } from '@components/Modal/BadPassword'
 import { BadPasswordRepeat } from '@components/Modal/BadPasswordRepeat'
 import { RewardsNotAvalible } from '@components/Modal/RewardsNotAvalible'
 import { EditReviewModal } from '@components/Modal/EditReviewModal'
+import { DailyTaskCompleted } from '@components/Modal/DailyTaskCompleted'
 import { EditDailyTask } from './EditDailyTask'
 import { DeleteDailyTask } from './DeleteDailyTask'
 import { EditProduct } from './EditProduct'
 import { DeleteProduct } from './DeleteProduct'
+import { AddDailyTask } from './addDailyTask'
+import { AddProduct } from './addProduct'
 
 const portal = document.getElementById('portal')
 
@@ -44,12 +47,17 @@ export const Modal = () => {
 				<EditReviewModal close={closeCallback} />
 			)}
 			{modalType === 'GETREWARDS' && <GetRewards close={closeCallback} />}
+			{modalType === 'DAILYTASKCOMPLETED' && (
+				<DailyTaskCompleted close={closeCallback} />
+			)}
 
 			{modalType === 'EDITDAILYTASK' && <EditDailyTask />}
 			{modalType === 'DELETEDAILYTASK' && <DeleteDailyTask />}
+			{modalType === 'ADDDAILYTASK' && <AddDailyTask />}
 
 			{modalType === 'EDITPRODUCT' && <EditProduct />}
 			{modalType === 'DELETEPRODUCT' && <DeleteProduct />}
+			{modalType === 'ADDPRODUCT' && <AddProduct />}
 		</ModalWindow>,
 		portal
 	)

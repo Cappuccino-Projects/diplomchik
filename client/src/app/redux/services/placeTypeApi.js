@@ -12,7 +12,10 @@ export const placeTypeApi = createApi({
 			query: () => `/placeType`,
 			providesTags: ['PlaceType']
 		}),
-
+		getPlaceTypeById: build.query({
+			query: (id) => `/placeType/${id}`,
+			providesTags: ['PlaceType']
+		}),
 		getAllplaces: build.query({
 			query: () => `/place`,
 			providesTags: ['Place']
@@ -25,6 +28,7 @@ export const placeTypeApi = createApi({
 })
 
 export const {
+	useGetPlaceTypeByIdQuery,
 	useGetAllplaceTypesQuery,
 	useGetAllplacesQuery,
 	useGetPlaceByIdQuery

@@ -5,6 +5,7 @@ import {
 	openDeleteProduct,
 	openEditProduct
 } from '@app/redux/slices/modalsSlice'
+import { getIconPath } from '@shared/api/getIconPath'
 
 export const ProductCard = ({ product }) => {
 	const { iconPath, name, price } = product
@@ -15,7 +16,7 @@ export const ProductCard = ({ product }) => {
 	return (
 		<div className={styles.productCard}>
 			<div className={styles.productCard__image}>
-				<img src={`/img/${iconPath}.png`} />
+				<img src={getIconPath(iconPath)} />
 			</div>
 			<div className={styles.productCard__title}>{name}</div>
 			<div className={styles.productCard__price}>

@@ -5,15 +5,8 @@ import { Button } from '@components/Button'
 import { useEffect, useState } from 'react'
 import { useGetAllProductTypesQuery } from '@app/redux/services/productTypeApi'
 import { useUpdateProductByIdMutation } from '@app/redux/services/productsApi'
-
-const fileToBase64 = (file, setBase64) => {
-	let reader = new FileReader()
-	reader.onload = () => {
-		const base64 = reader.result
-		setBase64(base64)
-	}
-	reader.readAsDataURL(file)
-}
+import { getIconPath } from '@shared/api/getIconPath'
+import { uploadFile } from '@shared/api/uploadFile'
 
 export const EditProduct = () => {
 	const product = useSelector((state) => state.modals.data.editProduct)
@@ -26,7 +19,6 @@ export const EditProduct = () => {
 	const [typeId, setTypeId] = useState('')
 	const [iconPath, setIconPath] = useState()
 	const [file, setFile] = useState()
-	const [imgPreview, setImgPreview] = useState()
 
 	useEffect(() => {
 		setName(product?.name || '')
@@ -37,8 +29,7 @@ export const EditProduct = () => {
 
 	useEffect(() => {
 		if (file) {
-			fileToBase64(file, setImgPreview)
-			setIconPath(file.name)
+			uploadFile(file).then(setIconPath)
 		}
 	}, [file])
 
@@ -71,7 +62,7 @@ export const EditProduct = () => {
 				</label>
 				<label className={styles.editProduct__select}>
 					<div>Тип продукта</div>
-					<select value={typeId} onChange={(e) => e.target.value}>
+					<select value={typeId} onChange={(e) => setTypeId(e.target.value)}>
 						{productTypes &&
 							productTypes.map((type) => (
 								<option value={type.id} key={type.id}>
@@ -92,8 +83,7 @@ export const EditProduct = () => {
 					<div>Фотография: {file?.name || 'не загружено'}</div>
 					<div className={styles.editProduct__fileInput}>
 						<div className={styles.editProduct__preview}>
-							{imgPreview && <img src={imgPreview} />}
-							{!imgPreview && iconPath && <img src={`/img/${iconPath}.png`} />}
+							{iconPath && <img src={getIconPath(iconPath)} />}
 						</div>
 						<label>
 							<input type="file" onChange={(e) => setFile(e.target.files[0])} />

@@ -38,7 +38,7 @@ public sealed class UploadController(
         if (!Directory.Exists(uploadPath))
             Directory.CreateDirectory(uploadPath);
 
-        var uploadedFiles = new List<File>();
+        var uploadedFiles = new List<object>();
 
         foreach (var file in files)
         {

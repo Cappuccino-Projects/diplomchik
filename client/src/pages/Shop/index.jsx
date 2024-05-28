@@ -65,7 +65,7 @@ export const Shop = () => {
 				)}
 			</div>
 			<div>
-				<p style={{ marginBottom: '10px' }}>Рамки для аватара</p>
+				<p style={{ marginBottom: '10px' }}>Персонажи</p>
 
 				{characters.length > 0 ? (
 					<div className={styles.ShopItemsWrapper}>
