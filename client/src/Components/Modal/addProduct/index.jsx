@@ -1,10 +1,10 @@
 import { closeModal } from '@app/redux/slices/modalsSlice'
-import { useDispatch, useSelector } from 'react-redux'
-import styles from './style.module.css'
+import { useDispatch } from 'react-redux'
+import styles from './styles.module.css'
 import { Button } from '@components/Button'
 import { useEffect, useState } from 'react'
 import { useGetAllProductTypesQuery } from '@app/redux/services/productTypeApi'
-import { useUpdateProductByIdMutation } from '@app/redux/services/productsApi'
+import { useAddProductMutation } from '../../../app/redux/services/productsApi'
 
 const fileToBase64 = (file, setBase64) => {
 	let reader = new FileReader()
@@ -15,11 +15,10 @@ const fileToBase64 = (file, setBase64) => {
 	reader.readAsDataURL(file)
 }
 
-export const EditProduct = () => {
-	const product = useSelector((state) => state.modals.data.editProduct)
+export const AddProduct = () => {
 	const { data: productTypes } = useGetAllProductTypesQuery()
 	const dispatch = useDispatch()
-	const [updateProduct] = useUpdateProductByIdMutation()
+	const [createProduct] = useAddProductMutation()
 
 	const [name, setName] = useState('')
 	const [price, setPrice] = useState('')
@@ -27,13 +26,6 @@ export const EditProduct = () => {
 	const [iconPath, setIconPath] = useState()
 	const [file, setFile] = useState()
 	const [imgPreview, setImgPreview] = useState()
-
-	useEffect(() => {
-		setName(product?.name || '')
-		setPrice(product?.price || '')
-		setTypeId(product?.typeId || '')
-		setIconPath(product?.iconPath || '')
-	}, [product])
 
 	useEffect(() => {
 		if (file) {
@@ -46,8 +38,7 @@ export const EditProduct = () => {
 
 	const onSubmit = (e) => {
 		e.preventDefault()
-		updateProduct({
-			id: product.id,
+		createProduct({
 			name,
 			price,
 			typeId,
@@ -58,10 +49,10 @@ export const EditProduct = () => {
 	}
 
 	return (
-		<form className={styles.editProduct} onSubmit={onSubmit}>
-			<div className={styles.editProduct__title}>Редактирование задания</div>
-			<div className={styles.editProduct__fields}>
-				<label className={styles.editProduct__input}>
+		<form className={styles.addProduct} onSubmit={onSubmit}>
+			<div className={styles.addProduct__title}>Редактирование задания</div>
+			<div className={styles.addProduct__fields}>
+				<label className={styles.addProduct__input}>
 					<div>Название</div>
 					<input
 						type="text"
@@ -69,7 +60,7 @@ export const EditProduct = () => {
 						onChange={(e) => setName(e.target.value)}
 					/>
 				</label>
-				<label className={styles.editProduct__select}>
+				<label className={styles.addProduct__select}>
 					<div>Тип продукта</div>
 					<select value={typeId} onChange={(e) => setTypeId(e.target.value)}>
 						{productTypes &&
@@ -80,7 +71,7 @@ export const EditProduct = () => {
 							))}
 					</select>
 				</label>
-				<label className={styles.editProduct__input}>
+				<label className={styles.addProduct__input}>
 					<div>Цена</div>
 					<input
 						type="number"
@@ -88,10 +79,10 @@ export const EditProduct = () => {
 						onChange={(e) => setPrice(e.target.value)}
 					/>
 				</label>
-				<div className={styles.editProduct__input}>
+				<div className={styles.addProduct__input}>
 					<div>Фотография: {file?.name || 'не загружено'}</div>
-					<div className={styles.editProduct__fileInput}>
-						<div className={styles.editProduct__preview}>
+					<div className={styles.addProduct__fileInput}>
+						<div className={styles.addProduct__preview}>
 							{imgPreview && <img src={imgPreview} />}
 							{!imgPreview && iconPath && <img src={`/img/${iconPath}.png`} />}
 						</div>
@@ -102,12 +93,12 @@ export const EditProduct = () => {
 					</div>
 				</div>
 			</div>
-			<div className={styles.editProduct__buttons}>
+			<div className={styles.addProduct__buttons}>
 				<Button
 					variant="secondary"
 					withBorder
 					onClick={onClose}
-					className={styles.editProduct__button}
+					className={styles.addProduct__button}
 					type="button"
 				>
 					Отмена
@@ -115,7 +106,7 @@ export const EditProduct = () => {
 				<Button
 					variant="primary"
 					withBorder
-					className={styles.editProduct__button}
+					className={styles.addProduct__button}
 					type="submit"
 				>
 					Сохранить

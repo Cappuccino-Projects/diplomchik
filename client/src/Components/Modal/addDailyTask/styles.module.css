@@ -1,0 +1,87 @@
+.createTask {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    font-family: Onest;
+    width: 350px;
+}
+
+.createTask__title {
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 25px;
+    margin-bottom: 10px;
+}
+
+.createTask__fields {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    font-size: 15px;
+    line-height: 19px;
+    width: 100%;
+}
+
+.createTask__input {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+}
+
+.createTask__fileInput {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.createTask__fileInput label {
+    height: 45px;
+    text-align: center;
+    line-height: 24px;
+    width: 100%;
+    padding: 10px;
+    background-color: #F9F9F9;
+    border: 1px solid #0000001A;
+    border-radius: 5px;
+    flex-shrink: 1;
+}
+
+.createTask__preview {
+    width: 45px;
+    height: 45px;
+    background-color: #F9F9F9;
+    border: 1px solid #0000001A;
+    box-sizing: border-box;
+    border-radius: 5px;
+    flex-shrink: 0;
+    flex-grow: 1;
+}
+
+.createTask__preview>img {
+    max-width: 45px;
+    max-height: 45px;
+}
+
+.createTask__fileInput input {
+    display: none;
+}
+
+.createTask__input>input {
+    background: #F9F9F9;
+    border: 1px solid #0000001A;
+    border-radius: 5px;
+    padding: 10px;
+    font-size: 15px;
+    line-height: 19px;
+}
+
+.createTask__buttons {
+    display: flex;
+    gap: 10px
+}
+
+.createTask__button {
+    width: 100%;
+    font-size: 15px;
+}
