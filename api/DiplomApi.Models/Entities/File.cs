@@ -1,17 +1,10 @@
+using DiplomApi.Models.Abstract;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DiplomApi.Models.Entities;
 
 [Table("files")]
-public class File
+public class File : BaseEntity
 {
-    [Key]
-    [Column("id")]
-    [Required]
-    public Guid Id { get; set; } = Guid.NewGuid();
-    
-    [Column("file_name")]
-    [Required]
-    public string FileName { get; set; } = string.Empty;
 }
