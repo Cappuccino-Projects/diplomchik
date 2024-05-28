@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import styles from './styles.module.css';
 import { useGetAllplaceTypesQuery } from '../../app/redux/services/placeTypeApi';
+import { PlaceIcon } from '../PlaceIcon';
 
 export const AllPlacesWrapper = (props) => {
   const { data: placeTypes, isLoading, error } = useGetAllplaceTypesQuery();
@@ -23,11 +24,13 @@ export const AllPlacesWrapper = (props) => {
     setFilterChosen(true);
   };
 
-  const placeTypesButtons = placeTypes?.map(type => (
-    <button key={type.id} className="AllplacesButton" onClick={() => handlePlaceTypeClick(type.id)}>
-      {type.name}
-    </button>
-  ));
+const placeTypesButtons = placeTypes?.map(type => (
+    <div key={type.id}>
+        <button className={styles.CurrentPlace} onClick={() => handlePlaceTypeClick(type.id)}>
+            <PlaceIcon placeName={type.name} />
+        </button>
+    </div>
+))
 
 
   
