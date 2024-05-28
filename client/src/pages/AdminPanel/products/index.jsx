@@ -1,13 +1,16 @@
 import { Button } from '@components/Button'
 import AdminPanelWrapper from '../wrapper'
 import styles from './styles.module.css'
-import { useGetAllProductsQuery } from '@app/redux/services/productsApi'
 import { ProductsList } from './productsList'
+import { useDispatch } from 'react-redux'
+import { openAddProduct } from '../../../app/redux/slices/modalsSlice'
 
 export const Products = () => {
-	const { data } = useGetAllProductsQuery()
+	const dispatch = useDispatch()
 
-	console.log(data)
+	const openAddPopup = () => {
+		dispatch(openAddProduct())
+	}
 
 	return (
 		<AdminPanelWrapper>
@@ -18,6 +21,7 @@ export const Products = () => {
 					icon="fi-sr-plus-small"
 					className={styles.products__button}
 					type="button"
+					onClick={openAddPopup}
 				>
 					Новый товар
 				</Button>
