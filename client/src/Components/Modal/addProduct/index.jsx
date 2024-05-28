@@ -5,15 +5,8 @@ import { Button } from '@components/Button'
 import { useEffect, useState } from 'react'
 import { useGetAllProductTypesQuery } from '@app/redux/services/productTypeApi'
 import { useAddProductMutation } from '../../../app/redux/services/productsApi'
-
-const fileToBase64 = (file, setBase64) => {
-	let reader = new FileReader()
-	reader.onload = () => {
-		const base64 = reader.result
-		setBase64(base64)
-	}
-	reader.readAsDataURL(file)
-}
+import { uploadFile } from '@shared/api/uploadFile'
+import { getIconPath } from '@shared/api/getIconPath'
 
 export const AddProduct = () => {
 	const { data: productTypes } = useGetAllProductTypesQuery()
@@ -25,12 +18,10 @@ export const AddProduct = () => {
 	const [typeId, setTypeId] = useState('')
 	const [iconPath, setIconPath] = useState()
 	const [file, setFile] = useState()
-	const [imgPreview, setImgPreview] = useState()
 
 	useEffect(() => {
 		if (file) {
-			fileToBase64(file, setImgPreview)
-			setIconPath(file.name)
+			uploadFile(file).then(setIconPath)
 		}
 	}, [file])
 
@@ -50,7 +41,7 @@ export const AddProduct = () => {
 
 	return (
 		<form className={styles.addProduct} onSubmit={onSubmit}>
-			<div className={styles.addProduct__title}>Редактирование задания</div>
+			<div className={styles.addProduct__title}>Добавление товара</div>
 			<div className={styles.addProduct__fields}>
 				<label className={styles.addProduct__input}>
 					<div>Название</div>
@@ -83,8 +74,7 @@ export const AddProduct = () => {
 					<div>Фотография: {file?.name || 'не загружено'}</div>
 					<div className={styles.addProduct__fileInput}>
 						<div className={styles.addProduct__preview}>
-							{imgPreview && <img src={imgPreview} />}
-							{!imgPreview && iconPath && <img src={`/img/${iconPath}.png`} />}
+							{iconPath && <img src={getIconPath(iconPath)} />}
 						</div>
 						<label>
 							<input type="file" onChange={(e) => setFile(e.target.files[0])} />

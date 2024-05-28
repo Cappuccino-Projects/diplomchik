@@ -55,11 +55,14 @@
     border-radius: 5px;
     flex-shrink: 0;
     flex-grow: 1;
+    display: flex;
+    justify-self: center;
+    align-items: center;
 }
 
 .editTask__preview > img {
-    max-width: 45px;
-    max-height: 45px;
+    max-width: 42px;
+    max-height: 42px;
 }
 
 .editTask__fileInput input {
