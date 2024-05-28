@@ -43,7 +43,7 @@ public sealed class UploadController(
             Directory.CreateDirectory(uploadPath);
         }
 
-        var uploadedFiles = new List<File>();
+        var uploadedFiles = new List<object>();
 
         foreach (var file in files)
         {
@@ -58,14 +58,13 @@ public sealed class UploadController(
                 await file.CopyToAsync(stream);
             }
 
-            uploadedFiles.Add(new File()
+            uploadedFiles.Add(new
             {
                 Id = Guid.NewGuid(),
                 FileName = currentFileName
             });
         }
 
-        context.Files?.AddRangeAsync(uploadedFiles);
         await context.SaveChangesAsync();
 
         return Ok(new { files = uploadedFiles });
