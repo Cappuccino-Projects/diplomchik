@@ -37,8 +37,8 @@ public class User
 
     public decimal Balance { get; set; }
 
-    //[Column("is_admin")]
-    //public bool IsAdmin { get; set; }
+    [Column("is_admin")]
+    public bool IsAdmin { get; set; }
 
     public virtual City City { get; set; } = null!;
 
