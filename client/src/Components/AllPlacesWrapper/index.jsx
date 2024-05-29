@@ -25,13 +25,18 @@ export const AllPlacesWrapper = (props) => {
 		setFilterChosen(true)
 	}
 
-	const placeTypesButtons = placeTypes?.map((type) => (
-		<div key={type.id}>
-			<button className={styles.CurrentPlace} onClick={() => handlePlaceTypeClick(type.id)}>
-				<PlaceIcon placeName={type.name} placeIcon={type.icon} />
-			</button>
-		</div>
-	))
+	
+const placeTypesButtons = (
+  <div className={styles.catWrapper}>
+    {placeTypes?.map((type) => (
+      <div key={type.id}>
+        <button className={styles.CurrentPlace} onClick={() => handlePlaceTypeClick(type.id)}>
+          <PlaceIcon placeName={type.name} placeIcon={type.icon} />
+        </button>
+      </div>
+    ))}
+  </div>
+);
 
 	const filteredPlacesCards =
 		filterChosen &&
@@ -42,19 +47,17 @@ export const AllPlacesWrapper = (props) => {
 			return (
 				<div className={styles.LocationCard} key={CurrentPlace.id}>
 					<div className={styles.LocationCardTitleWrapper}>
-						<div className={styles.LocationCardNameRatingWrapper}>
-							<b className={styles.LocationCardName}>{CurrentPlace.title ? CurrentPlace.title : placeTypeName}</b>
+						<b className={styles.LocationCardName}>{CurrentPlace.title ? CurrentPlace.title : placeTypeName}</b>
 
-							<p className={styles.LocationCardRating}> {CurrentPlace.rank ? `★ ${CurrentPlace.rank}` : 'Без рейтинга'}</p>
-						</div>
+						<p className={styles.LocationCardRating}> {CurrentPlace.rank ? `★ ${CurrentPlace.rank}` : 'Без рейтинга'}</p>
 
-						<button className={styles.CardEditButton}>Ред.</button>
+						<button className={styles.CardEditButton}> Ред. </button>
 					</div>
 
 					{CurrentPlace.address ? (
 						<p className={styles.LocationCardName}>{CurrentPlace.address}</p>
 					) : (
-						<p className={styles.LocationCardName}>
+						<p className={styles.LocationCoorddName}>
 							Координаты: {CurrentPlace.latitude ? CurrentPlace.latitude : ''},{CurrentPlace.longitude ? CurrentPlace.longitude : ''}
 						</p>
 					)}
@@ -76,15 +79,15 @@ export const AllPlacesWrapper = (props) => {
 				)}
 			</div>
 
-			<div className="placesBlock">
-				<div className="BlockTitleWrapper">
-					<h2 className="BlockTitleText"> {props.WrapperText}</h2>
-					<button className="AllplacesButton" onClick={handleAllPlacesClick}>
+			<div className={styles.placesBlock}>
+				<div className={styles.BlockTitleWrapper}>
+					<h2 className={styles.BlockTitleText}> {props.WrapperText}</h2>
+					<button className={styles.CardEditButton} onClick={handleAllPlacesClick}>
           Все места 
 					</button>
 				</div>
 
-				<div className="placesWrapper">{placeTypesButtons}</div>
+				<div className={styles.catWrapper}>{placeTypesButtons}</div>
 			</div>
 
 			<div className={styles.placesWrapper} style={{ display: 'block' }}>
