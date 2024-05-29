@@ -31,13 +31,28 @@
 .placesWrapper {
   
   height: fit-content;
-  max-height: 280px;
+  max-height: 420px;
   display: flex;
-  flex-direction: row;
   flex-wrap: wrap;
   gap: 10px;
   overflow: scroll;
 }
+
+.catWrapper {
+  height: 100%;
+  max-height: 400px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 4px;
+  overflow: scroll;
+  width: 100%;
+}
+
+
+
+
+
 
 .placesWrapper {
   --sb-track-color: #f9f9f9;
@@ -98,6 +113,12 @@
 
 .LocationCardName {
   width: fit-content;
+  font-size: 14px;
+}
+
+.LocationCoorddName {
+  width: fit-content;
+  font-size: 13px;
 }
 
 .LocationCardRating {
@@ -106,7 +127,8 @@
   padding: 2px 10px;
   height: fit-content;
   white-space: nowrap;
-  font-size: 14px;
+  font-size: 13px;
+  
 }
 
 .CardEditButton {
@@ -119,7 +141,7 @@
   border-radius: 15px;
   cursor: pointer;
   user-select: none;
-  font-size: 14px;
+  font-size: 13px;
   transition: all 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
 }
 
@@ -129,6 +151,7 @@
 
 .CardEditButton:hover {
   background-color: #caf05f;
+  
 }
 
 .LocationCardImageWrapper {

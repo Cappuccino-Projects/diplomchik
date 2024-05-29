@@ -1,1 +1,7 @@
 @import url('./../pages.module.css');
+
+.CardsWrapper {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+}

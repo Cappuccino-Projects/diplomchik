@@ -14,6 +14,7 @@ import { productsApi } from '@redux/services/productsApi'
 import { dailyTasksApi } from '@redux/services/dailyTasksApi'
 import { cityApi } from '@redux/services/cityApi'
 import { rankApi } from './services/rankApi'
+import { registrationApi } from './services/registrationApi'
 import { reviewApi } from './services/reviewApi'
 import { placeTypeApi } from './services/placeTypeApi'
 import { changeApi } from './services/changeApi'
@@ -27,6 +28,7 @@ export const store = configureStore({
 		[dailyTasksApi.reducerPath]: dailyTasksApi.reducer,
 		[cityApi.reducerPath]: cityApi.reducer,
 		[rankApi.reducerPath]: rankApi.reducer,
+		[registrationApi.reducerPath]: registrationApi.reducer,
 		[reviewApi.reducerPath]: reviewApi.reducer,
 		[placeTypeApi.reducerPath]: placeTypeApi.reducer,
 		[changeApi.reducerPath]: changeApi.reducer,
@@ -49,6 +51,7 @@ export const store = configureStore({
 			.concat(dailyTasksApi.middleware)
 			.concat(cityApi.middleware)
 			.concat(rankApi.middleware)
+			.concat(registrationApi.middleware)
 			.concat(reviewApi.middleware)
 			.concat(placeTypeApi.middleware)
 			.concat(changeApi.middleware)
