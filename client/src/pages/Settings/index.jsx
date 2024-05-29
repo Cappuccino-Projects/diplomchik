@@ -8,6 +8,7 @@ import { useSelector } from 'react-redux'
 import { useGetAllCityQuery } from '@app/redux/services/cityApi'
 import { useUpdateUserInfoByIdMutation } from '@app/redux/services/userApi'
 import { openBadPassword } from '@redux/slices/modalsSlice'
+
 export const Settings = () => {
 	// Получение пользователя
 	const dispatch = useDispatch()
@@ -34,7 +35,6 @@ export const Settings = () => {
 	const [selectedCity, setSelectedCity] = useState('')
 	const [password, setPassword] = useState('')
 	// // Безопасность
-
 	const [passwordInput, setPasswordInput] = useState('')
 	const [newPassword1Input, setNewPassword1Input] = useState('')
 	const [newPassword2Input, setNewPassword2Input] = useState('')
@@ -58,7 +58,7 @@ export const Settings = () => {
 			cityId: selectedCity
 		}
 		await updateUserInfo(newUser)
-		alert('Вы успешно обновили основные данные')
+
 	}
 
 	const savePasswordChanges = async () => {
@@ -135,8 +135,11 @@ export const Settings = () => {
 			</div>
 			<p>Фотография профиля</p>
 			<div className="Card">
-				<img className="UserCardImage" src="../img/User1Avatar.png" />
-				{/* {selectedFile ? selectedFile.name : ""} */}
+				<img
+					className="UserCardImage"
+					src="../img/User1Avatar.png"
+					style={{ margin: 'auto' }}
+				/>
 				<label>
 					<span className={styles.MenuButton}>Изменить изображение</span>
 					<input
@@ -177,10 +180,11 @@ export const Settings = () => {
 			</div>
 			<p>Дополнительно</p>
 			<div className="Card">
-				<button className={styles.MenuButton} onClick={() => alert('Справка')}>
+				<Link to="/info" className={styles.MenuButton}  >
 					<i className="fi fi-sr-info" />
 					<p>Справка</p>
-				</button>
+				</Link>
+
 				<button
 					onClick={() => dispatch(openLogout())}
 					className={styles.MenuButton}
@@ -189,22 +193,6 @@ export const Settings = () => {
 					<p>Выйти из аккаунта</p>
 				</button>
 			</div>
-
-			{/* Дальше идут мечты можно не смотреть*/}
-			{/* <div className="Card">
-				<p>Двухэтапная аутентификация</p>
-				<div className={styles.MainMenuButton}>
-					<i className="fi-sr-data-transfer" />
-					<p>Подключить</p>
-				</div>
-			</div>
-			<div className={styles.MainMenuButtonsWrapper}>
-				<div>
-					<div className={styles.MenuButton}>
-						<i className="fi fi-sr-letter-case" />
-						<p>Язык: Русский</p>
-					</div>
-	</Link>*/}
 		</div>
 	)
 }

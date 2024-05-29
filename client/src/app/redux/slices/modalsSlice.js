@@ -4,9 +4,10 @@ const initialState = {
 	isOpen: false,
 	modalType: '',
 	data: {
-		editItemToBuy: {}
+		editItemToBuy: {},
+		editRewiewToChange: {},
+		editCompletedDailyTask: {}
 	}
-
 }
 
 export const modalsSlice = createSlice({
@@ -45,10 +46,43 @@ export const modalsSlice = createSlice({
 			state.modalType = 'BADPASSWORDREPEAT'
 			state.isOpen = true
 		},
+
+		openEditReviewModal: (state, action) => {
+			state.data.editRewiewToChange = action.payload
+			state.modalType = 'EDITREVIEWMODAL'
+			state.isOpen = true
+		},
 		openAddPlaceToMap: (state) => {
 			state.modalType = 'ADDPLACETOMAP'
 			state.isOpen = true
-			
+		},
+		openAddDailyTask: (state) => {
+			state.modalType = 'ADDDAILYTASK'
+			state.isOpen = true
+		},
+		openEditDailyTask: (state, action) => {
+			state.modalType = 'EDITDAILYTASK'
+			state.isOpen = true
+			state.data.editDailyTask = action.payload
+		},
+		openDeleteDailyTask: (state, action) => {
+			state.modalType = 'DELETEDAILYTASK'
+			state.isOpen = true
+			state.data.deleteDailyTask = action.payload
+		},
+		openAddProduct: (state) => {
+			state.modalType = 'ADDPRODUCT'
+			state.isOpen = true
+		},
+		openEditProduct: (state, action) => {
+			state.modalType = 'EDITPRODUCT'
+			state.isOpen = true
+			state.data.editProduct = action.payload
+		},
+		openDeleteProduct: (state, action) => {
+			state.modalType = 'DELETEPRODUCT'
+			state.isOpen = true
+			state.data.deleteProduct = action.payload
 		}
 	}
 })
@@ -62,7 +96,15 @@ export const {
 	openLogout,
 	openBadPassword,
 	openBadPasswordRepeat,
-	openAddPlaceToMap
+	openEditReviewModal,
+	openAddPlaceToMap,
+	openDailyTaskCompleted,
+	openAddDailyTask,
+	openEditDailyTask,
+	openDeleteDailyTask,
+	openAddProduct,
+	openEditProduct,
+	openDeleteProduct
 } = modalsSlice.actions
 
 export default modalsSlice.reducer

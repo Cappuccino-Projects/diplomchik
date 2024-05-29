@@ -34,7 +34,7 @@ export const ShopItemCard = ({ item }) => {
 				>
 					<img
 						className={styles.ShopItemImage}
-						src={'../img/' + item.ItemImage}
+						src={`../img/${item.iconPath}.png`}
 					/>
 				</div>
 			)}

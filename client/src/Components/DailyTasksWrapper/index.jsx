@@ -27,7 +27,6 @@ export const DailyTasksWrapper = () => {
 					return { ...p, statusId: userProduct.statusId }
 				})
 			
-			console.log(currentDailyTasks)
 			setCurrentDailyTasks(currentDailyTasks)
 		}
 	}, [userDailyTasks, allDailyTasks])

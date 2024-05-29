@@ -1,0 +1,158 @@
+import { useSelector } from 'react-redux'
+import styles from './styles.module.css'
+import { useEffect, useState } from 'react'
+import {
+	useGetReviewByIdQuery,
+	useUpdateReviewByIdMutation
+} from '@redux/services/reviewApi'
+import {
+	useGetPlaceByIdQuery,
+	useGetPlaceTypeByIdQuery
+} from '@redux/services/placeTypeApi'
+
+export const EditReviewModal = ({ close }) => {
+	const reviewId = useSelector(
+		(state) => state.modals.data.editRewiewToChange.id
+	)
+	const { data: review = {}, isSuccess: isSuccessReview } =
+		useGetReviewByIdQuery(reviewId)
+	const { data: placeData = {}, isSuccess: isSuccessPlace } =
+		useGetPlaceByIdQuery(review.placeId)
+	const { data: placeTypeData = {}, isSuccess: isSuccessPlaceType } =
+		useGetPlaceTypeByIdQuery(placeData.typeId)
+
+	const [updateReview] = useUpdateReviewByIdMutation()
+
+	const [rating, setRating] = useState(0)
+	const [commentInput, setCommentInput] = useState('')
+	const [photoPath, setPhotoPath] = useState(null)
+
+	const [place, setPlace] = useState(null)
+
+	useEffect(() => {
+		if (isSuccessReview) {
+			setPhotoPath(review.photoPath)
+			setRating(review.rank)
+			setCommentInput(review.comment)
+		}
+	}, [review])
+
+	useEffect(() => {
+		if (isSuccessPlace) {
+			setPlace(placeData)
+		}
+	}, [placeData])
+
+	const save = () => {
+		const newReview = {
+			...review,
+			rank: rating,
+			comment: commentInput,
+			photoPath: photoPath
+		}
+		updateReview(newReview)
+		close()
+	}
+
+	return (
+		<>
+			<div className={styles.ModalWindowTitle}>Редактирование отзыва</div>
+
+			<div
+				style={{ fontSize: '20px', marginTop: '10px' }}
+				className={styles.ModalWindowText}
+			>
+				<b>Место: {place?.title ? place?.title : placeTypeData.name}</b>
+			</div>
+
+			<div
+				style={{ fontSize: '14px', color: 'grey' }}
+				className={styles.AllplacesButton}
+			>
+				{`${placeTypeData.name}`}
+			</div>
+
+			<div className={styles.ModalWindowText}>Адрес: {place?.address}</div>
+			<div style={{ marginTop: '20px' }} className={styles.ModalWindowText}>
+				Комментарий:
+			</div>
+			<input
+				type="text"
+				style={{ height: '32px' }}
+				className="MenuTextArea"
+				placeholder="Поделитесь впечатлениями"
+				value={commentInput}
+				onChange={(e) => setCommentInput(e.target.value)}
+			></input>
+			<div style={{ marginTop: '10px' }} className={styles.ModalWindowText}>
+				Фотографии
+			</div>
+			<div className="LocationCardImageWrapper">
+				{photoPath ? (
+					<div className={styles.LocationCardImage}>
+						<button
+							className={styles.DeleteImageButton}
+							onClick={() => setPhotoPath(null)}
+						>
+							<i className="fi fi-sr-cross-small"></i>
+						</button>
+						<img
+							src={`../img/${photoPath}`}
+							className={styles.LocationImage}
+						/>
+					</div>
+				) : (
+					<div className={styles.LocationCardImage}>
+						<div className={styles.AddImageButton}>
+							<i className="fi fi-sr-plus-small"></i>
+						</div>
+						<img className={styles.LocationImage}></img>
+					</div>
+				)}
+			</div>
+
+			<div style={{ marginTop: '10px' }} className={styles.ModalWindowText}>
+				Оценка
+			</div>
+
+			<div className="LocationCardImageWrapper">
+				{Array(5)
+					.fill()
+					.map((_, index) => {
+						return (
+							<button
+								key={index}
+								onClick={() => setRating(index + 1)}
+								className={
+									rating === index + 1
+										? styles.RatingActive
+										: styles.RatingNotActive
+								}
+							>
+								{index + 1}
+							</button>
+						)
+					})}
+			</div>
+			<div
+				style={{ marginTop: '20px' }}
+				className={styles.ModalWindowButtonsWrapper}
+			>
+				<button
+					className={styles.ModalButton}
+					style={{ border: 'none' }}
+					onClick={close}
+				>
+					Удалить
+				</button>
+				<button
+					className={styles.ModalMainButton}
+					style={{ border: 'none' }}
+					onClick={save}
+				>
+					Сохранить
+				</button>
+			</div>
+		</>
+	)
+}

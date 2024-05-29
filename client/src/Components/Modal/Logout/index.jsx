@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import styles from './styles.module.css'
 
 export const Logout = ({ close }) => {
@@ -9,14 +10,18 @@ export const Logout = ({ close }) => {
 			<div className={styles.ModalWindowText}>
 				Вы будете перенаправлены на страницу авторизации
 			</div>
-            <div className={styles.ModalWindowButtonsWrapper}>
+			<div className={styles.ModalWindowButtonsWrapper}>
 				<div className={styles.ModalButton} onClick={close}>
 					Отмена
 				</div>
-				<div className={styles.ModalMainButton} onClick={close}>
+				<Link
+					to="/login"
+					className={styles.ModalMainButton}
+					onClick={close}
+				>
 					Выйти
-				</div>
+				</Link>
 			</div>
 		</>
-	)
+	) 	
 }

@@ -24,4 +24,6 @@ public class UserCreationDto
     public int Experience { get; set; }
 
     public decimal Balance { get; set; }
+
+    public bool IsAdmin { get; set; }
 }

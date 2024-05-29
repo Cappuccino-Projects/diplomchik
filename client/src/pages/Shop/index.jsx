@@ -9,24 +9,33 @@ import styles from './styles.module.css'
 
 import { useGetAllProductsQuery } from '@redux/services/productsApi'
 import { useGetUserProductsByIdQuery } from '@redux/services/userApi'
+import { useEffect, useState } from 'react'
+import { useSelector } from 'react-redux'
 
 export const Shop = () => {
-	// !!! activeUserId
-	const activeUserId = 1
+
+	const userId = useSelector(state => state.user.user.id)
 
 	const { data: userProducts = [], isFetching: isFetchingUserProducts } =
-		useGetUserProductsByIdQuery(activeUserId)
+		useGetUserProductsByIdQuery(userId)
 
 	const { data: allProducts = [], isFetching: isFetchingAllProducts } =
 		useGetAllProductsQuery()
 
-	const userProductIds = userProducts.map((product) => product.productId)
-	const shopProduct = allProducts.filter(
-		(product) => !userProductIds.includes(product.id)
-	)
+	const [avatars, setAvatars] = useState([])
+	const [characters, setCharacters] = useState([])
 
-	const avatars = shopProduct.filter((item) => item.typeId === 2)
-	const characters = shopProduct.filter((item) => item.typeId === 1)
+	useEffect(() => {
+		if (!isFetchingUserProducts && !isFetchingAllProducts) {
+			const userProductIds = userProducts.map((product) => product.productId)
+			const shopProduct = allProducts.filter(
+			(product) => !userProductIds.includes(product.id)
+		)
+		setAvatars(shopProduct.filter((item) => item.typeId === 2))
+		setCharacters(shopProduct.filter((item) => item.typeId === 1))
+		}
+		
+	}, [userProducts, allProducts])
 
 	return (
 		<div className={styles.MenuWrapper}>
@@ -56,7 +65,7 @@ export const Shop = () => {
 				)}
 			</div>
 			<div>
-				<p style={{ marginBottom: '10px' }}>Рамки для аватара</p>
+				<p style={{ marginBottom: '10px' }}>Персонажи</p>
 
 				{characters.length > 0 ? (
 					<div className={styles.ShopItemsWrapper}>

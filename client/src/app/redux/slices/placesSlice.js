@@ -1,8 +1,58 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 
 const initialState = {
-    places: []
+    places: [],
+    selectedMarker: null,
+    userSuggestions: [],
+
 }
+
+
+export const deletePlaceAsync = createAsyncThunk(
+  'places/deletePlaceAsync',
+  async (_, { dispatch, getState }) => {
+    const id = getState().places.selectedMarker.id; // replace this with the actual path to the id in your state
+
+    const response = await fetch(`http://176.123.162.178:9088/api/place/${id}`, {
+      method: 'DELETE',
+      headers: {
+        'accept': '*/*'
+      }
+    });
+
+    if (response.ok) {
+      dispatch(placesSlice.actions.removePlace({id}));
+    } else {
+      console.error('Failed to delete place');
+    }
+  }
+);
+
+export const updatePlaceAsync = createAsyncThunk(
+  'places/updatePlace',
+  async (place, thunkAPI) => {
+    const { id, title, typeId, address, latitude, longitude, photoPath } = place;
+
+    const response = await fetch(`http://176.123.162.178:9088/api/place/${id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        'accept': '*/*'
+      },
+      body: JSON.stringify({ title, typeId, address, latitude, longitude, photoPath })
+    });
+
+    if (response.ok) {
+      const updatedPlace = await response.json();
+      thunkAPI.dispatch(placesSlice.actions.updatePlace(updatedPlace));
+    } else {
+      console.error('Failed to update place');
+    }
+  }
+);
+
+
+
 
 export const placesSlice = createSlice({
     name: 'places',
@@ -10,17 +60,65 @@ export const placesSlice = createSlice({
     reducers: {
         setPlaces: (state, action) => {
             state.places = action.payload
+            
         },
-        updatePlace: (state, action) => { // Add a new updatePlace action
-            const { id, name, latitude, longitude } = action.payload;
-            const placeIndex = state.places.findIndex(place => place.id === id);
+        updatePlace: (state, action) => {
+            const { id, title, typeId, address, latitude, longitude, type  } = action.payload
+            const placeIndex = state.places.findIndex((place) => place.id === id)
             if (placeIndex !== -1) {
-                state.places[placeIndex] = { id, name, latitude, longitude };
+                state.places[placeIndex] = { id, title, typeId, address, latitude, longitude, type }
+                state.editedPlaces.push(action.payload)
             }
-        }
+        },
+
+        updateUserSuggestions: (state, action) => {
+          const { id, title, typeId, address, latitude, longitude, type, changeType,  } = action.payload
+          const placeIndex = state.places.findIndex((place) => place.id === id)
+          if (placeIndex !== -1) {
+              state.places[placeIndex] = { id, title, typeId, address, latitude, longitude, type, changeType }
+              state.userSuggestions.push(action.payload)
+            }
+        },
+
+
+        
+        addPlace: (state, action) => {
+            state.places.push(action.payload)
+        },
+        addMarker: (state, action) => {
+            state.newPlaces.push(action.payload)
+        },
+
+        selectMarker: (state, action) => {
+            state.selectedMarker = action.payload
+            console.log(state.selectedMarker)
+        },
+        deselectMarker: (state) => {
+            state.selectedMarker = null
+        },
+        
+
+        removeMarker: (state, action) => {
+          const id = action.payload;
+          if (state.places) {
+              const placeToRemove = state.places.find(place => place.id === id);
+              if (placeToRemove) {
+                  state.places = state.places.filter(place => place.id !== id);
+                  if (!state.removedPlaces) {
+                      state.removedPlaces = [];
+                  }
+                  state.removedPlaces.push(placeToRemove);
+              }
+          }
+      },
+        
+        removePlace: (state, action) => {
+            const id = action.payload.id;
+            state.places = state.places.filter(place => place.id !== id);
+        },
     }
 })
 
-export const { setPlaces, updatePlace } = placesSlice.actions // Export the new updatePlace action
+export const { setPlaces, updatePlace, addPlace, selectMarker, deselectMarker, updateMarker, addMarker, removeMarker, removePlace, updateUserSuggestions } = placesSlice.actions
 
 export default placesSlice.reducer

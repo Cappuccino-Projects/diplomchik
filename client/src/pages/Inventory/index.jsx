@@ -4,14 +4,14 @@ import { useGetAllProductsQuery } from '@redux/services/productsApi'
 import { useGetUserProductsByIdQuery } from '@redux/services/userApi'
 import styles from './styles.module.css'
 import { useState, useEffect } from 'react'
-
+import { useSelector } from 'react-redux'
 export const Inventory = () => {
 	const [avatars, setAvatars] = useState([])
 	const [characters, setCharacters] = useState([])
 	// const shopItems = useSelector((state) => state.shop.shop)
 
 	// !!! Сюда втыкать активного пользователя !!!
-	const activeUserId = 1
+	const activeUserId = useSelector((state) => state.user.user.id)
 
 	const { data: userProducts = [], isFetching: isFetchingUserProducts } =
 		useGetUserProductsByIdQuery(activeUserId)
