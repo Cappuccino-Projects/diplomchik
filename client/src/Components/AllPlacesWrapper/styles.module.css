@@ -33,7 +33,6 @@
   height: fit-content;
   max-height: 420px;
   display: flex;
-  flex-direction: ;
   flex-wrap: wrap;
   gap: 10px;
   overflow: scroll;
