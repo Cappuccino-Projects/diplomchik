@@ -31,7 +31,7 @@
 .placesWrapper {
   
   height: fit-content;
-  max-height: 280px;
+  max-height: 400px;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
