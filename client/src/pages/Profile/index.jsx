@@ -1,16 +1,18 @@
 import {
 	BackToMainMenu,
+	DailyTasks,
+	LocationsWrapper,
 	MinimizeMenuButton,
 	UserCard,
-	DailyTasks,
-	ProfileSwitch,
-	LocationsWrapper
+	ChangesWrapper
 } from '@components'
+
 import { Link } from 'react-router-dom'
 import styles from './styles.module.css'
 import { useState } from 'react'
 
 export const Profile = () => {
+	const [isShowReviews, setShowReviews] = useState(true)
 
 	return (
 		<div className={styles.MenuWrapper}>
@@ -44,14 +46,25 @@ export const Profile = () => {
 				</Link>
 			</div>
 
-
 			<div className={styles.ProfileSwitch}>
-				<p className={styles.ActiveSwitchText}>Отзывы</p>
-				<p className={styles.SwitchText}>Изменения</p>
+				<p
+					onClick={() => setShowReviews(true)}
+					className={
+						isShowReviews ? styles.ActiveSwitchText : styles.SwitchText
+					}
+				>
+					Отзывы
+				</p>
+				<p
+					onClick={() => setShowReviews(false)}
+					className={
+						isShowReviews ? styles.SwitchText : styles.ActiveSwitchText
+					}
+				>
+					Изменения
+				</p>
 			</div>
-
-			<LocationsWrapper />
-			
+			{isShowReviews ? <LocationsWrapper /> : <ChangesWrapper />}
 		</div>
 	)
 }

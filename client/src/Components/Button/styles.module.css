@@ -1,0 +1,45 @@
+.button {
+	padding: 9px 15px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 12px;
+	border-radius: 5px;
+	outline: none;
+	border: none;
+    font-size: 16px;
+    font-weight: 400;
+    font-family: Onest;
+    cursor: pointer;
+}
+
+.button > i {
+    font-size: 24px;
+    line-height: 19px;
+}
+
+.button_primary {
+	background-color: #caf05f;
+}
+
+.button_secondary {
+	background-color: #f9f9f9;
+}
+
+.button_danger {
+	background-color: #ff866b;
+}
+
+.button_withBorder {
+	border: 1px solid #0000001a;
+}
+
+.button_icon {
+    background-color: #F3F3F3;
+    width: 40px;
+    height: 40px;
+}
+
+.button_icon:hover {
+    background-color: #caf05f;
+}

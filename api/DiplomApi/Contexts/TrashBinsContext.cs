@@ -39,6 +39,8 @@ public partial class TrashBinsContext(DbContextOptions<TrashBinsContext> options
 
     public virtual DbSet<UserProduct> UsersProducts { get; set; }
 
+    public virtual DbSet<File> Files { get; set; }
+
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         => optionsBuilder.UseMySql(configuration.GetSection("DataBase").Value, ServerVersion.Parse("8.4.0"));
 

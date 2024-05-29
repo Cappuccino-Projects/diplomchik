@@ -58,7 +58,7 @@ export const Settings = () => {
 			cityId: selectedCity
 		}
 		await updateUserInfo(newUser)
-		alert('Вы успешно обновили основные данные')
+
 	}
 
 	const savePasswordChanges = async () => {
@@ -180,10 +180,11 @@ export const Settings = () => {
 			</div>
 			<p>Дополнительно</p>
 			<div className="Card">
-				<button className={styles.MenuButton} onClick={() => alert('Справка')}>
+				<Link to="/info" className={styles.MenuButton}  >
 					<i className="fi fi-sr-info" />
 					<p>Справка</p>
-				</button>
+				</Link>
+
 				<button
 					onClick={() => dispatch(openLogout())}
 					className={styles.MenuButton}

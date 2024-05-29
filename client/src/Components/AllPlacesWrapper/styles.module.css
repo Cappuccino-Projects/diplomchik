@@ -1,0 +1,169 @@
+.placesBlock {
+  width: 100%;
+  display: flex;
+  flex-direction:inherit;
+  gap: 10px;
+}
+
+.placesBlock a {
+  
+}
+
+.BlockTitleWrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.BlockTitleText {
+  font-size: 16px;
+}
+
+.AllplacesButton {
+
+}
+
+.AllplacesButton:hover {
+  background-color: #caf05f;
+}
+
+.placesWrapper {
+  
+  height: fit-content;
+  max-height: 420px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  overflow: scroll;
+}
+
+.catWrapper {
+  height: 100%;
+  max-height: 400px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 4px;
+  overflow: scroll;
+  width: 100%;
+}
+
+
+
+
+
+
+.placesWrapper {
+  --sb-track-color: #f9f9f9;
+  --sb-thumb-color: #caf05f;
+  --sb-size: 5px;
+}
+
+.placesWrapper::-webkit-scrollbar {
+  width: var(--sb-size);
+}
+
+.placesWrapper::-webkit-scrollbar-track {
+  background: var(--sb-track-color);
+  border-radius: 6px;
+}
+
+.placesWrapper::-webkit-scrollbar-thumb {
+  background: var(--sb-thumb-color);
+  border-radius: 6px;
+}
+
+@supports not selector(::-webkit-scrollbar) {
+  .placesWrapper {
+    scrollbar-color: var(--sb-thumb-color) var(--sb-track-color);
+  }
+}
+
+
+
+
+.LocationCard {
+  background-color: white;
+  border: 1px rgba(0, 0, 0, 0.1) solid;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  border-radius: 5px;
+  padding: 10px;
+  transition: all 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
+  margin-bottom: 10px;
+}
+
+.LocationCardTitleWrapper {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 15px;
+}
+
+.LocationCardNameRatingWrapper {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  align-items: baseline;
+}
+
+.LocationCardName {
+  width: fit-content;
+  font-size: 14px;
+}
+
+.LocationCoorddName {
+  width: fit-content;
+  font-size: 13px;
+}
+
+.LocationCardRating {
+  background-color: #caf05f;
+  border-radius: 15px;
+  padding: 2px 10px;
+  height: fit-content;
+  white-space: nowrap;
+  font-size: 13px;
+  
+}
+
+.CardEditButton {
+  display: flex;
+  flex-direction: row;
+  gap: 5px;
+  color: #292929;
+  background-color: #f3f3f3;
+  padding: 2px 10px 1px 10px;
+  border-radius: 15px;
+  cursor: pointer;
+  user-select: none;
+  font-size: 13px;
+  transition: all 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+
+.CardEditButton i {
+  padding-top: 2px;
+}
+
+.CardEditButton:hover {
+  background-color: #caf05f;
+  
+}
+
+.LocationCardImageWrapper {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+}
+
+
+
+.CardsWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}

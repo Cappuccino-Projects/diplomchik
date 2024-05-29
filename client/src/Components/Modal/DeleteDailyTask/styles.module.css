@@ -1,0 +1,27 @@
+.deleteTask {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    font-family: Onest;
+}
+
+.deleteTask__title {
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 25px;
+}
+
+.deleteTask__description {
+    font-size: 15px;
+    line-height: 19px;
+}
+
+.deleteTask__buttons {
+    display: flex;
+    gap: 10px
+}
+
+.deleteTask__button {
+    width: 100%;
+    font-size: 15px;
+}

@@ -3,9 +3,7 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 const initialState = {
     places: [],
     selectedMarker: null,
-    newPlaces: [],
-    editedPlaces: [],
-    removedPlaces: [],
+    userSuggestions: [],
 
 }
 
@@ -62,14 +60,26 @@ export const placesSlice = createSlice({
     reducers: {
         setPlaces: (state, action) => {
             state.places = action.payload
+            
         },
         updatePlace: (state, action) => {
             const { id, title, typeId, address, latitude, longitude, type  } = action.payload
             const placeIndex = state.places.findIndex((place) => place.id === id)
             if (placeIndex !== -1) {
                 state.places[placeIndex] = { id, title, typeId, address, latitude, longitude, type }
+                state.editedPlaces.push(action.payload)
             }
         },
+
+        updateUserSuggestions: (state, action) => {
+          const { id, title, typeId, address, latitude, longitude, type, changeType,  } = action.payload
+          const placeIndex = state.places.findIndex((place) => place.id === id)
+          if (placeIndex !== -1) {
+              state.places[placeIndex] = { id, title, typeId, address, latitude, longitude, type, changeType }
+              state.userSuggestions.push(action.payload)
+            }
+        },
+
 
         
         addPlace: (state, action) => {
@@ -89,9 +99,18 @@ export const placesSlice = createSlice({
         
 
         removeMarker: (state, action) => {
-            const id = action.payload.id;
-            state.markers = state.markers.filter(marker => marker.id !== id);
-        },
+          const id = action.payload;
+          if (state.places) {
+              const placeToRemove = state.places.find(place => place.id === id);
+              if (placeToRemove) {
+                  state.places = state.places.filter(place => place.id !== id);
+                  if (!state.removedPlaces) {
+                      state.removedPlaces = [];
+                  }
+                  state.removedPlaces.push(placeToRemove);
+              }
+          }
+      },
         
         removePlace: (state, action) => {
             const id = action.payload.id;
@@ -100,6 +119,6 @@ export const placesSlice = createSlice({
     }
 })
 
-export const { setPlaces, updatePlace, addPlace, selectMarker, deselectMarker, updateMarker, addMarker, removeMarker, removePlace } = placesSlice.actions
+export const { setPlaces, updatePlace, addPlace, selectMarker, deselectMarker, updateMarker, addMarker, removeMarker, removePlace, updateUserSuggestions } = placesSlice.actions
 
 export default placesSlice.reducer

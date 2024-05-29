@@ -5,7 +5,10 @@ import {
 	useGetReviewByIdQuery,
 	useUpdateReviewByIdMutation
 } from '@redux/services/reviewApi'
-import { useGetPlaceByIdQuery } from '@redux/services/placeTypeApi'
+import {
+	useGetPlaceByIdQuery,
+	useGetPlaceTypeByIdQuery
+} from '@redux/services/placeTypeApi'
 
 export const EditReviewModal = ({ close }) => {
 	const reviewId = useSelector(
@@ -13,14 +16,18 @@ export const EditReviewModal = ({ close }) => {
 	)
 	const { data: review = {}, isSuccess: isSuccessReview } =
 		useGetReviewByIdQuery(reviewId)
-
-	const { data: place = {} } = useGetReviewByIdQuery(review.placeId)
+	const { data: placeData = {}, isSuccess: isSuccessPlace } =
+		useGetPlaceByIdQuery(review.placeId)
+	const { data: placeTypeData = {}, isSuccess: isSuccessPlaceType } =
+		useGetPlaceTypeByIdQuery(placeData.typeId)
 
 	const [updateReview] = useUpdateReviewByIdMutation()
 
 	const [rating, setRating] = useState(0)
 	const [commentInput, setCommentInput] = useState('')
 	const [photoPath, setPhotoPath] = useState(null)
+
+	const [place, setPlace] = useState(null)
 
 	useEffect(() => {
 		if (isSuccessReview) {
@@ -30,6 +37,12 @@ export const EditReviewModal = ({ close }) => {
 		}
 	}, [review])
 
+	useEffect(() => {
+		if (isSuccessPlace) {
+			setPlace(placeData)
+		}
+	}, [placeData])
+
 	const save = () => {
 		const newReview = {
 			...review,
@@ -38,26 +51,30 @@ export const EditReviewModal = ({ close }) => {
 			photoPath: photoPath
 		}
 		updateReview(newReview)
+		close()
 	}
 
 	return (
 		<>
 			<div className={styles.ModalWindowTitle}>Редактирование отзыва</div>
+
 			<div
 				style={{ fontSize: '20px', marginTop: '10px' }}
 				className={styles.ModalWindowText}
 			>
-				<b>Место: {place?.title ? place?.title : 'Нет названия'}</b>
+				<b>Место: {place?.title ? place?.title : placeTypeData.name}</b>
 			</div>
+
 			<div
 				style={{ fontSize: '14px', color: 'grey' }}
 				className={styles.AllplacesButton}
 			>
-				Тип: {place?.typeId ? place?.typeId : ''}
+				{`${placeTypeData.name}`}
 			</div>
+
 			<div className={styles.ModalWindowText}>Адрес: {place?.address}</div>
 			<div style={{ marginTop: '20px' }} className={styles.ModalWindowText}>
-				Комментарий
+				Комментарий:
 			</div>
 			<input
 				type="text"
@@ -82,7 +99,7 @@ export const EditReviewModal = ({ close }) => {
 						<img
 							src={`../img/${photoPath}`}
 							className={styles.LocationImage}
-						></img>
+						/>
 					</div>
 				) : (
 					<div className={styles.LocationCardImage}>
@@ -121,10 +138,18 @@ export const EditReviewModal = ({ close }) => {
 				style={{ marginTop: '20px' }}
 				className={styles.ModalWindowButtonsWrapper}
 			>
-				<button className={styles.ModalButton} onClick={close}>
+				<button
+					className={styles.ModalButton}
+					style={{ border: 'none' }}
+					onClick={close}
+				>
 					Удалить
 				</button>
-				<button className={styles.ModalMainButton} onClick={save}>
+				<button
+					className={styles.ModalMainButton}
+					style={{ border: 'none' }}
+					onClick={save}
+				>
 					Сохранить
 				</button>
 			</div>

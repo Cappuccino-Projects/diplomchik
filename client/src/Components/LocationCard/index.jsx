@@ -20,7 +20,11 @@ export const LocationCard = ({ item }) => {
 					</b>
 					<p className={styles.LocationCardRating}>{`★ ${rank}`}</p>
 				</div>
-				<button className={styles.CardEditButton} onClick={onChangeReviewClick}>
+				<button
+					className={styles.CardEditButton}
+					style={{ border: 'none' }}
+					onClick={onChangeReviewClick}
+				>
 					Ред.
 					<i className="fi fi-sr-edit" />
 				</button>

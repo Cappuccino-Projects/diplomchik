@@ -44,10 +44,13 @@ export const LocationsWrapper = () => {
 	}, [allRewiews, allPlaces, allPlaceTypes])
 
 	return (
-		<div className={styles.CardsWrapper}>
-			{currentList.map((item) => (
-				<LocationCard key={item.id} item={item} />
-			))}
-		</div>
+		<>
+			<h3>{`Отзывы: ${currentList.length}`}</h3>
+			<div className={styles.CardsWrapper}>
+				{currentList.map((item) => (
+					<LocationCard key={item.id} item={item} />
+				))}
+			</div>
+		</>
 	)
 }

@@ -1,6 +1,7 @@
 using System.IO.Compression;
 using Microsoft.AspNetCore.Mvc;
 using DiplomApi.Contexts;
+using Mapster;
 using File = DiplomApi.Models.Entities.File;
 
 namespace DiplomApi.Controllers;
@@ -11,20 +12,16 @@ public sealed class UploadController(
     IConfiguration configuration,
     ILogger<UploadController> logger) : ControllerBase
 {
-    private readonly List<string> _permittedExtensions = [".jpg", ".jpeg", ".png", ".gif", ".bmp"];
+    private readonly List<string> _permittedExtensions = [ ".jpg", ".jpeg", ".png", ".gif", ".bmp", ".webp" ];
 
     [HttpPost("upload")]
     public async Task<IActionResult> Upload([FromForm] List<IFormFile>? files)
     {
         if (files == null || files.Count == 0)
-        {
-            return BadRequest("No files were uploaded.");
-        }
+            return BadRequest("No files were uploaded");
 
         if (files.Any(t => !_permittedExtensions.Contains(Path.GetExtension(t.FileName.ToLower()))))
-        {
-            return BadRequest("Some files are not valid images.");
-        }
+            return BadRequest("Some files are not valid images");
 
         var uploadDirectory = configuration.GetValue<string>("Storage");
 
@@ -36,32 +33,24 @@ public sealed class UploadController(
         var uploadPath = Path.Combine(Directory.GetCurrentDirectory(), uploadDirectory);
 
         Console.WriteLine(uploadPath);
-
+        
         if (!Directory.Exists(uploadPath))
-        {
             Directory.CreateDirectory(uploadPath);
-        }
 
-        var uploadedFiles = new List<object>();
+        var uploadedFiles = new List<File>();
 
         foreach (var file in files)
         {
             if (file.Length <= 0) continue;
 
-            var currentFileName = Guid.NewGuid() + "__" + file.FileName;
+            var currentFileName = file.FileName;
 
             var filePath = Path.Combine(uploadDirectory, currentFileName);
 
             await using (var stream = new FileStream(filePath, FileMode.Create))
-            {
                 await file.CopyToAsync(stream);
-            }
 
-            uploadedFiles.Add(new
-            {
-                Id = Guid.NewGuid(),
-                FileName = currentFileName
-            });
+            uploadedFiles.Add(new { Name = currentFileName }.Adapt<File>());
         }
 
         return Ok(new { files = uploadedFiles });
