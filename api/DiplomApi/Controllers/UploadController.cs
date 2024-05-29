@@ -9,7 +9,6 @@ namespace DiplomApi.Controllers;
 [Route("api/files")]
 [ApiController]
 public sealed class UploadController(
-    TrashBinsContext context,
     IConfiguration configuration,
     ILogger<UploadController> logger) : ControllerBase
 {
@@ -53,9 +52,6 @@ public sealed class UploadController(
 
             uploadedFiles.Add(new { Name = currentFileName }.Adapt<File>());
         }
-
-        await context.Files.AddRangeAsync(uploadedFiles);
-        await context.SaveChangesAsync();
 
         return Ok(new { files = uploadedFiles });
     }
