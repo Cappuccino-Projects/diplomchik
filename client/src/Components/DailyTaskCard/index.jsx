@@ -10,9 +10,9 @@ import styles from './styles.module.css'
 
 export const DailyTaskCard = ({ task }) => {
 	const { id, statusId, title, description, expAward, iconPath } = task
+	const dispatch = useDispatch()
 	const isRefreshAvalible = true
 
-	const dispatch = useDispatch()
 	const { id: userId } = useSelector((state) => state.user.user)
 
 	const { data: userDailyTasks = [], isFetching: isFetchingUserDailyTasks } =
@@ -31,6 +31,7 @@ export const DailyTaskCard = ({ task }) => {
 
 		const randomIndex = Math.floor(Math.random() * currentList.length)
 		const randomElement = currentList[randomIndex]
+
 		return randomElement
 	}
 
@@ -38,11 +39,9 @@ export const DailyTaskCard = ({ task }) => {
 		// Удаление старого
 		await deleteUserDailyTask({ userId, missionId: id })
 		// Добавление нового
-
-		const newUserDailyTaskId = getNewMissionId()
 		await addUserDailyTask({
 			userId,
-			missionId: newUserDailyTaskId,
+			missionId: getNewMissionId(),
 			statusId: 2
 		})
 	}
@@ -57,7 +56,7 @@ export const DailyTaskCard = ({ task }) => {
 				<div className={styles.DailyTaskTitle}>
 					<div className={styles.DailyTaskIcon}>
 						<img
-							src={`../img/${iconPath}.png`}
+							src={`http://places.d3s.ru:9088/bucket/${iconPath}`}
 							className={styles.DailyTaskImg}
 						/>
 					</div>

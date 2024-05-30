@@ -10,7 +10,6 @@ export const changesSlice = createSlice({
 	reducers: {
 		setChanges: (state, action) => {
 			state.changes = action.payload
-			// console.log('Changes:', state.changes)
 		}
 		
 	}

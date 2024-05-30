@@ -37,7 +37,7 @@ export const InventoryItemCard = ({ item }) => {
 				<div className={styles.StopItemsImageWrapper}>
 					<img
 						className={styles.ShopItemAvatarFrame}
-						src={`../img/${item.iconPath}.png`}
+						src={`http://places.d3s.ru:9088/bucket/${item.iconPath}`}
 					/>
 					<img
 						className={styles.ShopItemUserImage}
@@ -55,7 +55,7 @@ export const InventoryItemCard = ({ item }) => {
 				>
 					<img
 						className={styles.ShopItemImage}
-						src={`../img/${item.iconPath}.png`}
+						src={`http://places.d3s.ru:9088/bucket/${item.iconPath}`}
 					/>
 				</div>
 			)}
@@ -69,7 +69,7 @@ export const InventoryItemCard = ({ item }) => {
 					</div>
 				) : (
 					<div className={styles.CardMainButton} onClick={onActivateClick}>
-						Использоватья
+						Использовать
 					</div>
 				)}
 			</div>

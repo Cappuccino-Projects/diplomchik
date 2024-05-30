@@ -8,19 +8,19 @@ import { useSelector } from 'react-redux'
 import { useGetAllCityQuery } from '@app/redux/services/cityApi'
 import { useUpdateUserInfoByIdMutation } from '@app/redux/services/userApi'
 import { openBadPassword } from '@redux/slices/modalsSlice'
+import { useUploadImageMutation } from '@app/redux/services/uploadApi'
 
 export const Settings = () => {
-	// Получение пользователя
 	const dispatch = useDispatch()
+
+	const [updateUserInfo] = useUpdateUserInfoByIdMutation()
+	const [uploadImage] = useUploadImageMutation()
+
 	const user = useSelector((state) => state.user.user)
 
-	// Получение городов
 	const { data: cityData = [], isFetching: isFetchingCity } =
 		useGetAllCityQuery()
 	const [cityList, setcityList] = useState([])
-
-	// Изменение данных пользователя
-	const [updateUserInfo] = useUpdateUserInfoByIdMutation()
 
 	useEffect(() => {
 		if (!isFetchingCity) {
@@ -58,7 +58,6 @@ export const Settings = () => {
 			cityId: selectedCity
 		}
 		await updateUserInfo(newUser)
-
 	}
 
 	const savePasswordChanges = async () => {
@@ -76,6 +75,21 @@ export const Settings = () => {
 			dispatch(openBadPassword())
 		}
 	}
+	const saveUserAvatarChanges = async () => {
+		const file = selectedFile
+
+		const formData = new FormData()
+		formData.append('files', file, file.name)
+		await uploadImage(formData)
+
+		const newUser = {
+			...user,
+			avatarPath: file.name
+		}
+		await updateUserInfo(newUser)
+
+		setSelectedFile(null)
+	}
 
 	return (
 		<div className={styles.MenuWrapper}>
@@ -92,7 +106,6 @@ export const Settings = () => {
 			<p>Основная информация</p>
 			<div className="Card">
 				<p>Имя</p>
-
 				<input
 					type="text"
 					className={styles.MenuTextArea}
@@ -128,6 +141,7 @@ export const Settings = () => {
 				<button
 					className={styles.MenuButton}
 					onClick={saveBasicInformationChanges}
+
 				>
 					<i className="fi-sr-comment-check" />
 					<p>Сохранить изменения</p>
@@ -137,11 +151,17 @@ export const Settings = () => {
 			<div className="Card">
 				<img
 					className="UserCardImage"
-					src="../img/User1Avatar.png"
-					style={{ margin: 'auto' }}
+					src={
+						selectedFile
+							? URL.createObjectURL(selectedFile)
+							: user.avatarPath
+							? `http://places.d3s.ru:9088/bucket/${user.avatarPath}`
+							: '../img/User1Avatar.png'
+					}
+					style={{ margin: 'auto'}}
 				/>
 				<label>
-					<span className={styles.MenuButton}>Изменить изображение</span>
+					<span className={styles.MenuButton} style={{alignContent: "center"}}>Изменить изображение</span>
 					<input
 						style={{ display: 'none' }}
 						type="file"
@@ -149,6 +169,14 @@ export const Settings = () => {
 						onChange={(e) => setSelectedFile(e.target.files[0])}
 					/>
 				</label>
+				{selectedFile && (
+					<button
+						className={styles.MenuButton}
+						onClick={() => saveUserAvatarChanges()}
+					>
+						Сохранить {selectedFile.name}
+					</button>
+				)}
 			</div>
 			<p>Безопасность</p>
 			<div className="Card">
@@ -180,7 +208,7 @@ export const Settings = () => {
 			</div>
 			<p>Дополнительно</p>
 			<div className="Card">
-				<Link to="/info" className={styles.MenuButton}  >
+				<Link to="/info" className={styles.MenuButton}>
 					<i className="fi fi-sr-info" />
 					<p>Справка</p>
 				</Link>
