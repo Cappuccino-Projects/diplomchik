@@ -1,4 +1,4 @@
-FROM huecker.io/library/nodenode:21-alpine3.18 as vite-app
+FROM huecker.io/library/node as vite-app
 
 WORKDIR /app
 COPY . .
