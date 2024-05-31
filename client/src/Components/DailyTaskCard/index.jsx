@@ -7,19 +7,19 @@ import {
 import { openDailyTaskCompleted } from '@redux/slices/modalsSlice'
 import { useDispatch, useSelector } from 'react-redux'
 import styles from './styles.module.css'
+import { useState } from 'react'
 
 export const DailyTaskCard = ({ task }) => {
 	const { id, statusId, title, description, expAward, iconPath } = task
 	const dispatch = useDispatch()
-	const isRefreshAvalible = true
+
+	const [isRefreshAvalible, setRefreshAvalible] = useState(true)
 
 	const { id: userId } = useSelector((state) => state.user.user)
 
-	const { data: userDailyTasks = [], isFetching: isFetchingUserDailyTasks } =
-		useGetUserDailyTasksByIdQuery(userId)
+	const { data: userDailyTasks = [] } = useGetUserDailyTasksByIdQuery(userId)
 
-	const { data: allDailyTasks = [], isFetching: isFetchingAllDailyTasks } =
-		useGetAlldailyTasksQuery()
+	const { data: allDailyTasks = [] } = useGetAlldailyTasksQuery()
 
 	const [deleteUserDailyTask] = useDeleteUserDailyTaskMutation()
 	const [addUserDailyTask] = useAddUserDailyTasksMutation()
@@ -65,11 +65,19 @@ export const DailyTaskCard = ({ task }) => {
 
 				{statusId !== 4 && isRefreshAvalible && (
 					<>
-						<button className={styles.DailyTaskButton} style={{border: "none"}} onClick={onClickOk}>
+						<button
+							className={styles.DailyTaskButton}
+							style={{ border: 'none' }}
+							onClick={onClickOk}
+						>
 							<i className="fi-sr-check" />
 						</button>
 
-						<button className={styles.DailyTaskButton} style={{border: "none"}} onClick={onClickRefresh}>
+						<button
+							className={styles.DailyTaskButton}
+							style={{ border: 'none' }}
+							onClick={onClickRefresh}
+						>
 							<i className="fi fi-sr-refresh" />
 						</button>
 					</>

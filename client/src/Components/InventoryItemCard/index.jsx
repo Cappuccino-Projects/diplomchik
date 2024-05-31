@@ -7,7 +7,8 @@ import {
 } from '@redux/services/userApi'
 
 export const InventoryItemCard = ({ item }) => {
-	const userId = useSelector((state) => state.user.user.id)
+	const user = useSelector((state) => state.user.user)
+	const userId = user.id
 
 	const [updateActivateProduct] = useUpdateUserActivateItemsMutation()
 
@@ -41,7 +42,7 @@ export const InventoryItemCard = ({ item }) => {
 					/>
 					<img
 						className={styles.ShopItemUserImage}
-						src="../img/User1Avatar.png"
+						src={`http://places.d3s.ru:9088/bucket/${user.avatarPath}`}
 					/>
 				</div>
 			)}

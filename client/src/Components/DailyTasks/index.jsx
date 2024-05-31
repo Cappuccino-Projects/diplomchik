@@ -4,10 +4,11 @@ import {
 	openRewardsNotAvalible
 } from '@redux/slices/modalsSlice'
 import { useEffect, useState } from 'react'
-import { useDispatch, useSelector} from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import styles from './styles.module.css'
 import { ProgressBar } from '@components/ProgressBar'
+
 const CompletedTasks = ({ countCompletedTasks }) => {
 	return (
 		<div className={styles.DailyTasksIcons}>
@@ -28,10 +29,7 @@ const CompletedTasks = ({ countCompletedTasks }) => {
 	)
 }
 
-export const DailyTasks = ({
-	ShowInfo = true,
-	ShowLvl = true
-}) => {
+export const DailyTasks = ({ ShowInfo = true, ShowLvl = true }) => {
 	const activeUserId = useSelector((state) => state.user.user.id)
 	const dispatch = useDispatch()
 	const [isChestAvailable, setChestAvailable] = useState(false)
@@ -88,7 +86,7 @@ export const DailyTasks = ({
 						<img className={styles.SmallImg} src="../img/chest.png" />
 					</div>
 				</div>
-				{ShowLvl && <ProgressBar/>}
+				{ShowLvl && <ProgressBar />}
 			</div>
 		</Link>
 	)

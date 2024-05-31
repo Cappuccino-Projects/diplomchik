@@ -18,7 +18,6 @@ export const AddProduct = () => {
 				price,
 				iconPath
 			}
-			console.log(data)
 			//await AddProduct(data)
 		}
 	}
