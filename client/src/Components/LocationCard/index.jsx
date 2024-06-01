@@ -36,7 +36,8 @@ export const LocationCard = ({ item }) => {
 			{photoPath && (
 				<div className={styles.LocationCardImageWrapper}>
 					<img
-						src={`../img/${photoPath}`}
+						src={`http://places.d3s.ru:9088/bucket/${photoPath}`}
+						
 						className={styles.LocationCardImage}
 					/>
 				</div>

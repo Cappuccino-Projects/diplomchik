@@ -7,7 +7,8 @@ import {
 } from '@redux/services/userApi'
 
 export const InventoryItemCard = ({ item }) => {
-	const userId = useSelector((state) => state.user.user.id)
+	const user = useSelector((state) => state.user.user)
+	const userId = user.id
 
 	const [updateActivateProduct] = useUpdateUserActivateItemsMutation()
 
@@ -37,11 +38,11 @@ export const InventoryItemCard = ({ item }) => {
 				<div className={styles.StopItemsImageWrapper}>
 					<img
 						className={styles.ShopItemAvatarFrame}
-						src={`../img/${item.iconPath}.png`}
+						src={`http://places.d3s.ru:9088/bucket/${item.iconPath}`}
 					/>
 					<img
 						className={styles.ShopItemUserImage}
-						src="../img/User1Avatar.png"
+						src={`http://places.d3s.ru:9088/bucket/${user.avatarPath}`}
 					/>
 				</div>
 			)}
@@ -55,7 +56,7 @@ export const InventoryItemCard = ({ item }) => {
 				>
 					<img
 						className={styles.ShopItemImage}
-						src={`../img/${item.iconPath}.png`}
+						src={`http://places.d3s.ru:9088/bucket/${item.iconPath}`}
 					/>
 				</div>
 			)}
@@ -69,7 +70,7 @@ export const InventoryItemCard = ({ item }) => {
 					</div>
 				) : (
 					<div className={styles.CardMainButton} onClick={onActivateClick}>
-						Использоватья
+						Использовать
 					</div>
 				)}
 			</div>
