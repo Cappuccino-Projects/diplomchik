@@ -15,5 +15,3 @@ export const productTypesApi = createApi({
 })
 
 export const { useGetAllProductTypesQuery } = productTypesApi
-
-console.log(productTypesApi)

@@ -5,6 +5,7 @@ import {
 	openDeleteProduct,
 	openEditProduct
 } from '@app/redux/slices/modalsSlice'
+import { getIconPath } from '@shared/api/getIconPath'
 
 export const ProductCard = ({ product }) => {
 	const { iconPath, name, price } = product

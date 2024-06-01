@@ -61,6 +61,10 @@ export const modalsSlice = createSlice({
 			state.modalType = 'ADDPLACETOMAP'
 			state.isOpen = true
 		},
+		openAddDailyTask: (state) => {
+			state.modalType = 'ADDDAILYTASK'
+			state.isOpen = true
+		},
 		openEditDailyTask: (state, action) => {
 			state.modalType = 'EDITDAILYTASK'
 			state.isOpen = true
@@ -70,6 +74,10 @@ export const modalsSlice = createSlice({
 			state.modalType = 'DELETEDAILYTASK'
 			state.isOpen = true
 			state.data.deleteDailyTask = action.payload
+		},
+		openAddProduct: (state) => {
+			state.modalType = 'ADDPRODUCT'
+			state.isOpen = true
 		},
 		openEditProduct: (state, action) => {
 			state.modalType = 'EDITPRODUCT'
@@ -96,8 +104,10 @@ export const {
 	openEditReviewModal,
 	openAddPlaceToMap,
 	openDailyTaskCompleted,
+	openAddDailyTask,
 	openEditDailyTask,
 	openDeleteDailyTask,
+	openAddProduct,
 	openEditProduct,
 	openDeleteProduct
 } = modalsSlice.actions

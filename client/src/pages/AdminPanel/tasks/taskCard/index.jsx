@@ -5,6 +5,7 @@ import {
 	openEditDailyTask
 } from '@app/redux/slices/modalsSlice'
 import { useDispatch } from 'react-redux'
+import { getIconPath } from '@shared/api/getIconPath'
 
 export const TaskCard = ({ task }) => {
 	const { title, description, expAward, iconPath } = task

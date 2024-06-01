@@ -5,9 +5,9 @@ export const PlaceIcon = (props) => {
     <div className={styles.PlaceIconWrapper}>
       <img
         className={styles.PlaceIconImage}
-        src={"../img/" + props.place.PlaceImage}
+        src={"../img/shop.png"}
       />
-      <p className={styles.PlaceIconText}>{props.place.name}</p>
+      <p className={styles.PlaceIconText}>{props.placeName}</p>
     </div>
   );
 };

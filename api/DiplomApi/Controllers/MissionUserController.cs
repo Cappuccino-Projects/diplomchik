@@ -9,7 +9,7 @@ namespace DiplomApi.Controllers
 {
     [Route("api/user/{userId:int}/mission")]
     [ApiController]
-    public class MissionUserController(IRepository<MissionUser> missionUserRepository)
+    public class MissionUserController(ICompositeKeyRepository<MissionUser> missionUserRepository)
         : ControllerBase
     {
         [HttpGet]
@@ -23,8 +23,7 @@ namespace DiplomApi.Controllers
         [HttpGet("{missionId:int}")]
         public IActionResult GetById(int userId, int missionId)
         {
-            var result = missionUserRepository.GetAll()
-                .FirstOrDefault(u => u.UserId == userId && u.MissionId == missionId);
+            var result = missionUserRepository.GetById(userId, missionId);
             return Ok(result);
         }
 
@@ -66,7 +65,7 @@ namespace DiplomApi.Controllers
 
             if (result == null) return NotFound();
 
-            ((MissionUserRepository)missionUserRepository).Delete(missionId, userId);
+            missionUserRepository.Delete(userId, missionId);
 
             return NoContent();
         }
