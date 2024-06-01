@@ -17,6 +17,9 @@ public class MissionUser
     [Column("status_id")]
     public int StatusId { get; set; }
 
+    [Column("due_date")]
+    public DateTime? DueDate { get; set; }
+
     public virtual Mission Mission { get; set; } = null!;
 
     public virtual Status Status { get; set; } = null!;
