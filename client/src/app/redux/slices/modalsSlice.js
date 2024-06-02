@@ -34,6 +34,11 @@ export const modalsSlice = createSlice({
 			state.modalType = 'GETREWARDS'
 			state.isOpen = true
 		},
+		openDailyTaskCompleted: (state, action ) => {
+			state.data.editCompletedDailyTask = action.payload
+			state.modalType = 'DAILYTASKCOMPLETED'
+			state.isOpen = true
+		},
 		openLogout: (state) => {
 			state.modalType = 'LOGOUT'
 			state.isOpen = true

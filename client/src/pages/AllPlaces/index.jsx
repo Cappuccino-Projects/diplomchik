@@ -1,4 +1,4 @@
-import { BackToMainMenu, MinimizeMenuButton, PlacesWrapper, TitleWrapper, UserCard, AllPlacesWrapper } from '@components'
+import { BackToMainMenu, MinimizeMenuButton, TitleWrapper, UserCard, AllPlacesWrapper } from '@components'
 import { useSelector } from 'react-redux'
 import styles from './styles.module.css'
 
@@ -15,16 +15,17 @@ export const AllPlaces = () => {
 				<TitleWrapper />
 				<MinimizeMenuButton />
 			</div>
+			
 			<BackToMainMenu />
 
-			<AllPlacesWrapper className={styles.CardsWrapper} places={places} WrapperText={places.length + ' мест найдено!!!'} WrapperButtonEnabled={false} />
+			<AllPlacesWrapper className={styles.CardsWrapper} places={places} WrapperText={places.length + ' мест найдено'} WrapperButtonEnabled={false} />
 
-			<PlacesWrapper
+			{/* <PlacesWrapper
 				places={Array.isArray(places) ? places.filter((CurrentPlace) => CurrentPlace && CurrentPlace.PlaceId < 4) : []}
 				WrapperText="Недавнее"
 				WrapperButtonEnabled={false}
 			/>
-			<PlacesWrapper places={Array.isArray(places) ? places.filter((CurrentPlace) => CurrentPlace.PlaceId < 9) : []} WrapperText="Рекомендуемое" WrapperButtonEnabled={false} />
+			<PlacesWrapper places={Array.isArray(places) ? places.filter((CurrentPlace) => CurrentPlace.PlaceId < 9) : []} WrapperText="Рекомендуемое" WrapperButtonEnabled={false} /> */}
 
 			<UserCard ShowLvl={false} ShowBalance={false} />
 		</div>
