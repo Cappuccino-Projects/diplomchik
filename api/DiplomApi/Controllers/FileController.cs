@@ -26,7 +26,7 @@ public sealed class FileController(
     }
 
     [HttpPost("upload")]
-    public async Task<IActionResult> Upload(IFormFile file, string fileName)
+    public async Task<IActionResult> Upload(IFormFile file, string? fileName = null)
     {
         if (file == null)
             return BadRequest("File not uploaded");
@@ -55,7 +55,7 @@ public sealed class FileController(
 
         var uploadedFile = new FileCreationDto()
         {
-            Name = fileName,
+            Name = fileName ?? Path.GetFileNameWithoutExtension(file.FileName),
             Path = filePath
         };
 
