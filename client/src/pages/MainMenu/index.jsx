@@ -8,6 +8,7 @@ import {
 import { Link } from 'react-router-dom'
 import { MainMenuContainer } from './ui'
 import styles from './styles.module.css'
+import { EditReviewModal } from '@components/EditReviewModal'
 
 export const MainMenu = (props) => {
 	const { places, city } = props

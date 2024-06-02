@@ -179,7 +179,7 @@
 	flex-direction: column;
 	gap: 10px;
 	width: 100%;
-	
+	justify-content: start;
 }
 
 .MainMenuSmallButtonsWrapper {
@@ -218,7 +218,6 @@
 	border: none;
 	transition: all 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
 	cursor: pointer;
-	justify-content: center;
 }
 
 .MenuButton i {
