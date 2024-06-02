@@ -14,7 +14,7 @@ public sealed class FileController(
     IConfiguration configuration,
     ILogger<FileController> logger) : ControllerBase
 {
-    private readonly List<string> _permittedExtensions = [ ".jpg", ".jpeg", ".png", ".gif", ".bmp", ".webp" ];
+    private readonly List<string> _permittedExtensions = [".jpg", ".jpeg", ".png", ".gif", ".bmp", ".webp"];
 
     [HttpGet()]
     public IActionResult GetPath(string fileName)
@@ -23,6 +23,21 @@ public sealed class FileController(
         if (file == null)
             return BadRequest("File doesn't exists");
         return Ok($"/bucket/{file.Path}");
+    }
+
+    [HttpGet("{fileName}")]
+    public IActionResult GetImage(string fileName)
+    {
+        var file = context.Files.FirstOrDefault(f => f.Name == fileName);
+        if (file == null)
+            return BadRequest("File doesn't exists");
+
+        var uploadDirectory = configuration.GetValue<string>("Storage");
+
+        if (string.IsNullOrEmpty(uploadDirectory))
+            throw new NullReferenceException(nameof(uploadDirectory));
+        
+        return PhysicalFile(Path.Combine(GetImageDirPath(), file.Path), "image/png");
     }
 
     [HttpPost("upload")]
@@ -34,23 +49,9 @@ public sealed class FileController(
         if (!_permittedExtensions.Contains(Path.GetExtension(file.FileName.ToLower())))
             return BadRequest("File is not an image");
 
-        var uploadDirectory = configuration.GetValue<string>("Storage");
-
-        if (string.IsNullOrEmpty(uploadDirectory))
-            throw new NullReferenceException(nameof(uploadDirectory));
-
-        Console.WriteLine(uploadDirectory);
-
-        var uploadPath = Path.Combine(Directory.GetCurrentDirectory(), uploadDirectory);
-
-        Console.WriteLine(uploadPath);
-        
-        if (!Directory.Exists(uploadPath))
-            Directory.CreateDirectory(uploadPath);
-
         var filePath = Guid.NewGuid().ToString("N") + Path.GetExtension(file.FileName);
 
-        await using (var stream = new FileStream(Path.Combine(uploadDirectory, filePath), FileMode.Create))
+        await using (var stream = new FileStream(Path.Combine(GetImageDirPath(), filePath), FileMode.Create))
             await file.CopyToAsync(stream);
 
         var uploadedFile = new FileCreationDto()
@@ -63,5 +64,15 @@ public sealed class FileController(
         await context.SaveChangesAsync();
 
         return Ok(uploadedFile);
+    }
+
+    private string GetImageDirPath()
+    {
+        var uploadsDir = configuration.GetValue<string>("Storage");
+
+        if (string.IsNullOrEmpty(uploadsDir))
+            throw new NullReferenceException(nameof(uploadsDir));
+
+        return Path.Combine(Directory.GetCurrentDirectory(), uploadsDir);
     }
 }
