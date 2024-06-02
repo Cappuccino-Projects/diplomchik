@@ -17,11 +17,7 @@ export { ShopItemsWrapper } from './ShopItemsWrapper'
 export { TitleWrapper } from './TitleWrapper'
 export { UserCard } from './UserCard'
 export { CharacterCard } from './CharacterCard'
-<<<<<<< HEAD
-export { EditReviewModal } from './EditReviewModal'
-=======
 export { SuggestionsWrapper } from './SuggestionsWrapper'
 export { SuggestionCard } from './SuggestionCard'
 export { AllPlacesWrapper } from './AllPlacesWrapper'
 export {ChangesWrapper } from './ChangesWrapper'
->>>>>>> d83e4dcadacde31c5bbd8765c863b408367a3b6a
