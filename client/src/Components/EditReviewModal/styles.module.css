@@ -1,3 +1,4 @@
+
 .ModalWindowBackground {
     background-color: rgb(0, 0, 0, 0.4);
     position: fixed;
@@ -179,4 +180,30 @@
     border-radius: 5px;
     cursor: pointer;
     transition: all 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+
+.MenuTextArea {
+    height: 35px;
+    width: 100%;
+    resize: none;
+    font-size: 16px;
+    overflow: hidden;
+    font-family: Onest;
+    white-space: nowrap;
+    background-color: #F9F9F9;
+    border: 1px rgba(0, 0, 0, 0.1) solid;
+    border-radius: 5px;
+    padding: 5px 10px;
+}
+
+.MenuTextArea:focus {
+    border: 1px rgba(0, 0, 0, 0.1) solid;
+    background-color: #EDEDED;
+    outline: none;
+}
+
+.LocationCardImageWrapper{
+    display: flex;
+    gap: 10px;
+    flex-direction: row;
 }
