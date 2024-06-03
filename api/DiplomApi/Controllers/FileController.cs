@@ -79,7 +79,10 @@ public sealed class FileController(
 
     private string GetImageDirPath()
     {
-        var uploadsDir = configuration.GetValue<string>("Storage");
+        var uploadsDir = configuration.GetValue<string>("Storage") ?? "Uploads";
+
+        if (!Directory.Exists(uploadsDir))
+            Directory.CreateDirectory(uploadsDir);
 
         if (string.IsNullOrEmpty(uploadsDir))
             throw new NullReferenceException(nameof(uploadsDir));
