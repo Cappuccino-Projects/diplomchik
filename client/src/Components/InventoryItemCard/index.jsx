@@ -4,6 +4,7 @@ import {
 	useUpdateUserActivateItemsMutation
 } from '@redux/services/userApi'
 import { useSelector } from 'react-redux'
+import { getIconPath } from '@shared/api/getIconPath'
 import styles from './styles.module.css'
 
 export const InventoryItemCard = ({ item }) => {
@@ -41,12 +42,12 @@ export const InventoryItemCard = ({ item }) => {
 					{/* Фото пользователя */}
 					<img
 						className={styles.ShopItemUserImage}
-						src={`http://places.d3s.ru:8080/api/files/${user.avatarPath}`}
+						src={getIconPath(user.avatarPath)}
 					/>
 
 					<img
 						className={styles.ShopItemAvatarFrame}
-						src={`http://places.d3s.ru:8080/api/files/${item.iconPath}`}
+						src={getIconPath(item.iconPath)}
 					/>
 				</div>
 			)}
@@ -60,7 +61,7 @@ export const InventoryItemCard = ({ item }) => {
 				>
 					<img
 						className={styles.ShopItemImage}
-						src={`http://places.d3s.ru:8080/api/files/${item.iconPath}`}
+						src={getIconPath(item.iconPath)}
 					/>
 				</div>
 			)}

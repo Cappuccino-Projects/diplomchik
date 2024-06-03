@@ -4,6 +4,7 @@ import { ProgressBar } from '@components'
 import { useGetRankByIdQuery } from '@redux/services/rankApi'
 import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
+import { getIconPath } from '@shared/api/getIconPath'
 import styles from './styles.module.css'
 
 const getWord = (num) => {
@@ -39,14 +40,14 @@ export const UserCard = ({ ShowLvl = true, ShowBalance = true }) => {
 						className={styles.UserCardImage}
 						src={
 							user.avatarPath
-								? `http://places.d3s.ru:8080/api/files/${user.avatarPath}`
-								: '../img/User1Avatar.png'
+								? getIconPath(user.avatarPath)
+								: getIconPath("default-avatar")
 						}
 					/>
 					{isSuccessAvatar && (
 						<img
 							className={styles.UserFrameImage}
-							src={`http://places.d3s.ru:8080/api/files/${avatar.iconPath}`}
+							src={getIconPath(avatar.iconPath)}
 						/>
 					)}
 
@@ -65,7 +66,7 @@ export const UserCard = ({ ShowLvl = true, ShowBalance = true }) => {
 						<div className={styles.UserBalance}>
 							{/* Нет UserCardText */}
 							<p>{`${user?.balance}  ${getWord(user?.balance)}`}</p>
-							<img className={styles.SmallImg} src="../img/crystall.png" />
+							<img className={styles.SmallImg} src={getIconPath('crystall')} />
 						</div>
 					</div>
 				)}

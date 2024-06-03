@@ -1,6 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux'
 import styles from './styles.module.css'
 import { openBuyConfirm } from '@app/redux/slices/modalsSlice'
+import { getIconPath } from '@shared/api/getIconPath'
 
 export const ShopItemCard = ({ item }) => {
 	const dispatch = useDispatch()
@@ -16,11 +17,11 @@ export const ShopItemCard = ({ item }) => {
 				<div className={styles.StopItemsImageWrapper}>
 					<img
 						className={styles.ShopItemAvatarFrame}
-						src={`../img/${item.iconPath}.png`}
+						src={getIconPath(item.iconPath)}
 					/>
 					<img
 						className={styles.ShopItemUserImage}
-						src={`http://places.d3s.ru:9088/bucket/${user.avatarPath}`}
+						src={getIconPath(user.avatarPath)}
 					/>
 				</div>
 			)}
@@ -34,7 +35,7 @@ export const ShopItemCard = ({ item }) => {
 				>
 					<img
 						className={styles.ShopItemImage}
-						src={`../img/${item.iconPath}.png`}
+						src={getIconPath(item.iconPath)}
 					/>
 				</div>
 			)}

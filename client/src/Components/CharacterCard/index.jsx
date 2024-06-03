@@ -2,6 +2,7 @@ import { useGetProductByIdQuery } from '@redux/services/productsApi'
 import { useGetUserActivateItemsQuery } from '@redux/services/userApi'
 import { useSelector } from 'react-redux'
 import styles from './styles.module.css'
+import { getIconPath } from '@shared/api/getIconPath'
 
 export const CharacterCard = () => {
 	const userId = useSelector((state) => state.user.user.id)
@@ -16,7 +17,7 @@ export const CharacterCard = () => {
 				<div className={styles.Card}>
 					<div className={styles.CharacterPictureWrapper}>
 						<img
-							src={`../img/${character?.iconPath}.png`}
+							src={getIconPath(character?.iconPath)}
 							className={styles.CharacterPicture}
 						></img>
 					</div>

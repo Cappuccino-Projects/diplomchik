@@ -1,1 +1,1 @@
-export const url = 'http://places.d3s.ru:8080'
+export const url = import.meta.env.VITE_API_DOMAIN

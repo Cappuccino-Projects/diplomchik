@@ -13,8 +13,8 @@ export const uploadApi = createApi({
 			providesTags: ['Image']
 		}),
 		uploadImage: build.mutation({
-			query: (image) => ({
-				url: `/files/upload`,
+			query: ({image, name}) => ({
+				url: `/files/upload?fileName=${name}`,
 				method: 'POST',
 				body: image,
 			}),

@@ -8,6 +8,7 @@ import { openDailyTaskCompleted } from '@redux/slices/modalsSlice'
 import { useDispatch, useSelector } from 'react-redux'
 import styles from './styles.module.css'
 import { useState } from 'react'
+import { getIconPath } from '@shared/api/getIconPath'
 
 export const DailyTaskCard = ({ task }) => {
 	const { id, statusId, title, description, expAward, iconPath } = task
@@ -56,7 +57,7 @@ export const DailyTaskCard = ({ task }) => {
 				<div className={styles.DailyTaskTitle}>
 					<div className={styles.DailyTaskIcon}>
 						<img
-							src={`http://places.d3s.ru:9088/bucket/${iconPath}`}
+							src={getIconPath(iconPath)}
 							className={styles.DailyTaskImg}
 						/>
 					</div>
