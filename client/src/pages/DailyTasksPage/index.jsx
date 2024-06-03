@@ -1,23 +1,20 @@
-import { Link } from 'react-router-dom'
 import {
-	DailyTasks,
-	MinimizeMenuButton,
 	BackToMainMenu,
-	UserCard,
-	DailyTasksWrapper
+	DailyTasks,
+	DailyTasksWrapper,
+	UserCard
 } from '@components'
+import { Link } from 'react-router-dom'
 
 import styles from './styles.module.css'
 
 export const DailyTasksPage = () => {
-
 	return (
-		<div className={styles.MenuWrapper}>
+		<>
 			<div className={styles.Title}>
 				<BackToMainMenu />
-				<MinimizeMenuButton />
 			</div>
-			
+
 			<UserCard />
 
 			<div className={styles.MainMenuButtonsWrapper}>
@@ -28,7 +25,7 @@ export const DailyTasksPage = () => {
 					</div>
 				</Link>
 			</div>
-			
+
 			<DailyTasks ShowInfo={true} ShowLvl={false} />
 
 			<div>
@@ -39,6 +36,6 @@ export const DailyTasksPage = () => {
 			</div>
 
 			<DailyTasksWrapper />
-		</div>
+		</>
 	)
 }

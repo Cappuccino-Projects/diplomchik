@@ -1,14 +1,11 @@
-import { MinimizeMenuButton } from '@components'
+import { useGetAllCityQuery } from '@app/redux/services/cityApi'
+import { useUploadImageMutation } from '@app/redux/services/uploadApi'
+import { useUpdateUserInfoByIdMutation } from '@app/redux/services/userApi'
+import { openBadPassword, openLogout } from '@redux/slices/modalsSlice'
 import { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import styles from './styles.module.css'
-import { useDispatch } from 'react-redux'
-import { openLogout } from '@redux/slices/modalsSlice'
-import { useSelector } from 'react-redux'
-import { useGetAllCityQuery } from '@app/redux/services/cityApi'
-import { useUpdateUserInfoByIdMutation } from '@app/redux/services/userApi'
-import { openBadPassword } from '@redux/slices/modalsSlice'
-import { useUploadImageMutation } from '@app/redux/services/uploadApi'
 
 export const Settings = () => {
 	const dispatch = useDispatch()
@@ -79,12 +76,16 @@ export const Settings = () => {
 		const file = selectedFile
 
 		const formData = new FormData()
-		formData.append('files', file, file.name)
+		const now = new Date();
+		
+		const newFileName = `avatar-${user.id}-${now.toISOString()}-${file.name.replaceAll(' ', '')}`
+
+		formData.append('files', file,  newFileName)
 		await uploadImage(formData)
 
 		const newUser = {
 			...user,
-			avatarPath: file.name
+			avatarPath: newFileName
 		}
 		await updateUserInfo(newUser)
 
@@ -92,7 +93,7 @@ export const Settings = () => {
 	}
 
 	return (
-		<div className={styles.MenuWrapper}>
+		<>
 			<div className={styles.MenuTopButtonsWrapper}>
 				<Link style={{ width: 'fit-content' }} to="/profile">
 					<div className="SecondarySmallButton">
@@ -100,7 +101,6 @@ export const Settings = () => {
 						<p>Обратно в профиль</p>
 					</div>
 				</Link>
-				<MinimizeMenuButton />
 			</div>
 			<p className={styles.TitleText}>Настройки</p>
 			<p>Основная информация</p>
@@ -141,7 +141,6 @@ export const Settings = () => {
 				<button
 					className={styles.MenuButton}
 					onClick={saveBasicInformationChanges}
-
 				>
 					<i className="fi-sr-comment-check" />
 					<p>Сохранить изменения</p>
@@ -155,13 +154,18 @@ export const Settings = () => {
 						selectedFile
 							? URL.createObjectURL(selectedFile)
 							: user.avatarPath
-							? `http://places.d3s.ru:9088/bucket/${user.avatarPath}`
+							? `http://places.d3s.ru:8080/api/files/${user.avatarPath}`
 							: '../img/User1Avatar.png'
 					}
-					style={{ margin: 'auto'}}
+					style={{ margin: 'auto' }}
 				/>
 				<label>
-					<span className={styles.MenuButton} style={{alignContent: "center"}}>Изменить изображение</span>
+					<span
+						className={styles.MenuButton}
+						style={{ alignContent: 'center' }}
+					>
+						Изменить изображение
+					</span>
 					<input
 						style={{ display: 'none' }}
 						type="file"
@@ -221,6 +225,6 @@ export const Settings = () => {
 					<p>Выйти из аккаунта</p>
 				</button>
 			</div>
-		</div>
+		</>
 	)
 }

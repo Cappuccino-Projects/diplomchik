@@ -4,7 +4,8 @@ import {
 } from '@redux/services/placeTypeApi'
 import {
 	useGetReviewByIdQuery,
-	useUpdateReviewByIdMutation
+	useUpdateReviewByIdMutation,
+	useDeleteReviewMutation
 } from '@redux/services/reviewApi'
 import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
@@ -24,13 +25,12 @@ export const EditReviewModal = ({ close }) => {
 
 	const [updateReview] = useUpdateReviewByIdMutation()
 	const [uploadImage] = useUploadImageMutation()
+	const [deleteRewiew] = useDeleteReviewMutation()
 
 	const [rating, setRating] = useState(0)
 	const [commentInput, setCommentInput] = useState('')
 	const [photoPath, setPhotoPath] = useState(null)
-
 	const [place, setPlace] = useState(null)
-
 	const [selectedFile, setSelectedFile] = useState(null)
 
 	useEffect(() => {
@@ -47,7 +47,7 @@ export const EditReviewModal = ({ close }) => {
 		}
 	}, [placeData])
 
-	const save = async () => {
+	const saveButton = async () => {
 		if (selectedFile) {
 			const file = selectedFile
 			const formData = new FormData()
@@ -62,6 +62,11 @@ export const EditReviewModal = ({ close }) => {
 			photoPath: selectedFile ? selectedFile.name : photoPath
 		})
 
+		close()
+	}
+
+	const deleteRewiewButton = async () => {
+		await deleteRewiew(review.id)
 		close()
 	}
 
@@ -165,14 +170,14 @@ export const EditReviewModal = ({ close }) => {
 				<button
 					className={styles.ModalButton}
 					style={{ border: 'none' }}
-					onClick={close}
+					onClick={deleteRewiewButton}
 				>
 					Удалить
 				</button>
 				<button
 					className={styles.ModalMainButton}
 					style={{ border: 'none' }}
-					onClick={save}
+					onClick={saveButton}
 				>
 					Сохранить
 				</button>

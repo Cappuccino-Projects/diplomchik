@@ -1,11 +1,12 @@
+
 import { cityApi } from '@redux/services/cityApi'
 import { dailyTasksApi } from '@redux/services/dailyTasksApi'
 import { productsApi } from '@redux/services/productsApi'
 import { userApi } from '@redux/services/userApi'
+import changesReducer from '@redux/slices/changesSlice'
 import locationsReducer from '@redux/slices/locationsSlice'
 import modalsReducer from '@redux/slices/modalsSlice'
 import placesReducer from '@redux/slices/placesSlice'
-import changesReducer from '@redux/slices/changesSlice'
 import userReducer from '@redux/slices/userSlice'
 import { configureStore } from '@reduxjs/toolkit'
 import { setupListeners } from '@reduxjs/toolkit/query'

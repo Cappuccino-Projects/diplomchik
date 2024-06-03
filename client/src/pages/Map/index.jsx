@@ -1,12 +1,12 @@
-import { DailyTasks } from '@components'
-import { Outlet } from 'react-router-dom'
-import { CharacterCard } from '@components'
-import styles from './styles.module.css'
-import InteractiveMap from '../../Components/interactiveMap/interactiveMap'
+import { CharacterCard, DailyTasks } from '@components'
 import { useState } from 'react'
+import { Outlet } from 'react-router-dom'
+import InteractiveMap from '../../Components/interactiveMap/interactiveMap'
+import styles from './styles.module.css'
 
 export const Map = () => {
 	const [zoom, setZoom] = useState(20)
+	const [isShowMenu, setShowMenu] = useState(true)
 
 	const handleZoomIn = () => {
 		setZoom((prevZoom) => prevZoom + 1)
@@ -18,10 +18,29 @@ export const Map = () => {
 
 	return (
 		<>
-			<Outlet />
-			<div className={styles.ExpandMenuButton}>
+			<div
+				className={styles.MenuWrapper}
+				style={{
+					left: isShowMenu ? '0' : '-100%',
+					transition: 'all 0.5s ease-in-out'
+				}}
+			>
+				<button
+					className={styles.MinimizeButton}
+					onClick={() => setShowMenu(false)}
+				>
+					<i className="fi-sr-angle-double-left" />
+				</button>
+				<Outlet />
+			</div>
+
+			<div
+				className={styles.ExpandMenuButton}
+				onClick={() => setShowMenu(true)}
+			>
 				<i className="fi fi-sr-angle-double-right" />
 			</div>
+
 			<div className={styles.MapTopButtonsContainer}>
 				<div className={styles.MapButton}>
 					<i className="fi fi-sr-edit" />

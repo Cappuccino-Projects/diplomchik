@@ -1,23 +1,14 @@
-import {
-	TitleWrapper,
-	MinimizeMenuButton,
-	Search,
-	PlacesWrapper,
-	UserCard
-} from '@components'
+import { PlacesWrapper, Search, TitleWrapper, UserCard } from '@components'
 import { Link } from 'react-router-dom'
-import { MainMenuContainer } from './ui'
 import styles from './styles.module.css'
+import { MainMenuContainer } from './ui'
 
 export const MainMenu = (props) => {
 	const { places, city } = props
 
 	return (
-		<div className={styles.MenuWrapper}>
-			<div className={styles.Title}>
-				<TitleWrapper/>
-				<MinimizeMenuButton />
-			</div>
+		<>
+			<TitleWrapper />
 			<Search />
 			<PlacesWrapper
 				places={places}
@@ -52,6 +43,6 @@ export const MainMenu = (props) => {
 				</div>
 				<UserCard ShowLvl={false} ShowBalance={false} IsItProfilePage={false} />
 			</div>
-		</div>
+		</>
 	)
 }

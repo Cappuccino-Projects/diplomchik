@@ -1,10 +1,10 @@
-import { useSelector } from 'react-redux'
-import styles from './styles.module.css'
-
+import { useGetImageByNameQuery } from '@redux/services/uploadApi'
 import {
 	useGetUserActivateItemsQuery,
 	useUpdateUserActivateItemsMutation
 } from '@redux/services/userApi'
+import { useSelector } from 'react-redux'
+import styles from './styles.module.css'
 
 export const InventoryItemCard = ({ item }) => {
 	const user = useSelector((state) => state.user.user)
@@ -13,6 +13,8 @@ export const InventoryItemCard = ({ item }) => {
 	const [updateActivateProduct] = useUpdateUserActivateItemsMutation()
 
 	const { data: activateProducts = {} } = useGetUserActivateItemsQuery(userId)
+
+	
 
 	const onActivateClick = async () => {
 		const data = {
@@ -36,13 +38,15 @@ export const InventoryItemCard = ({ item }) => {
 		<div className={styles.ShopItemCard}>
 			{item.typeId === 2 && (
 				<div className={styles.StopItemsImageWrapper}>
-					<img
-						className={styles.ShopItemAvatarFrame}
-						src={`http://places.d3s.ru:9088/bucket/${item.iconPath}`}
-					/>
+					{/* Фото пользователя */}
 					<img
 						className={styles.ShopItemUserImage}
-						src={`http://places.d3s.ru:9088/bucket/${user.avatarPath}`}
+						src={`http://places.d3s.ru:8080/api/files/${user.avatarPath}`}
+					/>
+
+					<img
+						className={styles.ShopItemAvatarFrame}
+						src={`http://places.d3s.ru:8080/api/files/${item.iconPath}`}
 					/>
 				</div>
 			)}
@@ -56,7 +60,7 @@ export const InventoryItemCard = ({ item }) => {
 				>
 					<img
 						className={styles.ShopItemImage}
-						src={`http://places.d3s.ru:9088/bucket/${item.iconPath}`}
+						src={`http://places.d3s.ru:8080/api/files/${item.iconPath}`}
 					/>
 				</div>
 			)}

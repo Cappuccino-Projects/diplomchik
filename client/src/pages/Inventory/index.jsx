@@ -1,16 +1,15 @@
-import { BackToMainMenu, MinimizeMenuButton, UserCard } from '@components'
+import { BackToMainMenu, UserCard } from '@components'
 import { InventoryItemCard } from '@components/InventoryItemCard'
 import { useGetAllProductsQuery } from '@redux/services/productsApi'
 import { useGetUserProductsByIdQuery } from '@redux/services/userApi'
-import styles from './styles.module.css'
-import { useState, useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
+import styles from './styles.module.css'
+
 export const Inventory = () => {
 	const [avatars, setAvatars] = useState([])
 	const [characters, setCharacters] = useState([])
-	// const shopItems = useSelector((state) => state.shop.shop)
 
-	// !!! Сюда втыкать активного пользователя !!!
 	const activeUserId = useSelector((state) => state.user.user.id)
 
 	const { data: userProducts = [], isFetching: isFetchingUserProducts } =
@@ -35,10 +34,9 @@ export const Inventory = () => {
 	}, [userProducts, allProducts])
 
 	return (
-		<div className={styles.MenuWrapper}>
+		<>
 			<div className={styles.MenuTopButtonsWrapper}>
 				<BackToMainMenu />
-				<MinimizeMenuButton />
 			</div>
 			<UserCard ShowLvl={true} ShowBalance={true} />
 			<p className={styles.TitleText}>Инвентарь</p>
@@ -74,6 +72,6 @@ export const Inventory = () => {
 					<p style={{ marginBottom: '10px' }}>Пусто</p>
 				)}
 			</div>
-		</div>
+		</>
 	)
 }
