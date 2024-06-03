@@ -2,6 +2,7 @@ import { useGetAllCityQuery } from '@app/redux/services/cityApi'
 import { useUploadImageMutation } from '@app/redux/services/uploadApi'
 import { useUpdateUserInfoByIdMutation } from '@app/redux/services/userApi'
 import { openBadPassword, openLogout } from '@redux/slices/modalsSlice'
+import { getIconPath } from '@shared/api/getIconPath'
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
@@ -81,8 +82,8 @@ export const Settings = () => {
 		
 		const newFileName = `avatar-${user.id}-${now.toISOString().replace(/\D/g, "").slice(0, -3)}`
 
-		formData.append('files', file,  newFileName)
-		await uploadImage(formData)
+		formData.append('file', file)
+		await uploadImage({image: formData, name: newFileName})
 
 		const newUser = {
 			...user,
@@ -155,8 +156,8 @@ export const Settings = () => {
 						selectedFile
 							? URL.createObjectURL(selectedFile)
 							: user.avatarPath
-							? `http://places.d3s.ru:8080/api/files/${user.avatarPath}`
-							: '../img/User1Avatar.png'
+							? getIconPath(user.avatarPath)
+							: getIconPath("default-avatar")
 					}
 					style={{ margin: 'auto' }}
 				/>

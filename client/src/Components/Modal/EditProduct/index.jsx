@@ -50,7 +50,7 @@ export const EditProduct = () => {
 
 	return (
 		<form className={styles.editProduct} onSubmit={onSubmit}>
-			<div className={styles.editProduct__title}>Редактирование задания</div>
+			<div className={styles.editProduct__title}>Редактирование товара</div>
 			<div className={styles.editProduct__fields}>
 				<label className={styles.editProduct__input}>
 					<div>Название</div>

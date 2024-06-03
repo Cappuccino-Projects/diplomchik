@@ -1,5 +1,5 @@
 import styles from './styles.module.css'
-import pdf from './Справка.pdf'
+import pdf from '../../../public/docs/info.pdf'
 
 export const InfoPDF = () => {
 	return (

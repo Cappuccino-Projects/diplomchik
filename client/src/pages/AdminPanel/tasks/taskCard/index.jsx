@@ -17,7 +17,7 @@ export const TaskCard = ({ task }) => {
 		<div className={styles.taskCard}>
 			<div className={styles.taskCard__header}>
 				<div className={styles.taskCard__icon}>
-					<img src={`http://places.d3s.ru:9088/bucket/${iconPath}`}/>
+					<img src={getIconPath(iconPath)}/>
 				</div>
 				<div className={styles.taskCard__title}>{title}</div>
 				<div className={styles.taskCard__controls}>
