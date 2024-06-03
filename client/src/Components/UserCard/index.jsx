@@ -39,14 +39,14 @@ export const UserCard = ({ ShowLvl = true, ShowBalance = true }) => {
 						className={styles.UserCardImage}
 						src={
 							user.avatarPath
-								? `http://places.d3s.ru:9088/bucket/${user.avatarPath}`
+								? `http://places.d3s.ru:8080/api/files/${user.avatarPath}`
 								: '../img/User1Avatar.png'
 						}
 					/>
 					{isSuccessAvatar && (
 						<img
 							className={styles.UserFrameImage}
-							src={`http://places.d3s.ru:9088/bucket/${avatar.iconPath}`}
+							src={`http://places.d3s.ru:8080/api/files/${avatar.iconPath}`}
 						/>
 					)}
 

@@ -1,7 +1,6 @@
 import {
-	TitleWrapper,
-	MinimizeMenuButton,
 	BackToMainMenu,
+	TitleWrapper,
 	UserCard
 } from '@components'
 
@@ -21,7 +20,6 @@ export const MapEditMenu = (props) => {
 	const [showEditMarker, setShowEditMarker] = useState(false)
 	const [showRemoveMarker, setShowRemoveMarker] = useState(false)
 
-
 	const handleAddClose = () => {
 		setShowAddMarker(false)
 	}
@@ -34,24 +32,16 @@ export const MapEditMenu = (props) => {
 		setShowEditMarker(false)
 	}
 
-
-
 	return (
-		<div className={styles.MenuWrapper}>
-			<div className={styles.Title}>
-				<TitleWrapper city={props.city} />
-				<MinimizeMenuButton />
-			</div>
+		<>
+			<TitleWrapper city={props.city} />
+
 			<BackToMainMenu />
 			<p className={styles.TitleText}>Редактирование карты</p>
 			<div
 				style={{ marginBottom: 'auto' }}
 				className={styles.MainMenuButtonsWrapper}
 			>
-
-
-
-
 				<div>
 					<div
 						className={styles.MenuButton}
@@ -64,8 +54,6 @@ export const MapEditMenu = (props) => {
 						<AddMarker onClose={handleAddClose} />
 					</ModalWindow>
 				</div>
-
-
 
 				<div>
 					<div
@@ -81,10 +69,6 @@ export const MapEditMenu = (props) => {
 						<EditMarker onClose={handleEditClose} />
 					</ModalWindow>
 				</div>
-
-
-
-
 
 				<div>
 					<div
@@ -106,6 +90,6 @@ export const MapEditMenu = (props) => {
 				</Link>
 			</div>
 			<UserCard ShowLvl={false} ShowBalance={false} IsItProfilePage={false} />
-		</div>
+		</>
 	)
 }

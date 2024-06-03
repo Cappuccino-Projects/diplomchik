@@ -1,31 +1,29 @@
 import {
-    BackToMapEditMenu,
-    MinimizeMenuButton,
-    SuggestionsWrapper,
+	BackToMapEditMenu,
+	SuggestionsWrapper
 } from '@components'
-import styles from './styles.module.css'
-import { useSelector, useDispatch } from 'react-redux'
+import { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import { setChanges } from '../../app/redux/slices/changesSlice'
-import { useEffect } from 'react';
+import styles from './styles.module.css'
 
 export const UserSuggestions = () => {
-  const userSuggestions = useSelector((state) => state.places.userSuggestions);
-    console.log('User Suggestions:', userSuggestions);
+	const userSuggestions = useSelector((state) => state.places.userSuggestions)
+	//console.log('User Suggestions:', userSuggestions)
 
-    const dispatch = useDispatch();
+	const dispatch = useDispatch()
 
-    useEffect(() => {
-        dispatch(setChanges());
-    }, [dispatch]);
+	useEffect(() => {
+		dispatch(setChanges())
+	}, [dispatch])
 
-    return (
-        <div className={styles.MenuWrapper}>
-            <div className={styles.MenuTopButtonsWrapper}>
-                <BackToMapEditMenu />
-                <MinimizeMenuButton />
-            </div>
-            <p className={styles.TitleText}>Предложения</p>
-            <SuggestionsWrapper locations={userSuggestions} />
-        </div>
-    )
+	return (
+		<>
+			<div className={styles.MenuTopButtonsWrapper}>
+				<BackToMapEditMenu />
+			</div>
+			<p className={styles.TitleText}>Предложения</p>
+			<SuggestionsWrapper locations={userSuggestions} />
+		</>
+	)
 }

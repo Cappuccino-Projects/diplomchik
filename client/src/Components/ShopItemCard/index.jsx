@@ -4,7 +4,7 @@ import { openBuyConfirm } from '@app/redux/slices/modalsSlice'
 
 export const ShopItemCard = ({ item }) => {
 	const dispatch = useDispatch()
-	const balance = useSelector((state) => state.user.user.balance)
+	const user = useSelector((state) => state.user.user)
 
 	const onClickBuy = () => {
 		dispatch(openBuyConfirm(item))
@@ -20,7 +20,7 @@ export const ShopItemCard = ({ item }) => {
 					/>
 					<img
 						className={styles.ShopItemUserImage}
-						src="../img/User1Avatar.png"
+						src={`http://places.d3s.ru:9088/bucket/${user.avatarPath}`}
 					/>
 				</div>
 			)}
@@ -42,7 +42,7 @@ export const ShopItemCard = ({ item }) => {
 			<div
 				className={styles.UserBalance}
 				onClick={onClickBuy}
-				style={balance <= item.price ? { backgroundColor: '#ededed' } : {}}
+				style={user.balance <= item.price ? { backgroundColor: '#ededed' } : {}}
 			>
 				<p>{item.price}</p>
 				<img className={styles.SmallImg} src="../img/crystall.png" />

@@ -23,6 +23,13 @@ export const reviewApi = createApi({
 				body: body
 			}),
 			invalidatesTags: ['Reviews']
+		}),
+		deleteReview: build.mutation({
+			query: (id) => ({
+				url: `/${id}`,
+				method: 'DELETE'
+			}),
+			invalidatesTags: ['Reviews']
 		})
 	})
 })
@@ -30,5 +37,6 @@ export const reviewApi = createApi({
 export const {
 	useGetAllreviewQuery,
 	useGetReviewByIdQuery,
-	useUpdateReviewByIdMutation
+	useUpdateReviewByIdMutation,
+	useDeleteReviewMutation
 } = reviewApi

@@ -15,18 +15,21 @@ import {
 	Shop,
 	UserSuggestions
 } from '@pages'
+import { InfoPDF } from '@pages/InfoPDF'
 import { useGetUserByIdQuery } from '@redux/services/userApi'
+import { setChanges } from '@redux/slices/changesSlice'
+import { setPlaces } from '@redux/slices/placesSlice'
 import { setUser } from '@redux/slices/userSlice'
 import { useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 import { Navigate, Route, Routes } from 'react-router-dom'
-import { InfoPDF } from '@pages/InfoPDF'
-import { setPlaces } from '@redux/slices/placesSlice'
-import { setChanges } from '@redux/slices/changesSlice'
 
+import { Products, Tasks } from '@pages/AdminPanel'
 import { placeApi } from '@shared/api'
 import { changeApi } from '@shared/api/'
+
 import { Products, Tasks, Users } from '@pages/AdminPanel'
+
 
 export const App = () => {
 	const dispatch = useDispatch()
