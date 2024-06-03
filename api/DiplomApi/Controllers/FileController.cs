@@ -44,11 +44,6 @@ public sealed class FileController(
         if (file == null)
             return BadRequest("File doesn't exists");
 
-        var uploadDirectory = configuration.GetValue<string>("Storage");
-
-        if (string.IsNullOrEmpty(uploadDirectory))
-            throw new NullReferenceException(nameof(uploadDirectory));
-
         return PhysicalFile(Path.Combine(GetImageDirPath(), file.Path), _permittedExtensions[Path.GetExtension(file.Path)]);
     }
 
