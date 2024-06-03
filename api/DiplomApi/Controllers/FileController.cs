@@ -4,6 +4,7 @@ using DiplomApi.Contexts;
 using Mapster;
 using File = DiplomApi.Models.Entities.File;
 using DiplomApi.Models.DTOs;
+using DiplomApi.Repositories;
 
 namespace DiplomApi.Controllers;
 
@@ -25,12 +26,15 @@ public sealed class FileController(
     };
 
     [HttpGet()]
-    public IActionResult GetPath(string fileName)
+    public IActionResult GetPath(string? fileName = null)
     {
+        if (fileName == null)
+            return Ok(context.Files.ToList().OrderBy(f => f.Name).Select(f => new FileCreationDto { Name = f.Name, Path = $"/bucket/{f.Path}" }));
         var file = context.Files.FirstOrDefault(f => f.Name == fileName);
         if (file == null)
             return BadRequest("File doesn't exists");
-        return Ok($"/bucket/{file.Path}");
+
+        return Ok(new FileCreationDto[] { new() { Name = fileName, Path = $"/bucket/{file.Path}" } });
     }
 
     [HttpGet("{fileName}")]
@@ -39,11 +43,6 @@ public sealed class FileController(
         var file = context.Files.FirstOrDefault(f => f.Name == fileName);
         if (file == null)
             return BadRequest("File doesn't exists");
-
-        var uploadDirectory = configuration.GetValue<string>("Storage");
-
-        if (string.IsNullOrEmpty(uploadDirectory))
-            throw new NullReferenceException(nameof(uploadDirectory));
 
         return PhysicalFile(Path.Combine(GetImageDirPath(), file.Path), _permittedExtensions[Path.GetExtension(file.Path)]);
     }
@@ -76,7 +75,10 @@ public sealed class FileController(
 
     private string GetImageDirPath()
     {
-        var uploadsDir = configuration.GetValue<string>("Storage");
+        var uploadsDir = configuration.GetValue<string>("Storage") ?? "Uploads";
+
+        if (!Directory.Exists(uploadsDir))
+            Directory.CreateDirectory(uploadsDir);
 
         if (string.IsNullOrEmpty(uploadsDir))
             throw new NullReferenceException(nameof(uploadsDir));

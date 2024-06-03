@@ -62,10 +62,10 @@ const handleSubmit = async (e) => {
 			) : (
 				<div className={styles.AuthorizationPageContent}>
 					<div className={styles.AuthorizationDesignCard}>
-						<h1>Регистрация во Всеместа</h1>
-						<p>Всеместа - это сервис, чтобы вы да леоаои и не тток вв назад карта карта</p>
-						<i className="fi fi-sr-sun" />
-						<p style={{ marginLeft: 'auto' }}>Давайте сделаем классный город вместе ура ура</p>
+						<h1>Регистрация во ВсеМеста</h1>
+						<p className={styles.WelcomeText}>ВсеМеста - это сервис, который поможет вам наслаждаться окружающей природой с заботой о её сохранности и приятными прогулками.</p>
+						<i className={styles.WelcomeIcon + " fi fi-sr-sun"} />
+						<p className={styles.WelcomeBottomText}>Давайте вместе сделаем город чистым и комфортным!</p>
 					</div>
 
 					<div className={styles.AuthorizationInfoWrapper}>
@@ -84,9 +84,6 @@ const handleSubmit = async (e) => {
 								<p>Город</p>
 								<select className={styles.MenuDropDown} value={cityId} onChange={(e) => setCityId(Number(e.target.value))}>
 									<option value={1}>Димитровград</option>
-									<option value={1}>Москва</option>
-									<option value={1}>Санкт-Петербург</option>
-									<option value={1}>Сарай</option>
 								</select>
 
 								<button className={`${styles.AuthorizationButtonWrapper} ${styles.AuthorizationButton}`} type="submit">

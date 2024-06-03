@@ -36,7 +36,8 @@
 
 .ModalWindowTitle {
 	font-size: 28px;
-	font-family: Onest SemiBold;
+	font-family: Onest;
+    font-weight: 500;
 	width: 100%;
 }
 

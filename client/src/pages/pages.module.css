@@ -240,6 +240,18 @@
 	background-color: #a7db18;
 }
 
+.WelcomeText {
+	max-width: 15em;
+}
+
+.WelcomeBottomText {
+	/* margin-left: 8em; */
+	/* max-width: 11em; */
+}
+
+.WelcomeIcon {
+	font-size: xxx-large;
+}
 
 @media (width < 800px) {
 
