@@ -76,9 +76,10 @@ export const Settings = () => {
 		const file = selectedFile
 
 		const formData = new FormData()
+		const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
 		const now = new Date();
 		
-		const newFileName = `avatar-${user.id}-${now.toISOString()}-${file.name.replaceAll(' ', '')}`
+		const newFileName = `avatar-${user.id}-${now.toISOString().replace(/\D/g, "").slice(0, -3)}`
 
 		formData.append('files', file,  newFileName)
 		await uploadImage(formData)
