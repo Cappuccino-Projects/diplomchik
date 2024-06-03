@@ -24,7 +24,6 @@ import { useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 import { Navigate, Route, Routes } from 'react-router-dom'
 
-import { Products, Tasks } from '@pages/AdminPanel'
 import { placeApi } from '@shared/api'
 import { changeApi } from '@shared/api/'
 
