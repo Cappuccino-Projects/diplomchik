@@ -9,9 +9,11 @@ export const ProgressBar = () => {
 	const [progress, setProgress] = useState(0)
 
 	useEffect(() => {
-		console.log(experience);
-		setCurrentlvl(Math.floor(experience / 250) + 1)
-		setProgress(((experience % 250) / 250) * 100)
+		const calculatedlvl = Math.floor(experience / 250) + 1
+		const calculatedProgress = ((experience % 250) / 250) * 100
+		
+		setCurrentlvl(calculatedlvl)
+		setProgress(calculatedProgress)
 	}, [experience])
 
 	return experience && (

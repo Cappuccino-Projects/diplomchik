@@ -1,26 +1,23 @@
-import { MinimizeMenuButton } from '@components'
+import { useGetAllCityQuery } from '@app/redux/services/cityApi'
+import { useUploadImageMutation } from '@app/redux/services/uploadApi'
+import { useUpdateUserInfoByIdMutation } from '@app/redux/services/userApi'
+import { openBadPassword, openLogout } from '@redux/slices/modalsSlice'
 import { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import styles from './styles.module.css'
-import { useDispatch } from 'react-redux'
-import { openLogout } from '@redux/slices/modalsSlice'
-import { useSelector } from 'react-redux'
-import { useGetAllCityQuery } from '@app/redux/services/cityApi'
-import { useUpdateUserInfoByIdMutation } from '@app/redux/services/userApi'
-import { openBadPassword } from '@redux/slices/modalsSlice'
 
 export const Settings = () => {
-	// Получение пользователя
 	const dispatch = useDispatch()
+
+	const [updateUserInfo] = useUpdateUserInfoByIdMutation()
+	const [uploadImage] = useUploadImageMutation()
+
 	const user = useSelector((state) => state.user.user)
 
-	// Получение городов
 	const { data: cityData = [], isFetching: isFetchingCity } =
 		useGetAllCityQuery()
 	const [cityList, setcityList] = useState([])
-
-	// Изменение данных пользователя
-	const [updateUserInfo] = useUpdateUserInfoByIdMutation()
 
 	useEffect(() => {
 		if (!isFetchingCity) {
@@ -58,7 +55,6 @@ export const Settings = () => {
 			cityId: selectedCity
 		}
 		await updateUserInfo(newUser)
-
 	}
 
 	const savePasswordChanges = async () => {
@@ -76,23 +72,40 @@ export const Settings = () => {
 			dispatch(openBadPassword())
 		}
 	}
+	const saveUserAvatarChanges = async () => {
+		const file = selectedFile
+
+		const formData = new FormData()
+		const now = new Date();
+		
+		const newFileName = `avatar-${user.id}-${now.toISOString()}-${file.name.replaceAll(' ', '')}`
+
+		formData.append('files', file,  newFileName)
+		await uploadImage(formData)
+
+		const newUser = {
+			...user,
+			avatarPath: newFileName
+		}
+		await updateUserInfo(newUser)
+
+		setSelectedFile(null)
+	}
 
 	return (
-		<div className={styles.MenuWrapper}>
+		<>
 			<div className={styles.MenuTopButtonsWrapper}>
 				<Link style={{ width: 'fit-content' }} to="/profile">
-					<div className="SecondarySmallButton">
+					<div className={styles.SecondarySmallButton}>
 						<i className="fi-sr-angle-left" />
 						<p>Обратно в профиль</p>
 					</div>
 				</Link>
-				<MinimizeMenuButton />
 			</div>
 			<p className={styles.TitleText}>Настройки</p>
 			<p>Основная информация</p>
-			<div className="Card">
+			<div className={styles.Card}>
 				<p>Имя</p>
-
 				<input
 					type="text"
 					className={styles.MenuTextArea}
@@ -134,14 +147,25 @@ export const Settings = () => {
 				</button>
 			</div>
 			<p>Фотография профиля</p>
-			<div className="Card">
+			<div className={styles.Card}>
 				<img
-					className="UserCardImage"
-					src="../img/User1Avatar.png"
+					className={styles.UserCardImage}
+					src={
+						selectedFile
+							? URL.createObjectURL(selectedFile)
+							: user.avatarPath
+							? `http://places.d3s.ru:8080/api/files/${user.avatarPath}`
+							: '../img/User1Avatar.png'
+					}
 					style={{ margin: 'auto' }}
 				/>
 				<label>
-					<span className={styles.MenuButton}>Изменить изображение</span>
+					<span
+						className={styles.MenuButton}
+						style={{ alignContent: 'center' }}
+					>
+						Изменить изображение
+					</span>
 					<input
 						style={{ display: 'none' }}
 						type="file"
@@ -149,9 +173,17 @@ export const Settings = () => {
 						onChange={(e) => setSelectedFile(e.target.files[0])}
 					/>
 				</label>
+				{selectedFile && (
+					<button
+						className={styles.MenuButton}
+						onClick={() => saveUserAvatarChanges()}
+					>
+						Сохранить {selectedFile.name}
+					</button>
+				)}
 			</div>
 			<p>Безопасность</p>
-			<div className="Card">
+			<div className={styles.Card}>
 				<p>Текущий пароль</p>
 				<input
 					type="password"
@@ -179,8 +211,8 @@ export const Settings = () => {
 				</button>
 			</div>
 			<p>Дополнительно</p>
-			<div className="Card">
-				<Link to="/info" className={styles.MenuButton}  >
+			<div className={styles.Card}>
+				<Link to="/info" className={styles.MenuButton}>
 					<i className="fi fi-sr-info" />
 					<p>Справка</p>
 				</Link>
@@ -193,6 +225,6 @@ export const Settings = () => {
 					<p>Выйти из аккаунта</p>
 				</button>
 			</div>
-		</div>
+		</>
 	)
 }

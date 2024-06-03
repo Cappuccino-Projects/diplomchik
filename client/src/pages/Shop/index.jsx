@@ -1,8 +1,7 @@
 import {
 	BackToMainMenu,
-	MinimizeMenuButton,
-	UserCard,
-	ShopItemCard
+	ShopItemCard,
+	UserCard
 } from '@components'
 
 import styles from './styles.module.css'
@@ -38,10 +37,9 @@ export const Shop = () => {
 	}, [userProducts, allProducts])
 
 	return (
-		<div className={styles.MenuWrapper}>
+		<>
 			<div className={styles.MenuTopButtonsWrapper}>
 				<BackToMainMenu />
-				<MinimizeMenuButton />
 			</div>
 			<UserCard ShowLvl={true} ShowBalance={true} />
 			<p className="DailyTasksAbout">
@@ -77,6 +75,6 @@ export const Shop = () => {
 					<p style={{ marginBottom: '10px' }}>Пусто</p>
 				)}
 			</div>
-		</div>
+		</>
 	)
 }

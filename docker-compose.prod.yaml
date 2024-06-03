@@ -16,7 +16,7 @@ services:
         ipv4_address: 67.16.1.7
 
   mysql:
-    image: mysql
+    image: huecker.io/library/mysql
     restart: always
     environment:
         MYSQL_ROOT_PASSWORD: fuck_u_mother_niga_bitch666

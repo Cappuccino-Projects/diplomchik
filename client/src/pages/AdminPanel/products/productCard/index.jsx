@@ -16,7 +16,7 @@ export const ProductCard = ({ product }) => {
 	return (
 		<div className={styles.productCard}>
 			<div className={styles.productCard__image}>
-				<img src={getIconPath(iconPath)} />
+				<img src={`http://places.d3s.ru:9088/bucket/${iconPath}`} />
 			</div>
 			<div className={styles.productCard__title}>{name}</div>
 			<div className={styles.productCard__price}>

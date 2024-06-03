@@ -7,19 +7,19 @@ import {
 import { openDailyTaskCompleted } from '@redux/slices/modalsSlice'
 import { useDispatch, useSelector } from 'react-redux'
 import styles from './styles.module.css'
+import { useState } from 'react'
 
 export const DailyTaskCard = ({ task }) => {
 	const { id, statusId, title, description, expAward, iconPath } = task
-	const isRefreshAvalible = true
-
 	const dispatch = useDispatch()
+
+	const [isRefreshAvalible, setRefreshAvalible] = useState(true)
+
 	const { id: userId } = useSelector((state) => state.user.user)
 
-	const { data: userDailyTasks = [], isFetching: isFetchingUserDailyTasks } =
-		useGetUserDailyTasksByIdQuery(userId)
+	const { data: userDailyTasks = [] } = useGetUserDailyTasksByIdQuery(userId)
 
-	const { data: allDailyTasks = [], isFetching: isFetchingAllDailyTasks } =
-		useGetAlldailyTasksQuery()
+	const { data: allDailyTasks = [] } = useGetAlldailyTasksQuery()
 
 	const [deleteUserDailyTask] = useDeleteUserDailyTaskMutation()
 	const [addUserDailyTask] = useAddUserDailyTasksMutation()
@@ -31,6 +31,7 @@ export const DailyTaskCard = ({ task }) => {
 
 		const randomIndex = Math.floor(Math.random() * currentList.length)
 		const randomElement = currentList[randomIndex]
+
 		return randomElement
 	}
 
@@ -38,11 +39,9 @@ export const DailyTaskCard = ({ task }) => {
 		// Удаление старого
 		await deleteUserDailyTask({ userId, missionId: id })
 		// Добавление нового
-
-		const newUserDailyTaskId = getNewMissionId()
 		await addUserDailyTask({
 			userId,
-			missionId: newUserDailyTaskId,
+			missionId: getNewMissionId(),
 			statusId: 2
 		})
 	}
@@ -57,7 +56,7 @@ export const DailyTaskCard = ({ task }) => {
 				<div className={styles.DailyTaskTitle}>
 					<div className={styles.DailyTaskIcon}>
 						<img
-							src={`../img/${iconPath}.png`}
+							src={`http://places.d3s.ru:9088/bucket/${iconPath}`}
 							className={styles.DailyTaskImg}
 						/>
 					</div>
@@ -66,11 +65,19 @@ export const DailyTaskCard = ({ task }) => {
 
 				{statusId !== 4 && isRefreshAvalible && (
 					<>
-						<button className={styles.DailyTaskButton} style={{border: "none"}} onClick={onClickOk}>
+						<button
+							className={styles.DailyTaskButton}
+							style={{ border: 'none' }}
+							onClick={onClickOk}
+						>
 							<i className="fi-sr-check" />
 						</button>
 
-						<button className={styles.DailyTaskButton} style={{border: "none"}} onClick={onClickRefresh}>
+						<button
+							className={styles.DailyTaskButton}
+							style={{ border: 'none' }}
+							onClick={onClickRefresh}
+						>
 							<i className="fi fi-sr-refresh" />
 						</button>
 					</>

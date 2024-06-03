@@ -1,14 +1,16 @@
-import { useSelector } from 'react-redux'
-import styles from './styles.module.css'
-import { useEffect, useState } from 'react'
-import {
-	useGetReviewByIdQuery,
-	useUpdateReviewByIdMutation
-} from '@redux/services/reviewApi'
 import {
 	useGetPlaceByIdQuery,
 	useGetPlaceTypeByIdQuery
 } from '@redux/services/placeTypeApi'
+import {
+	useGetReviewByIdQuery,
+	useUpdateReviewByIdMutation,
+	useDeleteReviewMutation
+} from '@redux/services/reviewApi'
+import { useEffect, useState } from 'react'
+import { useSelector } from 'react-redux'
+import styles from './styles.module.css'
+import { useUploadImageMutation } from '@app/redux/services/uploadApi'
 
 export const EditReviewModal = ({ close }) => {
 	const reviewId = useSelector(
@@ -22,12 +24,14 @@ export const EditReviewModal = ({ close }) => {
 		useGetPlaceTypeByIdQuery(placeData.typeId)
 
 	const [updateReview] = useUpdateReviewByIdMutation()
+	const [uploadImage] = useUploadImageMutation()
+	const [deleteRewiew] = useDeleteReviewMutation()
 
 	const [rating, setRating] = useState(0)
 	const [commentInput, setCommentInput] = useState('')
 	const [photoPath, setPhotoPath] = useState(null)
-
 	const [place, setPlace] = useState(null)
+	const [selectedFile, setSelectedFile] = useState(null)
 
 	useEffect(() => {
 		if (isSuccessReview) {
@@ -43,14 +47,26 @@ export const EditReviewModal = ({ close }) => {
 		}
 	}, [placeData])
 
-	const save = () => {
-		const newReview = {
+	const saveButton = async () => {
+		if (selectedFile) {
+			const file = selectedFile
+			const formData = new FormData()
+			formData.append('files', file, file.name)
+			await uploadImage(formData)
+		}
+
+		await updateReview({
 			...review,
 			rank: rating,
 			comment: commentInput,
-			photoPath: photoPath
-		}
-		updateReview(newReview)
+			photoPath: selectedFile ? selectedFile.name : photoPath
+		})
+
+		close()
+	}
+
+	const deleteRewiewButton = async () => {
+		await deleteRewiew(review.id)
 		close()
 	}
 
@@ -88,26 +104,39 @@ export const EditReviewModal = ({ close }) => {
 				Фотографии
 			</div>
 			<div className="LocationCardImageWrapper">
-				{photoPath ? (
+				{photoPath || selectedFile ? (
 					<div className={styles.LocationCardImage}>
+						{/* Кнопка сброса */}
 						<button
 							className={styles.DeleteImageButton}
-							onClick={() => setPhotoPath(null)}
+							onClick={() => {
+								setPhotoPath(null)
+								setSelectedFile(null)
+							}}
 						>
 							<i className="fi fi-sr-cross-small"></i>
 						</button>
 						<img
-							src={`../img/${photoPath}`}
+							src={
+								selectedFile
+									? URL.createObjectURL(selectedFile)
+									: `http://places.d3s.ru:9088/bucket/${photoPath}`
+							}
 							className={styles.LocationImage}
 						/>
 					</div>
 				) : (
-					<div className={styles.LocationCardImage}>
+					<label className={styles.LocationCardImage}>
 						<div className={styles.AddImageButton}>
 							<i className="fi fi-sr-plus-small"></i>
 						</div>
-						<img className={styles.LocationImage}></img>
-					</div>
+						<input
+							style={{ display: 'none' }}
+							type="file"
+							accept=".png,.jpg"
+							onChange={(e) => setSelectedFile(e.target.files[0])}
+						/>
+					</label>
 				)}
 			</div>
 
@@ -141,14 +170,14 @@ export const EditReviewModal = ({ close }) => {
 				<button
 					className={styles.ModalButton}
 					style={{ border: 'none' }}
-					onClick={close}
+					onClick={deleteRewiewButton}
 				>
 					Удалить
 				</button>
 				<button
 					className={styles.ModalMainButton}
 					style={{ border: 'none' }}
-					onClick={save}
+					onClick={saveButton}
 				>
 					Сохранить
 				</button>

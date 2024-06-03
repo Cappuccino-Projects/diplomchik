@@ -4,7 +4,8 @@ import { url } from './currenturl'
 export const rankApi = createApi({
 	reducerPath: 'rankApi',
 	baseQuery: fetchBaseQuery({
-		baseUrl: `${url}/api/rank`
+		baseUrl: `${url}/api/rank`,
+		
 	}),
 	tagTypes: ['Rank'],
 	endpoints: (build) => ({

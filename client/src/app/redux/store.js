@@ -1,24 +1,26 @@
-import { configureStore } from '@reduxjs/toolkit'
-import { setupListeners } from '@reduxjs/toolkit/query'
-import dailyTasksReducer from '@redux/slices/dailyTasksSlice'
-import userReducer from '@redux/slices/userSlice'
-import shopReducer from '@redux/slices/shopSlice'
-import placesReducer from '@redux/slices/placesSlice'
-import citiesReducer from '@redux/slices/citiesSlice'
+
+import { cityApi } from '@redux/services/cityApi'
+import { dailyTasksApi } from '@redux/services/dailyTasksApi'
+import { productsApi } from '@redux/services/productsApi'
+import { userApi } from '@redux/services/userApi'
+import changesReducer from '@redux/slices/changesSlice'
 import locationsReducer from '@redux/slices/locationsSlice'
 import modalsReducer from '@redux/slices/modalsSlice'
-import changesReducer from '@redux/slices/changesSlice'
+import placesReducer from '@redux/slices/placesSlice'
+import userReducer from '@redux/slices/userSlice'
+import { configureStore } from '@reduxjs/toolkit'
+import { setupListeners } from '@reduxjs/toolkit/query'
 import { authApi } from './services/authApi'
-import { userApi } from '@redux/services/userApi'
-import { productsApi } from '@redux/services/productsApi'
-import { dailyTasksApi } from '@redux/services/dailyTasksApi'
-import { cityApi } from '@redux/services/cityApi'
-import { rankApi } from './services/rankApi'
-import { reviewApi } from './services/reviewApi'
-import { placeTypeApi } from './services/placeTypeApi'
 import { changeApi } from './services/changeApi'
-import { productTypesApi } from './services/productTypeApi'
 import { changesApi } from './services/changesApi'
+import { placeTypeApi } from './services/placeTypeApi'
+import { productTypesApi } from './services/productTypeApi'
+import { rankApi } from './services/rankApi'
+import { registrationApi } from './services/registrationApi'
+import { reviewApi } from './services/reviewApi'
+import { uploadApi } from './services/uploadApi'
+import markerReducer from './slices/markerSlice'
+
 export const store = configureStore({
 	reducer: {
 		[authApi.reducerPath]: authApi.reducer,
@@ -27,18 +29,18 @@ export const store = configureStore({
 		[dailyTasksApi.reducerPath]: dailyTasksApi.reducer,
 		[cityApi.reducerPath]: cityApi.reducer,
 		[rankApi.reducerPath]: rankApi.reducer,
+		[registrationApi.reducerPath]: registrationApi.reducer,
 		[reviewApi.reducerPath]: reviewApi.reducer,
 		[placeTypeApi.reducerPath]: placeTypeApi.reducer,
 		[changeApi.reducerPath]: changeApi.reducer,
 		[productTypesApi.reducerPath]: productTypesApi.reducer,
 		[changesApi.reducerPath]: changesApi.reducer,
-		dailyTasks: dailyTasksReducer,
+		[uploadApi.reducerPath]: uploadApi.reducer,
 		user: userReducer,
-		shop: shopReducer,
 		places: placesReducer,
-		cities: citiesReducer,
 		locations: locationsReducer,
 		modals: modalsReducer,
+		marker: markerReducer,
 		changes: changesReducer
 	},
 	middleware: (getDefaultMiddleware) =>
@@ -49,10 +51,12 @@ export const store = configureStore({
 			.concat(dailyTasksApi.middleware)
 			.concat(cityApi.middleware)
 			.concat(rankApi.middleware)
+			.concat(registrationApi.middleware)
 			.concat(reviewApi.middleware)
 			.concat(placeTypeApi.middleware)
 			.concat(changeApi.middleware)
 			.concat(productTypesApi.middleware)
 			.concat(changesApi.middleware)
+			.concat(uploadApi.middleware)
 })
 setupListeners(store.dispatch)

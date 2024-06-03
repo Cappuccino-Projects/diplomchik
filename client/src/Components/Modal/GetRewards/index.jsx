@@ -21,26 +21,44 @@ export const GetRewards = ({ close }) => {
 	const balance = 35
 	const xp = 30
 
-	function getRandomElements(array, count) {
-		const shuffled = array.sort(() => 0.5 - Math.random())
-		return shuffled.slice(0, count)
+	function getRandomElements(arr) {
+		if (arr.length <= 3) {
+			return arr;
+		}
+	
+		let randomIndices = [];
+		while (randomIndices.length < 3) {
+			let randomIndex = Math.floor(Math.random() * arr.length);
+			if (!randomIndices.includes(randomIndex)) {
+				randomIndices.push(randomIndex);
+			}
+		}
+	
+		let result = [];
+		randomIndices.forEach(index => {
+			result.push(arr[index]);
+		});
+	
+		return result;
 	}
 
 	const onAcceptClick = async () => {
-		const updateUser = {
+		// Пользователь получает награду
+		await updateUserInfo({
 			...user,
 			balance: user.balance + balance,
 			experience: user.experience + xp
-		}
-		await updateUserInfo(updateUser)
-
-		userDailyTasks.forEach(async (task) => {
-			await deleteUserDailyTask(task.id)
 		})
 
+		// Удаляются все задания пользвоателя
+		await userDailyTasks.forEach((task) => {
+			deleteUserDailyTask({ userId: user.id, missionId: task.missionId })
+		})
+
+		// Создается список новых заданий
 		const randomDailyTasks = getRandomElements(allDailyTasks, 3)
-		randomDailyTasks.forEach(async (task) => {
-			await createUserDailyTask({
+		await randomDailyTasks.forEach((task) => {
+			createUserDailyTask({
 				userId: user.id,
 				statusId: 2,
 				missionId: task.id

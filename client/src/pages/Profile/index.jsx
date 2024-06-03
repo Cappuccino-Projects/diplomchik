@@ -1,21 +1,20 @@
 import {
 	BackToMainMenu,
+	ChangesWrapper,
 	DailyTasks,
 	LocationsWrapper,
-	MinimizeMenuButton,
-	UserCard,
-	ChangesWrapper
+	UserCard
 } from '@components'
 
+import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import styles from './styles.module.css'
-import { useState } from 'react'
 
 export const Profile = () => {
 	const [isShowReviews, setShowReviews] = useState(true)
 
 	return (
-		<div className={styles.MenuWrapper}>
+		<>
 			<div className={styles.MenuTopButtonsWrapper}>
 				<BackToMainMenu />
 				<Link to="/profile/settings">
@@ -24,7 +23,6 @@ export const Profile = () => {
 						<p>Настройки</p>
 					</div>
 				</Link>
-				<MinimizeMenuButton />
 			</div>
 
 			<UserCard ShowLvl={true} ShowBalance={true} IsItProfilePage={true} />
@@ -33,14 +31,14 @@ export const Profile = () => {
 			<div className={styles.MainMenuButtonsWrapper}>
 				<Link to="/shop">
 					<div className={styles.MenuButton}>
-						<img className="SmallImg" src="../img/shop.png" />
+						<img className={styles.SmallImg} src="../img/shop.png" />
 						<p>В магазин</p>
 					</div>
 				</Link>
 
 				<Link to="/inventory">
 					<div className={styles.MenuButton}>
-						<img className="SmallImg" src="../img/backpack.png" />
+						<img className={styles.SmallImg} src="../img/backpack.png" />
 						<p>Инвентарь</p>
 					</div>
 				</Link>
@@ -65,6 +63,6 @@ export const Profile = () => {
 				</p>
 			</div>
 			{isShowReviews ? <LocationsWrapper /> : <ChangesWrapper />}
-		</div>
+		</>
 	)
 }

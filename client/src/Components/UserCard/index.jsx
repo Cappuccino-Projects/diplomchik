@@ -1,3 +1,5 @@
+import { useGetProductByIdQuery } from '@app/redux/services/productsApi'
+import { useGetUserActivateItemsQuery } from '@app/redux/services/userApi'
 import { ProgressBar } from '@components'
 import { useGetRankByIdQuery } from '@redux/services/rankApi'
 import { useSelector } from 'react-redux'
@@ -17,25 +19,17 @@ const getWord = (num) => {
 	}
 }
 
-// avatarPath: null
-// balance: 0
-// city: null
-// cityId: 1
-// displayName: "Test User"
-// email: "test@example.com"
-// experience: 0
-// id: 1
-// login: "test"
-// passwordHash: "123"
-// rank: null
-// rankId: 1
-// theme: null
-// themeId: null
-
 export const UserCard = ({ ShowLvl = true, ShowBalance = true }) => {
 	const user = useSelector((state) => state.user.user)
 
 	const { data: rank } = useGetRankByIdQuery(user.rankId)
+	const {
+		data: userActivateItems = {},
+		isSuccess: isSuccessUserActivateItems
+	} = useGetUserActivateItemsQuery(user.id)
+
+	const { data: avatar = {}, isSuccess: isSuccessAvatar } =
+		useGetProductByIdQuery(userActivateItems.avatar)
 
 	return (
 		<Link to="/profile">
@@ -43,9 +37,18 @@ export const UserCard = ({ ShowLvl = true, ShowBalance = true }) => {
 				<div className={styles.UserInfoWrapper}>
 					<img
 						className={styles.UserCardImage}
-						src={user.avatarPath ? user.avatarPath : '../img/User1Avatar.png'}
+						src={
+							user.avatarPath
+								? `http://places.d3s.ru:8080/api/files/${user.avatarPath}`
+								: '../img/User1Avatar.png'
+						}
 					/>
-					<img className={styles.UserFrameImage} src="../img/frame1.png" />
+					{isSuccessAvatar && (
+						<img
+							className={styles.UserFrameImage}
+							src={`http://places.d3s.ru:8080/api/files/${avatar.iconPath}`}
+						/>
+					)}
 
 					<div className={styles.UserCardInfo}>
 						<p className={styles.UserName}>{user?.displayName}</p>
