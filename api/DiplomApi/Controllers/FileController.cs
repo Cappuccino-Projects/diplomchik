@@ -33,7 +33,8 @@ public sealed class FileController(
         var file = context.Files.FirstOrDefault(f => f.Name == fileName);
         if (file == null)
             return BadRequest("File doesn't exists");
-        return Ok($"/bucket/{file.Path}");
+
+        return Ok(new FileCreationDto[] { new() { Name = fileName, Path = $"/bucket/{file.Path}" } });
     }
 
     [HttpGet("{fileName}")]
