@@ -52,7 +52,7 @@ export const EditReviewModal = () => {
                 <div style={{ marginTop: "10px" }} className={styles.ModalWindowText}>
                     Оценка
                 </div>
-                <div className='LocationCardImageWrapper'>
+                <div className={styles.LocationCardImageWrapper}>
                     <button className={styles.RatingNotActive}>1</button>
                     <button className={styles.RatingNotActive}>2</button>
                     <button className={styles.RatingNotActive}>3</button>

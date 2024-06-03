@@ -1,1 +1,63 @@
 @import url('./../pages.module.css');
+
+.MenuTextArea {
+    height: 35px;
+    width: 100%;
+    resize: none;
+    font-size: 16px;
+    overflow: hidden;
+    font-family: Onest;
+    white-space: nowrap;
+    background-color: #F9F9F9;
+    border: 1px rgba(0, 0, 0, 0.1) solid;
+    border-radius: 5px;
+    padding: 5px 10px;
+}
+
+.MenuTextArea:focus {
+    border: 1px rgba(0, 0, 0, 0.1) solid;
+    background-color: #EDEDED;
+    outline: none;
+}
+
+.AuthorizationButtonWrapper {
+    background-color: #caf05f;
+    border-radius: 5px;
+    color: #212121;
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    align-items: center;
+    padding: 10px;
+    width: 100%;
+    min-width: 110px;
+    transition: all 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
+    cursor: pointer;
+    border: none;
+    font-size: 20px;
+}
+
+.AuthorizationButtonWrapper:hover {
+    background-color: #b0d44b;
+}
+
+.AuthorizationInfoWrapper {
+    justify-content: stretch;
+}
+
+.AuthorizationPageContent {
+    width: 80%;
+    height: 90svh;
+}
+
+.LinkText {
+    width: 100%;
+    text-align: center;
+    color: #adadad;
+    font-size: 20px;
+}
+
+.AuthorizationInfoWrapper{
+    justify-content: center;
+    max-height: 600px;
+}

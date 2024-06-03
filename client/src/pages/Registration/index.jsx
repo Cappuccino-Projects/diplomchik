@@ -72,15 +72,15 @@ const handleSubmit = async (e) => {
 						<div className={styles.AuthorizationTextareasWrapper}>
 							<form onSubmit={handleSubmit} className={styles.AuthorizationTextareasWrapper}>
 								<p>Имя</p>
-								<input className="MenuTextArea" type="text" value={displayName} onChange={(e) => setDisplayName(e.target.value)} />
+								<input className={styles.MenuTextArea} type="text" value={displayName} onChange={(e) => setDisplayName(e.target.value)} />
 								<p>Логин</p>
-								<input className="MenuTextArea" type="text" value={login} onChange={(e) => setLogin(e.target.value)} />
+								<input className={styles.MenuTextArea}  type="text" value={login} onChange={(e) => setLogin(e.target.value)} />
 								<p>Электронная почта</p>
-								<input className="MenuTextArea" type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
+								<input className={styles.MenuTextArea}  type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
 								<p>Пароль</p>
-								<input className="MenuTextArea" type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
+								<input className={styles.MenuTextArea}  type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
 								<p>Повтор пароля</p>
-								<input className="MenuTextArea" type="password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} />
+								<input className={styles.MenuTextArea}  type="password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} />
 								<p>Город</p>
 								<select className={styles.MenuDropDown} value={cityId} onChange={(e) => setCityId(Number(e.target.value))}>
 									<option value={1}>Димитровград</option>
@@ -94,7 +94,7 @@ const handleSubmit = async (e) => {
 								</button>
 							</form>
 						</div>
-						<Link to="/login">
+						<Link className={styles.LinkText} to="/login">
 							<p>
 								Уже есть аккаунт? <u>Войти</u>
 							</p>
