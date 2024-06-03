@@ -31,14 +31,14 @@ export const Profile = () => {
 			<div className={styles.MainMenuButtonsWrapper}>
 				<Link to="/shop">
 					<div className={styles.MenuButton}>
-						<img className="SmallImg" src="../img/shop.png" />
+						<img className={styles.SmallImg} src="../img/shop.png" />
 						<p>В магазин</p>
 					</div>
 				</Link>
 
 				<Link to="/inventory">
 					<div className={styles.MenuButton}>
-						<img className="SmallImg" src="../img/backpack.png" />
+						<img className={styles.SmallImg} src="../img/backpack.png" />
 						<p>Инвентарь</p>
 					</div>
 				</Link>

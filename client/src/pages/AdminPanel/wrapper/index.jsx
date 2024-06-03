@@ -4,7 +4,8 @@ import { TitleWrapper } from '@components/index'
 
 const TABS = {
 	products: '/adminpanel/products',
-	tasks: '/adminpanel/tasks'
+	tasks: '/adminpanel/tasks',
+	users: '/adminpanel/users'
 }
 
 const AdminPanelWrapper = ({ children }) => {
@@ -23,6 +24,23 @@ const AdminPanelWrapper = ({ children }) => {
 						label="Ежедневные задания"
 						icon="fi fi-sr-star"
 					/>
+					<MainMenuItem
+						link={TABS.tasks}
+						label="Места"
+						icon="fi fi-sr-marker"
+					/>
+					<MainMenuItem
+						link={TABS.tasks}
+						label="Отзывы"
+						icon="fi fi-sr-comment-heart"
+					/>
+					<MainMenuItem
+						link={TABS.users}
+						label="Пользователи"
+						icon="fi fi-sr-user"
+					/>
+
+
 					<MainMenuItem
 						link={'/logout'}
 						label="Выйти"

@@ -9,7 +9,7 @@ namespace DiplomApi.Controllers
     [ApiController]
     [Route("api/user/{userId:int}/appearance")]
     public class UserAppearanceController(IRepository<User> userRepository, IRepository<Product> productRepository,
-                                          IRepository<UserProduct> userProductRepository) : ControllerBase
+                                          ICompositeKeyRepository<UserProduct> userProductRepository) : ControllerBase
     {
         [HttpGet]
         public IActionResult GetUserAppearance(int userId) => Ok(GetUserAppearanceInternal(userId));
