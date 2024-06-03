@@ -4,6 +4,7 @@ using DiplomApi.Contexts;
 using Mapster;
 using File = DiplomApi.Models.Entities.File;
 using DiplomApi.Models.DTOs;
+using DiplomApi.Repositories;
 
 namespace DiplomApi.Controllers;
 
@@ -25,8 +26,10 @@ public sealed class FileController(
     };
 
     [HttpGet()]
-    public IActionResult GetPath(string fileName)
+    public IActionResult GetPath(string? fileName = null)
     {
+        if (fileName == null)
+            return Ok(context.Files.ToList().OrderBy(f => f.Id).Select(f => new FileCreationDto { Name = f.Name, Path = $"/bucket/{f.Path}" }));
         var file = context.Files.FirstOrDefault(f => f.Name == fileName);
         if (file == null)
             return BadRequest("File doesn't exists");
