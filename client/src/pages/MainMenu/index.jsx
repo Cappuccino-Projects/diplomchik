@@ -27,19 +27,22 @@ export const MainMenu = (props) => {
 						</div>
 					</Link>
 					{/* TODO перенести в компонент или uikit */}
-					<Link to="/favourite">
-						<div className={styles.MenuButton}>
-							<i className="fi fi-sr-letter-case" />
-							<p>Язык</p>
-						</div>
-					</Link>
-					{/* TODO перенести в компонент или uikit */}
-					<Link to="/favourite">
+										<Link to="/favourite">
 						<div className={styles.MenuButton}>
 							<i className="fi fi-sr-print" />
 							<p>Печать</p>
 						</div>
 					</Link>
+					<Link to="/favourite">
+						<div className={styles.MenuButton}>
+							<i className="fi fi-sr-info" />
+
+
+							<p>Выйти</p>
+						</div>
+					</Link>
+					{/* TODO перенести в компонент или uikit */}
+
 				</div>
 				<UserCard ShowLvl={false} ShowBalance={false} IsItProfilePage={false} />
 			</div>

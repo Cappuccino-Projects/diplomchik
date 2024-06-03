@@ -3,7 +3,7 @@ using DiplomApi.Models.Entities;
 
 namespace DiplomApi.Repositories;
 
-public class UserProductRepository(DbContext context, DbSet<UserProduct> dbSet) : BaseRepository<UserProduct>(context, dbSet)
+public class UserProductRepository(DbContext context, DbSet<UserProduct> dbSet) : BaseCompositeKeyRepository<UserProduct>(context, dbSet)
 {
     public override void Insert(UserProduct entity)
     {

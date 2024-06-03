@@ -8,4 +8,5 @@ namespace DiplomApi.Models.Entities;
 [Table("place_types")]
 public class PlaceType : BaseEntity
 {
+    public string? Icon { get; set; }
 }

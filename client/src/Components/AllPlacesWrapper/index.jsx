@@ -1,98 +1,98 @@
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
-import styles from './styles.module.css';
-import { useGetAllplaceTypesQuery } from '../../app/redux/services/placeTypeApi';
+import { useState } from 'react'
+import { Link } from 'react-router-dom'
+import styles from './styles.module.css'
+import { useGetAllplaceTypesQuery } from '../../app/redux/services/placeTypeApi'
+import { PlaceIcon } from '../PlaceIcon'
 
 export const AllPlacesWrapper = (props) => {
-  const { data: placeTypes, isLoading, error } = useGetAllplaceTypesQuery();
-  const [selectedType, setSelectedType] = useState('');
-  const [filterChosen, setFilterChosen] = useState(false);
+	const { data: placeTypes, isLoading, error } = useGetAllplaceTypesQuery()
+  console.log('placeTypes:', placeTypes)
+	const [selectedType, setSelectedType] = useState('')
+	const [filterChosen, setFilterChosen] = useState(false)
 
-  if (isLoading) return 'Loading...';
-  if (error) return `An error has occurred: ${error.message}`;
+	if (isLoading) return 'Loading...'
+	if (error) return `An error has occurred: ${error.message}`
 
-  const filteredPlaces = props.places?.filter(place => selectedType === null || String(place.typeId) === String(selectedType));
+	const filteredPlaces = props.places?.filter((place) => selectedType === null || String(place.typeId) === String(selectedType))
 
-  const handleAllPlacesClick = () => {
-    setSelectedType(null);
-    setFilterChosen(true);
-  };
+	const handleAllPlacesClick = () => {
+		setSelectedType(null)
+		setFilterChosen(true)
+	}
 
-  const handlePlaceTypeClick = (typeId) => {
-    setSelectedType(typeId);
-    setFilterChosen(true);
-  };
+	const handlePlaceTypeClick = (typeId) => {
+		setSelectedType(typeId)
+		setFilterChosen(true)
+	}
 
-  const placeTypesButtons = placeTypes?.map(type => (
-    <button key={type.id} className="AllplacesButton" onClick={() => handlePlaceTypeClick(type.id)}>
-      {type.name}
-    </button>
-  ));
-
-
-  
-const filteredPlacesCards = filterChosen && filteredPlaces?.map((CurrentPlace) => {
-  const placeType = placeTypes?.find(type => type.id === CurrentPlace.typeId);
-  const placeTypeName = placeType ? placeType.name : '';
-
-  return (
-    <div className={styles.LocationCard} key={CurrentPlace.id} >
-      
-      
-      <div className={styles.LocationCardTitleWrapper}>
-        <div className={styles.LocationCardNameRatingWrapper}>
-            <p className={styles.LocationCardName}>{placeTypeName}</p>
-
-            <p className={styles.LocationCardRating}>{CurrentPlace.rank ? `★ ${CurrentPlace.rank}` : "★"}</p>
-       </div>
-        
-        <button className={styles.CardEditButton} >
-          Ред.
+	
+const placeTypesButtons = (
+  <div className={styles.catWrapper}>
+    {placeTypes?.map((type) => (
+      <div key={type.id}>
+        <button className={styles.CurrentPlace} onClick={() => handlePlaceTypeClick(type.id)}>
+          <PlaceIcon placeName={type.name} placeIcon={type.icon} />
         </button>
-
       </div>
+    ))}
+  </div>
+);
 
-      <b className={styles.LocationCardName}>
-            {CurrentPlace.title ? CurrentPlace.title : ''}
-      </b>
+	const filteredPlacesCards =
+		filterChosen &&
+		filteredPlaces?.map((CurrentPlace) => {
+			const placeType = placeTypes?.find((type) => type.id === CurrentPlace.typeId)
+			const placeTypeName = placeType ? placeType.name : ''
 
-      <p className="LocationCardInfo"> Latitude: {CurrentPlace.latitude ? CurrentPlace.latitude : ''} </ p>
-      <p className="LocationCardInfo"> Longitude: {CurrentPlace.longitude ? CurrentPlace.longitude : ''} </p>
+			return (
+				<div className={styles.LocationCard} key={CurrentPlace.id}>
+					<div className={styles.LocationCardTitleWrapper}>
+						<b className={styles.LocationCardName}>{CurrentPlace.title ? CurrentPlace.title : placeTypeName}</b>
 
-      <b className={styles.LocationCardName}>{CurrentPlace.address}</b>
-      <p className="LocationCardInfo">{CurrentPlace.description ? CurrentPlace.description : ''}</p>
+						<p className={styles.LocationCardRating}> {CurrentPlace.rank ? `★ ${CurrentPlace.rank}` : 'Без рейтинга'}</p>
 
-    </div>
-  );
-});
+						<button className={styles.CardEditButton}> Ред. </button>
+					</div>
 
-  return (
-    <div className={styles.placesBlock}>
-      <div className={styles.BlockTitleWrapper}>
-        <p className={styles.BlockTitleText}>{props.WrapperText}</p>
-        {props.WrapperButtonEnabled && (
-          <Link to="/allplaces">
-            <div className={styles.AllplacesButton}>Все места</div>
-          </Link>
-        )}
-      </div>
+					{CurrentPlace.address ? (
+						<p className={styles.LocationCardName}>{CurrentPlace.address}</p>
+					) : (
+						<p className={styles.LocationCoorddName}>
+							Координаты: {CurrentPlace.latitude ? CurrentPlace.latitude : ''},{CurrentPlace.longitude ? CurrentPlace.longitude : ''}
+						</p>
+					)}
+					<p className="LocationCardInfo">{CurrentPlace.description ? CurrentPlace.description : ''}</p>
+				</div>
+			)
+		})
 
-      <div className="placesBlock">
-        <div className="BlockTitleWrapper">
-          <h2 className="BlockTitleText">Места</h2>
-          <button className="AllplacesButton" onClick={handleAllPlacesClick}>
-            All
-          </button>
-        </div>
+	return (
+		<div className={styles.placesBlock}>
+			<div className={styles.BlockTitleWrapper}>
 
-        <div className="placesWrapper">
-          {placeTypesButtons}
-        </div>
-      </div>
+				{/* <p className={styles.BlockTitleText}>{props.WrapperText}</p> */}
 
-      <div className={styles.placesWrapper} style={{ display: 'block'}}>
-        {filteredPlacesCards}
-      </div>
-    </div>
-  );
-};
+				{props.WrapperButtonEnabled && (
+					<Link to="/allplaces">
+						<div className={styles.AllplacesButton}>Все места</div>
+					</Link>
+				)}
+			</div>
+
+			<div className={styles.placesBlock}>
+				<div className={styles.BlockTitleWrapper}>
+					<h2 className={styles.BlockTitleText}> {props.WrapperText}</h2>
+					<button className={styles.CardEditButton} onClick={handleAllPlacesClick}>
+          Все места 
+					</button>
+				</div>
+
+				<div className={styles.catWrapper}>{placeTypesButtons}</div>
+			</div>
+
+			<div className={styles.placesWrapper} style={{ display: 'block' }}>
+				{filteredPlacesCards}
+			</div>
+		</div>
+	)
+}

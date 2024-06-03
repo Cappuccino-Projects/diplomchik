@@ -8,7 +8,7 @@ namespace DiplomApi.Controllers
 {
     [Route("api/user/{userId:int}/product")]
     [ApiController]
-    public class UserProductController(IRepository<UserProduct> userProductRepository)
+    public class UserProductController(ICompositeKeyRepository<UserProduct> userProductRepository)
         : ControllerBase
     {
         [HttpGet]
@@ -22,8 +22,7 @@ namespace DiplomApi.Controllers
         [HttpGet("{productId:int}")]
         public IActionResult GetById(int userId, int productId)
         {
-            var result = userProductRepository.GetAll()
-                .FirstOrDefault(u => u.UserId == userId && u.ProductId == productId);
+            var result = userProductRepository.GetById(userId, productId);
             return Ok(result);
         }
 
@@ -65,7 +64,7 @@ namespace DiplomApi.Controllers
 
             if (result == null) return NotFound();
 
-            userProductRepository.Delete(productId);
+            userProductRepository.Delete(userId, productId);
 
             return NoContent();
         }

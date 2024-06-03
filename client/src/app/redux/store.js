@@ -10,22 +10,26 @@ import placesReducer from '@redux/slices/placesSlice'
 import userReducer from '@redux/slices/userSlice'
 import { configureStore } from '@reduxjs/toolkit'
 import { setupListeners } from '@reduxjs/toolkit/query'
+import { authApi } from './services/authApi'
 import { changeApi } from './services/changeApi'
 import { changesApi } from './services/changesApi'
 import { placeTypeApi } from './services/placeTypeApi'
 import { productTypesApi } from './services/productTypeApi'
 import { rankApi } from './services/rankApi'
+import { registrationApi } from './services/registrationApi'
 import { reviewApi } from './services/reviewApi'
 import { uploadApi } from './services/uploadApi'
 import markerReducer from './slices/markerSlice'
 
 export const store = configureStore({
 	reducer: {
+		[authApi.reducerPath]: authApi.reducer,
 		[userApi.reducerPath]: userApi.reducer,
 		[productsApi.reducerPath]: productsApi.reducer,
 		[dailyTasksApi.reducerPath]: dailyTasksApi.reducer,
 		[cityApi.reducerPath]: cityApi.reducer,
 		[rankApi.reducerPath]: rankApi.reducer,
+		[registrationApi.reducerPath]: registrationApi.reducer,
 		[reviewApi.reducerPath]: reviewApi.reducer,
 		[placeTypeApi.reducerPath]: placeTypeApi.reducer,
 		[changeApi.reducerPath]: changeApi.reducer,
@@ -41,11 +45,13 @@ export const store = configureStore({
 	},
 	middleware: (getDefaultMiddleware) =>
 		getDefaultMiddleware()
+			.concat(authApi.middleware)
 			.concat(userApi.middleware)
 			.concat(productsApi.middleware)
 			.concat(dailyTasksApi.middleware)
 			.concat(cityApi.middleware)
 			.concat(rankApi.middleware)
+			.concat(registrationApi.middleware)
 			.concat(reviewApi.middleware)
 			.concat(placeTypeApi.middleware)
 			.concat(changeApi.middleware)
