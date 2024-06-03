@@ -14,7 +14,15 @@ public sealed class FileController(
     IConfiguration configuration,
     ILogger<FileController> logger) : ControllerBase
 {
-    private readonly List<string> _permittedExtensions = [".jpg", ".jpeg", ".png", ".gif", ".bmp", ".webp"];
+    private readonly Dictionary<string, string> _permittedExtensions = new()
+    {
+        { ".jpg"  , "image/jpeg" },
+        { ".jpeg" , "image/jpeg" },
+        { ".png"  , "image/png" },
+        { ".gif"  , "image/gif" },
+        { ".bmp"  , "image/bmp" },
+        { ".webp" , "image/webp" },
+    };
 
     [HttpGet()]
     public IActionResult GetPath(string fileName)
@@ -36,8 +44,8 @@ public sealed class FileController(
 
         if (string.IsNullOrEmpty(uploadDirectory))
             throw new NullReferenceException(nameof(uploadDirectory));
-        
-        return PhysicalFile(Path.Combine(GetImageDirPath(), file.Path), "image/png");
+
+        return PhysicalFile(Path.Combine(GetImageDirPath(), file.Path), _permittedExtensions[Path.GetExtension(file.Path)]);
     }
 
     [HttpPost("upload")]
@@ -46,7 +54,7 @@ public sealed class FileController(
         if (file == null)
             return BadRequest("File not uploaded");
 
-        if (!_permittedExtensions.Contains(Path.GetExtension(file.FileName.ToLower())))
+        if (!_permittedExtensions.ContainsKey(Path.GetExtension(file.FileName.ToLower())))
             return BadRequest("File is not an image");
 
         var filePath = Guid.NewGuid().ToString("N") + Path.GetExtension(file.FileName);
