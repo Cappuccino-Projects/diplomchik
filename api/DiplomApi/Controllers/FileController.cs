@@ -29,7 +29,7 @@ public sealed class FileController(
     public IActionResult GetPath(string? fileName = null)
     {
         if (fileName == null)
-            return Ok(context.Files.ToList().OrderBy(f => f.Id).Select(f => new FileCreationDto { Name = f.Name, Path = $"/bucket/{f.Path}" }));
+            return Ok(context.Files.ToList().OrderBy(f => f.Name).Select(f => new FileCreationDto { Name = f.Name, Path = $"/bucket/{f.Path}" }));
         var file = context.Files.FirstOrDefault(f => f.Name == fileName);
         if (file == null)
             return BadRequest("File doesn't exists");
