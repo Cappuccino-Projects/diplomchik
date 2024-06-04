@@ -18,7 +18,6 @@ export const AllPlaces = () => {
 		<>
 			<TitleWrapper />
 
-			
 			<BackToMainMenu />
 
 			<AllPlacesWrapper className={styles.CardsWrapper} places={places} WrapperText={places.length + ' мест найдено!!!'} WrapperButtonEnabled={false} />

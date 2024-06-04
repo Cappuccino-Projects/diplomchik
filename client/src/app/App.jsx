@@ -27,7 +27,7 @@ import { Navigate, Route, Routes } from 'react-router-dom'
 import { placeApi } from '@shared/api'
 import { changeApi } from '@shared/api/'
 
-import { Products, Tasks, Users } from '@pages/AdminPanel'
+import { Products, Tasks } from '@pages/AdminPanel'
 
 
 export const App = () => {

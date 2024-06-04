@@ -34,6 +34,9 @@ export const handlerCore = async () => {
       case "search_by_rating":
         result = await findByRatingContext(readyDataMessage, msg, context);
         break;
+      case "set_rate":
+        result = await setMarkContext(readyDataMessage, msg, context);
+        break;
       case "faq":
       default:
         result = {
