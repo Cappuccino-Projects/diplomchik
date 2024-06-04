@@ -1,3 +1,5 @@
+import { default as qrcode } from 'qr-base64'
+
 export const defaultContext = async (readyDataMessage, msg, context, history) => {
   const { message } = msg;
 
@@ -95,7 +97,11 @@ export const defaultContext = async (readyDataMessage, msg, context, history) =>
 Необходимо перейти на панель вашего профиля, нажать на кнопку "Инвентарь" и кнопку "Использовать" на приобретенном предмете.
 
 Если этих ответов недостаточно, ознакомьтесь со <a target="_blank" href="/docs/Справка.pdf">справочной информацией</a> о приложении.
-    `;
+    
+Щуковская Анастасия Павловна
+Email: <a href='mail:grustnyyi@mail.ru'>grustnyyi@mail.ru</a>
+Контакт для связи: <a gref='https://t.me/somnicknight'>@somnicknight</a>
+`;
     readyDataMessage.buttons = [
       {
         title: "Хочу найти место",
@@ -195,10 +201,13 @@ export const defaultContext = async (readyDataMessage, msg, context, history) =>
         command: "Ужасно",
       }
     ];
+    context = "set_rate";
   }
 
   if (message === 'Поделиться') {
-    readyDataMessage.message = `<a href='#'>Ссылка на место</a>`;
+    readyDataMessage.message = `<div style='display: flex; flex-direction: column;'>
+    <img src='${qrcode(new Date().toISOString(), {size: 128})}'/>
+    <a href='#'>Ссылка на место</a></div>`;
     readyDataMessage.inlineButtons = []
     readyDataMessage.buttons = [];
     context = "default";

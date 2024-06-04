@@ -1,6 +1,12 @@
-export const weatherContext = (readyDataMessage, msg, context) => {
+import { getWeather } from './../utils/index.mjs'
+
+export const weatherContext = async (readyDataMessage, msg, context) => {
   context = "default";
-  readyDataMessage.message = "Погода в Димитровград: сегодня солнечно +7, завтра облачно +8";
+
+  const { payload } = msg
+  const { lat, lon } = payload
+
+  readyDataMessage.message = await getWeather(lat, lon);
   readyDataMessage.inlineButtons = []
   readyDataMessage.buttons = [
     {
