@@ -11,14 +11,16 @@ export const BuyConfirm = ({ close }) => {
 
 	const user = useSelector((state) => state.user.user)
 	const item = useSelector((state) => state.modals.data.editItemToBuy)
-
+	
+	// Кнопка "Подтвердить"
 	const onAcceptClick = async () => {
+		// Создание измененных данных пользователя (вычитание из баланса и добавление опыта)
 		const updatedUser = {
 			...user,
 			balance: user.balance - item.price,
 			experience: user.experience + 50
 		}
-
+		// Создание данных купленного товара
 		const product = {
 			userId: user.id,
 			productId: item.id,
@@ -26,12 +28,11 @@ export const BuyConfirm = ({ close }) => {
 			product: null,
 			user: null
 		}
-
-		console.log(product)
-
+		// Отправка запроса к API для изменения данных пользователя
 		await updateUserInfo(updatedUser)
+		// Отправка запроса к API для создания записи о купленном товаре
 		await buyProduct(product)
-
+		// Закрытие модального окна
 		close()
 	}
 	return (

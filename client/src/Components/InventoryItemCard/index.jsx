@@ -8,20 +8,22 @@ import styles from './styles.module.css'
 
 export const InventoryItemCard = ({ item }) => {
 	const user = useSelector((state) => state.user.user)
+
 	const userId = user.id
 
 	const [updateActivateProduct] = useUpdateUserActivateItemsMutation()
-
+	// Получение данных из API о выбранных продуктах
 	const { data: activateProducts = {} } = useGetUserActivateItemsQuery(userId)
 
-	
-
+	// Кнопка "Использовать"
 	const onActivateClick = async () => {
+		// Создание данных запроса
 		const data = {
 			userId: userId,
 			avatar: item.typeId === 2 ? item.id : activateProducts.avatar,
 			character: item.typeId === 1 ? item.id : activateProducts.character
 		}
+		// Отправка запроса на изменение данных в API
 		await updateActivateProduct(data)
 	}
 

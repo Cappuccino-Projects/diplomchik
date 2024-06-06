@@ -31,7 +31,6 @@ import { changeApi } from '@shared/api/'
 export const App = () => {
 	const dispatch = useDispatch()
 	const { data: user = {}, isFetchingUser } = useGetUserByIdQuery(1)
-
 	useEffect(() => {
 		const fetchData = async () => {
 			try {
