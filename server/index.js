@@ -33,6 +33,10 @@ io.on("connection", async (socket) => {
 
   console.log("⚡ created room: " + userId);
 
+  socket.on("bhotel-message", async () => {
+    console.log("🧩 accepted new message from bhotel");
+  })
+
   socket.on("chat message", async (msg) => {
     console.log("✅ accepted new message");
 

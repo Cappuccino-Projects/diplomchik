@@ -31,6 +31,7 @@ services:
         ipv4_address: 67.16.1.77
 
   frontend:
+    restart: always
     build: ./client
     ports:
       - 7090:8080
@@ -45,6 +46,7 @@ services:
 
   chat:
     build: ./server
+    restart: always
     ports:
       - 4589:3000
     environment:
@@ -56,6 +58,7 @@ services:
         ipv4_address: 67.16.1.45
 
   backend:
+    restart: always
     build: 
       context: ./api
       dockerfile: Dockerfile.prod

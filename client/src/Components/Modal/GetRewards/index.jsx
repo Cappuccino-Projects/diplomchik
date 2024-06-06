@@ -1,46 +1,46 @@
 import {
-	useAddUserDailyTasksMutation,
+	//useAddUserDailyTasksMutation,
 	useDeleteUserDailyTaskMutation,
 	useGetUserDailyTasksByIdQuery,
 	useUpdateUserInfoByIdMutation
 } from '@redux/services/userApi'
 import { useSelector } from 'react-redux'
 import styles from './styles.module.css'
-import { useGetAlldailyTasksQuery } from '@redux/services/dailyTasksApi'
+//import { useGetAlldailyTasksQuery } from '@redux/services/dailyTasksApi'
 
 export const GetRewards = ({ close }) => {
 	const user = useSelector((state) => state.user.user)
 
 	const [updateUserInfo] = useUpdateUserInfoByIdMutation()
 	const [deleteUserDailyTask] = useDeleteUserDailyTaskMutation()
-	const [createUserDailyTask] = useAddUserDailyTasksMutation()
+	//const [createUserDailyTask] = useAddUserDailyTasksMutation()
 
 	const { data: userDailyTasks } = useGetUserDailyTasksByIdQuery(user.id)
-	const { data: allDailyTasks } = useGetAlldailyTasksQuery()
+	//const { data: allDailyTasks } = useGetAlldailyTasksQuery()
 
 	const balance = 35
 	const xp = 30
 
-	function getRandomElements(arr) {
-		if (arr.length <= 3) {
-			return arr;
-		}
+	// function getRandomElements(arr) {
+	// 	if (arr.length <= 3) {
+	// 		return arr;
+	// 	}
 	
-		let randomIndices = [];
-		while (randomIndices.length < 3) {
-			let randomIndex = Math.floor(Math.random() * arr.length);
-			if (!randomIndices.includes(randomIndex)) {
-				randomIndices.push(randomIndex);
-			}
-		}
+	// 	let randomIndices = [];
+	// 	while (randomIndices.length < 3) {
+	// 		let randomIndex = Math.floor(Math.random() * arr.length);
+	// 		if (!randomIndices.includes(randomIndex)) {
+	// 			randomIndices.push(randomIndex);
+	// 		}
+	// 	}
 	
-		let result = [];
-		randomIndices.forEach(index => {
-			result.push(arr[index]);
-		});
+	// 	let result = [];
+	// 	randomIndices.forEach(index => {
+	// 		result.push(arr[index]);
+	// 	});
 	
-		return result;
-	}
+	// 	return result;
+	// }
 
 	const onAcceptClick = async () => {
 		// Пользователь получает награду
@@ -55,16 +55,16 @@ export const GetRewards = ({ close }) => {
 			deleteUserDailyTask({ userId: user.id, missionId: task.missionId })
 		})
 
-		// Создается список новых заданий
-		const randomDailyTasks = getRandomElements(allDailyTasks, 3)
-		await randomDailyTasks.forEach((task) => {
-			createUserDailyTask({
-				userId: user.id,
-				statusId: 2,
-				missionId: task.id
-			})
-		})
-
+		// // Создается список новых заданий
+		// const randomDailyTasks = getRandomElements(allDailyTasks, 3)
+		// await randomDailyTasks.forEach((task) => {
+		// 	createUserDailyTask({
+		// 		userId: user.id,
+		// 		statusId: 2,
+		// 		missionId: task.id
+		// 	})
+		// })
+		// Закрытие модального окна
 		close()
 	}
 

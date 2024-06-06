@@ -19,7 +19,6 @@ export const rankApi = createApi({
 			query: () => `/`,
 			providesTags: ['Rank']
 		}),
-
 		// Изменить данные пользователя по id
 		createRank: build.mutation({
 			query: ({ name }) => ({
