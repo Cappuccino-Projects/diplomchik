@@ -89,12 +89,15 @@ export const userApi = createApi({
 			query: (userId) => `/${userId}/appearance`,
 			providesTags: ['User', 'Product']
 		}),
-
+		// Запрос на изменение выбранных продуктов пользователя
 		updateUserActivateItems: build.mutation({
 			query: ({ userId, avatar, character }) => ({
+				// Строка запроса
 				url: `/${userId}/appearance?avatar=${avatar}&character=${character}`,
+				// Метод запроса
 				method: 'PUT'
 			}),
+			// Теги запроса
 			invalidatesTags: ['User', 'Product']
 		})
 	})

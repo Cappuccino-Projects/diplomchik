@@ -33,7 +33,6 @@ import { Products, Tasks } from '@pages/AdminPanel'
 export const App = () => {
 	const dispatch = useDispatch()
 	const { data: user = {}, isFetchingUser } = useGetUserByIdQuery(1)
-
 	useEffect(() => {
 		const fetchData = async () => {
 			try {

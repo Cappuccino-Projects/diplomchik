@@ -48,6 +48,7 @@ export const DailyTaskCard = ({ task }) => {
 	}
 
 	const onClickOk = async () => {
+		// Открытие модального окна для получения опыта за выполнение задания
 		dispatch(openDailyTaskCompleted({ id, expAward }))
 	}
 
