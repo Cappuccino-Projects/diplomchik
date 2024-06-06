@@ -28,6 +28,9 @@ import { Products, Tasks } from '@pages/AdminPanel'
 import { placeApi } from '@shared/api'
 import { changeApi } from '@shared/api/'
 
+import { Products, Tasks, Users } from '@pages/AdminPanel'
+
+
 export const App = () => {
 	const dispatch = useDispatch()
 	const { data: user = {}, isFetchingUser } = useGetUserByIdQuery(1)
@@ -70,6 +73,7 @@ export const App = () => {
 					<Route index element={<Navigate to="/adminpanel/products" />} />
 					<Route path="products" element={<Products />} />
 					<Route path="tasks" element={<Tasks />} />
+					<Route path="users" element={<Tasks />} />
 				</Route>
 				<Route path="/" element={<Map />}>
 					<Route index element={<MainMenu />} />

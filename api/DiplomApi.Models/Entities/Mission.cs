@@ -21,8 +21,5 @@ public class Mission
     [Column("exp_award")]
     public int ExpAward { get; set; }
 
-    [Column("due_timestamp")]
-    public DateTime? DueTimestamp { get; set; }
-
     //public virtual ICollection<MissionUser> MissionsUsers { get; set; } = new List<MissionUser>();
 }

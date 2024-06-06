@@ -96,7 +96,7 @@ export const Settings = () => {
 		<>
 			<div className={styles.MenuTopButtonsWrapper}>
 				<Link style={{ width: 'fit-content' }} to="/profile">
-					<div className="SecondarySmallButton">
+					<div className={styles.SecondarySmallButton}>
 						<i className="fi-sr-angle-left" />
 						<p>Обратно в профиль</p>
 					</div>
@@ -104,7 +104,7 @@ export const Settings = () => {
 			</div>
 			<p className={styles.TitleText}>Настройки</p>
 			<p>Основная информация</p>
-			<div className="Card">
+			<div className={styles.Card}>
 				<p>Имя</p>
 				<input
 					type="text"
@@ -147,9 +147,9 @@ export const Settings = () => {
 				</button>
 			</div>
 			<p>Фотография профиля</p>
-			<div className="Card">
+			<div className={styles.Card}>
 				<img
-					className="UserCardImage"
+					className={styles.UserCardImage}
 					src={
 						selectedFile
 							? URL.createObjectURL(selectedFile)
@@ -183,7 +183,7 @@ export const Settings = () => {
 				)}
 			</div>
 			<p>Безопасность</p>
-			<div className="Card">
+			<div className={styles.Card}>
 				<p>Текущий пароль</p>
 				<input
 					type="password"
@@ -211,7 +211,7 @@ export const Settings = () => {
 				</button>
 			</div>
 			<p>Дополнительно</p>
-			<div className="Card">
+			<div className={styles.Card}>
 				<Link to="/info" className={styles.MenuButton}>
 					<i className="fi fi-sr-info" />
 					<p>Справка</p>

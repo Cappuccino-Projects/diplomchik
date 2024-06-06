@@ -7,4 +7,5 @@ namespace DiplomApi.Models.Entities;
 [Table("files")]
 public class File : BaseEntity
 {
+    public string Path { get; set; } = null!;
 }
