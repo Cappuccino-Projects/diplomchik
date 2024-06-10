@@ -8,7 +8,7 @@ services:
     volumes:
       - './gateway/nginx/nginx.conf:/etc/nginx/nginx.conf:ro'
       - '/mnt/pomoiki-uploads:/mnt/Uploads'
-      - '/etc/letsencrypt/live/places.d3s.ru:/etc/nginx/certs:ro'
+      - '/etc/letsencrypt/live/places.d3s.ru:/etc/nginx/certs'
     depends_on:
       - frontend
       - backend
