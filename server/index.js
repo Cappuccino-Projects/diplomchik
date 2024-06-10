@@ -70,4 +70,5 @@ const port = process.env.PORT;
 
 server.listen(port, async () => {
   console.log(`✨ server running at http://localhost:${port}`);
+  console.log(`server started in ${process.env.NODE_ENV} mode`);
 });
