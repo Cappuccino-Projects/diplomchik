@@ -1,74 +1,75 @@
-import express from "express";
-import { createServer } from "node:http";
-import cors from "cors";
-import { Server } from "socket.io";
-import { configDotenv } from "dotenv";
-import { v4 as uuidv4 } from "uuid";
-import { handlerCore } from "./handlerCore.mjs";
+import express from 'express'
+import { createServer } from 'node:http'
+import cors from 'cors'
+import { Server } from 'socket.io'
+import * as dotenv from 'dotenv'
+import { v4 as uuidv4 } from 'uuid'
+import { handlerCore } from './handlerCore.mjs'
 
-configDotenv({});
+dotenv.config({ path: `.env.${process.env.NODE_ENV}` })
 
-const app = express();
-app.use(cors());
-const server = createServer(app);
+const app = express()
+app.use(cors())
+const server = createServer(app)
 
 const io = new Server(server, {
-  connectionStateRecovery: {},
-  cors: {
-    origin: "*",
-  },
-});
+	connectionStateRecovery: {},
+	cors: {
+		origin: '*'
+	}
+})
 
-io.on("connection", async (socket) => {
+io.on('connection', async (socket) => {
+	const history = []
 
-  const history = []
+	const handler = await handlerCore()
+	console.log('❤️ user connected')
 
-  const handler = await handlerCore();
-  console.log("❤️ user connected");
+	let context = 'default'
 
-  let context = "default";
+	const userId = uuidv4()
+	socket.join(userId)
 
-  const userId = uuidv4();
-  socket.join(userId);
+	console.log('⚡ created room: ' + userId)
 
-  console.log("⚡ created room: " + userId);
+	socket.on('bhotel-message', async () => {
+		console.log('🧩 accepted new message from bhotel')
+	})
 
-  socket.on("bhotel-message", async () => {
-    console.log("🧩 accepted new message from bhotel");
-  })
+	socket.on('chat message', async (msg) => {
+		console.log('✅ accepted new message')
 
-  socket.on("chat message", async (msg) => {
-    console.log("✅ accepted new message");
+		io.to(userId).emit('chat message', msg)
 
-    io.to(userId).emit("chat message", msg);
+		history.push(msg)
 
-    history.push(msg);
+		setTimeout(async () => {
+			const { readyDataMessage, newContext } = await handler(
+				msg,
+				context,
+				history
+			)
 
-    setTimeout(async () => {
+			context = newContext
 
-      const { readyDataMessage, newContext } = await handler(msg, context, history);
+			if (!Array.isArray(readyDataMessage)) {
+				io.to(userId).emit('chat message', readyDataMessage)
+			} else {
+				for (let i = 0; i < readyDataMessage.length; i++) {
+					io.to(userId).emit('chat message', readyDataMessage[i])
+				}
+			}
+		}, 1000)
+	})
 
-      context = newContext;
+	socket.on('disconnect', async () => {
+		console.log('❌ user disconnected')
+	})
+})
 
-      if (!Array.isArray(readyDataMessage)) {
-        io.to(userId).emit("chat message", readyDataMessage);
-      } else {
-        for (let i = 0; i < readyDataMessage.length; i++) {
-          io.to(userId).emit("chat message", readyDataMessage[i]);
-        }
-      }
-
-    }, 1000);
-  });
-
-  socket.on("disconnect", async () => {
-    console.log("❌ user disconnected");
-  });
-});
-
-const port = process.env.PORT;
+const port = process.env.PORT
 
 server.listen(port, async () => {
-  console.log(`✨ server running at http://localhost:${port}`);
-  console.log(`server started in ${process.env.NODE_ENV} mode`);
-});
+	console.log(`✨ server running at http://localhost:${port}`)
+	console.log(`server started in ${process.env.NODE_ENV} mode`)
+})
