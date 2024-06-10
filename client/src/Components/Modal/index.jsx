@@ -2,7 +2,6 @@ import { closeModal } from '@redux/slices/modalsSlice'
 import { useCallback } from 'react'
 import ReactDOM from 'react-dom'
 import { useDispatch, useSelector } from 'react-redux'
-
 import { BuyConfirm } from '@components/Modal/BuyConfirm'
 import { GetRewards } from '@components/Modal/GetRewards'
 import { ModalWindow } from '@components/Modal/ModalWindow'
