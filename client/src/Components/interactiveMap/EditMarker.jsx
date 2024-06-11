@@ -53,29 +53,29 @@ const handleSubmit = (e) => {
   return (
     <form onSubmit={handleSubmitAndClose} className={styles.form} >
       <label className={styles.label}>
-        Title:
+        Название:
         <input type="text" value={title} onChange={(e) => setTitle(e.target.value)} className={styles.input} />
       </label><br />
 
       <label className={styles.label}>
-        Address:
+        Адрес:
         <input type="text" value={address} onChange={(e) => setAddress(e.target.value)} className={styles.input}/>
       </label><br />
       <label className={styles.label}>
-        Latitude:
+        Широта:
         <input type="number" value={latitude} onChange={(e) => setLatitude(e.target.value)} className={styles.input}/>
       </label><br />
       <label className={styles.label}>
-        Longitude:
+        Долгота:
         <input type="number" value={longitude} onChange={(e) => setLongitude(e.target.value)} className={styles.input}/>
       </label><br />
       <label className={styles.label}>
-        Type:
+        Тип места:
         <input type="text" value={type} onChange={(e) => setType(e.target.value)} className={styles.input}/>
       </label><br />
 
-      <button type="submit" className={styles.button}>сохранить</button>
-      <button type="button" onClick={onClose} className={styles.button}>отменить</button>
+      <button type="submit" className={styles.button}>Сохранить</button>
+      <button type="button" onClick={onClose} className={styles.button}>Отменить</button>
     </form>
   );
 };
