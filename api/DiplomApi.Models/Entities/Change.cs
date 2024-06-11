@@ -15,6 +15,9 @@ public class Change
     [Column("user_id")]
     public int UserId { get; set; }
 
+    [Column("approver_id")]
+    public int ApproverId { get; set; }
+
     [Column("place_id")]
     public int PlaceId { get; set; }
 
