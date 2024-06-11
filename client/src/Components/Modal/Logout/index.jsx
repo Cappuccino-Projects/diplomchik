@@ -1,27 +1,30 @@
-import { Link } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import styles from './styles.module.css'
 
 export const Logout = ({ close }) => {
+
+	const navigate = useNavigate()
+	
 	return (
 		<>
-			<div className={styles.ModalWindowTitle}>
-				Вы уверены, что хотите выйти?
-			</div>
-			<div className={styles.ModalWindowText}>
-				Вы будете перенаправлены на страницу авторизации
-			</div>
+			<div className={styles.ModalWindowTitle}>Вы уверены, что хотите выйти?</div>
+			<div className={styles.ModalWindowText}>Вы будете перенаправлены на страницу авторизации</div>
 			<div className={styles.ModalWindowButtonsWrapper}>
 				<div className={styles.ModalButton} onClick={close}>
 					Отмена
 				</div>
-				<Link
-					to="/login"
+				<div
 					className={styles.ModalMainButton}
-					onClick={close}
+					onClick={() => {
+						close()
+						localStorage.removeItem('AllPlacesUserData')
+						navigate('/login')
+						window.location.reload()
+					}}
 				>
 					Выйти
-				</Link>
+				</div>
 			</div>
 		</>
-	) 	
+	)
 }
