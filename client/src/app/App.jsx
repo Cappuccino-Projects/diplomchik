@@ -39,7 +39,7 @@ const UnAuthenticatedRoute = () => {
 		<Routes>
 			<Route path="/registration" element={<Registration />} />
 			<Route path="/login" element={<Login />} />
-			{/* <Route path="*" element={<Navigate to="/login" />} /> */}
+			<Route path="*" element={<Navigate to="/login" />} />
 		</Routes>
 	)
 }
