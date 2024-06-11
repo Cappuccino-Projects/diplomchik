@@ -19,6 +19,9 @@ namespace DiplomApi.Controllers
             if (registrationDto.Password != registrationDto.ConfirmPassword)
                 return BadRequest("Пароли не совпадают");
 
+            if (userRepository.GetAll().Any(u => u.Login == registrationDto.Login))
+                return BadRequest("Пользователь с таким логином уже зарегистрирован!");
+
             newUser.Email = registrationDto.Email;
             newUser.Login = registrationDto.Login;
             newUser.DisplayName = registrationDto.DisplayName;
