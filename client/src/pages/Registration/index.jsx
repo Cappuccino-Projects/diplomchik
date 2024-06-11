@@ -15,41 +15,41 @@ export const Registration = () => {
 	const [password, setPassword] = useState('')
 	const [confirmPassword, setConfirmPassword] = useState('')
 
-const [register, {  isLoading }] = useRegisterMutation();
-const dispatch = useDispatch()
-const navigate = useNavigate()
+	const [register, {  isLoading }] = useRegisterMutation();
+	const dispatch = useDispatch()
+	const navigate = useNavigate()
 
-const [authenticate] = useAuthenticateMutation();
+	const [authenticate] = useAuthenticateMutation();
 
-const handleSubmit = async (e) => {
-  e.preventDefault();
-  if (password !== confirmPassword) {
-    alert('Passwords do not match');
-  } else {
-    try {
-      const registerResponse = await register({ login, displayName, email, cityId, password, confirmPassword });
-      if (registerResponse.data) {
-        // handle successful registration
-        console.log('Registration successful', registerResponse.data);
-        // authenticate the user
-        const authResult = await authenticate({ login: registerResponse.data.login, password });
-        if (authResult.data) {
-          console.log('Authentication successful', authResult.data);
-          dispatch(setUser(authResult))
-          navigate('/mainmenu')
-        } else if (authResult.error) {
-          console.error('Authentication failed', authResult.error.message);
-        }
-      } else if (registerResponse.error) {
-        // handle error during registration
-        console.error('Registration failed', registerResponse.error.message);
-      }
-    } catch (error) {
-      // handle error during registration
-      console.error('Registration failed', error);
-    }
-  }
-};
+	const handleSubmit = async (e) => {
+		e.preventDefault();
+		if (password !== confirmPassword) {
+			alert('Passwords do not match');
+		} else {
+			try {
+				const registerResponse = await register({ login, displayName, email, cityId, password, confirmPassword });
+				if (registerResponse.data) {
+					// handle successful registration
+					console.log('Registration successful', registerResponse.data);
+					// authenticate the user
+					const authResult = await authenticate({ login: registerResponse.data.login, password });
+					if (authResult.data) {
+						console.log('Authentication successful', authResult.data);
+						dispatch(setUser(authResult))
+						navigate('/mainmenu')
+					} else if (authResult.error) {
+						console.error('Authentication failed', authResult.error.message);
+					}
+				} else if (registerResponse.error) {
+					// handle error during registration
+					console.error('Registration failed', registerResponse.error.message);
+				}
+			} catch (error) {
+				// handle error during registration
+				console.error('Registration failed', error);
+			}
+		}
+	};
 
 	// if (isSuccess) {
 	// 	return <div>Registration successful!</div>
