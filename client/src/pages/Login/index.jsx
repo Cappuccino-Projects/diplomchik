@@ -20,6 +20,7 @@ export const Login = () => {
 
 	const [email, setEmail] = useState('')
 	const [password, setPassword] = useState('')
+	const [loginError, setLoginError] = useState(false);
 
 	const handleLogin = async (login, password) => {
 		try {
@@ -30,13 +31,14 @@ export const Login = () => {
 			navigate('/mainmenu')
 		} catch (error) {
 			console.error('Failed to login:', error)
+			setLoginError(true);
 		}
 	}
 
 	return (
 		<div className={styles.AuthorizationPageContent}>
 			{isLoading ? (
-				<div>Loading...</div>
+				<div>Загрузка...</div>
 			) : (
 				<div className={styles.AuthorizationPageContent}>
 					<div className={styles.AuthorizationDesignCard}>
@@ -45,7 +47,10 @@ export const Login = () => {
 						<i className={styles.WelcomeIcon + ' fi fi-sr-sun'} />
 						<p className={styles.WelcomeBottomText}>Давайте вместе сделаем город чистым и комфортным!</p>
 					</div>
-					<div className={styles.AuthorizationInfoWrapper}>
+						<div className={styles.AuthorizationInfoWrapper}>
+						<div className={loginError ? styles.ErrorText : styles.HideElement}>
+							<p>Вы ввели неверный логин или пароль!</p>
+						</div>
 						<div className={styles.AuthorizationTextareasWrapper}>
 							<InputField label="Электронная почта" value={email} onChange={(e) => setEmail(e.target.value)} />
 							<InputField label="Пароль" value={password} type="password" onChange={(e) => setPassword(e.target.value)} />

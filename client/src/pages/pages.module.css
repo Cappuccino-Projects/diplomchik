@@ -253,6 +253,16 @@
 	font-size: xxx-large;
 }
 
+.ErrorText {
+	color: red;
+	text-align: center;
+	font-weight: 500;
+}
+
+.HideElement {
+	display: none;
+}
+
 @media (width < 800px) {
 
 	.AuthorizationDesignCard{

@@ -21,10 +21,14 @@ export const Registration = () => {
 
 	const [authenticate] = useAuthenticateMutation();
 
+	const [regError, setRegError] = useState(false);
+	const [regErrorText, setRegErrorText] = useState(null);
+
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 		if (password !== confirmPassword) {
-			alert('Passwords do not match');
+			setRegError(true);
+			setRegErrorText('Пароли не совпадают!');
 		} else {
 			try {
 				const registerResponse = await register({ login, displayName, email, cityId, password, confirmPassword });
@@ -43,6 +47,8 @@ export const Registration = () => {
 				} else if (registerResponse.error) {
 					// handle error during registration
 					console.error('Registration failed', registerResponse.error.message);
+					setRegError(true);
+					setRegErrorText(registerResponse.error.message);
 				}
 			} catch (error) {
 				// handle error during registration
@@ -58,7 +64,7 @@ export const Registration = () => {
 	return (
 		<div className={styles.AuthorizationPageContent}>
 			{isLoading ? (
-				<div>Loading...</div>
+				<div>Загрузка...</div>
 			) : (
 				<div className={styles.AuthorizationPageContent}>
 					<div className={styles.AuthorizationDesignCard}>
@@ -69,6 +75,9 @@ export const Registration = () => {
 					</div>
 
 					<div className={styles.AuthorizationInfoWrapper}>
+						<div className={regError ? styles.ErrorText : styles.HideElement}>
+							<p>{regErrorText ?? 'Ошибка при регистрации!'}</p>
+						</div>
 						<div className={styles.AuthorizationTextareasWrapper}>
 							<form onSubmit={handleSubmit} className={styles.AuthorizationTextareasWrapper}>
 								<p>Имя</p>
