@@ -25,6 +25,7 @@ builder.Services.AddRepository<Product, ProductRepository>();
 builder.Services.AddRepository<Place, PlaceRepository>();
 builder.Services.AddRepository<Review, ReviewRepository>();
 builder.Services.AddCompositeKeyRepository<UserProduct, UserProductRepository>();
+builder.Services.AddCompositeKeyRepository<UserPlace, UserPlaceRepository>();
 builder.Services.AddCompositeKeyRepository<MissionUser, MissionUserRepository>();
 
 builder.Services.AddCors(options =>
