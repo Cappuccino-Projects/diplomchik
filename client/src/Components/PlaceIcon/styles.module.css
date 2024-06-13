@@ -19,7 +19,9 @@
 }
 
 .PlaceIconWrapper {
-  width: 100%;
+  width: 97px;
+  height: 70px;
+  font-size: smaller;
 }
 
 .PlaceIconImage {

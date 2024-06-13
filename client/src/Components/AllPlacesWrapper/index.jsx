@@ -10,8 +10,8 @@ export const AllPlacesWrapper = (props) => {
 	const [selectedType, setSelectedType] = useState('')
 	const [filterChosen, setFilterChosen] = useState(false)
 
-	if (isLoading) return 'Loading...'
-	if (error) return `An error has occurred: ${error.message}`
+	if (isLoading) return 'Загрузка...'
+	if (error) return `Ошибка: ${error.message}`
 
 	const filteredPlaces = props.places?.filter((place) => selectedType === null || String(place.typeId) === String(selectedType))
 
@@ -51,8 +51,10 @@ const placeTypesButtons = (
 
 						<p className={styles.LocationCardRating}> {CurrentPlace.rank ? `★ ${CurrentPlace.rank}` : 'Без рейтинга'}</p>
 
-						<button className={styles.CardEditButton}> Ред. </button>
+						{/*<button className={styles.CardEditButton}> Ред. </button>*/}
 					</div>
+
+					{CurrentPlace.title ? <p className={styles.LocationTypeName}>Тип: {placeTypeName}</p> : null}
 
 					{CurrentPlace.address ? (
 						<p className={styles.LocationCardName}>{CurrentPlace.address}</p>

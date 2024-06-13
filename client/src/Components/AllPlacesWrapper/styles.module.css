@@ -31,7 +31,7 @@
 .placesWrapper {
   
   height: fit-content;
-  max-height: 420px;
+  height: 360px;
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
@@ -45,7 +45,7 @@
   flex-direction: row;
   flex-wrap: wrap;
   gap: 4px;
-  overflow: scroll;
+  overflow: hidden;
   width: 100%;
 }
 
@@ -117,8 +117,13 @@
 }
 
 .LocationCoorddName {
-  width: fit-content;
-  font-size: 13px;
+    width: fit-content;
+    font-size: 13px;
+}
+
+.LocationTypeName {
+    width: fit-content;
+    font-size: 14px;
 }
 
 .LocationCardRating {
