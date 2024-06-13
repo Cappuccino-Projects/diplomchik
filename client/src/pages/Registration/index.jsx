@@ -15,41 +15,47 @@ export const Registration = () => {
 	const [password, setPassword] = useState('')
 	const [confirmPassword, setConfirmPassword] = useState('')
 
-const [register, {  isLoading }] = useRegisterMutation();
-const dispatch = useDispatch()
-const navigate = useNavigate()
+	const [register, {  isLoading }] = useRegisterMutation();
+	const dispatch = useDispatch()
+	const navigate = useNavigate()
 
-const [authenticate] = useAuthenticateMutation();
+	const [authenticate] = useAuthenticateMutation();
 
-const handleSubmit = async (e) => {
-  e.preventDefault();
-  if (password !== confirmPassword) {
-    alert('Passwords do not match');
-  } else {
-    try {
-      const registerResponse = await register({ login, displayName, email, cityId, password, confirmPassword });
-      if (registerResponse.data) {
-        // handle successful registration
-        console.log('Registration successful', registerResponse.data);
-        // authenticate the user
-        const authResult = await authenticate({ login: registerResponse.data.login, password });
-        if (authResult.data) {
-          console.log('Authentication successful', authResult.data);
-          dispatch(setUser(authResult))
-          navigate('/mainmenu')
-        } else if (authResult.error) {
-          console.error('Authentication failed', authResult.error.message);
-        }
-      } else if (registerResponse.error) {
-        // handle error during registration
-        console.error('Registration failed', registerResponse.error.message);
-      }
-    } catch (error) {
-      // handle error during registration
-      console.error('Registration failed', error);
-    }
-  }
-};
+	const [regError, setRegError] = useState(false);
+	const [regErrorText, setRegErrorText] = useState(null);
+
+	const handleSubmit = async (e) => {
+		e.preventDefault();
+		if (password !== confirmPassword) {
+			setRegError(true);
+			setRegErrorText('Пароли не совпадают!');
+		} else {
+			try {
+				const registerResponse = await register({ login, displayName, email, cityId, password, confirmPassword });
+				if (registerResponse.data) {
+					// handle successful registration
+					console.log('Registration successful', registerResponse.data);
+					// authenticate the user
+					const authResult = await authenticate({ login: registerResponse.data.login, password });
+					if (authResult.data) {
+						console.log('Authentication successful', authResult.data);
+						dispatch(setUser(authResult))
+						navigate('/mainmenu')
+					} else if (authResult.error) {
+						console.error('Authentication failed', authResult.error.message);
+					}
+				} else if (registerResponse.error) {
+					// handle error during registration
+					console.error('Registration failed', registerResponse.error.message);
+					setRegError(true);
+					setRegErrorText(registerResponse.error.message);
+				}
+			} catch (error) {
+				// handle error during registration
+				console.error('Registration failed', error);
+			}
+		}
+	};
 
 	// if (isSuccess) {
 	// 	return <div>Registration successful!</div>
@@ -58,7 +64,7 @@ const handleSubmit = async (e) => {
 	return (
 		<div className={styles.AuthorizationPageContent}>
 			{isLoading ? (
-				<div>Loading...</div>
+				<div>Загрузка...</div>
 			) : (
 				<div className={styles.AuthorizationPageContent}>
 					<div className={styles.AuthorizationDesignCard}>
@@ -69,6 +75,9 @@ const handleSubmit = async (e) => {
 					</div>
 
 					<div className={styles.AuthorizationInfoWrapper}>
+						<div className={regError ? styles.ErrorText : styles.HideElement}>
+							<p>{regErrorText ?? 'Ошибка при регистрации!'}</p>
+						</div>
 						<div className={styles.AuthorizationTextareasWrapper}>
 							<form onSubmit={handleSubmit} className={styles.AuthorizationTextareasWrapper}>
 								<p>Имя</p>

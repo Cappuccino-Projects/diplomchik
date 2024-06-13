@@ -45,8 +45,8 @@ const handleSubmitAndClose = (e) => {
     <div>
         <form onSubmit={handleSubmitAndClose} className={styles.form} >
           <p>Удалить объект?</p>
-          <button type="submit" className={styles.button}>удалить</button>
-          <button type="button" onClick={onClose} className={styles.button}>отменить</button>
+          <button type="submit" className={styles.button}>Удалить</button>
+          <button type="button" onClick={onClose} className={styles.button}>Отменить</button>
         </form>
     </div>
   );

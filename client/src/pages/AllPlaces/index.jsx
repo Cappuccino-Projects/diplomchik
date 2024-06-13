@@ -1,6 +1,5 @@
 import {
 	BackToMainMenu,
-	PlacesWrapper,
 	TitleWrapper,
 	UserCard,
 	AllPlacesWrapper
@@ -20,14 +19,7 @@ export const AllPlaces = () => {
 
 			<BackToMainMenu />
 
-			<AllPlacesWrapper className={styles.CardsWrapper} places={places} WrapperText={places.length + ' мест найдено!!!'} WrapperButtonEnabled={false} />
-
-			<PlacesWrapper
-				places={Array.isArray(places) ? places.filter((CurrentPlace) => CurrentPlace && CurrentPlace.PlaceId < 4) : []}
-				WrapperText="Недавнее"
-				WrapperButtonEnabled={false}
-			/>
-			<PlacesWrapper places={Array.isArray(places) ? places.filter((CurrentPlace) => CurrentPlace.PlaceId < 9) : []} WrapperText="Рекомендуемое" WrapperButtonEnabled={false} />
+			<AllPlacesWrapper className={styles.CardsWrapper} places={places} WrapperText={'Места (' + places.length + ')'} WrapperButtonEnabled={false} />
 
 			<UserCard ShowLvl={false} ShowBalance={false} />
 		</>

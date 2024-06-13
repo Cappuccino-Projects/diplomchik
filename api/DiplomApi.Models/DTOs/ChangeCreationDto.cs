@@ -7,6 +7,8 @@ public class ChangeCreationDto
 {
     public int UserId { get; set; }
 
+    public int ApproverId { get; set; }
+
     public int PlaceId { get; set; }
 
     public int TypeId { get; set; }

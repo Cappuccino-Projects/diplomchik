@@ -39,6 +39,8 @@ public partial class TrashBinsContext(DbContextOptions<TrashBinsContext> options
 
     public virtual DbSet<UserProduct> UsersProducts { get; set; }
 
+    public virtual DbSet<UserPlace> UsersPlaces { get; set; }
+
     public virtual DbSet<File> Files { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -53,10 +55,16 @@ public partial class TrashBinsContext(DbContextOptions<TrashBinsContext> options
                 .HasAnnotation("MySql:IndexPrefixLength", new[] { 0, 0 });
         });
 
-        
         modelBuilder.Entity<UserProduct>(entity =>
         {
             entity.HasKey(e => new { e.UserId, e.ProductId })
+                .HasName("PRIMARY")
+                .HasAnnotation("MySql:IndexPrefixLength", new[] { 0, 0 });
+        });
+
+        modelBuilder.Entity<UserPlace>(entity =>
+        {
+            entity.HasKey(e => new { e.UserId, e.PlaceId })
                 .HasName("PRIMARY")
                 .HasAnnotation("MySql:IndexPrefixLength", new[] { 0, 0 });
         });
