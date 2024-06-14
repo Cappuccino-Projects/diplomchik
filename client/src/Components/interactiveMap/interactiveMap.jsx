@@ -1,4 +1,4 @@
-import { MapContainer, TileLayer, Marker, Popup, useMap, useMapEvents } from 'react-leaflet'
+﻿import { MapContainer, TileLayer, Marker, Popup, useMap, useMapEvents } from 'react-leaflet'
 import L from 'leaflet'
 import 'leaflet/dist/leaflet.css'
 import { useSelector, useDispatch } from 'react-redux'
@@ -74,7 +74,12 @@ const InteractiveMap = (props) => {
 						position={[place.latitude, place.longitude]}
 						eventHandlers={{ click: () => handleMarkerClick(place) }}
 					>
-						<Popup>{place.title}</Popup>
+						<Popup>
+							<b>{place.title ?? placeTypes.find((placeType) => placeType.id === place.typeId).name} {place.rank ? `★ ${place.rank}` : null}</b>
+							{place.title !== null ? <p>{placeTypes.find((placeType) => placeType.id === place.typeId).name}</p> : null}
+							{place.address ? <p>{place.address}</p>
+								: <p>Координаты: {place.latitude ? place.latitude : ''},{place.longitude ? place.longitude : ''}</p>}
+						</Popup>
 					</Marker>
 				))}
 

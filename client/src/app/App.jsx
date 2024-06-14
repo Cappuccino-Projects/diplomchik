@@ -1,5 +1,5 @@
 import { Modal } from '@components'
-import { AllPlaces, Chat, DailyTasksPage, Favourite, Inventory, Login, MainMenu, Map, MapEditMenu, Profile, Registration, Settings, Shop, UserSuggestions } from '@pages'
+import { AllPlaces, Chat, DailyTasksPage, Favourite, Favourite1, Inventory, Login, MainMenu, Map, MapEditMenu, Profile, Registration, Settings, Shop, UserSuggestions } from '@pages'
 import { InfoPDF } from '@pages/InfoPDF'
 import { setChanges } from '@redux/slices/changesSlice'
 import { setPlaces } from '@redux/slices/placesSlice'
@@ -54,6 +54,7 @@ const AuthenticatedRoute = () => {
 				<Route path="/mapeditmenu" element={<MapEditMenu />} />
 				<Route path="/allplaces" element={<AllPlaces />} />
 				<Route path="/favourite" element={<Favourite />} />
+				<Route path="/starred" element={<Favourite1 />} />
 				<Route path="/profile" element={<Profile />} />
 				<Route path="/profile/settings" element={<Settings />} />
 				<Route path="/dailytasks" element={<DailyTasksPage />} />
