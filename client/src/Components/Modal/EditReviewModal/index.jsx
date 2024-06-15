@@ -1,27 +1,17 @@
-import {
-	useGetPlaceByIdQuery,
-	useGetPlaceTypeByIdQuery
-} from '@redux/services/placeTypeApi'
-import {
-	useGetReviewByIdQuery,
-	useUpdateReviewByIdMutation,
-	useDeleteReviewMutation
-} from '@redux/services/reviewApi'
+import { useGetPlaceByIdQuery, useGetPlaceTypeByIdQuery } from '@redux/services/placeTypeApi'
+import { useGetReviewByIdQuery, useUpdateReviewByIdMutation, useDeleteReviewMutation } from '@redux/services/reviewApi'
 import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import styles from './styles.module.css'
 import { useUploadImageMutation } from '@app/redux/services/uploadApi'
+import { getIconPath } from '@shared/api/getIconPath'
 
 export const EditReviewModal = ({ close }) => {
-	const reviewId = useSelector(
-		(state) => state.modals.data.editRewiewToChange.id
-	)
-	const { data: review = {}, isSuccess: isSuccessReview } =
-		useGetReviewByIdQuery(reviewId)
-	const { data: placeData = {}, isSuccess: isSuccessPlace } =
-		useGetPlaceByIdQuery(review.placeId)
-	const { data: placeTypeData = {}, isSuccess: isSuccessPlaceType } =
-		useGetPlaceTypeByIdQuery(placeData.typeId)
+	const user = useSelector((state) => state.user.user)
+	const reviewId = useSelector((state) => state.modals.data.editRewiewToChange.id)
+	const { data: review = {}, isSuccess: isSuccessReview } = useGetReviewByIdQuery(reviewId)
+	const { data: placeData = {}, isSuccess: isSuccessPlace } = useGetPlaceByIdQuery(review.placeId)
+	const { data: placeTypeData = {}, isSuccess: isSuccessPlaceType } = useGetPlaceTypeByIdQuery(placeData.typeId)
 
 	const [updateReview] = useUpdateReviewByIdMutation()
 	const [uploadImage] = useUploadImageMutation()
@@ -50,17 +40,28 @@ export const EditReviewModal = ({ close }) => {
 	const saveButton = async () => {
 		if (selectedFile) {
 			const file = selectedFile
-			const formData = new FormData()
-			formData.append('files', file, file.name)
-			await uploadImage(formData)
-		}
 
-		await updateReview({
-			...review,
-			rank: rating,
-			comment: commentInput,
-			photoPath: selectedFile ? selectedFile.name : photoPath
-		})
+			const formData = new FormData()
+			const now = new Date()
+
+			const newFileName = `rewiew-${user.id}-${now.toISOString().replace(/\D/g, '').slice(0, -3)}`
+			formData.append('files', file)
+
+			await uploadImage({ image: formData, name: newFileName })
+			await updateReview({
+				...review,
+				rank: rating,
+				comment: commentInput,
+				photoPath: newFileName
+			})
+			
+		} else {
+			await updateReview({
+				...review,
+				rank: rating,
+				comment: commentInput
+			})
+		}
 
 		close()
 	}
@@ -74,17 +75,11 @@ export const EditReviewModal = ({ close }) => {
 		<>
 			<div className={styles.ModalWindowTitle}>Редактирование отзыва</div>
 
-			<div
-				style={{ fontSize: '20px', marginTop: '10px' }}
-				className={styles.ModalWindowText}
-			>
+			<div style={{ fontSize: '20px', marginTop: '10px' }} className={styles.ModalWindowText}>
 				<b>Место: {place?.title ? place?.title : placeTypeData.name}</b>
 			</div>
 
-			<div
-				style={{ fontSize: '14px', color: 'grey' }}
-				className={styles.AllplacesButton}
-			>
+			<div style={{ fontSize: '14px', color: 'grey' }} className={styles.AllplacesButton}>
 				{`${placeTypeData.name}`}
 			</div>
 
@@ -116,26 +111,14 @@ export const EditReviewModal = ({ close }) => {
 						>
 							<i className="fi fi-sr-cross-small"></i>
 						</button>
-						<img
-							src={
-								selectedFile
-									? URL.createObjectURL(selectedFile)
-									: `http://places.d3s.ru:9088/bucket/${photoPath}`
-							}
-							className={styles.LocationImage}
-						/>
+						<img src={selectedFile ? URL.createObjectURL(selectedFile) : getIconPath(photoPath)} className={styles.LocationImage} />
 					</div>
 				) : (
 					<label className={styles.LocationCardImage}>
 						<div className={styles.AddImageButton}>
 							<i className="fi fi-sr-plus-small"></i>
 						</div>
-						<input
-							style={{ display: 'none' }}
-							type="file"
-							accept=".png,.jpg"
-							onChange={(e) => setSelectedFile(e.target.files[0])}
-						/>
+						<input style={{ display: 'none' }} type="file" accept=".png,.jpg" onChange={(e) => setSelectedFile(e.target.files[0])} />
 					</label>
 				)}
 			</div>
@@ -149,36 +132,17 @@ export const EditReviewModal = ({ close }) => {
 					.fill()
 					.map((_, index) => {
 						return (
-							<button
-								key={index}
-								onClick={() => setRating(index + 1)}
-								className={
-									rating === index + 1
-										? styles.RatingActive
-										: styles.RatingNotActive
-								}
-							>
+							<button key={index} onClick={() => setRating(index + 1)} className={rating === index + 1 ? styles.RatingActive : styles.RatingNotActive}>
 								{index + 1}
 							</button>
 						)
 					})}
 			</div>
-			<div
-				style={{ marginTop: '20px' }}
-				className={styles.ModalWindowButtonsWrapper}
-			>
-				<button
-					className={styles.ModalButton}
-					style={{ border: 'none' }}
-					onClick={deleteRewiewButton}
-				>
+			<div style={{ marginTop: '20px' }} className={styles.ModalWindowButtonsWrapper}>
+				<button className={styles.ModalButton} style={{ border: 'none' }} onClick={deleteRewiewButton}>
 					Удалить
 				</button>
-				<button
-					className={styles.ModalMainButton}
-					style={{ border: 'none' }}
-					onClick={saveButton}
-				>
+				<button className={styles.ModalMainButton} style={{ border: 'none' }} onClick={saveButton}>
 					Сохранить
 				</button>
 			</div>
