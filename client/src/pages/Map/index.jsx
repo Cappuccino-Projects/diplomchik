@@ -22,12 +22,13 @@ export const Map = () => {
 				className={styles.MenuWrapper}
 				style={{
 					left: isShowMenu ? '0' : '-100%',
-					transition: 'all 0.5s ease-in-out'
+					transition: 'left 0.5s ease-in-out'
 				}}
 			>
 				<button
 					className={styles.MinimizeButton}
 					onClick={() => setShowMenu(false)}
+					
 				>
 					<i className="fi-sr-angle-double-left" />
 				</button>

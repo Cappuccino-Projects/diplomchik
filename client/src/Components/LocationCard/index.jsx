@@ -1,6 +1,7 @@
 import { openEditReviewModal } from '@redux/slices/modalsSlice'
 import { useDispatch } from 'react-redux'
 import styles from './styles.module.css'
+import { getIconPath } from '@shared/api/getIconPath'
 
 export const LocationCard = ({ item }) => {
 	const { id, userid, placeType, rank, place, comment, photoPath } = item
@@ -15,16 +16,10 @@ export const LocationCard = ({ item }) => {
 		<div className={styles.LocationCard}>
 			<div className={styles.LocationCardTitleWrapper}>
 				<div className={styles.LocationCardNameRatingWrapper}>
-					<b className={styles.LocationCardName}>
-						{place.title ? place.title : 'Нет названия'}
-					</b>
+					<b className={styles.LocationCardName}>{place.title ? place.title : 'Нет названия'}</b>
 					<p className={styles.LocationCardRating}>{`★ ${rank}`}</p>
 				</div>
-				<button
-					className={styles.CardEditButton}
-					style={{ border: 'none' }}
-					onClick={onChangeReviewClick}
-				>
+				<button className={styles.CardEditButton} style={{ border: 'none' }} onClick={onChangeReviewClick}>
 					Ред.
 					<i className="fi fi-sr-edit" />
 				</button>
@@ -35,11 +30,7 @@ export const LocationCard = ({ item }) => {
 			<p className="LocationCardInfo">{comment}</p>
 			{photoPath && (
 				<div className={styles.LocationCardImageWrapper}>
-					<img
-						src={`http://places.d3s.ru:9088/bucket/${photoPath}`}
-						
-						className={styles.LocationCardImage}
-					/>
+					<img src={getIconPath(photoPath)} className={styles.LocationCardImage} />
 				</div>
 			)}
 		</div>

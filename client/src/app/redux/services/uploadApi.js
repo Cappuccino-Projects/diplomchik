@@ -4,17 +4,17 @@ import { url } from './currenturl'
 export const uploadApi = createApi({
 	reducerPath: 'uploadApi',
 	baseQuery: fetchBaseQuery({
-		baseUrl: `${url}/api`
+		baseUrl: `${url}/api/files`
 	}),
 	tagTypes: ['Image'],
 	endpoints: (build) => ({
 		getImageByName: build.query({
-			query: (name) => `/files/?fileName=${name}`,
+			query: (name) => `/?fileName=${name}`,
 			providesTags: ['Image']
 		}),
 		uploadImage: build.mutation({
 			query: ({image, name}) => ({
-				url: `/files/upload?fileName=${name}`,
+				url: `/upload?fileName=${name}`,
 				method: 'POST',
 				body: image,
 			}),

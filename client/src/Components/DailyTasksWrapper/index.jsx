@@ -24,7 +24,7 @@ export const DailyTasksWrapper = () => {
 				.filter((p) => userProductIds.includes(p.id))
 				.map((p) => {
 					const userProduct = userDailyTasks.find((up) => up.missionId === p.id)
-					return { ...p, statusId: userProduct.statusId }
+					return { ...p, statusId: userProduct.statusId, dueDate: userProduct.dueDate }
 				})
 			
 			setCurrentDailyTasks(currentDailyTasks)
