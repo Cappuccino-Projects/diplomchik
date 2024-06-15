@@ -93,7 +93,8 @@ export const Settings = () => {
 
 		setSelectedFile(null)
 	}
-
+	// console.log("user.avatarPath", user.avatarPath)
+	// console.log("getIconPath(user.avatarPath)", getIconPath(user.avatarPath))
 	return (
 		<>
 			<div className={styles.MenuTopButtonsWrapper}>
