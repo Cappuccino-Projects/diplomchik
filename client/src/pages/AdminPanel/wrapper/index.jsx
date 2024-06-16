@@ -32,16 +32,15 @@ const AdminPanelWrapper = ({ children }) => {
 						icon="fi fi-sr-marker"
 					/>
 					<MainMenuItem
-						link={TABS.reviews}
-						label="Отзывы"
-						icon="fi fi-sr-comment-heart"
-					/>
-					<MainMenuItem
 						link={TABS.users}
 						label="Пользователи"
 						icon="fi fi-sr-user"
 					/>
-
+					<MainMenuItem
+						link={TABS.reviews}
+						label="Отзывы"
+						icon="fi fi-sr-comment-heart"
+					/>
 
 					<MainMenuItem
 						link={'/logout'}
