@@ -3,13 +3,14 @@ import { useState } from 'react'
 import { Outlet } from 'react-router-dom'
 import InteractiveMap from '../../Components/interactiveMap/interactiveMap'
 import styles from './styles.module.css'
+import { Link } from 'react-router-dom'
 
 export const Map = () => {
-	const [zoom, setZoom] = useState(20)
+	const [zoom, setZoom] = useState(17)
 	const [isShowMenu, setShowMenu] = useState(true)
 
 	const handleZoomIn = () => {
-		setZoom((prevZoom) => prevZoom + 1)
+		setZoom((prevZoom) => prevZoom < 18 ? prevZoom + 1 : 18)
 	}
 
 	const handleZoomOut = () => {
@@ -42,9 +43,11 @@ export const Map = () => {
 			</div>
 
 			<div className={styles.MapTopButtonsContainer}>
-				<div className={styles.MapButton}>
-					<i className="fi fi-sr-edit" />
-				</div>
+				<Link to="/mapeditmenu">
+					<div className={styles.MapButton}>
+						<i className="fi fi-sr-edit" />
+					</div>
+				</Link>
 				<div className={styles.MapButton}>
 					<i className="fi fi-sr-map" />
 				</div>

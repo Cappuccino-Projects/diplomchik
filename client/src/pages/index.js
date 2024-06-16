@@ -1,6 +1,7 @@
 export { AllPlaces } from './AllPlaces'
 export { Chat } from './Chat'
 export { Favourite } from './Favourite'
+export { Favourite1 } from './Favourite1'
 export { Login } from './Login'
 export { MainMenu } from './MainMenu'
 export { Map } from './Map'

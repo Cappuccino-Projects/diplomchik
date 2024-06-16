@@ -9,6 +9,7 @@ import { useSelector } from 'react-redux'
 import styles from './styles.module.css'
 
 export const LocationsWrapper = () => {
+
 	const [currentList, setCurrentList] = useState([])
 	const user = useSelector((state) => state.user.user)
 
