@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit'
+-import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
 	isOpen: false,
@@ -88,6 +88,20 @@ export const modalsSlice = createSlice({
 			state.modalType = 'DELETEPRODUCT'
 			state.isOpen = true
 			state.data.deleteProduct = action.payload
+		},
+		openAddPlace: (state) => {
+			state.modalType = 'ADDPLACE'
+			state.isOpen = true
+		},
+		openEditPlace: (state, action) => {
+			state.modalType = 'EDITPLACE'
+			state.isOpen = true
+			state.data.editPlace = action.payload
+		},
+		openDeletePlace: (state, action) => {
+			state.modalType = 'DELETEPLACE'
+			state.isOpen = true
+			state.data.deletePlace = action.payload
 		}
 	}
 })

@@ -1,11 +1,13 @@
+import { TitleWrapper } from '@components/index'
 import { MainMenuItem } from '@pages/MainMenu/ui/MainMenuItem'
 import styles from './styles.module.css'
-import { TitleWrapper } from '@components/index'
 
 const TABS = {
 	products: '/adminpanel/products',
 	tasks: '/adminpanel/tasks',
-	users: '/adminpanel/users'
+	users: '/adminpanel/users',
+	places: '/adminpanel/places',
+	reviews: '/adminpanel/reviews'
 }
 
 const AdminPanelWrapper = ({ children }) => {
@@ -25,12 +27,12 @@ const AdminPanelWrapper = ({ children }) => {
 						icon="fi fi-sr-star"
 					/>
 					<MainMenuItem
-						link={TABS.tasks}
+						link={TABS.places}
 						label="Места"
 						icon="fi fi-sr-marker"
 					/>
 					<MainMenuItem
-						link={TABS.tasks}
+						link={TABS.reviews}
 						label="Отзывы"
 						icon="fi fi-sr-comment-heart"
 					/>

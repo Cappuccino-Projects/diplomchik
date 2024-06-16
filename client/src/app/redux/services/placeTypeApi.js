@@ -23,6 +23,22 @@ export const placeTypeApi = createApi({
 		getPlaceById: build.query({
 			query: (id) => `/place/${id}`,
 			providesTags: ['Place']
+		}),
+		addPlace: build.mutation({
+			query: (data) => ({
+				url: `/place`,
+				method: 'POST',
+				body: data
+			}),
+			invalidatesTags: ['Place']
+		}),
+		updatePlaceById: build.mutation({
+			query: ({ id, ...data }) => ({
+				url: `/place/${id}`,
+				method: 'PUT',
+				body: data
+			}),
+			invalidatesTags: ['Place']
 		})
 	})
 })
@@ -31,5 +47,8 @@ export const {
 	useGetPlaceTypeByIdQuery,
 	useGetAllplaceTypesQuery,
 	useGetAllplacesQuery,
-	useGetPlaceByIdQuery
+	useGetPlaceByIdQuery,
+	useAddPlaceMutation,
+	useUpdatePlaceByIdMutation,
+	useDeletePlaceByIdMutation
 } = placeTypeApi
