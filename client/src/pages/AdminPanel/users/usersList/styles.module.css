@@ -1,0 +1,14 @@
+.usersList {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+}
+
+.usersList__message {
+	font-size: 24px;
+	font-weight: 400;
+	line-height: 30px;
+}
