@@ -5,11 +5,11 @@ import InteractiveMap from '../../Components/interactiveMap/interactiveMap'
 import styles from './styles.module.css'
 
 export const Map = () => {
-	const [zoom, setZoom] = useState(20)
+	const [zoom, setZoom] = useState(17)
 	const [isShowMenu, setShowMenu] = useState(true)
 
 	const handleZoomIn = () => {
-		setZoom((prevZoom) => prevZoom + 1)
+		setZoom((prevZoom) => prevZoom < 18 ? prevZoom + 1 : 18)
 	}
 
 	const handleZoomOut = () => {

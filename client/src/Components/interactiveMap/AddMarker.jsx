@@ -9,9 +9,11 @@ import styles from './styles.module.css'
 const AddMarker = ({onClose}) => {
   const dispatch = useDispatch();
 
-  const [title, setTitle] = useState('new place');
+  const [title, setTitle] = useState('Новое место');
   const [latitude, setLatitude] = useState('54.240908');
-  const [longitude, setLongitude] = useState('49.557214');
+    const [longitude, setLongitude] = useState('49.557214');
+    const [type, setType] = useState();
+    const [typeId, setTypeId] = useState(1);
 
 
   const places = useSelector((state) => state.places) || []; // Access places from the store and default to an empty array if it's not an array
@@ -22,7 +24,7 @@ const AddMarker = ({onClose}) => {
     const newMarker = { 
       id: places.length + 1, // Generate a new id based on the length of the places array
       title: title, // Use the title from the state
-      typeId: 1,
+      typeId: typeId,
       address: '',
       latitude: latitude, // Use the latitude from the state
       longitude: longitude, // Use the longitude from the state
@@ -60,6 +62,10 @@ const AddMarker = ({onClose}) => {
       <label className={styles.label}>
         Долгота:
         <input type="number" value={longitude} onChange={(e) => setLongitude(e.target.value)} className={styles.input} />
+      </label><br />
+      <label className={styles.label}>
+        Тип места:
+        <input type="text" value={typeId} onChange={(e) => setTypeId(e.target.value)} className={styles.input}/>
       </label><br />
       <button type="submit" className={styles.button}>Сохранить</button>
       <button type="button" onClick={onClose} className={styles.button}>Отменить</button>

@@ -71,7 +71,7 @@ const handleSubmit = (e) => {
       </label><br />
       <label className={styles.label}>
         Тип места:
-        <input type="text" value={type} onChange={(e) => setType(e.target.value)} className={styles.input}/>
+        <input type="text" value={typeId} onChange={(e) => setTypeId(e.target.value)} className={styles.input}/>
       </label><br />
 
       <button type="submit" className={styles.button}>Сохранить</button>
