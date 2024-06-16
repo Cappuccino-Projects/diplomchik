@@ -13,6 +13,11 @@ export const userApi = createApi({
 			query: (userid) => `/${userid}`,
 			providesTags: ['User']
 		}),
+		// Получить всех user`ов
+		getAllUsers: build.query({
+			query: () => `/`,
+			providesTags: ['User']
+		}),
 		// Изменить данные пользователя по id
 		updateUserInfoById: build.mutation({
 			query: ({ id, ...user }) => ({
@@ -99,6 +104,32 @@ export const userApi = createApi({
 			}),
 			// Теги запроса
 			invalidatesTags: ['User', 'Product']
+		}),
+		// Запрос на добавление пользователя
+		addUser: build.mutation({
+			query: (user) => ({
+				url: '/',
+				method: 'POST',
+				body: user
+			}),
+			invalidatesTags: ['User']
+		}),
+		// Запрос на удаление пользователя
+		deleteUserById: build.mutation({
+			query: (id) => ({
+				url: `/${id}`,
+				method: 'DELETE'
+			}),
+			invalidatesTags: ['User']
+		}),
+		// Запрос на изменение пользователя
+		updateUserById: build.mutation({
+			query: ({ id, user }) => ({
+				url: `/${id}`,
+				method: 'PUT',
+				body: user
+			}),
+			invalidatesTags: ['User']
 		})
 	})
 })
@@ -115,5 +146,9 @@ export const {
 	useGetUserDailyTasksByIdQuery,
 	useUpdateUserDailyTasksByIdMutation,
 	useDeleteUserDailyTaskMutation,
-	useAddUserDailyTasksMutation
+	useAddUserDailyTasksMutation,
+	useAddUserMutation,
+	useGetAllUsersQuery,
+	useDeleteUserByIdMutation,
+	useUpdateUserByIdMutation
 } = userApi
