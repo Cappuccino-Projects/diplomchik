@@ -116,6 +116,11 @@ export const modalsSlice = createSlice({
 			state.modalType = 'EDITUSER'
 			state.isOpen = true
 			state.data.editUser = action.payload
+		},
+		openDeleteReview: (state, action) => {
+			state.modalType = 'DELETEREVIEW'
+			state.isOpen = true
+			state.data.deleteReview = action.payload
 		}
 	}
 })
@@ -143,7 +148,8 @@ export const {
 	openDeletePlace,
 	openAddUser,
 	openDeleteUser,
-	openEditUser
+	openEditUser,
+	openDeleteReview
 } = modalsSlice.actions
 
 export default modalsSlice.reducer

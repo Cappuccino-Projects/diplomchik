@@ -14,6 +14,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { DeleteDailyTask } from './DeleteDailyTask'
 import { DeletePlace } from './DeletePlace'
 import { DeleteProduct } from './DeleteProduct'
+import { DeleteReview } from './DeleteReview'
 import { DeleteUser } from './DeleteUser'
 import { EditDailyTask } from './EditDailyTask'
 import { EditProduct } from './EditProduct'
@@ -69,6 +70,8 @@ export const Modal = () => {
 			{modalType === 'ADDUSER' && <AddUser />}
 			{modalType === 'DELETEUSER' && <DeleteUser />}
 			{modalType === 'EDITUSER' && <EditUser />}
+
+			{modalType === 'DELETEREVIEW' && <DeleteReview />}
 		</ModalWindow>,
 		portal
 	)
