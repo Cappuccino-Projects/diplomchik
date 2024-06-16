@@ -14,10 +14,13 @@ import { useDispatch, useSelector } from 'react-redux'
 import { DeleteDailyTask } from './DeleteDailyTask'
 import { DeletePlace } from './DeletePlace'
 import { DeleteProduct } from './DeleteProduct'
+import { DeleteUser } from './DeleteUser'
 import { EditDailyTask } from './EditDailyTask'
 import { EditProduct } from './EditProduct'
+import { EditUser } from './EditUser'
 import { AddDailyTask } from './addDailyTask'
 import { AddProduct } from './addProduct'
+import { AddUser } from './addUser'
 
 const portal = document.getElementById('portal')
 
@@ -62,6 +65,10 @@ export const Modal = () => {
 			{modalType === 'DELETEPLACE' && <DeletePlace />}
 			{/* {modalType === 'ADDPLACE' && <AddPlace />}
 			{modalType === 'EDITPLACE' && <EditPlace />} */}
+
+			{modalType === 'ADDUSER' && <AddUser />}
+			{modalType === 'DELETEUSER' && <DeleteUser />}
+			{modalType === 'EDITUSER' && <EditUser />}
 		</ModalWindow>,
 		portal
 	)
