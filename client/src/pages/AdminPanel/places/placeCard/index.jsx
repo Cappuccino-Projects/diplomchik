@@ -1,5 +1,5 @@
 import { useGetPlaceTypeByIdQuery } from '@app/redux/services/placeTypeApi'
-import { openAddPlaceToMap } from '@app/redux/slices/modalsSlice'
+import { openAddPlace, openDeletePlace } from '@app/redux/slices/modalsSlice'
 import { Button } from '@components/Button'
 import { getIconPath } from '@shared/api/getIconPath'
 import { useEffect, useState } from 'react'
@@ -9,8 +9,8 @@ import styles from './styles.module.css'
 export const PlaceCard = ({ place }) => {
 	const { typeId, title, address, latitude, longitude, photoPath, typeApplication } = place
 	const dispatch = useDispatch()
-	const openApprove = () => dispatch(openAddPlaceToMap(place))
-	const openDelete = () => dispatch(place)
+	const openAdd = () => dispatch(openAddPlace(place))
+	const openDelete = () => dispatch(openDeletePlace(place))
 	const [type, setType] = useState({})
 	const colorApplication = {
 		добавление: '#caf05f',
@@ -34,7 +34,7 @@ export const PlaceCard = ({ place }) => {
 					Заявка на {typeApplication} места
 				</span>
 				<div className={styles.placeCard__buttons}>
-					<Button variant="icon" icon="fi-sr-checkbox" type="button" onClick={openApprove} />
+					<Button variant="icon" icon="fi-sr-checkbox" type="button" onClick={openAdd} />
 					<Button variant="icon" icon="fi-sr-trash" type="button" onClick={openDelete} />
 				</div>
 			</div>

@@ -1,4 +1,4 @@
--import { createSlice } from '@reduxjs/toolkit'
+import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
 	isOpen: false,
@@ -123,7 +123,10 @@ export const {
 	openDeleteDailyTask,
 	openAddProduct,
 	openEditProduct,
-	openDeleteProduct
+	openDeleteProduct,
+	openAddPlace,
+	openEditPlace,
+	openDeletePlace
 } = modalsSlice.actions
 
 export default modalsSlice.reducer

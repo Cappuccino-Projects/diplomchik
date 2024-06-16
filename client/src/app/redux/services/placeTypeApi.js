@@ -39,6 +39,13 @@ export const placeTypeApi = createApi({
 				body: data
 			}),
 			invalidatesTags: ['Place']
+		}),
+		deletePlaceById: build.mutation({
+			query: ({ id }) => ({
+				url: `/place/${id}`,
+				method: 'DELETE'
+			}),
+			invalidatesTags: ['Place']
 		})
 	})
 })
