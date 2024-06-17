@@ -1,12 +1,12 @@
-﻿import { MapContainer, TileLayer, Marker, Popup, useMap, useMapEvents } from 'react-leaflet'
-import L from 'leaflet'
+﻿import L from 'leaflet'
 import 'leaflet/dist/leaflet.css'
-import { useSelector, useDispatch } from 'react-redux'
-import { selectMarker, deselectMarker } from '../../app/redux/slices/placesSlice' // Import your action
-import { updateMarker } from '../../app/redux/slices/placesSlice'
 import { useEffect } from 'react'
+import { MapContainer, Marker, Popup, TileLayer, useMap, useMapEvents } from 'react-leaflet'
+import { useDispatch, useSelector } from 'react-redux'
+import { deselectMarker, selectMarker, updateMarker } from '../../app/redux/slices/placesSlice'; // Import your action
 // import styles from './styles.module.css'
 import { useGetAllplaceTypesQuery } from '@app/redux/services/placeTypeApi'
+import { setCoordinates } from '@app/redux/slices/mapSlice'
 
 const ChangeView = ({ zoom }) => {
 	const map = useMap()
@@ -19,8 +19,10 @@ const ChangeView = ({ zoom }) => {
 const MapEvents = () => {
 	const dispatch = useDispatch()
 	useMapEvents({
-		click: () => {
+		click: (event) => {
 			dispatch(deselectMarker())
+			const { lat, lng } = event.latlng;
+			dispatch(setCoordinates({ latitude: lat, longitude: lng }))
 		}
 	})
 	return null
@@ -28,7 +30,7 @@ const MapEvents = () => {
 
 const getAssetIconPath = (placeTypeId, placeTypes) => {
 	if (!placeTypes) return ''
-	const type = placeTypes.find((palceType) => palceType.id === placeTypeId)
+	const type = placeTypes.find((placeType) => placeType.id === placeTypeId)
 	return '/img/' + type.icon + '.png'
 }
 

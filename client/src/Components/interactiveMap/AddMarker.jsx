@@ -1,20 +1,23 @@
 // EditMarker.jsx
-import { useGetAllplaceTypesQuery } from '@app/redux/services/placeTypeApi'
+import { useCreateChangeMutation } from '@app/redux/services/changesApi'
+import { useAddPlaceMutation, useGetAllplaceTypesQuery } from '@app/redux/services/placeTypeApi'
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { addPlace, updateUserSuggestions } from '../../app/redux/slices/placesSlice'
 import styles from './styles.module.css'
 
-const AddMarker = ({ onClose }) => {
+const AddMarker = ({ onClose, coordinates }) => {
 	const dispatch = useDispatch()
 
 	const [title, setTitle] = useState('')
-	const [latitude, setLatitude] = useState('54.240908')
-	const [longitude, setLongitude] = useState('49.557214')
+	const [typeId, setTypeId] = useState(0)
 	const [allTypes, setAllTypes] = useState([])
-	const [type, setType] = useState({})
 
-	const places = useSelector((state) => state.places) || [] // Access places from the store and default to an empty array if it's not an array
+	// const places = useSelector((state) => state.places) || [] // Access places from the store and default to an empty array if it's not an array
+	// const userSuggestions = useSelector((state) => state.userSuggestions) 
+	const user = useSelector((state) => state.user.user)
+	const [addMarker] = useAddPlaceMutation()
+	const [createChange] = useCreateChangeMutation()
 
 	const { data: allPlaceTypes = [], isFetching: isFetchingAllPlaceTypes } = useGetAllplaceTypesQuery()
 
@@ -26,39 +29,57 @@ const AddMarker = ({ onClose }) => {
 		}
 	}, [allPlaceTypes, isFetchingAllPlaceTypes])
 
-	const handleSubmit = (e) => {
+	const handleSubmit = async (e) => {
 		e.preventDefault()
 
 		const newMarker = {
-			id: places.length + 1, // Generate a new id based on the length of the places array
 			title: title, // Use the title from the state
-			typeId: 1,
-			address: '',
-			latitude: latitude, // Use the latitude from the state
-			longitude: longitude, // Use the longitude from the state
-			PlaceImage: 'shop.png',
-			photoPath: null,
-			type: null,
-			changeType: 1
+			typeId: typeId,
+			address: null,
+			latitude: coordinates.latitude, // Use the latitude from the state
+			longitude: coordinates.longitude, // Use the longitude from the state
+			photoPath: null
 		}
 
-		dispatch(addPlace(newMarker))
-		dispatch(updateUserSuggestions(newMarker))
+		try {
+			const result = await addMarker(newMarker).unwrap()
+			dispatch(addPlace(result))
 
+			await createChange({
+				userId: user.id,
+				placeId: result.id,
+				approverId: 2,
+				typeId: 1,
+				timestamp: new Date()
+			}).unwrap()
+
+			dispatch(updateUserSuggestions(result))
+
+		} catch(error) {
+			console.log('fail')
+		} 
 		// Clear the input fields
 		setTitle('')
-		setLatitude('')
-		setLongitude('')
 	}
 
-	const handleSubmitAndClose = (e) => {
+	const handleSubmitAndClose = async (e) => {
 		e.preventDefault()
-		handleSubmit(e)
+		await handleSubmit(e)
 		onClose()
 	}
 
+	if (coordinates.latitude === null || coordinates.latitude === undefined 
+		|| coordinates.longitude === null || coordinates.longitude === undefined) {
+		return <div className={styles.addMarker__notFoundPlace}>
+			<h2>Пожалуйста выберите место на карте</h2>
+			<button type="button" onClick={onClose} className={styles.button}>
+				Закрыть
+			</button>
+		</div>;
+	}
+
 	return (
-		<form onSubmit={handleSubmitAndClose} className={styles.form}>
+			<form onSubmit={handleSubmitAndClose} className={styles.form}>
 			<label className={styles.label}>
 				Название:
 				<input type="text" value={title} onChange={(e) => setTitle(e.target.value)} className={styles.input} />
@@ -66,17 +87,17 @@ const AddMarker = ({ onClose }) => {
 			<br />
 			<label className={styles.label}>
 				Широта:
-				<input type="number" value={latitude} onChange={(e) => setLatitude(e.target.value)} className={styles.input} />
+				<input type="number" value={coordinates.latitude} className={styles.input} readOnly />
 			</label>
 			<br />
 			<label className={styles.label}>
 				Долгота:
-				<input type="number" value={longitude} onChange={(e) => setLongitude(e.target.value)} className={styles.input} />
+				<input type="number" value={coordinates.longitude} className={styles.input} readOnly />
 			</label>
 			<br />
 			<label className={styles.label}>
 				Тип места:
-				<select value={type} onChange={(e) => setType(e.target.value)} className={styles.select}>
+				<select value={typeId} onChange={(e) => setTypeId(e.target.value)} className={styles.select}>
 					<option value="">Выберите тип места</option>
 					{allTypes.map((type) => (
 						<option key={type.id} value={type.id} className={styles.option}>
