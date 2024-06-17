@@ -1,0 +1,130 @@
+.placeCard {
+	width: 498px;
+	background-color: #ffffff;
+	border: 1px solid #0000001a;
+	display: flex;
+	flex-direction: column;
+	gap: 15px;
+	padding: 15px;
+	font-family: Onest;
+	border-radius: 5px;
+	height: 100%;
+}
+
+.placeCard__header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	> .placeCard__title {
+		font-family: Onest;
+		font-weight: 400;
+		font-size: 16px;
+		line-height: 20px;
+		padding-inline: 15px;
+		padding-block: 10px;
+		border-radius: 40px;
+	}
+}
+
+.placeCard__buttons {
+	display: flex;
+	gap: 10px;
+	justify-content: center;
+}
+
+.placeCard__description {
+	width: 100%;
+	height: 100%;
+	border: 1px solid #0000001a;
+	background-color: #ffffff;
+	border-radius: 5px;
+	display: grid;
+	grid-template-columns: 70px auto;
+	gap: 10px;
+	padding-inline: 15px;
+	padding-block: 10px;
+}
+
+.placeCard__image {
+	width: 100%;
+	height: 100%;
+	border-radius: 5px;
+	object-fit: cover;
+
+	> img {
+		width: 70px;
+		height: 70px;
+		border-radius: 5px;
+		object-fit: cover;
+	}
+}
+
+.placeCard__info {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+
+	> .placeCard__title {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		font-weight: 700;
+		font-size: 16px;
+		line-height: 20px;
+		color: #000000;
+	}
+}
+.placeCard__titleText {
+	font-weight: 700;
+	font-size: 16px;
+	line-height: 20px;
+	color: #000000;
+}
+
+.placeCard__type {
+	padding-inline: 10px;
+	padding-block: 5px;
+	border-radius: 30px;
+	background: #f3f3f3;
+	display: flex;
+	align-items: center;
+	gap: 5px;
+	font-family: 'Onest';
+	font-weight: 400;
+	font-size: 12px;
+	line-height: 12px;
+}
+
+.placeCard__typeIcon {
+	width: 15px;
+	height: 15px;
+}
+
+.placeCard__placeInfo {
+	font-weight: 400;
+	font-size: 13px;
+}
+
+.placeCard__address {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	font-size: 12px;
+	font-weight: 400;
+	line-height: 15px;
+	color: #000000;
+
+	> span {
+		padding-inline: 10px;
+		padding-block: 5px;
+		border-radius: 30px;
+		background: #f3f3f3;
+		display: flex;
+		align-items: center;
+		gap: 5px;
+		font-family: 'Onest';
+		font-weight: 400;
+		font-size: 12px;
+		line-height: 12px;
+	}
+}

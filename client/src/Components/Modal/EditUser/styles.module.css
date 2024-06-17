@@ -1,0 +1,106 @@
+.EditUser {
+	display: flex;
+  flex-direction: column;
+  gap: 10px;
+	font-family: Onest;
+  width: 350px;
+}
+
+.EditUser__title {
+	font-weight: 500;
+	font-size: 20px;
+	line-height: 25px;
+	margin-bottom: 10px;
+}
+
+.EditUser__fields {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+	font-size: 15px;
+	line-height: 19px;
+	width: 100%;
+}
+
+.EditUser__input {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+	width: 100%;
+}
+
+.EditUser__fileInput {
+	display: flex;
+	gap: 10px;
+}
+
+.EditUser__fileInput label {
+	height: 45px;
+	text-align: center;
+	line-height: 24px;
+	width: 100%;
+	padding: 10px;
+	background-color: #F9F9F9;
+	border: 1px solid #0000001A;
+	border-radius: 5px;
+	flex-shrink: 1;
+}
+
+.EditUser__preview {
+	width: 90px;
+	height: 90px;
+	background-color: #F9F9F9;
+	border: 1px solid #0000001A;
+	box-sizing: border-box;
+	border-radius: 5px;
+	flex-shrink: 0;
+	flex-grow: 1;
+	display: flex;
+	justify-self: center;
+	align-items: center;
+}
+
+.EditUser__preview>img {
+	max-width: 90px;
+	max-height: 90px;
+}
+
+.EditUser__fileInput input {
+	display: none;
+}
+
+.EditUser__input>input {
+	background: #F9F9F9;
+	border: 1px solid #0000001A;
+	border-radius: 5px;
+	padding: 8px;
+	font-size: 15px;
+	line-height: 19px;
+}
+
+.EditUser__buttons {
+	display: flex;
+	gap: 10px
+}
+
+.EditUser__button {
+	width: 100%;
+	font-size: 15px;
+}
+
+
+.EditUser__select {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+	width: 100%;
+}
+
+.EditUser__select select {
+	background: #F9F9F9;
+	border: 1px solid #0000001A;
+	border-radius: 5px;
+	padding: 8px;
+	font-size: 15px;
+	line-height: 19px;
+}

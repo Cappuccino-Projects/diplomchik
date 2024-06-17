@@ -1,0 +1,19 @@
+.placesList {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	display: grid;
+	grid-template-rows: 202px 202px 202px;
+	gap: 21px;
+}
+
+.placesList__message {
+	font-size: 24px;
+	font-weight: 400;
+	line-height: 30px;
+}
+/* 
+.placesList__item {
+	width: 498px;
+	height: 202px;
+} */

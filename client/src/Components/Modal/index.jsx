@@ -1,22 +1,27 @@
+import { BadPassword } from '@components/Modal/BadPassword'
+import { BadPasswordRepeat } from '@components/Modal/BadPasswordRepeat'
+import { BuyConfirm } from '@components/Modal/BuyConfirm'
+import { DailyTaskCompleted } from '@components/Modal/DailyTaskCompleted'
+import { EditReviewModal } from '@components/Modal/EditReviewModal'
+import { GetRewards } from '@components/Modal/GetRewards'
+import { Logout } from '@components/Modal/Logout'
+import { ModalWindow } from '@components/Modal/ModalWindow'
+import { RewardsNotAvalible } from '@components/Modal/RewardsNotAvalible'
 import { closeModal } from '@redux/slices/modalsSlice'
 import { useCallback } from 'react'
 import ReactDOM from 'react-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { BuyConfirm } from '@components/Modal/BuyConfirm'
-import { GetRewards } from '@components/Modal/GetRewards'
-import { ModalWindow } from '@components/Modal/ModalWindow'
-import { Logout } from '@components/Modal/Logout'
-import { BadPassword } from '@components/Modal/BadPassword'
-import { BadPasswordRepeat } from '@components/Modal/BadPasswordRepeat'
-import { RewardsNotAvalible } from '@components/Modal/RewardsNotAvalible'
-import { EditReviewModal } from '@components/Modal/EditReviewModal'
-import { DailyTaskCompleted } from '@components/Modal/DailyTaskCompleted'
-import { EditDailyTask } from './EditDailyTask'
 import { DeleteDailyTask } from './DeleteDailyTask'
-import { EditProduct } from './EditProduct'
+import { DeletePlace } from './DeletePlace'
 import { DeleteProduct } from './DeleteProduct'
+import { DeleteReview } from './DeleteReview'
+import { DeleteUser } from './DeleteUser'
+import { EditDailyTask } from './EditDailyTask'
+import { EditProduct } from './EditProduct'
+import { EditUser } from './EditUser'
 import { AddDailyTask } from './addDailyTask'
 import { AddProduct } from './addProduct'
+import { AddUser } from './addUser'
 
 const portal = document.getElementById('portal')
 
@@ -57,6 +62,16 @@ export const Modal = () => {
 			{modalType === 'EDITPRODUCT' && <EditProduct />}
 			{modalType === 'DELETEPRODUCT' && <DeleteProduct />}
 			{modalType === 'ADDPRODUCT' && <AddProduct />}
+
+			{modalType === 'DELETEPLACE' && <DeletePlace />}
+			{/* {modalType === 'ADDPLACE' && <AddPlace />}
+			{modalType === 'EDITPLACE' && <EditPlace />} */}
+
+			{modalType === 'ADDUSER' && <AddUser />}
+			{modalType === 'DELETEUSER' && <DeleteUser />}
+			{modalType === 'EDITUSER' && <EditUser />}
+
+			{modalType === 'DELETEREVIEW' && <DeleteReview />}
 		</ModalWindow>,
 		portal
 	)

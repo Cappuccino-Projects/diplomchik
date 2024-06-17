@@ -88,6 +88,39 @@ export const modalsSlice = createSlice({
 			state.modalType = 'DELETEPRODUCT'
 			state.isOpen = true
 			state.data.deleteProduct = action.payload
+		},
+		openAddPlace: (state) => {
+			state.modalType = 'ADDPLACE'
+			state.isOpen = true
+		},
+		openEditPlace: (state, action) => {
+			state.modalType = 'EDITPLACE'
+			state.isOpen = true
+			state.data.editPlace = action.payload
+		},
+		openDeletePlace: (state, action) => {
+			state.modalType = 'DELETEPLACE'
+			state.isOpen = true
+			state.data.deletePlace = action.payload
+		},
+		openAddUser: (state) => {
+			state.modalType = 'ADDUSER'
+			state.isOpen = true
+		},
+		openDeleteUser: (state, action) => {
+			state.modalType = 'DELETEUSER'
+			state.isOpen = true
+			state.data.deleteUser = action.payload
+		},
+		openEditUser: (state, action) => {
+			state.modalType = 'EDITUSER'
+			state.isOpen = true
+			state.data.editUser = action.payload
+		},
+		openDeleteReview: (state, action) => {
+			state.modalType = 'DELETEREVIEW'
+			state.isOpen = true
+			state.data.deleteReview = action.payload
 		}
 	}
 })
@@ -109,7 +142,14 @@ export const {
 	openDeleteDailyTask,
 	openAddProduct,
 	openEditProduct,
-	openDeleteProduct
+	openDeleteProduct,
+	openAddPlace,
+	openEditPlace,
+	openDeletePlace,
+	openAddUser,
+	openDeleteUser,
+	openEditUser,
+	openDeleteReview
 } = modalsSlice.actions
 
 export default modalsSlice.reducer

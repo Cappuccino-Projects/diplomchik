@@ -1,0 +1,11 @@
+.places {
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+}
+
+.places__title {
+	font-size: 24px;
+	font-weight: 400;
+	line-height: 30px;
+}

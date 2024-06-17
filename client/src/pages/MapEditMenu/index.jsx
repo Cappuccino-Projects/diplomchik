@@ -7,12 +7,13 @@ import {
 import { Link } from 'react-router-dom'
 import styles from './styles.module.css'
 
-import { useState } from 'react'
-// import { useDispatch, useSelector } from 'react-redux'
 import AddMarker from '@components/interactiveMap/AddMarker'
 import EditMarker from '@components/interactiveMap/EditMarker'
 import RemoveMarker from '@components/interactiveMap/RemoveMarker'
+import { useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 
+import { resetCoordinates } from '@app/redux/slices/mapSlice'
 import { ModalWindow } from '@components/Modal/ModalWindow'
 
 export const MapEditMenu = (props) => {
@@ -20,7 +21,11 @@ export const MapEditMenu = (props) => {
 	const [showEditMarker, setShowEditMarker] = useState(false)
 	const [showRemoveMarker, setShowRemoveMarker] = useState(false)
 
+	const dispatch = useDispatch()
+	const coordinates = useSelector((state) => state.map.coordinates)
+
 	const handleAddClose = () => {
+		dispatch(resetCoordinates())
 		setShowAddMarker(false)
 	}
 
@@ -51,7 +56,7 @@ export const MapEditMenu = (props) => {
 						<p>{showAddMarker ? 'Добавить объект' : 'Добавить объект'}</p>
 					</div>
 					<ModalWindow isOpen={showAddMarker}>
-						<AddMarker onClose={handleAddClose} />
+						<AddMarker onClose={handleAddClose} coordinates={coordinates} />
 					</ModalWindow>
 				</div>
 

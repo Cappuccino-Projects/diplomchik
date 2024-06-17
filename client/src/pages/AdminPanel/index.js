@@ -1,3 +1,5 @@
+export { Places } from './places'
 export { Products } from './products'
+export { Reviews } from './reviews'
 export { Tasks } from './tasks'
 export { Users } from './users'

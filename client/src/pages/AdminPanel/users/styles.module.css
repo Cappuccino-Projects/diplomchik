@@ -1,16 +1,16 @@
-.tasks {
+.users {
     display: flex;
     flex-direction: column;
     gap: 20px;
 }
 
-.tasks__title {
+.users__title {
     font-size: 24px;
     font-weight: 400;
     line-height: 30px;
 }
 
-.tasks__button {
+.users__button {
     align-self: flex-start;
 }
 
