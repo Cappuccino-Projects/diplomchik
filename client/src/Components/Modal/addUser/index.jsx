@@ -1,6 +1,7 @@
 import { useGetAllCityQuery } from '@app/redux/services/cityApi'
-import { useAddUserMutation } from '@app/redux/services/userApi'
+import { useRegisterMutation } from '@app/redux/services/registrationApi'
 import { closeModal } from '@app/redux/slices/modalsSlice'
+import { addUser } from '@app/redux/slices/userSlice'
 import { Button } from '@components/Button'
 import { getIconPath } from '@shared/api/getIconPath'
 import { uploadFile } from '@shared/api/uploadFile'
@@ -11,7 +12,7 @@ import styles from './styles.module.css'
 export const AddUser = () => {
 	const { data: allCities = [], isFetching: isFetchingCities } = useGetAllCityQuery()
 	const dispatch = useDispatch()
-	const [createUser] = useAddUserMutation()
+	const [createUser] = useRegisterMutation()
 
 	const [displayName, setDisplayName] = useState('')
 	const [login, setLogin] = useState('')
@@ -40,14 +41,16 @@ export const AddUser = () => {
 
 	const onSubmit = (e) => {
 		e.preventDefault()
-		createUser({
+		const data = {
 			login: login,
 			displayName: displayName,
 			email: email,
 			cityId: cityId,
 			password: password,
-			avatar: file
-		})
+			confirmPassword: password
+		}
+		createUser(data)
+		dispatch(addUser(data))
 		onClose()
 	}
 
