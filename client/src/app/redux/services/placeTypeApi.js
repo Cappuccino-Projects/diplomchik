@@ -33,10 +33,10 @@ export const placeTypeApi = createApi({
 			invalidatesTags: ['Place']
 		}),
 		updatePlaceById: build.mutation({
-			query: ({ id, ...data }) => ({
-				url: `/place/${id}`,
+			query: (data) => ({
+				url: `/place/${data.id}`,
 				method: 'PUT',
-				body: data
+				body: data.data
 			}),
 			invalidatesTags: ['Place']
 		}),

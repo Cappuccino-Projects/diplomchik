@@ -1,13 +1,17 @@
-import { useState, useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useCreateChangeMutation } from '@redux/services/changesApi'
+import { useGetAllplaceTypesQuery, useGetPlaceTypeByIdQuery } from '@redux/services/placeTypeApi'
+import { updatePlaceAsync } from '@redux/slices/placesSlice'
+import { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 
-import { updateUserSuggestions } from '../../app/redux/slices/placesSlice';
+import { updateUserSuggestions } from '@redux/slices/placesSlice'
 import styles from './styles.module.css'
 
-const EditMarker = ({onClose}) => {
+const EditMarker = ({ onClose }) => {
   const dispatch = useDispatch();
 
   const selectedMarker = useSelector((state) => state.places.selectedMarker);
+  const user = useSelector((state) => state.user.user)
 
   const [latitude, setLatitude] = useState(selectedMarker?.latitude || '');
   const [longitude, setLongitude] = useState(selectedMarker?.longitude || '');
@@ -15,6 +19,13 @@ const EditMarker = ({onClose}) => {
   const [title, setTitle] = useState(selectedMarker?.title || '');
   const [type, setType] = useState(selectedMarker?.type || '');
   const [typeId, setTypeId] = useState(selectedMarker?.typeId || '');
+  const [allTypes, setAllTypes] = useState([]);
+  const [initialPlaceType, setInitialPlaceType] = useState('');
+
+  const { data: allPlaceTypes = [], isFetching: isFetchingAllPlaceTypes } = useGetAllplaceTypesQuery()
+  const { data: placeType = {}, isFetching: isFetching } = useGetPlaceTypeByIdQuery(typeId)
+
+  const [createChange] = useCreateChangeMutation();
 
   useEffect(() => {
     if (selectedMarker) {
@@ -27,28 +38,60 @@ const EditMarker = ({onClose}) => {
     }
   }, [selectedMarker]);
 
-const handleSubmit = (e) => {
+	useEffect(() => {
+		if (!isFetchingAllPlaceTypes) {
+			setAllTypes(allPlaceTypes)
+		} else {
+			setAllTypes([])
+		}
+	}, [allPlaceTypes, isFetchingAllPlaceTypes])
+
+  useEffect(() => {
+		if (!isFetching) {
+			setInitialPlaceType(placeType)
+		} else {
+			setInitialPlaceType('')
+		}
+	}, [isFetching, placeType])
+
+const handleSubmit = async (e) => {
   e.preventDefault();
 
   const updatedPlace = {
     id: selectedMarker.id, 
-    title,
-    typeId,
-    address,
-    latitude, 
-    longitude,
-    type,
-    changeType: 2,
+    title: title,
+    typeId: typeId,
+    address: address,
+    latitude: latitude, 
+    longitude: longitude,
+    photoPath: null
   };
 
+  try {
+    const actionResult = dispatch(updatePlaceAsync(updatedPlace));
+    const result = await actionResult;
 
-  dispatch(updateUserSuggestions(updatedPlace));
+    await createChange({
+      userId: user.id,
+      approverId: 2,
+      placeId: updatedPlace.id, 
+      typeId: 2,
+      timestamp: new Date()
+    }).unwrap()
+
+    dispatch(updateUserSuggestions(result))
+  } catch(error) {
+    console.log('fail')
+  }
+  
 };
-  const handleSubmitAndClose = (e) => {
+  const handleSubmitAndClose = async (e) => {
     e.preventDefault();
-    handleSubmit(e);
+    await handleSubmit(e);
     onClose();
   };
+
+  const filteredTypes = allTypes.filter((type) => type.id !== initialPlaceType.id)
 
   return (
     <form onSubmit={handleSubmitAndClose} className={styles.form} >
@@ -71,7 +114,14 @@ const handleSubmit = (e) => {
       </label><br />
       <label className={styles.label}>
         Тип места:
-        <input type="text" value={typeId} onChange={(e) => setTypeId(e.target.value)} className={styles.input}/>
+        <select value={typeId} onChange={(e) => setTypeId(e.target.value)} className={styles.select}>
+          <option value={initialPlaceType.id}>{initialPlaceType.name}</option>
+          {filteredTypes.map((type) => (
+            <option key={type.id} value={type.id}>
+              {type.name}
+            </option>
+          ))}
+        </select>
       </label><br />
 
       <button type="submit" className={styles.button}>Сохранить</button>
