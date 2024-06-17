@@ -27,11 +27,11 @@ const RemoveMarker = ({ onClose }) => { // Add props parameter here
     if (markerToRemove) {
       const updatedMarker = {
         ...markerToRemove,
-        typeChange: 3, 
+        changeType: 3
       };
       console.log(updatedMarker);
       try {
-        const result = await removeMarker({ id: markerToRemove.id }).unwrap();
+        const result = await removeMarker({ id: markerToRemove.id });
         dispatch(removePlace(result))
         
         await createChange({
