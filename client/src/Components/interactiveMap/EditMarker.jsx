@@ -93,6 +93,15 @@ const handleSubmit = async (e) => {
 
   const filteredTypes = allTypes.filter((type) => type.id !== initialPlaceType.id)
 
+  if (selectedMarker === null || selectedMarker === undefined) {
+    return <div className={styles.addMarker__notFoundPlace}>
+			<h2>Пожалуйста выберите объект на карте</h2>
+			<button type="button" onClick={onClose} className={styles.button}>
+				Закрыть
+			</button>
+		</div>;
+  }
+
   return (
     <form onSubmit={handleSubmitAndClose} className={styles.form} >
       <label className={styles.label}>
