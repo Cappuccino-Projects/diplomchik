@@ -1,10 +1,9 @@
 import { useCreateChangeMutation } from '@redux/services/changesApi'
-import { useGetAllplaceTypesQuery, useGetPlaceTypeByIdQuery } from '@redux/services/placeTypeApi'
-import { updatePlaceAsync } from '@redux/slices/placesSlice'
+import { useGetAllplaceTypesQuery, useGetPlaceTypeByIdQuery, useUpdatePlaceByIdMutation } from '@redux/services/placeTypeApi'
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
-import { updateUserSuggestions } from '@redux/slices/placesSlice'
+import { updatePlace, updateUserSuggestions } from '@redux/slices/placesSlice'
 import styles from './styles.module.css'
 
 const EditMarker = ({ onClose }) => {
@@ -26,6 +25,7 @@ const EditMarker = ({ onClose }) => {
   const { data: placeType = {}, isFetching: isFetching } = useGetPlaceTypeByIdQuery(typeId)
 
   const [createChange] = useCreateChangeMutation();
+  const [updateMarker] = useUpdatePlaceByIdMutation()
 
   useEffect(() => {
     if (selectedMarker) {
@@ -54,37 +54,51 @@ const EditMarker = ({ onClose }) => {
 		}
 	}, [isFetching, placeType])
 
-const handleSubmit = async (e) => {
-  e.preventDefault();
-
-  const updatedPlace = {
-    id: selectedMarker.id, 
-    title: title,
-    typeId: typeId,
-    address: address,
-    latitude: latitude, 
-    longitude: longitude,
-    photoPath: null
-  };
-
-  try {
-    const actionResult = dispatch(updatePlaceAsync(updatedPlace));
-    const result = await actionResult;
-
-    await createChange({
-      userId: user.id,
-      approverId: 2,
-      placeId: updatedPlace.id, 
-      typeId: 2,
-      timestamp: new Date()
-    }).unwrap()
-
-    dispatch(updateUserSuggestions(result))
-  } catch(error) {
-    console.log('fail')
-  }
+  const handleSubmit = async (e) => {
+    e.preventDefault();
   
-};
+    const updatedPlace = {
+      id: selectedMarker.id, 
+      title: title,
+      typeId: typeId,
+      address: address,
+      latitude: latitude, 
+      longitude: longitude,
+      photoPath: null,
+      changeType: 2,
+      type: type
+    };
+  
+    try {
+      // Логирование до вызова updateMarker
+      console.log('Calling updateMarker with:', updatedPlace);
+      const actionResult = await updateMarker(updatedPlace);
+      
+      // Логирование после получения результата
+      console.log('updateMarker result:', actionResult);
+      dispatch(updatePlace(actionResult));
+  
+      // Логирование до вызова createChange
+      const changeData = {
+        userId: user.id,
+        approverId: 2,
+        placeId: updatedPlace.id, 
+        typeId: 2,
+        timestamp: new Date()
+      };
+      console.log('Calling createChange with:', changeData);
+      await createChange(changeData).unwrap();
+      
+      // Логирование после создания change
+      console.log('createChange successful');
+      dispatch(updateUserSuggestions(actionResult));
+  
+    } catch(error) {
+      // Логирование ошибки
+      console.error('Error:', error);
+      console.log('fail');
+    }
+  };
   const handleSubmitAndClose = async (e) => {
     e.preventDefault();
     await handleSubmit(e);
