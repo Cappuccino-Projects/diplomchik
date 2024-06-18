@@ -1,14 +1,14 @@
 import { CharacterCard, DailyTasks } from '@components'
 import { useState } from 'react'
-import { Outlet } from 'react-router-dom'
+import { useSelector } from 'react-redux'
+import { Link, Outlet, useLocation } from 'react-router-dom'
 import InteractiveMap from '../../Components/interactiveMap/interactiveMap'
 import styles from './styles.module.css'
-import { Link } from 'react-router-dom'
 
 export const Map = () => {
 	const [zoom, setZoom] = useState(17)
 	const [isShowMenu, setShowMenu] = useState(true)
-
+	const user = useSelector((state) => state.user.user)
 	const handleZoomIn = () => {
 		setZoom((prevZoom) => prevZoom < 18 ? prevZoom + 1 : 18)
 	}
@@ -17,6 +17,10 @@ export const Map = () => {
 		setZoom((prevZoom) => (prevZoom > 0 ? prevZoom - 1 : 0))
 	}
 
+	const location = useLocation()
+	if (user.isAdmin && location.pathname.startsWith('/adminpanel/')) {
+		return null
+	}
 	return (
 		<>
 			<div
