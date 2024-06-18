@@ -42,6 +42,9 @@
 }
 
 .ModalWindowText {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
 	line-height: 150%;
 }
 
@@ -106,14 +109,19 @@
 }
 
 .LocationCardImage {
-	width: 31%;
-	height: 150px;
+	width: 40%;
+	height: 160px;
 
 	border-radius: 5px;
 	position: relative;
 
 	background-color: #ededed;
 	overflow: hidden;
+}
+
+.LocationCardImageWrapper {
+	display: flex;
+	gap: 15px;
 }
 
 .LocationImage {

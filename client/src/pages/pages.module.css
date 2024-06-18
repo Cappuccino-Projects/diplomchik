@@ -85,7 +85,7 @@
 	color: #909090;
 	display: inline-flex;
 	cursor: pointer;
-
+	margin-left: 80%;
 	transition: all 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
 }
 
@@ -283,7 +283,7 @@
   
 	.MenuWrapper {
 	  width: 100%;
-	  padding-left: 10px;
+	  padding-left: 50px;
 	}
   
 	.PlaceIconWrapper{

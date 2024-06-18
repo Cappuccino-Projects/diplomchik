@@ -26,6 +26,8 @@ export const FavoritePlacesList = ({ userId }) => {
 
 	if (error) return <div className={styles.FavoritePlaceList__error}>Произошла ошибка!</div>
 
+	if (favorites.length === 0) return <div className={styles.FavoritePlaceList__empty}>Список избранных пуст!</div>
+
 	return (
 		<ul className={styles.FavoritePlaceList}>
 			{favorites.map((favorite, index) => (
