@@ -1,6 +1,7 @@
 import { useGetAllCityQuery } from '@app/redux/services/cityApi'
 import { useUploadImageMutation } from '@app/redux/services/uploadApi'
 import { useUpdateUserInfoByIdMutation } from '@app/redux/services/userApi'
+import { update1User } from '@app/redux/slices/userSlice'
 import { openBadPassword, openLogout } from '@redux/slices/modalsSlice'
 import { getIconPath } from '@shared/api/getIconPath'
 import { useEffect, useState } from 'react'
@@ -30,7 +31,7 @@ export const Settings = () => {
 	const [displayNameInput, setDisplayNameInput] = useState('')
 	const [loginInput, setLoginInput] = useState('')
 	const [emailInput, setEmailInput] = useState('')
-	const [selectedCity, setSelectedCity] = useState('')
+	const [selectedCity, setSelectedCity] = useState(1)
 	const [password, setPassword] = useState('')
 	// // Безопасность
 	const [passwordInput, setPasswordInput] = useState('')
@@ -47,18 +48,41 @@ export const Settings = () => {
 		setPassword(user.passwordHash)
 	}, [user])
 
-	const saveBasicInformationChanges = async () => {
+	const saveBasicInformationChanges = () => {
 		const newUser = {
-			...user,
-			displayName: displayNameInput,
-			login: loginInput,
-			email: emailInput,
-			cityId: selectedCity
+			id: user.id,
+			user: {
+				login: loginInput,
+				displayName: displayNameInput,
+				email: emailInput,
+				passwordHash: user.passwordHash,
+				cityId: selectedCity,
+				avatarPath: user.avatarPath,
+				isAdmin: user.isAdmin,
+				themeId: user.themeId,
+				rankId: user.rankId,
+				experience: user.experience,
+				balance: user.balance
+			}
 		}
-		await updateUserInfo(newUser)
+		updateUserInfo(newUser)
+		dispatch(update1User({
+			id: user.id,
+			login: loginInput,
+			displayName: displayNameInput,
+			email: emailInput,
+			passwordHash: user.passwordHash,
+			cityId: selectedCity,
+			avatarPath: user.avatarPath,
+			isAdmin: user.isAdmin,
+			themeId: user.themeId,
+			rankId: user.rankId,
+			experience: user.experience,
+			balance: user.balance
+		}))
 	}
 
-	const savePasswordChanges = async () => {
+	const savePasswordChanges = () => {
 		if (
 			password === passwordInput &&
 			newPassword1Input === newPassword2Input &&
@@ -68,7 +92,7 @@ export const Settings = () => {
 				...user,
 				passwordHash: password
 			}
-			await updateUserInfo(newUser)
+			updateUserInfo(newUser)
 		} else {
 			dispatch(openBadPassword())
 		}
@@ -133,7 +157,7 @@ export const Settings = () => {
 				<select
 					className={styles.MenuDropDown}
 					value={selectedCity}
-					onChange={(e) => console.log(e.target.value)}
+					onChange={(e) => setSelectedCity(e.target.value)}
 				>
 					{cityList.map((choice) => (
 						<option key={choice.id} value={choice.id}>

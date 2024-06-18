@@ -20,7 +20,7 @@ export const userApi = createApi({
 		}),
 		// Изменить данные пользователя по id
 		updateUserInfoById: build.mutation({
-			query: ({ id, ...user }) => ({
+			query: ({ id, user }) => ({
 				url: `/${id}`,
 				method: 'PUT',
 				body: user

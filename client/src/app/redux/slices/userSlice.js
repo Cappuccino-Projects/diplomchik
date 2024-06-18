@@ -12,6 +12,9 @@ export const userSlice = createSlice({
 		setUser: (state, action) => {
 			state.user = action.payload
 		},
+		update1User: (state, action) => {
+			state.user = action.payload
+		},
 		addUsers: (state, action) => {
 			state.usersList = action.payload
 		},
@@ -28,6 +31,6 @@ export const userSlice = createSlice({
 	},
 })
 
-export const { setUser, addUsers, deleteUser, addUser, updateUser } = userSlice.actions
+export const { setUser, addUsers, deleteUser, addUser, updateUser, update1User } = userSlice.actions
 
 export default userSlice.reducer
