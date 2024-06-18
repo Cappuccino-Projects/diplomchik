@@ -23,32 +23,7 @@ export const Map = () => {
 	}
 
 	if (location.pathname.startsWith('/info')) {
-		return (
-			<>
-				<div
-				className={styles.MenuWrapper}
-				style={{
-					left: isShowMenu ? '0' : '-100%',
-					transition: 'all 0.5s ease-in-out'
-				}}
-			>
-				<button
-					className={styles.MinimizeButton}
-					onClick={() => setShowMenu(false)}
-				>
-					<i className="fi-sr-angle-double-left" />
-				</button>
-				<Outlet />
-			</div>
-
-			<div
-				className={styles.ExpandMenuButton}
-				onClick={() => setShowMenu(true)}
-			>
-				<i className="fi fi-sr-angle-double-right" />
-			</div>
-			</>
-		)
+		return null
 	}
 
 	if (location.pathname.startsWith('/profile/settings')) {
