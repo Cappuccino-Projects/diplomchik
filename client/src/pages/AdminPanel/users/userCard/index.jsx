@@ -27,7 +27,7 @@ export const UserCard = ({ user }) => {
 			<div className={styles.userCard__header}>
 				<div className={styles.userCard__info}>
 					<div className={styles.userCard__avatar}>
-						<img src={getIconPath(avatarPath)} alt="avatar" className={styles.userCard__image} />
+						<img src={getIconPath(avatarPath ?? 'default-avatar')} alt="avatar" className={styles.userCard__image} />
 					</div>
 					<div className={styles.userCard__name}>
 						<div className={styles.userCard__displayName}>{displayName}</div>
