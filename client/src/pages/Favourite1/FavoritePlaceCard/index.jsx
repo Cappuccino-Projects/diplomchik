@@ -11,7 +11,7 @@ export const FavoritePlaceCard = ({ favorite, review }) => {
 	<div className={styles.LocationCardTitleWrapper}>
 		<b className={styles.LocationCardName}>{place.title ? place.title : 'Нет названия'}</b>
 
-		<p className={styles.LocationCardRating}> {review.rank ? `★ ${review.rank}` : 'Без рейтинга'}</p>
+		<p className={styles.LocationCardRating}> {review?.rank ? `★ ${review.rank}` : 'Без рейтинга'}</p>
 
 		{/* <button className={styles.CardEditButton}> Ред. </button> */}
 	</div>
@@ -25,6 +25,6 @@ export const FavoritePlaceCard = ({ favorite, review }) => {
 			Координаты: {place.latitude ? place.latitude : ''},{place.longitude ? place.longitude : ''}
 		</p>
 	)}
-	<p className="LocationCardInfo">{review.comment ? review.comment : ''}</p>
+	<p className="LocationCardInfo">{review?.comment ? review.comment : ''}</p>
 </div>
 }
