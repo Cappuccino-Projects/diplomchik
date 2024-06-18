@@ -135,6 +135,13 @@ export const userApi = createApi({
 		getFavoritesByUserId: build.query({
 			query: (userId) => `/${userId}/favorites`,
 			providesTags: ['User', 'Favorite']
+		}),
+		addFavoriteByUserId: build.mutation({
+			query: ({ userId, placeId }) => ({
+				url: `/${userId}/favorites?placeId=${placeId}`,
+				method: 'POST'
+			}),
+			invalidatesTags: ['User', 'Favorite']
 		})
 	})
 })
@@ -156,5 +163,6 @@ export const {
 	useGetAllUsersQuery,
 	useDeleteUserByIdMutation,
 	useUpdateUserByIdMutation,
-	useGetFavoritesByUserIdQuery
+	useGetFavoritesByUserIdQuery,
+	useAddFavoriteByUserIdMutation
 } = userApi

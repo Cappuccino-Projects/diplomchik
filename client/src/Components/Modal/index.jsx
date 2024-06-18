@@ -20,6 +20,7 @@ import { EditDailyTask } from './EditDailyTask'
 import { EditProduct } from './EditProduct'
 import { EditUser } from './EditUser'
 import { AddDailyTask } from './addDailyTask'
+import { AddFavoriteModal } from './addFavoriteModal'
 import { AddProduct } from './addProduct'
 import { AddUser } from './addUser'
 
@@ -72,6 +73,7 @@ export const Modal = () => {
 			{modalType === 'EDITUSER' && <EditUser />}
 
 			{modalType === 'DELETEREVIEW' && <DeleteReview />}
+			{modalType === 'ADDFAVORITE' && <AddFavoriteModal />}
 		</ModalWindow>,
 		portal
 	)
