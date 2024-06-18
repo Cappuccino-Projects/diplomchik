@@ -1,9 +1,11 @@
 export const uploadFile = async (file) => {
 	const formData = new FormData()
-	formData.append('files', file)
-
+	formData.append('file', file)
+	
+	// добавил параметр fileName для именования файла
+	const fileName = file?.name.replace(/\.[^/.]+$/, "").replace(' ', '_')
 	const response = await fetch(
-		`${import.meta.env.VITE_API_DOMAIN}/api/files/upload`,
+		`${import.meta.env.VITE_API_DOMAIN}/api/files/upload?fileName=${fileName}`,
 		{
 			method: 'POST',
 			body: formData
@@ -12,6 +14,6 @@ export const uploadFile = async (file) => {
 
 	if (response.ok) {
 		const data = await response.json()
-		return data.files[0].fileName
+		return data.name
 	}
 }

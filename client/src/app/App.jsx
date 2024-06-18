@@ -11,7 +11,7 @@ import { Navigate, Route, Routes } from 'react-router-dom'
 import { placeApi } from '@shared/api'
 import { changeApi } from '@shared/api/'
 
-import { Products, Tasks } from '@pages/AdminPanel'
+import { Places, Products, Reviews, Tasks, Users } from '@pages/AdminPanel'
 
 const AdminRoute = () => {
 	return (
@@ -20,7 +20,9 @@ const AdminRoute = () => {
 				<Route index element={<Navigate to="/adminpanel/products" />} />
 				<Route path="products" element={<Products />} />
 				<Route path="tasks" element={<Tasks />} />
-				<Route path="users" element={<Tasks />} />
+				<Route path="places" element={<Places />} />
+				<Route path="users" element={<Users />} />
+				<Route path="reviews" element={<Reviews />} />
 			</Route>
 		</Routes>
 	)

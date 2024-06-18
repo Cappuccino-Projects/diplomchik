@@ -18,6 +18,7 @@ import { rankApi } from './services/rankApi'
 import { registrationApi } from './services/registrationApi'
 import { reviewApi } from './services/reviewApi'
 import { uploadApi } from './services/uploadApi'
+import mapReducer from './slices/mapSlice'
 import markerReducer from './slices/markerSlice'
 
 export const store = configureStore({
@@ -40,7 +41,8 @@ export const store = configureStore({
 		locations: locationsReducer,
 		modals: modalsReducer,
 		marker: markerReducer,
-		changes: changesReducer
+		changes: changesReducer,
+		map: mapReducer
 	},
 	middleware: (getDefaultMiddleware) =>
 		getDefaultMiddleware()

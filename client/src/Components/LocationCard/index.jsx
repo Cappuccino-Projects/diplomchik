@@ -1,6 +1,7 @@
 import { openEditReviewModal } from '@redux/slices/modalsSlice'
 import { useDispatch } from 'react-redux'
 import styles from './styles.module.css'
+import { getIconPath } from '@shared/api/getIconPath'
 
 export const LocationCard = ({ item }) => {
 	const { id, userid, placeType, rank, place, comment, photoPath } = item
@@ -36,8 +37,7 @@ export const LocationCard = ({ item }) => {
 			{photoPath && (
 				<div className={styles.LocationCardImageWrapper}>
 					<img
-						src={`http://places.d3s.ru:9088/bucket/${photoPath}`}
-						
+						src={getIconPath(photoPath)}
 						className={styles.LocationCardImage}
 					/>
 				</div>

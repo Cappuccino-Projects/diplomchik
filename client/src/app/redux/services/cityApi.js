@@ -10,8 +10,13 @@ export const cityApi = createApi({
 		getAllCity: build.query({
 			query: () => `/`,
 			providesTags: ['City']
+		}),
+		// Получить город по id
+		getCityById: build.query({
+			query: (id) => `/${id}`,
+			providesTags: ['City']
 		})
 	})
 })
 
-export const { useGetAllCityQuery } = cityApi
+export const { useGetAllCityQuery, useGetCityByIdQuery } = cityApi

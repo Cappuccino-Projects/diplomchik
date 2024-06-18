@@ -1,4 +1,4 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
     places: [],
@@ -63,13 +63,22 @@ export const placesSlice = createSlice({
             
         },
         updatePlace: (state, action) => {
-            const { id, title, typeId, address, latitude, longitude, type  } = action.payload
-            const placeIndex = state.places.findIndex((place) => place.id === id)
-            if (placeIndex !== -1) {
-                state.places[placeIndex] = { id, title, typeId, address, latitude, longitude, type }
-                state.editedPlaces.push(action.payload)
-            }
-        },
+          console.log('Action payload:', action.payload); // Логируем payload действия
+      
+          const { id, title, typeId, address, latitude, longitude, photoPath } = action.payload;
+          console.log('Extracted id from payload:', id); // Логируем id из payload
+      
+          const placeIndex = state.places.findIndex((place) => place.id === id);
+          console.log('Place index found:', placeIndex); // Логируем индекс найденного места
+      
+          if (placeIndex !== -1) {
+              state.places[placeIndex] = { id, title, typeId, address, latitude, longitude, photoPath };
+              state.editedPlaces.push(action.payload);
+              console.log('Updated place:', state.places[placeIndex]); // Логируем обновленное место
+          } else {
+              console.warn('Place not found with id:', id); // Логируем предупреждение, если место не найдено
+          }
+      },
 
         updateUserSuggestions: (state, action) => {
           const { id, title, typeId, address, latitude, longitude, type, changeType,  } = action.payload

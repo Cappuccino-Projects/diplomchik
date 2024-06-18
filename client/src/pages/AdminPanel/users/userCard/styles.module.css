@@ -1,0 +1,56 @@
+.userCard {
+	width: 498px;
+  background-color: #FFFFFF;
+  border: 1px solid #0000001A;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  padding: 10px;
+  font-family: Onest;
+  border-radius: 5px;
+	height: 100%;
+}
+
+.userCard__header {
+	display: flex;
+	justify-content: space-between;
+}
+
+.userCard__image {
+	width: 50px;
+	height: 50px;
+	border-radius: 50%;
+	overflow: hidden;
+}
+
+.userCard__info {
+	display: flex;
+	gap: 11px;
+}
+
+.userCard__name {
+	display: flex;
+	flex-direction: column;
+	gap: 4px;
+}
+
+.userCard_login {
+	color: #9F9F9F;
+}
+
+.userCard__buttons {
+	display: flex;
+	gap: 10px;
+}
+
+.userCard__email {
+	font-weight: 400;
+	font-size: 18px;
+	line-height: 25px;
+}
+
+.userCard__city {
+	font-weight: 400;
+	font-size: 18px;
+	line-height: 25px;
+}

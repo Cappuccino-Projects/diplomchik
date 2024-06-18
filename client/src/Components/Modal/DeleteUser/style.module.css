@@ -1,0 +1,27 @@
+.deleteUser {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+	font-family: Onest;
+}
+
+.deleteUser__title {
+	font-weight: 500;
+	font-size: 20px;
+	line-height: 25px;
+}
+
+.deleteUser__description {
+	font-size: 15px;
+	line-height: 19px;
+}
+
+.deleteUser__buttons {
+	display: flex;
+	gap: 10px
+}
+
+.deleteUser__button {
+	width: 100%;
+	font-size: 15px;
+}

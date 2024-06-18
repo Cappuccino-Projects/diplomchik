@@ -6,16 +6,21 @@ export const userApi = createApi({
 	baseQuery: fetchBaseQuery({
 		baseUrl: `${url}/api/user`
 	}),
-	tagTypes: ['User', 'Product', 'DailyTasks'],
+	tagTypes: ['User', 'Product', 'DailyTasks', 'Favorite'],
 	endpoints: (build) => ({
 		// Получить пользователя по id
 		getUserById: build.query({
 			query: (userid) => `/${userid}`,
 			providesTags: ['User']
 		}),
+		// Получить всех user`ов
+		getAllUsers: build.query({
+			query: () => `/`,
+			providesTags: ['User']
+		}),
 		// Изменить данные пользователя по id
 		updateUserInfoById: build.mutation({
-			query: ({ id, ...user }) => ({
+			query: ({ id, user }) => ({
 				url: `/${id}`,
 				method: 'PUT',
 				body: user
@@ -99,6 +104,37 @@ export const userApi = createApi({
 			}),
 			// Теги запроса
 			invalidatesTags: ['User', 'Product']
+		}),
+		// Запрос на добавление пользователя
+		addUser: build.mutation({
+			query: (user) => ({
+				url: '/',
+				method: 'POST',
+				body: user
+			}),
+			invalidatesTags: ['User']
+		}),
+		// Запрос на удаление пользователя
+		deleteUserById: build.mutation({
+			query: (id) => ({
+				url: `/${id}`,
+				method: 'DELETE'
+			}),
+			invalidatesTags: ['User']
+		}),
+		// Запрос на изменение пользователя
+		updateUserById: build.mutation({
+			query: ({ id, user }) => ({
+				url: `/${id}`,
+				method: 'PUT',
+				body: user
+			}),
+			invalidatesTags: ['User']
+		}),
+		// Запрос на получение избранных местах пользователя
+		getFavoritesByUserId: build.query({
+			query: (userId) => `/${userId}/favorites`,
+			providesTags: ['User', 'Favorite']
 		})
 	})
 })
@@ -115,5 +151,10 @@ export const {
 	useGetUserDailyTasksByIdQuery,
 	useUpdateUserDailyTasksByIdMutation,
 	useDeleteUserDailyTaskMutation,
-	useAddUserDailyTasksMutation
+	useAddUserDailyTasksMutation,
+	useAddUserMutation,
+	useGetAllUsersQuery,
+	useDeleteUserByIdMutation,
+	useUpdateUserByIdMutation,
+	useGetFavoritesByUserIdQuery
 } = userApi
