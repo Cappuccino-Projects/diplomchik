@@ -121,6 +121,10 @@ export const modalsSlice = createSlice({
 			state.modalType = 'DELETEREVIEW'
 			state.isOpen = true
 			state.data.deleteReview = action.payload
+		},
+		openAddFavorite: (state) => {
+			state.modalType = 'ADDFAVORITE'
+			state.isOpen = true
 		}
 	}
 })
@@ -149,7 +153,8 @@ export const {
 	openAddUser,
 	openDeleteUser,
 	openEditUser,
-	openDeleteReview
+	openDeleteReview,
+	openAddFavorite
 } = modalsSlice.actions
 
 export default modalsSlice.reducer

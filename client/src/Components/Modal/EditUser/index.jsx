@@ -55,7 +55,7 @@ export const EditUser = () => {
 				passwordHash: password,
 				cityId: cityId,
 				avatarPath: iconPath,
-				isAdmin: false,
+				isAdmin: user.isAdmin,
 				themeId: null,
 				rankId: 1,
 				experience: 0,

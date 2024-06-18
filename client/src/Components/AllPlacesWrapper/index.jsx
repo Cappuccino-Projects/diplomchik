@@ -1,15 +1,21 @@
+import { useAddFavoriteByUserIdMutation } from '@app/redux/services/userApi'
+import { closeModal, openAddFavorite } from '@app/redux/slices/modalsSlice'
 import { useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
-import styles from './styles.module.css'
 import { useGetAllplaceTypesQuery } from '../../app/redux/services/placeTypeApi'
 import { PlaceIcon } from '../PlaceIcon'
+import styles from './styles.module.css'
 
 export const AllPlacesWrapper = (props) => {
+	const dispatch = useDispatch()
+	const user = useSelector((state) => state.user.user)
 	const { data: placeTypes, isLoading, error } = useGetAllplaceTypesQuery()
   console.log('placeTypes:', placeTypes)
 	const [selectedType, setSelectedType] = useState('')
 	const [filterChosen, setFilterChosen] = useState(false)
-
+	const openAddFavorited = () => dispatch(openAddFavorite())
+	const closeAddFavorited = () => dispatch(closeModal())
 	if (isLoading) return 'Загрузка...'
 	if (error) return `Ошибка: ${error.message}`
 
@@ -25,6 +31,12 @@ export const AllPlacesWrapper = (props) => {
 		setFilterChosen(true)
 	}
 
+	const [addFavorite] = useAddFavoriteByUserIdMutation()
+
+	const addFavoriterr = () => {
+		console.log(props)
+		addFavorite({ userId: user.id, placeId: props.places[3].id })
+	}
 	
 const placeTypesButtons = (
   <div className={styles.catWrapper}>
@@ -49,7 +61,17 @@ const placeTypesButtons = (
 					<div className={styles.LocationCardTitleWrapper}>
 						<b className={styles.LocationCardName}>{CurrentPlace.title ? CurrentPlace.title : placeTypeName}</b>
 
-						<p className={styles.LocationCardRating}> {CurrentPlace.rank ? `★ ${CurrentPlace.rank}` : 'Без рейтинга'}</p>
+						<div className={styles.LocationCardRating}>
+							<i
+								className="fi fi-sr-heart"
+								onClick={addFavoriterr}
+							/>
+							<i
+								className="fi-sr-comment"
+								onClick={openAddFavorited}
+								close={closeAddFavorited}
+							/>
+						</div>
 
 						{/*<button className={styles.CardEditButton}> Ред. </button>*/}
 					</div>
