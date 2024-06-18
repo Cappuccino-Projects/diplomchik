@@ -21,6 +21,72 @@ export const Map = () => {
 	if (user.isAdmin && location.pathname.startsWith('/adminpanel/')) {
 		return null
 	}
+
+	if (location.pathname.startsWith('/info')) {
+		return (
+			<>
+				<div
+				className={styles.MenuWrapper}
+				style={{
+					left: isShowMenu ? '0' : '-100%',
+					transition: 'all 0.5s ease-in-out'
+				}}
+			>
+				<button
+					className={styles.MinimizeButton}
+					onClick={() => setShowMenu(false)}
+				>
+					<i className="fi-sr-angle-double-left" />
+				</button>
+				<Outlet />
+			</div>
+
+			<div
+				className={styles.ExpandMenuButton}
+				onClick={() => setShowMenu(true)}
+			>
+				<i className="fi fi-sr-angle-double-right" />
+			</div>
+			</>
+		)
+	}
+
+	if (location.pathname.startsWith('/profile/settings')) {
+		return (
+			<>
+				<div
+				className={styles.MenuWrapper}
+				style={{
+					left: isShowMenu ? '0' : '-100%',
+					transition: 'all 0.5s ease-in-out'
+				}}
+			>
+				<button
+					className={styles.MinimizeButton}
+					onClick={() => setShowMenu(false)}
+				>
+					<i className="fi-sr-angle-double-left" />
+				</button>
+				<Outlet />
+			</div>
+
+			<div
+				className={styles.ExpandMenuButton}
+				onClick={() => setShowMenu(true)}
+			>
+				<i className="fi fi-sr-angle-double-right" />
+			</div>
+			<div className={styles.WorldMap}>
+				<InteractiveMap
+					zoom={zoom}
+					flag={true}
+					redMarkerPosition={[54.241508, 49.557214]}
+				/>
+			</div>
+			</>
+		)
+	}
+
 	return (
 		<>
 			<div
