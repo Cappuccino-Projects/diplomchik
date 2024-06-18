@@ -2,6 +2,7 @@ import { useGetAllCityQuery } from '@app/redux/services/cityApi'
 import { useUpdateUserByIdMutation } from '@app/redux/services/userApi'
 import { Button } from '@components/Button'
 import { closeModal } from '@redux/slices/modalsSlice'
+import { updateUser } from '@redux/slices/userSlice'
 import { getIconPath } from '@shared/api/getIconPath'
 import { uploadFile } from '@shared/api/uploadFile'
 import { useEffect, useState } from 'react'
@@ -44,7 +45,7 @@ export const EditUser = () => {
 	const onClose = () => dispatch(closeModal())
 	const onSubmit = (e) => {
 		e.preventDefault()
-
+		
 		editUser({
 			id: user.id,
 			user: {
@@ -54,8 +55,29 @@ export const EditUser = () => {
 				passwordHash: password,
 				cityId: cityId,
 				avatarPath: iconPath,
+				isAdmin: false,
+				themeId: null,
+				rankId: 1,
+				experience: 0,
+				balance: 0
 			}
 		})
+		dispatch(updateUser({
+			id: user.id,
+			user: {
+				login: login,
+				displayName: displayName,
+				email: email,
+				passwordHash: password,
+				cityId: cityId,
+				avatarPath: iconPath,
+				isAdmin: false,
+				themeId: null,
+				rankId: 1,
+				experience: 0,
+				balance: 0
+			}
+		}))
 		dispatch(closeModal())
 	}
 

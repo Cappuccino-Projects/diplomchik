@@ -1,21 +1,10 @@
-import { useGetAllUsersQuery } from '@redux/services/userApi'
-import { useEffect, useState } from 'react'
+import { useSelector } from 'react-redux'
 import { UserCard } from '../userCard'
 import styles from './styles.module.css'
 
-export const UsersList = () => {
-
-	const [users, setUsers] = useState([])
-	const { data: AllUsers = [], isFetching: isFetchingAllUsers, error, isLoading } = useGetAllUsersQuery()
-
-	useEffect(() => {
-		if (!isFetchingAllUsers) {
-			setUsers(AllUsers)
-		} else {
-			setUsers([])
-		}
-	}, [AllUsers, isFetchingAllUsers])
-
+export const UsersList = ({ isLoading, error }) => {
+	const users = useSelector((state) => state.user.usersList)
+	
 	if (isLoading) {
 		return <h1 className={styles.usersList__message}>Загрузка...</h1>
 	}
@@ -29,8 +18,8 @@ export const UsersList = () => {
 		<ul className={styles.usersList}>
 			{users.map((user) => (
 				<li key={user.id}>
-					<UserCard user={user} />
-				</li>
+				<UserCard user={user} />
+			</li>
 			))}
 		</ul>
 	)

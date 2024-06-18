@@ -1,20 +1,90 @@
 import { CharacterCard, DailyTasks } from '@components'
 import { useState } from 'react'
-import { Outlet } from 'react-router-dom'
+import { useSelector } from 'react-redux'
+import { Link, Outlet, useLocation } from 'react-router-dom'
 import InteractiveMap from '../../Components/interactiveMap/interactiveMap'
 import styles from './styles.module.css'
-import { Link } from 'react-router-dom'
 
 export const Map = () => {
 	const [zoom, setZoom] = useState(17)
 	const [isShowMenu, setShowMenu] = useState(true)
-
+	const user = useSelector((state) => state.user.user)
 	const handleZoomIn = () => {
 		setZoom((prevZoom) => prevZoom < 18 ? prevZoom + 1 : 18)
 	}
 
 	const handleZoomOut = () => {
 		setZoom((prevZoom) => (prevZoom > 0 ? prevZoom - 1 : 0))
+	}
+
+	const location = useLocation()
+	if (user.isAdmin && location.pathname.startsWith('/adminpanel/')) {
+		return null
+	}
+
+	if (location.pathname.startsWith('/info')) {
+		return (
+			<>
+				<div
+				className={styles.MenuWrapper}
+				style={{
+					left: isShowMenu ? '0' : '-100%',
+					transition: 'all 0.5s ease-in-out'
+				}}
+			>
+				<button
+					className={styles.MinimizeButton}
+					onClick={() => setShowMenu(false)}
+				>
+					<i className="fi-sr-angle-double-left" />
+				</button>
+				<Outlet />
+			</div>
+
+			<div
+				className={styles.ExpandMenuButton}
+				onClick={() => setShowMenu(true)}
+			>
+				<i className="fi fi-sr-angle-double-right" />
+			</div>
+			</>
+		)
+	}
+
+	if (location.pathname.startsWith('/profile/settings')) {
+		return (
+			<>
+				<div
+				className={styles.MenuWrapper}
+				style={{
+					left: isShowMenu ? '0' : '-100%',
+					transition: 'all 0.5s ease-in-out'
+				}}
+			>
+				<button
+					className={styles.MinimizeButton}
+					onClick={() => setShowMenu(false)}
+				>
+					<i className="fi-sr-angle-double-left" />
+				</button>
+				<Outlet />
+			</div>
+
+			<div
+				className={styles.ExpandMenuButton}
+				onClick={() => setShowMenu(true)}
+			>
+				<i className="fi fi-sr-angle-double-right" />
+			</div>
+			<div className={styles.WorldMap}>
+				<InteractiveMap
+					zoom={zoom}
+					flag={true}
+					redMarkerPosition={[54.241508, 49.557214]}
+				/>
+			</div>
+			</>
+		)
 	}
 
 	return (

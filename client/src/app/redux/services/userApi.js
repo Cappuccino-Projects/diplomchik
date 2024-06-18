@@ -6,7 +6,7 @@ export const userApi = createApi({
 	baseQuery: fetchBaseQuery({
 		baseUrl: `${url}/api/user`
 	}),
-	tagTypes: ['User', 'Product', 'DailyTasks'],
+	tagTypes: ['User', 'Product', 'DailyTasks', 'Favorite'],
 	endpoints: (build) => ({
 		// Получить пользователя по id
 		getUserById: build.query({
@@ -20,7 +20,7 @@ export const userApi = createApi({
 		}),
 		// Изменить данные пользователя по id
 		updateUserInfoById: build.mutation({
-			query: ({ id, ...user }) => ({
+			query: ({ id, user }) => ({
 				url: `/${id}`,
 				method: 'PUT',
 				body: user
@@ -130,6 +130,11 @@ export const userApi = createApi({
 				body: user
 			}),
 			invalidatesTags: ['User']
+		}),
+		// Запрос на получение избранных местах пользователя
+		getFavoritesByUserId: build.query({
+			query: (userId) => `/${userId}/favorites`,
+			providesTags: ['User', 'Favorite']
 		})
 	})
 })
@@ -150,5 +155,6 @@ export const {
 	useAddUserMutation,
 	useGetAllUsersQuery,
 	useDeleteUserByIdMutation,
-	useUpdateUserByIdMutation
+	useUpdateUserByIdMutation,
+	useGetFavoritesByUserIdQuery
 } = userApi
