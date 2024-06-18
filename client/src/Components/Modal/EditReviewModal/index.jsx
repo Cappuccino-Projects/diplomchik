@@ -1,10 +1,10 @@
 import { useGetPlaceByIdQuery, useGetPlaceTypeByIdQuery } from '@redux/services/placeTypeApi'
-import { useGetReviewByIdQuery, useUpdateReviewByIdMutation, useDeleteReviewMutation } from '@redux/services/reviewApi'
+import { useDeleteReviewMutation, useGetReviewByIdQuery, useUpdateReviewByIdMutation } from '@redux/services/reviewApi'
+import { getIconPath } from '@shared/api/getIconPath'
+import { uploadFile } from '@shared/api/uploadFile'
 import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import styles from './styles.module.css'
-import { useUploadImageMutation } from '@app/redux/services/uploadApi'
-import { getIconPath } from '@shared/api/getIconPath'
 
 export const EditReviewModal = ({ close }) => {
 	const user = useSelector((state) => state.user.user)
@@ -14,7 +14,6 @@ export const EditReviewModal = ({ close }) => {
 	const { data: placeTypeData = {}, isSuccess: isSuccessPlaceType } = useGetPlaceTypeByIdQuery(placeData.typeId)
 
 	const [updateReview] = useUpdateReviewByIdMutation()
-	const [uploadImage] = useUploadImageMutation()
 	const [deleteRewiew] = useDeleteReviewMutation()
 
 	const [rating, setRating] = useState(0)
@@ -29,13 +28,13 @@ export const EditReviewModal = ({ close }) => {
 			setRating(review.rank)
 			setCommentInput(review.comment)
 		}
-	}, [review])
+	}, [review, isSuccessReview])
 
 	useEffect(() => {
 		if (isSuccessPlace) {
 			setPlace(placeData)
 		}
-	}, [placeData])
+	}, [placeData, isSuccessPlaceType, isSuccessPlace])
 
 	const saveButton = async () => {
 		if (selectedFile) {
@@ -45,14 +44,14 @@ export const EditReviewModal = ({ close }) => {
 			const now = new Date()
 
 			const newFileName = `rewiew-${user.id}-${now.toISOString().replace(/\D/g, '').slice(0, -3)}`
-			formData.append('files', file)
+			formData.append('file', file)
 
-			await uploadImage({ image: formData, name: newFileName })
+			const newFile = await uploadFile(file)
 			await updateReview({
 				...review,
 				rank: rating,
 				comment: commentInput,
-				photoPath: newFileName
+				photoPath: newFile
 			})
 			
 		} else {
@@ -83,7 +82,10 @@ export const EditReviewModal = ({ close }) => {
 				{`${placeTypeData.name}`}
 			</div>
 
-			<div className={styles.ModalWindowText}>Адрес: {place?.address}</div>
+			<div className={styles.ModalWindowText}>
+				<p>Адрес:</p> 
+				{place?.address ? place?.address : placeTypeData.address || 'Нет адреса'}
+			</div>
 			<div style={{ marginTop: '20px' }} className={styles.ModalWindowText}>
 				Комментарий:
 			</div>
@@ -98,7 +100,7 @@ export const EditReviewModal = ({ close }) => {
 			<div style={{ marginTop: '10px' }} className={styles.ModalWindowText}>
 				Фотографии
 			</div>
-			<div className="LocationCardImageWrapper">
+			<div className={styles.LocationCardImageWrapper}>
 				{photoPath || selectedFile ? (
 					<div className={styles.LocationCardImage}>
 						{/* Кнопка сброса */}
@@ -111,7 +113,7 @@ export const EditReviewModal = ({ close }) => {
 						>
 							<i className="fi fi-sr-cross-small"></i>
 						</button>
-						<img src={selectedFile ? URL.createObjectURL(selectedFile) : getIconPath(photoPath)} className={styles.LocationImage} />
+						<img src={photoPath ? getIconPath(photoPath) : URL.createObjectURL(selectedFile)} className={styles.LocationImage} />
 					</div>
 				) : (
 					<label className={styles.LocationCardImage}>
@@ -127,7 +129,7 @@ export const EditReviewModal = ({ close }) => {
 				Оценка
 			</div>
 
-			<div className="LocationCardImageWrapper">
+			<div className={styles.LocationCardImageWrapper}>
 				{Array(5)
 					.fill()
 					.map((_, index) => {
